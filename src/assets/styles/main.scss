@@ -1,0 +1,18 @@
+header.bg-blue {
+    background-color: $epam-blue;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+}
+
+.content-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section {
+    width: 100%;
+    min-height: 100vh;
+}
