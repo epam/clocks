@@ -16,3 +16,22 @@ header.bg-blue {
     width: 100%;
     min-height: 100vh;
 }
+
+.flex-column{
+    flex-direction: column;
+}
+
+.fs-3{
+    font-size: 3rem;
+}
+
+.p-2{
+    padding: 1.6em 1em;
+}
+
+.m-2{
+    margin: 1.6em 1em;
+}
+.m-1{
+    margin: 1em .6em;
+}
