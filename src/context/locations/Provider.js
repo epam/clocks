@@ -4,5 +4,5 @@ import { useLocations } from './hook';
 
 export const LocationsProvider = ({ children }) => {
     const store = useLocations();
-    return <LocationsContext.Provider store={store}>{children}</LocationsContext.Provider>;
+    return <LocationsContext.Provider value={store}>{children}</LocationsContext.Provider>;
 };
