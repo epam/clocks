@@ -13,6 +13,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "4.0.3",
+    "rimraf": "^3.0.2",
     "sass": "^1.37.5",
     "web-vitals": "^1.1.2"
   },
@@ -20,7 +21,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "node gh-pages-deploy.js"
   },
   "eslintConfig": {
     "extends": [
@@ -47,6 +49,7 @@
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
+    "execa": "^5.1.1",
     "husky": "^7.0.1",
     "lint-staged": "^11.0.1",
     "prettier": "^2.3.2"
