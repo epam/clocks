@@ -7,6 +7,10 @@ import Button from '@material-ui/core/Button';
 import { LocationsContext } from '../../context/locations';
 
 const useStyles = makeStyles(theme => ({
+    appbar: {
+        boxShadow: 'none',
+        borderBottom: '2px solid rgba(0,0,0,.06);'
+    },
     menuButton: {
         marginRight: theme.spacing(2)
     },
@@ -24,7 +28,7 @@ const Navbar = () => {
     const { actions } = useContext(LocationsContext);
 
     return (
-        <AppBar position="static" color="transparent">
+        <AppBar position="static" className={classes.appbar} color="transparent">
             <Toolbar>
                 <Typography variant="h5" className={classes.title}>
                     <em>&lt;</em>epam<em>&gt;</em>
@@ -37,4 +41,4 @@ const Navbar = () => {
     );
 };
 
-export { Navbar };
+export default Navbar;

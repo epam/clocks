@@ -1,9 +1,7 @@
-header.bg-blue {
-    background-color: $epam-blue;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
+.App {
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr;
 }
 
 .content-center {

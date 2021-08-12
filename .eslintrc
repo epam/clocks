@@ -21,6 +21,9 @@
     "consistent-return": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "dot-notation": [0, {"allowKeywords": true, "allowPattern": ""}],
+    "import/no-extraneous-dependencies": ["error",  {"devDependencies": true}],
+    "react/jsx-props-no-spreading": "off",
+    "no-debugger":"off",
     "prettier/prettier": [
       "error", {
         "semi": true,

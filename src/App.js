@@ -1,7 +1,7 @@
 import React from 'react';
-import './assets/styles/index.scss';
 import { LocationsProvider } from './context/locations';
-import { Dashboard } from './pages/dashboard/Dashboard';
+import Dashboard from './pages/dashboard';
+import './assets/styles/index.scss';
 
 function App() {
     return (
