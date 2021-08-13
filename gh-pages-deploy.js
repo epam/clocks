@@ -11,15 +11,15 @@ const fs = require("fs");
     // await execa("yarn", ["build"]);
     // Understand if it's dist or build folder
     const folderName = fs.existsSync("dist") ? "dist" : "build";
-    fs.writeFile(folderName + '/CNAME', "dev.gemeindeonline.ch", function(err) {});
+    // fs.writeFile(folderName + '/CNAME', "clocks.epam.com", function(err) {});
     await execa("git", ["--work-tree", folderName, "add", "--all"]);
     await execa("git", ["--work-tree", folderName, "commit", "-m", "gh-pages"]);
     console.log("Pushing to gh-pages...");
     await execa("git", ["push", "origin", "HEAD:gh-pages", "--force"]);
-    await rimraf("./"+folderName, ()=>{console.log("Dist folder successfully deleted");});
+    await rimraf("./"+folderName, ()=>{console.log(folderName + " folder successfully deleted");});
     await execa("git", ["checkout", "-f", "main"]);
     await execa("git", ["branch", "-D", "gh-pages"]);
-    console.log("Successfully deployed, check your settings");
+    console.log("Successfully deployed");
   } catch (e) {
     // eslint-disable-next-line no-console
     console.log(e.message);
