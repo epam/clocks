@@ -4,37 +4,39 @@ import { Typography } from '@material-ui/core';
 import moment from 'moment-timezone';
 import css from './Location.module.scss';
 
-const offcet = (myTz, timezone) => {
-    const now = moment.utc();
-    // get the zone offsets for this time, in minutes
-    const myTimezone = moment.tz.zone(myTz).offset(now);
-    const otherTimezone = moment.tz.zone(timezone).offset(now);
-    // calculate the difference in hours
-    return Math.floor((myTimezone - otherTimezone) / 60);
-};
+const Location = ({ timezone, city, country, offset, host }) => {
+    const [currentTime, setCurrentTime] = React.useState(moment.tz(timezone));
 
-const Location = ({ timezone, city, country }) => {
-    const myTz = moment.tz.guess();
+    React.useEffect(() => {
+        const id = setInterval(() => setCurrentTime(moment.tz(timezone)), 1000);
+
+        return () => clearInterval(id);
+    }, [timezone]);
+
     return (
         <div className={css.card}>
-            {myTz === timezone ? (
+            {host ? (
                 <Typography variant="subtitle2" className={css.pointer}>
                     You are here
                 </Typography>
+            ) : offset < 0 ? (
+                <Typography variant="subtitle2" className={css.difference}>
+                    &ndash;{Math.abs(offset)} HOURS
+                </Typography>
             ) : (
                 <Typography variant="subtitle2" className={css.difference}>
-                    {offcet(myTz, timezone)} HOURS
+                    &#43;{offset} HOURS
                 </Typography>
             )}
             <Typography paragraph variant="h2" className={css.time}>
-                {moment().format('HH:mm:ss')}
+                {currentTime.format('HH:mm:ss')}
+            </Typography>
+            <Typography variant="subtitle2" className={css.grey}>
+                {currentTime.format('D MMM')}
             </Typography>
             <Typography variant="h5">{city}</Typography>
             <Typography variant="subtitle2" className={css.country}>
                 {country}
-            </Typography>
-            <Typography variant="subtitle2" className={css.grey}>
-                {moment().format('D MMM')}
             </Typography>
         </div>
     );
