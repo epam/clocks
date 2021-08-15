@@ -1,24 +1,26 @@
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
+import { AppBar, Toolbar, Button } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
+import logo from '../../assets/images/logo.svg';
 
 const useStyles = makeStyles(theme => ({
     appbar: {
         boxShadow: 'none',
-        borderBottom: '2px solid rgba(0,0,0,.06);'
+        background: 'rgb(35, 31, 32)',
+        borderBottom: '2px solid rgba(0,0,0,.06)',
+        color: 'white'
     },
     menuButton: {
         marginRight: theme.spacing(2)
     },
     title: {
         flexGrow: 1,
-        color: '#464547',
-        '& em': {
-            color: '#39c2d7'
+        display: 'flex',
+        alignItems: 'center',
+        '& img': {
+            height: 28,
+            objectFit: 'cover'
         }
     }
 }));
@@ -30,9 +32,9 @@ const Navbar = () => {
     return (
         <AppBar position="static" className={classes.appbar} color="transparent">
             <Toolbar>
-                <Typography variant="h5" className={classes.title}>
-                    <em>&lt;</em>epam<em>&gt;</em>
-                </Typography>
+                <div className={classes.title}>
+                    <img src={logo} alt="logo" />
+                </div>
                 <Button variant="outlined" color="inherit" onClick={actions.CreateFormHandler}>
                     Add City
                 </Button>
