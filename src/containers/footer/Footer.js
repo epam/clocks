@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
         width: '100%',
         height: 64,
         padding: '0 24px',
-        background: 'rgb(35, 31, 32)',
+        background: '#464547',
         color: 'white',
         display: 'flex',
         justifyContent: 'space-between',

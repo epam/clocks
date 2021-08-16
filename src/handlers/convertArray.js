@@ -14,7 +14,7 @@ const findOffset = timezone => {
     return Math.floor((myTimezone - otherTimezone) / 60);
 };
 
-const handler = list => {
+const convertArray = list => {
     myTz = moment.tz.guess();
 
     const matchingTimezones = lookupTimezones(myTz);
@@ -69,4 +69,4 @@ const handler = list => {
     return array;
 };
 
-export default handler;
+export default convertArray;

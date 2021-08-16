@@ -4,7 +4,7 @@ import { Typography } from '@material-ui/core';
 import moment from 'moment-timezone';
 import css from './Location.module.scss';
 
-const Location = ({ timezone, city, country, offset, host }) => {
+const Location = ({ timezone, city, country, offset, host, message }) => {
     const [currentTime, setCurrentTime] = React.useState(moment.tz(timezone));
 
     React.useEffect(() => {
@@ -29,7 +29,7 @@ const Location = ({ timezone, city, country, offset, host }) => {
                 </Typography>
             )}
             <Typography paragraph variant="h2" className={css.time}>
-                {currentTime.format('HH:mm:ss')}
+                {currentTime.format('HH:mm')}
             </Typography>
             <Typography variant="subtitle2" className={css.grey}>
                 {currentTime.format('D MMM')}
@@ -38,6 +38,10 @@ const Location = ({ timezone, city, country, offset, host }) => {
             <Typography variant="subtitle2" className={css.country}>
                 {country}
             </Typography>
+            <Typography variant="subtitle2" className={css.grey}>
+                {timezone}
+            </Typography>
+            <Typography variant="body2">{message}</Typography>
         </div>
     );
 };

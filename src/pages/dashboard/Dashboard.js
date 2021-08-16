@@ -6,7 +6,7 @@ import { LocationsContext } from '../../context/locations';
 import Location from '../../containers/location';
 import Navbar from '../../containers/navbar';
 import Footer from '../../containers/footer';
-import handler from '../../handler/handler';
+import { convertArray, handleResize } from '../../handlers';
 
 // import css from './dashboard.module.scss';
 
@@ -39,22 +39,32 @@ const data = [
 
 const Dashboard = () => {
     const { state } = useContext(LocationsContext);
-
     const [places, setPlaces] = React.useState([]);
+    const [width, setWidth] = React.useState(0);
 
     React.useEffect(() => {
-        const array = handler(data);
+        const array = convertArray(data);
         setPlaces(array);
     }, []);
+
+    React.useEffect(() => {
+        const handle = () => setWidth(handleResize(places.length || 1));
+
+        window.addEventListener('resize', handle);
+
+        handle();
+
+        return () => window.removeEventListener('resize', handle);
+    }, [places.length]);
 
     return (
         <>
             <Navbar />
-            <Grid style={{ maxWidth: '100%' }} container justifyContent="center" spacing={2}>
+            <Grid style={{ maxWidth: '100%' }} container spacing={2}>
                 {places.map((props, index) => (
-                    <Grid item xs key={index}>
-                        <Location {...props} />
-                    </Grid>
+                    <div style={{ width }} key={index}>
+                        <Location {...props} width={width} />
+                    </div>
                 ))}
                 {state.hasCreateForm && (
                     <Grid item xs>
