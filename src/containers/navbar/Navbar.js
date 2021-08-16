@@ -7,7 +7,7 @@ import logo from '../../assets/images/logo.svg';
 const useStyles = makeStyles(theme => ({
     appbar: {
         boxShadow: 'none',
-        background: 'rgb(35, 31, 32)',
+        background: '#464547',
         borderBottom: '2px solid rgba(0,0,0,.06)',
         color: 'white'
     },
