@@ -61,11 +61,12 @@ const Dashboard = () => {
         <>
             <Navbar />
             <Grid style={{ maxWidth: '100%' }} container spacing={2}>
-                {places.map((props, index) => (
-                    <div style={{ width }} key={index}>
-                        <Location {...props} width={width} />
-                    </div>
-                ))}
+                {state.locations &&
+                    state.locations.map((props, index) => (
+                        <div style={{ width }} key={index}>
+                            <Location {...props} width={width} />
+                        </div>
+                    ))}
                 {state.hasCreateForm && (
                     <Grid item xs>
                         <CreateLocationForm />
