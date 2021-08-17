@@ -60,19 +60,21 @@ const Dashboard = () => {
     return (
         <>
             <Navbar />
-            <Grid style={{ maxWidth: '100%' }} container spacing={2}>
-                {state.locations &&
-                    state.locations.map((props, index) => (
-                        <div style={{ width }} key={index}>
-                            <Location {...props} width={width} />
-                        </div>
-                    ))}
-                {state.hasCreateForm && (
-                    <Grid item xs>
-                        <CreateLocationForm />
-                    </Grid>
-                )}
-            </Grid>
+            <main>
+                <Grid style={{ maxWidth: '100%' }} container spacing={2}>
+                    {state.locations &&
+                        state.locations.map((props, index) => (
+                            <div style={{ width }} key={index}>
+                                <Location {...props} width={width} />
+                            </div>
+                        ))}
+                    {state.hasCreateForm && (
+                        <Grid item xs>
+                            <CreateLocationForm />
+                        </Grid>
+                    )}
+                </Grid>
+            </main>
             <Footer />
         </>
     );
