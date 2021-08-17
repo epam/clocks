@@ -11,11 +11,13 @@ function App() {
 
     return (
         <LocationsProvider>
-            <Switch className="App">
-                <Route>
-                    <Dashboard />
-                </Route>
-            </Switch>
+            <div className="App">
+                <Switch>
+                    <Route>
+                        <Dashboard />
+                    </Route>
+                </Switch>
+            </div>
         </LocationsProvider>
     );
 }

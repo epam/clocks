@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { convertArray } from '../../handlers';
+import { getCurrentUserLocation, convertArray } from '../../handlers';
 import { useUrlParams } from '../../hooks/useUrlParams/useUrlParams';
 
 export const useLocations = () => {
@@ -10,24 +10,10 @@ export const useLocations = () => {
 
     const location = useLocation();
 
-    const { AddParam, GetParam } = useUrlParams();
+    const { SetParam, GetParam } = useUrlParams();
 
     const GetLocationsFromParams = () => {
-        return GetParam('locations');
-    };
-
-    const ConvertLocationsArrayToUrlFormat = (locationsArray = []) => {
-        return locationsArray.reduce((arr, { city, country, timezone, message }) => {
-            return [
-                ...arr,
-                {
-                    city,
-                    country,
-                    timezone,
-                    message
-                }
-            ];
-        }, []);
+        return GetParam('locations') || [];
     };
 
     const CreateFormHandler = hasForm => {
@@ -40,10 +26,15 @@ export const useLocations = () => {
     useEffect(() => {
         const locations = GetLocationsFromParams();
         if (!locations || !locations.length) {
-            const locatoinsWithCurrentUserLocation = convertArray([]);
-            const formattedLocations = ConvertLocationsArrayToUrlFormat(locatoinsWithCurrentUserLocation);
-            AddParam('locations', JSON.stringify(formattedLocations));
-            setLocations(locatoinsWithCurrentUserLocation);
+            const { city, country, timezone } = getCurrentUserLocation();
+            const locations = [
+                {
+                    city,
+                    country,
+                    timezone
+                }
+            ];
+            SetParam('locations', JSON.stringify(locations));
         }
     }, []);
 
@@ -53,9 +44,10 @@ export const useLocations = () => {
         setLocations(convertedLocations);
     }, [location.search]);
 
-    const AddLocation = location => {
-        const locations = GetLocationsFromParams();
-        locations.push(location);
+    const AddLocation = ({ city, country, message = '', timezone }) => {
+        const locationsFromUrl = GetLocationsFromParams();
+        locationsFromUrl.push({ city, country, message, timezone });
+        SetParam('locations', locationsFromUrl);
     };
 
     const DeleteLocation = location => {
