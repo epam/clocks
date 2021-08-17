@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 
 import { CreateLocationForm } from '../../components/create-location-form/CreateLocationForm';
@@ -39,15 +39,15 @@ const data = [
 
 const Dashboard = () => {
     const { state } = useContext(LocationsContext);
-    const [places, setPlaces] = React.useState([]);
-    const [width, setWidth] = React.useState(0);
+    const [places, setPlaces] = useState([]);
+    const [width, setWidth] = useState(0);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const array = convertArray(data);
         setPlaces(array);
     }, []);
 
-    React.useEffect(() => {
+    useEffect(() => {
         const handle = () => setWidth(handleResize(places.length || 1));
 
         window.addEventListener('resize', handle);
