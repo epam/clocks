@@ -18,9 +18,10 @@ export const useLocations = () => {
 
     const CreateFormHandler = hasForm => {
         if (hasForm && typeof hasForm === 'boolean') {
-            return setHasCreateForm(hasForm);
+            setHasCreateForm(hasForm);
+        } else {
+            setHasCreateForm(prevState => !prevState);
         }
-        setHasCreateForm(!hasCreateForm);
     };
 
     useEffect(() => {
@@ -31,7 +32,8 @@ export const useLocations = () => {
                 {
                     city,
                     country,
-                    timezone
+                    timezone,
+                    message: ''
                 }
             ];
             SetParam('locations', JSON.stringify(locations));

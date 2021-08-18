@@ -5,56 +5,24 @@ import { LocationsContext } from '../../context/locations';
 import Location from '../../containers/location';
 import Navbar from '../../containers/navbar';
 import Footer from '../../containers/footer';
-import { convertArray, handleResize } from '../../handlers';
+import { handleResize } from '../../handlers';
+import InputModal from '../../containers/inputModal';
 
 // import css from './dashboard.module.scss';
 
-const data = [
-    {
-        city: 'Chaghcharan',
-        country: 'Afghanistan',
-        timezone: 'Asia/Kabul',
-        message: ''
-    },
-    {
-        city: 'Springfield',
-        country: 'United States of America',
-        timezone: 'America/Chicago',
-        message: ''
-    },
-    {
-        city: 'Seoul',
-        country: 'South Korea',
-        timezone: 'Asia/Seoul',
-        message: ''
-    },
-    {
-        city: 'Tashkent',
-        country: 'Uzbekistan',
-        timezone: 'Asia/Tashkent',
-        message: ''
-    }
-];
-
 const Dashboard = () => {
-    const { state } = useContext(LocationsContext);
-    const [places, setPlaces] = useState([]);
+    const { state, actions } = useContext(LocationsContext);
     const [width, setWidth] = useState(280);
 
     useEffect(() => {
-        const array = convertArray(data);
-        setPlaces(array);
-    }, []);
-
-    useEffect(() => {
-        const handle = () => setWidth(handleResize(places.length || 1));
+        const handle = () => setWidth(handleResize(state.locations.length || 1));
 
         window.addEventListener('resize', handle);
 
         handle();
 
         return () => window.removeEventListener('resize', handle);
-    }, [places.length]);
+    }, [state.locations.length]);
 
     return (
         <>
@@ -66,11 +34,7 @@ const Dashboard = () => {
                             <Location {...props} width={width} />
                         </div>
                     ))}
-                {state.hasCreateForm && (
-                    <Grid item xs>
-                        <div> hello world </div>
-                    </Grid>
-                )}
+                <InputModal visibility={state.hasCreateForm} onClose={() => actions.CreateFormHandler(false)} />
             </Grid>
             <Footer />
         </>
