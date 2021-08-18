@@ -28,10 +28,14 @@ const Location = ({ timezone, city, country, offset, host, message }) => {
                     &#43;{offset} HOURS
                 </Typography>
             )}
-            <Typography paragraph variant="h2" className={css.time}>
-                {currentTime.format('HH:mm')}
-            </Typography>
-            <Typography variant="subtitle2" className={css.grey}>
+            <span className={css.time}>
+                <Typography variant="h2" className={css.hour}>
+                    {currentTime.format('HH')}
+                </Typography>
+                <Typography variant="h2">{currentTime.format('mm')}</Typography>
+            </span>
+
+            <Typography paragraph variant="subtitle2" className={css.grey}>
                 {currentTime.format('D MMM')}
             </Typography>
             <Typography variant="h5">{city}</Typography>

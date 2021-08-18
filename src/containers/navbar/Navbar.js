@@ -35,7 +35,7 @@ const Navbar = () => {
                 <div className={classes.title}>
                     <img src={logo} alt="logo" />
                 </div>
-                <Button variant="outlined" color="inherit" onClick={actions.CreateFormHandler}>
+                <Button variant="outlined" color="inherit" onClick={() => actions.CreateFormHandler(true)}>
                     Add City
                 </Button>
             </Toolbar>
