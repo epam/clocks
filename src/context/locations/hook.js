@@ -1,8 +1,20 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { getCurrentUserLocation, convertArray } from '../../handlers';
+import { useUrlParams } from '../../hooks/useUrlParams/useUrlParams';
 
 export const useLocations = () => {
+    const [locations, setLocations] = useState([]);
+    console.log('🚀 ~ file: hook.js ~ line 8 ~ useLocations ~ locations', locations);
     const [hasCreateForm, setHasCreateForm] = useState(false);
-    const userCurrentTimeZone = useMemo(() => {}, []);
+
+    const location = useLocation();
+
+    const { SetParam, GetParam } = useUrlParams();
+
+    const GetLocationsFromParams = () => {
+        return GetParam('locations') || [];
+    };
 
     const CreateFormHandler = hasForm => {
         if (hasForm && typeof hasForm === 'boolean') {
@@ -11,8 +23,39 @@ export const useLocations = () => {
         setHasCreateForm(!hasCreateForm);
     };
 
+    useEffect(() => {
+        const locations = GetLocationsFromParams();
+        if (!locations || !locations.length) {
+            const { city, country, timezone } = getCurrentUserLocation();
+            const locations = [
+                {
+                    city,
+                    country,
+                    timezone
+                }
+            ];
+            SetParam('locations', JSON.stringify(locations));
+        }
+    }, []);
+
+    useEffect(() => {
+        const locationsFromUlrParams = GetLocationsFromParams();
+        const convertedLocations = convertArray(locationsFromUlrParams);
+        setLocations(convertedLocations);
+    }, [location.search]);
+
+    const AddLocation = ({ city, country, message = '', timezone }) => {
+        const locationsFromUrl = GetLocationsFromParams();
+        locationsFromUrl.push({ city, country, message, timezone });
+        SetParam('locations', locationsFromUrl);
+    };
+
+    const DeleteLocation = location => {
+        console.log(location);
+    };
+
     return {
-        state: { userCurrentTimeZone, hasCreateForm },
-        actions: { CreateFormHandler }
+        state: { hasCreateForm, locations },
+        actions: { CreateFormHandler, AddLocation, DeleteLocation }
     };
 };

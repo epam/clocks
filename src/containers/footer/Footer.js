@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
         width: '100%',
         height: 64,
         padding: '0 24px',
-        background: 'rgb(35, 31, 32)',
+        background: '#464547',
         color: 'white',
         display: 'flex',
         justifyContent: 'space-between',
@@ -38,7 +38,7 @@ const useStyles = makeStyles(() => ({
 const Footer = () => {
     const css = useStyles();
     return (
-        <div className={css.root}>
+        <footer className={css.root}>
             <Typography variant="caption" className={css.rights} gutterBottom>
                 © {new Date().getFullYear()} EPAM Systems, Inc. <br />
                 All Rights Reserved.
@@ -57,7 +57,7 @@ const Footer = () => {
                     <Instagram />
                 </a>
             </div>
-        </div>
+        </footer>
     );
 };
 export default Footer;
