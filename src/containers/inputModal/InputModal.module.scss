@@ -1,0 +1,43 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.wrapper {
+  width: 70%;
+  max-width: 550px;
+  height: fit-content;
+  background-color: white;
+  border-radius: 8px;
+  padding: 16px;
+  position: relative;
+}
+#exit {
+  position: absolute;
+  top: -35px;
+  right: -100px;
+  color: #fff;
+  outline: none;
+  font-size: 25px;
+}
+
+.backdropColor {
+  background-color: rgba(13, 19, 25, .9) !important
+}
+
+@media screen and (max-width: 992px) {
+  #exit {
+    top: -50px !important;
+    right: -60px !important;
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .wrapper {
+    width: 100% !important;
+    margin: 0 20px !important;
+    #exit {
+      right: 0 !important
+    }
+  }
+}

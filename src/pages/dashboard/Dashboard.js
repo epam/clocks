@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Grid } from '@material-ui/core';
 
-import { CreateLocationForm } from '../../components/create-location-form/CreateLocationForm';
 import { LocationsContext } from '../../context/locations';
 import Location from '../../containers/location';
 import Navbar from '../../containers/navbar';
@@ -40,7 +39,7 @@ const data = [
 const Dashboard = () => {
     const { state } = useContext(LocationsContext);
     const [places, setPlaces] = useState([]);
-    const [width, setWidth] = useState(0);
+    const [width, setWidth] = useState(280);
 
     useEffect(() => {
         const array = convertArray(data);
@@ -60,21 +59,19 @@ const Dashboard = () => {
     return (
         <>
             <Navbar />
-            <main>
-                <Grid style={{ maxWidth: '100%' }} container spacing={2}>
-                    {state.locations &&
-                        state.locations.map((props, index) => (
-                            <div style={{ width }} key={index}>
-                                <Location {...props} width={width} />
-                            </div>
-                        ))}
-                    {state.hasCreateForm && (
-                        <Grid item xs>
-                            <CreateLocationForm />
-                        </Grid>
-                    )}
-                </Grid>
-            </main>
+            <Grid style={{ maxWidth: '100%' }} container spacing={2}>
+                {state.locations &&
+                    state.locations.map((props, index) => (
+                        <div style={{ width }} key={index}>
+                            <Location {...props} width={width} />
+                        </div>
+                    ))}
+                {state.hasCreateForm && (
+                    <Grid item xs>
+                        <div> hello world </div>
+                    </Grid>
+                )}
+            </Grid>
             <Footer />
         </>
     );
