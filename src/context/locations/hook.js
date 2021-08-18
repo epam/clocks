@@ -61,6 +61,10 @@ export const useLocations = () => {
         if (!currentUserExists) {
             AddLocation({ city, country, timezone });
         }
+        if (!Array.isArray(locations)) {
+            return console.error('Locations are not valid');
+        }
+        SetParam(paramKeyWord, JSON.stringify(convertArray(locations)));
     }, []);
 
     useEffect(() => {
