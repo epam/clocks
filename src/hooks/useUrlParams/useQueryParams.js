@@ -10,7 +10,6 @@ const useQueryParams = () => {
 
     const SetParam = (name, value) => {
         const url = { ...queryParams, [name]: value };
-        debugger;
         history.push({ search: qs.stringify(url) });
     };
 

@@ -41,7 +41,6 @@ export const useLocations = () => {
             timezone
         });
         SetParam(paramKeyWord, locationsFromUrl);
-        debugger;
     };
 
     const DeleteLocation = ({ city, country, timezone }) => {
@@ -53,7 +52,6 @@ export const useLocations = () => {
             location => !(location.city === city && location.country === country && location.timezone === timezone)
         );
         SetParam(paramKeyWord, filteredLocations);
-        debugger;
     };
 
     useEffect(() => {
