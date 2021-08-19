@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getCurrentUserLocation, convertArray } from '../../handlers';
-import { useUrlParams } from '../../hooks/useUrlParams/useUrlParams';
+import { useQueryParams } from '../../hooks/useUrlParams/useQueryParams';
+
+const paramKeyWord = 'locations';
 
 export const useLocations = () => {
     const [locations, setLocations] = useState([]);
@@ -9,11 +11,7 @@ export const useLocations = () => {
 
     const location = useLocation();
 
-    const { SetParam, GetParam } = useUrlParams();
-
-    const GetLocationsFromParams = () => {
-        return GetParam('locations') || [];
-    };
+    const { SetParam, GetParam } = useQueryParams();
 
     const CreateFormHandler = hasForm => {
         if (hasForm && typeof hasForm === 'boolean') {
@@ -23,37 +21,56 @@ export const useLocations = () => {
         }
     };
 
-    useEffect(() => {
-        const locations = GetLocationsFromParams();
-        if (!locations || !locations.length) {
-            const { city, country, timezone } = getCurrentUserLocation();
-            const locations = [
-                {
-                    city,
-                    country,
-                    timezone,
-                    message: ''
-                }
-            ];
-            SetParam('locations', JSON.stringify(locations));
-        }
-    }, []);
-
-    useEffect(() => {
-        const locationsFromUlrParams = GetLocationsFromParams();
-        const convertedLocations = convertArray(locationsFromUlrParams);
-        setLocations(convertedLocations);
-    }, [location.search]);
+    const CheckForCityExistance = (locations, city) => {
+        return !!locations.find(location => location.city === city);
+    };
 
     const AddLocation = ({ city, country, message = '', timezone }) => {
-        const locationsFromUrl = GetLocationsFromParams();
-        locationsFromUrl.push({ city, country, message, timezone });
-        SetParam('locations', locationsFromUrl);
+        const locationsFromUrl = GetParam(paramKeyWord) || [];
+        if (!Array.isArray(locationsFromUrl)) {
+            return console.error('Unexpected type!');
+        }
+        const isCityAlreadyAdded = CheckForCityExistance(locationsFromUrl, city);
+        if (isCityAlreadyAdded) {
+            return alert('This city has already been added!');
+        }
+        locationsFromUrl.push({
+            city,
+            country,
+            message,
+            timezone
+        });
+        SetParam(paramKeyWord, locationsFromUrl);
     };
 
     const DeleteLocation = () => {
         // delete logic here
     };
+
+    useEffect(() => {
+        const locations = GetParam(paramKeyWord) || [];
+        const { city, country, timezone } = getCurrentUserLocation();
+        if (!locations || !locations.length) {
+            const locations = [{ city, country, timezone, message: '' }];
+            return SetParam(paramKeyWord, locations);
+        }
+        if (!Array.isArray(locations)) {
+            return console.error('Locations are not valid');
+        }
+        const currentUserExists = CheckForCityExistance(locations, city);
+        if (!currentUserExists) {
+            AddLocation({ city, country, timezone });
+        }
+    }, []);
+
+    useEffect(() => {
+        const locationsFromUlrParams = GetParam(paramKeyWord) || [];
+        if (!Array.isArray(locationsFromUlrParams)) {
+            return console.error('Locations form url must be array');
+        }
+        const convertedLocations = convertArray(locationsFromUlrParams);
+        setLocations(convertedLocations);
+    }, [location.search]);
 
     return {
         state: { hasCreateForm, locations },
