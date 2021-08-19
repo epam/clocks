@@ -10,6 +10,7 @@ const useQueryParams = () => {
 
     const SetParam = (name, value) => {
         const url = { ...queryParams, [name]: value };
+        debugger;
         history.push({ search: qs.stringify(url) });
     };
 
@@ -26,7 +27,11 @@ const useQueryParams = () => {
     };
 
     const GetParam = name => {
-        return queryParams && queryParams[name];
+        const paramValue = queryParams && queryParams[name];
+        if (typeof paramValue === 'string') {
+            return qs.parse(paramValue);
+        }
+        return paramValue;
     };
 
     return { SetParam, GetParam, ClearParams, MergeParams, ResetParams };

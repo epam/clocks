@@ -41,6 +41,7 @@ export const useLocations = () => {
             timezone
         });
         SetParam(paramKeyWord, locationsFromUrl);
+        debugger;
     };
 
     const DeleteLocation = ({ city, country, timezone }) => {
@@ -48,10 +49,11 @@ export const useLocations = () => {
         if (!Array.isArray(locationsFromUrl)) {
             return console.error('Unexpected type!');
         }
-        locationsFromUrl.filter(
-            location => location.city !== city || location.country !== country || location.timezone !== timezone
+        const filteredLocations = locationsFromUrl.filter(
+            location => !(location.city === city && location.country === country && location.timezone === timezone)
         );
-        SetParam(paramKeyWord, locationsFromUrl);
+        SetParam(paramKeyWord, filteredLocations);
+        debugger;
     };
 
     useEffect(() => {
