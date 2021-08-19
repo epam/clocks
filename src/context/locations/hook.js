@@ -19,33 +19,21 @@ export const useLocations = () => {
         } else {
             setHasCreateForm(prevState => !prevState);
         }
-        setHasCreateForm(prev => !prev);
     };
 
-    useEffect(() => {
-        const locations = GetParam(paramKeyWord) || [];
-        if (!locations || !locations.length) {
-            const { city, country, timezone } = getCurrentUserLocation();
-            const locations = [{ city, country, timezone, message: '' }];
-            return SetParam(paramKeyWord, JSON.stringify(locations));
-        }
-        if (!Array.isArray(locations)) {
-            return console.error('Locations are not valid');
-        }
-        SetParam(paramKeyWord, JSON.stringify(convertArray(locations)));
-    }, []);
-
-    useEffect(() => {
-        const locationsFromUlrParams = GetParam(paramKeyWord) || [];
-        if (!Array.isArray(locationsFromUlrParams)) {
-            return console.error('Locations form url must be array');
-        }
-        const convertedLocations = convertArray(locationsFromUlrParams);
-        setLocations(convertedLocations);
-    }, [location.search]);
+    const CheckForCityExistance = (locations, city) => {
+        return !!locations.find(location => location.city === city);
+    };
 
     const AddLocation = ({ city, country, message = '', timezone }) => {
         const locationsFromUrl = GetParam(paramKeyWord) || [];
+        if (!Array.isArray(locationsFromUrl)) {
+            return console.error('Unexpected type!');
+        }
+        const isCityAlreadyAdded = CheckForCityExistance(locationsFromUrl, city);
+        if (isCityAlreadyAdded) {
+            return alert('This city has already been added!');
+        }
         locationsFromUrl.push({
             city,
             country,
@@ -58,6 +46,31 @@ export const useLocations = () => {
     const DeleteLocation = () => {
         // delete logic here
     };
+
+    useEffect(() => {
+        const locations = GetParam(paramKeyWord) || [];
+        const { city, country, timezone } = getCurrentUserLocation();
+        if (!locations || !locations.length) {
+            const locations = [{ city, country, timezone, message: '' }];
+            return SetParam(paramKeyWord, locations);
+        }
+        if (!Array.isArray(locations)) {
+            return console.error('Locations are not valid');
+        }
+        const currentUserExists = CheckForCityExistance(locations, city);
+        if (!currentUserExists) {
+            AddLocation({ city, country, timezone });
+        }
+    }, []);
+
+    useEffect(() => {
+        const locationsFromUlrParams = GetParam(paramKeyWord) || [];
+        if (!Array.isArray(locationsFromUlrParams)) {
+            return console.error('Locations form url must be array');
+        }
+        const convertedLocations = convertArray(locationsFromUlrParams);
+        setLocations(convertedLocations);
+    }, [location.search]);
 
     return {
         state: { hasCreateForm, locations },
