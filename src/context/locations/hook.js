@@ -5,7 +5,6 @@ import { useUrlParams } from '../../hooks/useUrlParams/useUrlParams';
 
 export const useLocations = () => {
     const [locations, setLocations] = useState([]);
-    console.log('🚀 ~ file: hook.js ~ line 8 ~ useLocations ~ locations', locations);
     const [hasCreateForm, setHasCreateForm] = useState(false);
 
     const location = useLocation();
@@ -52,8 +51,8 @@ export const useLocations = () => {
         SetParam('locations', locationsFromUrl);
     };
 
-    const DeleteLocation = location => {
-        console.log(location);
+    const DeleteLocation = () => {
+        // delete logic here
     };
 
     return {
