@@ -43,8 +43,15 @@ export const useLocations = () => {
         SetParam(paramKeyWord, locationsFromUrl);
     };
 
-    const DeleteLocation = () => {
-        // delete logic here
+    const DeleteLocation = ({ city, country, timezone }) => {
+        const locationsFromUrl = GetParam(paramKeyWord) || [];
+        if (!Array.isArray(locationsFromUrl)) {
+            return console.error('Unexpected type!');
+        }
+        locationsFromUrl.filter(
+            location => location.city !== city || location.country !== country || location.timezone !== timezone
+        );
+        SetParam(paramKeyWord, locationsFromUrl);
     };
 
     useEffect(() => {
