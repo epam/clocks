@@ -27,7 +27,7 @@ const Dashboard = () => {
     return (
         <>
             <Navbar />
-            <Grid style={{ maxWidth: '100%' }} container spacing={2}>
+            <Grid style={{ maxWidth: '100%', margin: '0 auto' }} container>
                 {state.locations &&
                     state.locations.map((props, index) => (
                         <div style={{ width }} key={index}>
