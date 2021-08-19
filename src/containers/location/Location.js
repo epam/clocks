@@ -1,20 +1,42 @@
 import React from 'react';
 
-import { Typography } from '@material-ui/core';
+import { IconButton, MenuItem, MenuList, Typography } from '@material-ui/core';
 import moment from 'moment-timezone';
 import css from './Location.module.scss';
+import { CrossIcon, Gear } from '../../assets/icons/icons';
 
 const Location = ({ timezone, city, country, offset, host, message }) => {
     const [currentTime, setCurrentTime] = React.useState(moment.tz(timezone));
+    const [drawerVisibility, setDrawerVisibility] = React.useState(false);
 
     React.useEffect(() => {
         const id = setInterval(() => setCurrentTime(moment.tz(timezone)), 1000);
 
         return () => clearInterval(id);
     }, [timezone]);
+    console.log(drawerVisibility);
 
     return (
         <div className={css.card}>
+            <div className={css.gear}>
+                <IconButton onClick={() => setDrawerVisibility(true)}>
+                    <Gear />
+                </IconButton>
+            </div>
+
+            <div className={`${css.backdrop} ${drawerVisibility && css.visible}`}>
+                <div className={`${css.drawer} ${drawerVisibility && css.drawerVisible}`}>
+                    <div className={css.closeDrawerIcon}>
+                        <IconButton onClick={() => setDrawerVisibility(false)}>
+                            <CrossIcon />
+                        </IconButton>
+                    </div>
+                    <MenuList className={css.drawerBody}>
+                        <MenuItem> Add Comment </MenuItem>
+                        <MenuItem> Delete </MenuItem>
+                    </MenuList>
+                </div>
+            </div>
             {host ? (
                 <Typography variant="subtitle2" className={css.pointer}>
                     You are here
