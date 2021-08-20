@@ -68,16 +68,12 @@ export const useLocations = () => {
         if (!currentUserExists) {
             AddLocation({ city, country, timezone });
         }
-        if (!Array.isArray(locations)) {
-            return console.error('Locations are not valid');
-        }
-        SetParam(paramKeyWord, JSON.stringify(convertArray(locations)));
     }, []);
 
     useEffect(() => {
         const locationsFromUlrParams = GetParam(paramKeyWord) || [];
         if (!Array.isArray(locationsFromUlrParams)) {
-            return console.error('Locations form url must be array');
+            return console.error('Locations from url must be array');
         }
         const convertedLocations = convertArray(locationsFromUlrParams);
         setLocations(convertedLocations);

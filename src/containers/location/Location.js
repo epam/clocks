@@ -17,6 +17,11 @@ const Location = ({ timezone, city, country, offset, host, message }) => {
         return () => clearInterval(id);
     }, [timezone]);
 
+    const Delete = () => {
+        actions.DeleteLocation({ city, country, timezone });
+        setDrawerVisibility(false);
+    };
+
     return (
         <div className={css.card}>
             <div className={css.gear}>
@@ -34,10 +39,7 @@ const Location = ({ timezone, city, country, offset, host, message }) => {
                     </div>
                     <MenuList className={css.drawerBody}>
                         <MenuItem> Add Comment </MenuItem>
-                        <MenuItem onClick={() => actions.DeleteLocation({ city, country, timezone })}>
-                            {' '}
-                            Delete{' '}
-                        </MenuItem>
+                        <MenuItem onClick={Delete}> Delete </MenuItem>
                     </MenuList>
                 </div>
             </div>

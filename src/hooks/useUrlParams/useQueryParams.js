@@ -9,6 +9,7 @@ const useQueryParams = () => {
     const queryParams = useMemo(() => qs.parse(location.search, { ignoreQueryPrefix: true }), [location.search]);
 
     const SetParam = (name, value) => {
+        debugger;
         const url = { ...queryParams, [name]: value };
         history.push({ search: qs.stringify(url) });
     };
@@ -28,7 +29,11 @@ const useQueryParams = () => {
     const GetParam = name => {
         const paramValue = queryParams && queryParams[name];
         if (typeof paramValue === 'string') {
-            return qs.parse(paramValue);
+            const parsedValue = JSON.parse(paramValue);
+            if (typeof parsedValue === 'string') {
+                return JSON.parse(parsedValue);
+            }
+            return parsedValue;
         }
         return paramValue;
     };
