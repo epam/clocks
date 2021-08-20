@@ -1,20 +1,26 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { IconButton, MenuItem, MenuList, Typography } from '@material-ui/core';
 import moment from 'moment-timezone';
 import css from './Location.module.scss';
 import { CrossIcon, Gear } from '../../assets/icons/icons';
+import { LocationsContext } from '../../context/locations';
 
 const Location = ({ timezone, city, country, offset, host, message }) => {
     const [currentTime, setCurrentTime] = React.useState(moment.tz(timezone));
     const [drawerVisibility, setDrawerVisibility] = React.useState(false);
+    const { actions } = useContext(LocationsContext);
 
     React.useEffect(() => {
         const id = setInterval(() => setCurrentTime(moment.tz(timezone)), 1000);
 
         return () => clearInterval(id);
     }, [timezone]);
-    console.log(drawerVisibility);
+
+    const Delete = () => {
+        actions.DeleteLocation({ city, country, timezone });
+        setDrawerVisibility(false);
+    };
 
     return (
         <div className={css.card}>
@@ -33,7 +39,7 @@ const Location = ({ timezone, city, country, offset, host, message }) => {
                     </div>
                     <MenuList className={css.drawerBody}>
                         <MenuItem> Add Comment </MenuItem>
-                        <MenuItem> Delete </MenuItem>
+                        <MenuItem onClick={Delete}> Delete </MenuItem>
                     </MenuList>
                 </div>
             </div>

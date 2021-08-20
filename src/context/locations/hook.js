@@ -43,8 +43,15 @@ export const useLocations = () => {
         SetParam(paramKeyWord, locationsFromUrl);
     };
 
-    const DeleteLocation = () => {
-        // delete logic here
+    const DeleteLocation = ({ city, country, timezone }) => {
+        const locationsFromUrl = GetParam(paramKeyWord) || [];
+        if (!Array.isArray(locationsFromUrl)) {
+            return console.error('Unexpected type!');
+        }
+        const filteredLocations = locationsFromUrl.filter(
+            location => !(location.city === city && location.country === country && location.timezone === timezone)
+        );
+        SetParam(paramKeyWord, filteredLocations);
     };
 
     useEffect(() => {
@@ -61,16 +68,12 @@ export const useLocations = () => {
         if (!currentUserExists) {
             AddLocation({ city, country, timezone });
         }
-        if (!Array.isArray(locations)) {
-            return console.error('Locations are not valid');
-        }
-        SetParam(paramKeyWord, JSON.stringify(convertArray(locations)));
     }, []);
 
     useEffect(() => {
         const locationsFromUlrParams = GetParam(paramKeyWord) || [];
         if (!Array.isArray(locationsFromUlrParams)) {
-            return console.error('Locations form url must be array');
+            return console.error('Locations from url must be array');
         }
         const convertedLocations = convertArray(locationsFromUlrParams);
         setLocations(convertedLocations);
