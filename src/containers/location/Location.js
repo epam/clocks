@@ -49,11 +49,11 @@ const Location = ({ timezone, city, country, offset, host, message }) => {
                 </Typography>
             ) : offset < 0 ? (
                 <Typography variant="subtitle2" className={css.difference}>
-                    &ndash;{Math.abs(offset)} HOURS
+                    &ndash;{Math.abs(offset)} {Math.abs(offset) <= 1 ? 'HOUR' : 'HOURS'}
                 </Typography>
             ) : (
                 <Typography variant="subtitle2" className={css.difference}>
-                    &#43;{offset} HOURS
+                    &#43;{offset} {Math.abs(offset) <= 1 ? 'HOUR' : 'HOURS'}
                 </Typography>
             )}
             <span className={css.time}>
