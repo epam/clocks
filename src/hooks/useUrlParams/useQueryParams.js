@@ -9,7 +9,6 @@ const useQueryParams = () => {
     const queryParams = useMemo(() => qs.parse(location.search, { ignoreQueryPrefix: true }), [location.search]);
 
     const SetParam = (name, value) => {
-        debugger;
         const url = { ...queryParams, [name]: value };
         history.push({ search: qs.stringify(url) });
     };
