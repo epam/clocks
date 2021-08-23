@@ -1,8 +1,7 @@
 import React from 'react';
-import { findFromCityStateProvince } from 'city-timezones';
 import { Modal, Backdrop, Fade, IconButton, withStyles, InputBase, MenuList, MenuItem } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
-import { sortBestMatch } from '../../helpers';
+import { lookupCityAscii, sortBestMatch } from '../../helpers';
 import { CrossIcon, Search } from '../../assets/icons/icons';
 import css from './InputModal.module.scss';
 
@@ -38,7 +37,7 @@ const InputModal = ({ visibility, onClose }) => {
     const [value, setValue] = React.useState('');
 
     React.useEffect(() => {
-        const matchingCities = findFromCityStateProvince(value);
+        const matchingCities = lookupCityAscii(value);
         const bestMatches = sortBestMatch(value, matchingCities.slice(0, 20));
         setCities(bestMatches);
     }, [value]);
