@@ -21,8 +21,10 @@ export const useLocations = () => {
         }
     };
 
-    const CheckForCityExistance = (locations, city) => {
-        return !!locations.find(location => location.city === city);
+    const CheckForCityExistance = (locations, { city, country, timezone }) => {
+        return !!locations.find(location => {
+            return location.city === city && location.country === country && location.timezone === timezone;
+        });
     };
 
     const AddLocation = ({ city, country, message = '', timezone }) => {
@@ -30,7 +32,7 @@ export const useLocations = () => {
         if (!Array.isArray(locationsFromUrl)) {
             return console.error('Unexpected type!');
         }
-        const isCityAlreadyAdded = CheckForCityExistance(locationsFromUrl, city);
+        const isCityAlreadyAdded = CheckForCityExistance(locationsFromUrl, { city, country, timezone });
         if (isCityAlreadyAdded) {
             return alert('This city has already been added!');
         }
@@ -64,7 +66,7 @@ export const useLocations = () => {
         if (!Array.isArray(locations)) {
             return console.error('Locations are not valid');
         }
-        const currentUserExists = CheckForCityExistance(locations, city);
+        const currentUserExists = CheckForCityExistance(locations, { city, country, timezone });
         if (!currentUserExists) {
             AddLocation({ city, country, timezone });
         }
