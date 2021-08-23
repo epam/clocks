@@ -31,7 +31,7 @@ function sortBestMatch(mainString, targetObjects) {
     const ratings = [];
 
     for (let i = 0; i < targetObjects.length; i += 1) {
-        const currentTargetString = targetObjects[i]?.city;
+        const currentTargetString = targetObjects[i]?.city_ascii;
         const currentRating = compareTwoStrings(mainString, currentTargetString);
         ratings.push({ target: targetObjects[i], rating: currentRating });
     }

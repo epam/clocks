@@ -23,7 +23,7 @@ const convertArray = list => {
     const { target } = bestMatch[0];
     myCity = target.city;
 
-    const city = arrayIncludes(myCity, 'city', list);
+    const city = arrayIncludes(myCity, 'city_ascii', list);
     const timezone = arrayIncludes(myTz, 'timezone', list);
 
     if (!city && !timezone) {
