@@ -45,6 +45,12 @@ export const useLocations = () => {
         SetParam(paramKeyWord, locationsFromUrl);
     };
 
+    const ResetUrl = () => {
+        const { city, country, timezone } = getCurrentUserLocation();
+        const locations = [{ city, country, timezone, message: '' }];
+        SetParam(paramKeyWord, locations);
+    };
+
     const DeleteLocation = ({ city, country, timezone }) => {
         const locationsFromUrl = GetParam(paramKeyWord) || [];
         if (!Array.isArray(locationsFromUrl)) {
@@ -83,6 +89,6 @@ export const useLocations = () => {
 
     return {
         state: { hasCreateForm, locations },
-        actions: { CreateFormHandler, AddLocation, DeleteLocation }
+        actions: { CreateFormHandler, AddLocation, DeleteLocation, ResetUrl }
     };
 };
