@@ -1,9 +1,19 @@
 import React from 'react';
-import { Modal, Backdrop, Fade, IconButton, withStyles, InputBase, MenuList, MenuItem } from '@material-ui/core';
-import { LocationsContext } from '../../context/locations';
-import { lookupCityAscii, sortBestMatch } from '../../helpers';
+import {
+    Grid,
+    SwipeableDrawer,
+    Toolbar,
+    Typography,
+    IconButton,
+    withStyles,
+    InputBase,
+    MenuList,
+    MenuItem
+} from '@material-ui/core';
 import { CrossIcon, Search } from '../../assets/icons/icons';
-import css from './InputModal.module.scss';
+import css from './InputDrawer.module.scss';
+import { lookupCityAscii, sortBestMatch } from '../../helpers';
+import { LocationsContext } from '../../context/locations';
 
 const CustomInput = withStyles({
     root: {
@@ -11,8 +21,7 @@ const CustomInput = withStyles({
         width: '100%',
         borderRadius: 6,
         boxShadow: 'rgba(66, 153, 225, 0.5) 0px 0px 0px 3px',
-        padding: '0 6px 0 12px',
-        marginBottom: 16
+        padding: '0 6px 0 12px'
     },
     input: {
         paddingLeft: 8,
@@ -20,7 +29,6 @@ const CustomInput = withStyles({
         fontSize: 20
     }
 })(InputBase);
-
 const CustomItem = withStyles({
     root: {
         backgroundColor: 'white',
@@ -31,10 +39,12 @@ const CustomItem = withStyles({
     }
 })(MenuItem);
 
-const InputModal = ({ visibility, onClose }) => {
+const InputDrawer = ({ visibility, setVisibility }) => {
+    const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
+    const input = React.useRef(null);
     const { actions } = React.useContext(LocationsContext);
-    const [cities, setCities] = React.useState([]);
     const [value, setValue] = React.useState('');
+    const [cities, setCities] = React.useState([]);
 
     React.useEffect(() => {
         const matchingCities = lookupCityAscii(value);
@@ -49,26 +59,38 @@ const InputModal = ({ visibility, onClose }) => {
             timezone: target.timezone,
             message: ''
         });
-        onClose();
+        setVisibility(false);
     };
 
+    React.useEffect(() => {
+        if (visibility === true && input.current) {
+            input.current.focus();
+        }
+    }, [visibility]);
+
     return (
-        <Modal
-            className={css.modal}
+        <SwipeableDrawer
+            classes={{ paper: css.sidebarPaper }}
+            anchor="right"
+            disableBackdropTransition={!iOS}
+            disableDiscovery={iOS}
             open={visibility}
-            onClose={onClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-                timeout: 500,
-                classes: {
-                    root: css.backdropColor
-                }
-            }}
+            onClose={() => setVisibility(false)}
+            onOpen={() => setVisibility(true)}
+            ModalProps={{ keepMounted: true }}
         >
-            <Fade in={visibility}>
-                <div className={css.wrapper}>
+            <div>
+                <Toolbar id={css.toolbar}>
+                    <Grid container alignItems="center" justifyContent="space-between">
+                        <Typography variant="button">Add New City</Typography>
+                        <IconButton id={css.closeButton} onClick={() => setVisibility(false)}>
+                            <CrossIcon />
+                        </IconButton>
+                    </Grid>
+                </Toolbar>
+                <div className={css.drawerBody}>
                     <CustomInput
+                        inputRef={input}
                         onChange={e => setValue(e?.target?.value)}
                         value={value}
                         text="text"
@@ -80,8 +102,7 @@ const InputModal = ({ visibility, onClose }) => {
                             </IconButton>
                         }
                     />
-
-                    <div style={{ maxHeight: 480, overflowY: 'auto' }}>
+                    <div style={{ overflowY: 'auto' }}>
                         <MenuList>
                             {cities.map(({ target }, index) => (
                                 <CustomItem key={index} onClick={() => handleSelect(target)}>
@@ -95,13 +116,10 @@ const InputModal = ({ visibility, onClose }) => {
                             ))}
                         </MenuList>
                     </div>
-
-                    <IconButton aria-label="close-button" id={css.exit} onClick={onClose}>
-                        <CrossIcon />
-                    </IconButton>
                 </div>
-            </Fade>
-        </Modal>
+            </div>
+        </SwipeableDrawer>
     );
 };
-export default InputModal;
+
+export default InputDrawer;
