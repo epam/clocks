@@ -9,7 +9,7 @@ function handleResize(itemsCount) {
     maxQuantity = Math.floor(screenWidth / 280);
     row = Math.ceil(itemsCount / maxQuantity);
     quantity = Math.ceil(itemsCount / row);
-    width = Math.floor(screenWidth / quantity) - 2; // subtract 2px to remove errors;
+    width = Math.floor(screenWidth / quantity) - 10; // subtract 2px to remove errors;
 
     return width;
 }
