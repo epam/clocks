@@ -11,6 +11,10 @@ const useStyles = makeStyles(theme => ({
         borderBottom: '2px solid rgba(0,0,0,.06)',
         color: 'white'
     },
+    toolbar: {
+        display: 'flex',
+        justifyContent: 'space-between'
+    },
     menuButton: {
         marginRight: theme.spacing(2)
     },
@@ -31,10 +35,10 @@ const Navbar = () => {
 
     return (
         <AppBar position="static" className={classes.appbar} color="transparent">
-            <Toolbar>
-                <div className={classes.title}>
+            <Toolbar className={classes.toolbar}>
+                <Button onClick={actions.ResetUrl}>
                     <img src={logo} alt="logo" />
-                </div>
+                </Button>
                 <Button variant="outlined" color="inherit" onClick={() => actions.CreateFormHandler(true)}>
                     Add City
                 </Button>
