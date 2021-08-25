@@ -6,7 +6,7 @@ import Location from '../../containers/location';
 import Navbar from '../../containers/navbar';
 import Footer from '../../containers/footer';
 import { handleResize } from '../../handlers';
-import InputModal from '../../containers/inputModal';
+import InputDrawer from '../../containers/inputDrawer';
 
 // import css from './dashboard.module.scss';
 
@@ -24,6 +24,17 @@ const Dashboard = () => {
         return () => window.removeEventListener('resize', handle);
     }, [state.locations.length]);
 
+    useEffect(() => {
+        const handleKeyDown = event => {
+            if (event.ctrlKey && event.code === 'KeyQ') {
+                actions.CreateFormHandler();
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown);
+
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, []);
+
     return (
         <>
             <Navbar />
@@ -34,7 +45,10 @@ const Dashboard = () => {
                             <Location {...props} width={width} />
                         </div>
                     ))}
-                <InputModal visibility={state.hasCreateForm} onClose={() => actions.CreateFormHandler(false)} />
+                <InputDrawer
+                    visibility={state.hasCreateForm}
+                    setVisibility={value => actions.CreateFormHandler(value)}
+                />
             </Grid>
             <Footer />
         </>
