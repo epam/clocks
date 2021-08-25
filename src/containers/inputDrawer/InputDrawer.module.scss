@@ -1,0 +1,45 @@
+.sidebarPaper {
+  width: 400px;
+}
+
+#toolbar {
+  padding-right: 20px !important;
+  border-bottom: 1px solid #f0f0f0;
+
+  #closeButton {
+    position: absolute;
+    right: 20px;
+    transform: translateY(-500px);
+    &:focus, &:hover {
+      transform: translateY(0);
+    }
+  }
+}
+
+.drawerBody {
+  padding: 0 16px;
+  .text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .city {
+      font-size: 16px;
+      font-weight: 600;
+    }
+    .country {
+      font-size: 14px;
+      font-weight: 400;
+      color: #464547;
+    }
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+  .sidebarPaper {
+    width: 100vw !important;
+  }
+  #closeButton {
+    transform: translateY(0) !important;
+  }
+}
