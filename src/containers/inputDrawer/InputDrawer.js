@@ -54,9 +54,10 @@ const InputDrawer = ({ visibility, setVisibility }) => {
 
     const handleSelect = target => {
         actions.AddLocation({
-            city: target.city,
-            country: target.country,
-            timezone: target.timezone,
+            cityAscii: target.city_ascii,
+            iso2: target.iso2,
+            lat: target.lat,
+            lng: target.lng,
             message: ''
         });
         setVisibility(false);

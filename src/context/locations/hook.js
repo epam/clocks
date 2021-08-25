@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { cityMapping } from 'city-timezones';
-import { getCurrentUserLocation, convertArray, convertToArrayWithIdField, generateIdFormat } from '../../handlers';
+import { getCurrentUserLocation, generateIdFormat, convertData } from '../../handlers';
+import convertFromUrlLocations from '../../handlers/convertFromUrlLocations';
 import { useQueryParams } from '../../hooks/useUrlParams/useQueryParams';
 
 const paramKeyWord = 'locations';
@@ -9,7 +9,6 @@ const paramKeyWord = 'locations';
 export const useLocations = () => {
     const [locations, setLocations] = useState([]);
     const [hasCreateForm, setHasCreateForm] = useState(false);
-    const CityMapping = useMemo(() => convertToArrayWithIdField(cityMapping), []);
 
     const location = useLocation();
 
@@ -27,10 +26,8 @@ export const useLocations = () => {
         return !!locations.find(location => location.startsWith(locationId));
     };
 
-    const AddLocation = (locationId = 'Namangan_UZ_40_64', message = '') => {
-        if (!locationId) {
-            return console.error('Id for adding location is not valid!');
-        }
+    const AddLocation = ({ cityAscii, iso2, lat, lng, message = '' }) => {
+        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
         const locationsFromUrl = GetParam(paramKeyWord) || [];
         if (!Array.isArray(locationsFromUrl)) {
             return console.error('Unexpected type!');
@@ -39,7 +36,7 @@ export const useLocations = () => {
         if (isCityAlreadyAdded) {
             return alert('This city has already been added!');
         }
-        locationsFromUrl.push(`${locationId}${message && `_${message}`}`);
+        locationsFromUrl.push(`${locationId}${message && `__${message}`}`);
         SetParam(paramKeyWord, locationsFromUrl);
     };
 
@@ -50,7 +47,8 @@ export const useLocations = () => {
         SetParam(paramKeyWord, locations);
     };
 
-    const DeleteLocation = locationId => {
+    const DeleteLocation = ({ cityAscii, iso2, lat, lng }) => {
+        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
         if (!locationId) {
             return console.error('Id for deleting location is not valid!');
         }
@@ -80,16 +78,17 @@ export const useLocations = () => {
     }, []);
 
     useEffect(() => {
-        const locationsFromUlrParams = GetParam(paramKeyWord) || [];
+        let locationsFromUlrParams = GetParam(paramKeyWord) || [];
         if (!Array.isArray(locationsFromUlrParams)) {
             return console.error('Locations from url must be array');
         }
-        const convertedLocations = convertArray([]);
+        locationsFromUlrParams = convertFromUrlLocations(locationsFromUlrParams);
+        const convertedLocations = convertData(locationsFromUlrParams);
         setLocations(convertedLocations);
     }, [location.search]);
 
     return {
-        state: { hasCreateForm, locations, CityMapping },
+        state: { hasCreateForm, locations },
         actions: { CreateFormHandler, AddLocation, DeleteLocation, ResetUrl }
     };
 };

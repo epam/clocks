@@ -3,13 +3,11 @@ const convertFromUrlLocations = locations => {
         return console.error('Locations must be array!');
     }
     return locations.reduce((res, location) => {
-        const data = location.split('_');
+        const data = location.split('__');
+        const id = data[0];
         const newLocation = {
-            city_ascii: data[0],
-            iso2: data[1],
-            lat: data[2],
-            lng: data[3],
-            message: data[5] || ''
+            id,
+            message: data[1] || ''
         };
         return [...res, newLocation];
     }, []);
