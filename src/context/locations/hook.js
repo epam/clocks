@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { cityMapping } from 'city-timezones';
 import { getCurrentUserLocation, convertArray, convertToArrayWithIdField, generateIdFormat } from '../../handlers';
-// import convertFromUrlLocations from '../../handlers/convertFromUrlLocations';
 import { useQueryParams } from '../../hooks/useUrlParams/useQueryParams';
 
 const paramKeyWord = 'locations';
@@ -28,17 +27,19 @@ export const useLocations = () => {
         return !!locations.find(location => location.startsWith(locationId));
     };
 
-    const AddLocation = ({ cityAscii, iso2, lat, lng, message = '' }) => {
+    const AddLocation = (locationId = 'Namangan_UZ_40_64', message = '') => {
+        if (!locationId) {
+            return console.error('Id for adding location is not valid!');
+        }
         const locationsFromUrl = GetParam(paramKeyWord) || [];
         if (!Array.isArray(locationsFromUrl)) {
             return console.error('Unexpected type!');
         }
-        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
         const isCityAlreadyAdded = CheckForCityExistance(locationsFromUrl, locationId);
         if (isCityAlreadyAdded) {
             return alert('This city has already been added!');
         }
-        locationsFromUrl.push(`${locationId}__${message}`);
+        locationsFromUrl.push(`${locationId}${message && `_${message}`}`);
         SetParam(paramKeyWord, locationsFromUrl);
     };
 
@@ -49,14 +50,15 @@ export const useLocations = () => {
         SetParam(paramKeyWord, locations);
     };
 
-    const DeleteLocation = ({ city, country, timezone }) => {
+    const DeleteLocation = locationId => {
+        if (!locationId) {
+            return console.error('Id for deleting location is not valid!');
+        }
         const locationsFromUrl = GetParam(paramKeyWord) || [];
         if (!Array.isArray(locationsFromUrl)) {
             return console.error('Unexpected type!');
         }
-        const filteredLocations = locationsFromUrl.filter(
-            location => !(location.city === city && location.country === country && location.timezone === timezone)
-        );
+        const filteredLocations = locationsFromUrl.filter(location => location !== locationId);
         SetParam(paramKeyWord, filteredLocations);
     };
 
@@ -73,17 +75,15 @@ export const useLocations = () => {
         }
         const currentUserExists = CheckForCityExistance(locations, locationId);
         if (!currentUserExists) {
-            AddLocation({ cityAscii, iso2, lat, lng });
+            AddLocation(locationId);
         }
     }, []);
 
     useEffect(() => {
         const locationsFromUlrParams = GetParam(paramKeyWord) || [];
-        // locationsFromUlrParams = convertFromUrlLocations(locationsFromUlrParams);
         if (!Array.isArray(locationsFromUlrParams)) {
             return console.error('Locations from url must be array');
         }
-        // const convertedLocations = convertArray(locationsFromUlrParams);
         const convertedLocations = convertArray([]);
         setLocations(convertedLocations);
     }, [location.search]);
