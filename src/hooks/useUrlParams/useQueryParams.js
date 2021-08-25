@@ -1,42 +1,47 @@
-import { useMemo } from 'react';
-import qs from 'qs';
+// import { useMemo } from 'react';
+// import qs from 'qs';
 import { useHistory, useLocation } from 'react-router-dom';
 
 const useQueryParams = () => {
     const history = useHistory();
     const location = useLocation();
 
-    const queryParams = useMemo(() => qs.parse(location.search, { ignoreQueryPrefix: true }), [location.search]);
+    // const queryParams = useMemo(() => qs.parse(location.search, { ignoreQueryPrefix: true }), [location.search]);
 
-    const SetParam = (name, value) => {
-        const url = { ...queryParams, [name]: value };
-        history.push({ search: qs.stringify(url) });
-    };
+    // const SetParam = (name, value) => {
+    //     const urlParams = { ...queryParams, [name]: value };
+    //     const url = qs.stringify(urlParams);
+    //     history.push({ search: url });
+    // };
 
-    const ClearParams = () => history.push({ search: qs.stringify({}) });
+    // const GetParam = name => {
+    //     const paramValue = queryParams && queryParams[name];
+    //     if (typeof paramValue === 'string') {
+    //         const parsedValue = JSON.parse(paramValue);
+    //         if (typeof parsedValue === 'string') {
+    //             return JSON.parse(parsedValue);
+    //         }
+    //         return parsedValue;
+    //     }
+    //     return paramValue;
+    // };
 
-    const MergeParams = values => history.push({ search: qs.stringify({ ...queryParams, ...values }) });
-
-    const ResetParams = name => {
-        const newParams = { ...queryParams };
-        if (newParams[name]) {
-            delete newParams[name];
-        }
-        history.push({ search: qs.stringify({ ...newParams }) });
-    };
-
-    const GetParam = name => {
-        const paramValue = queryParams && queryParams[name];
+    const GetParam = paramName => {
+        const usp = new URLSearchParams(location.search.replace('?', ''));
+        let paramValue = JSON.parse(usp.get(paramName));
         if (typeof paramValue === 'string') {
-            const parsedValue = JSON.parse(paramValue);
-            if (typeof parsedValue === 'string') {
-                return JSON.parse(parsedValue);
-            }
-            return parsedValue;
+            paramValue = JSON.parse(paramValue);
         }
         return paramValue;
     };
 
-    return { SetParam, GetParam, ClearParams, MergeParams, ResetParams };
+    const SetParam = (paramName, paramValue) => {
+        const ups = new URLSearchParams(location.search.replace('?', ''));
+        ups.set(paramName, JSON.stringify(paramValue));
+        const url = ups.toString();
+        history.push(`?${url}`);
+    };
+
+    return { SetParam, GetParam };
 };
 export { useQueryParams };
