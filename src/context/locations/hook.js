@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { cityMapping } from 'city-timezones';
 import { getCurrentUserLocation, convertArray, convertToArrayWithIdField, generateIdFormat } from '../../handlers';
-import convertFromUrlLocations from '../../handlers/convertFromUrlLocations';
+// import convertFromUrlLocations from '../../handlers/convertFromUrlLocations';
 import { useQueryParams } from '../../hooks/useUrlParams/useQueryParams';
 
 const paramKeyWord = 'locations';
@@ -78,8 +78,8 @@ export const useLocations = () => {
     }, []);
 
     useEffect(() => {
-        let locationsFromUlrParams = GetParam(paramKeyWord) || [];
-        locationsFromUlrParams = convertFromUrlLocations(locationsFromUlrParams);
+        const locationsFromUlrParams = GetParam(paramKeyWord) || [];
+        // locationsFromUlrParams = convertFromUrlLocations(locationsFromUlrParams);
         if (!Array.isArray(locationsFromUlrParams)) {
             return console.error('Locations from url must be array');
         }
