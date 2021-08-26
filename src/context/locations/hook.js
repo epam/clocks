@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { getCurrentUserLocation, convertArray } from '../../handlers';
+import { getCurrentUserLocation, generateIdFormat, convertData } from '../../handlers';
+import convertFromUrlLocations from '../../handlers/convertFromUrlLocations';
 import { useQueryParams } from '../../hooks/useUrlParams/useQueryParams';
 
 const paramKeyWord = 'locations';
@@ -21,69 +22,68 @@ export const useLocations = () => {
         }
     };
 
-    const CheckForCityExistance = (locations, { city, country, timezone }) => {
-        return !!locations.find(location => {
-            return location.city === city && location.country === country && location.timezone === timezone;
-        });
+    const CheckForCityExistance = (locations, locationId) => {
+        return !!locations.find(location => location.startsWith(locationId));
     };
 
-    const AddLocation = ({ city, country, message = '', timezone }) => {
+    const AddLocation = ({ cityAscii, iso2, lat, lng, message = '' }) => {
+        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
         const locationsFromUrl = GetParam(paramKeyWord) || [];
         if (!Array.isArray(locationsFromUrl)) {
             return console.error('Unexpected type!');
         }
-        const isCityAlreadyAdded = CheckForCityExistance(locationsFromUrl, { city, country, timezone });
+        const isCityAlreadyAdded = CheckForCityExistance(locationsFromUrl, locationId);
         if (isCityAlreadyAdded) {
             return alert('This city has already been added!');
         }
-        locationsFromUrl.push({
-            city,
-            country,
-            message,
-            timezone
-        });
+        locationsFromUrl.push(`${locationId}${message && `__${message}`}`);
         SetParam(paramKeyWord, locationsFromUrl);
     };
 
     const ResetUrl = () => {
-        const { city, country, timezone } = getCurrentUserLocation();
-        const locations = [{ city, country, timezone, message: '' }];
+        const { city_ascii: cityAscii, iso2, lat, lng } = getCurrentUserLocation();
+        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
+        const locations = [locationId];
         SetParam(paramKeyWord, locations);
     };
 
-    const DeleteLocation = ({ city, country, timezone }) => {
+    const DeleteLocation = ({ cityAscii, iso2, lat, lng }) => {
+        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
+        if (!locationId) {
+            return console.error('Id for deleting location is not valid!');
+        }
         const locationsFromUrl = GetParam(paramKeyWord) || [];
         if (!Array.isArray(locationsFromUrl)) {
             return console.error('Unexpected type!');
         }
-        const filteredLocations = locationsFromUrl.filter(
-            location => !(location.city === city && location.country === country && location.timezone === timezone)
-        );
+        const filteredLocations = locationsFromUrl.filter(location => location !== locationId);
         SetParam(paramKeyWord, filteredLocations);
     };
 
     useEffect(() => {
-        const locations = GetParam(paramKeyWord) || [];
-        const { city, country, timezone } = getCurrentUserLocation();
+        let locations = GetParam(paramKeyWord) || [];
+        const { city_ascii: cityAscii, iso2, lat, lng } = getCurrentUserLocation();
+        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
         if (!locations || !locations.length) {
-            const locations = [{ city, country, timezone, message: '' }];
+            locations = [locationId];
             return SetParam(paramKeyWord, locations);
         }
         if (!Array.isArray(locations)) {
             return console.error('Locations are not valid');
         }
-        const currentUserExists = CheckForCityExistance(locations, { city, country, timezone });
+        const currentUserExists = CheckForCityExistance(locations, locationId);
         if (!currentUserExists) {
-            AddLocation({ city, country, timezone });
+            AddLocation(locationId);
         }
     }, []);
 
     useEffect(() => {
-        const locationsFromUlrParams = GetParam(paramKeyWord) || [];
+        let locationsFromUlrParams = GetParam(paramKeyWord) || [];
         if (!Array.isArray(locationsFromUlrParams)) {
             return console.error('Locations from url must be array');
         }
-        const convertedLocations = convertArray(locationsFromUlrParams);
+        locationsFromUlrParams = convertFromUrlLocations(locationsFromUlrParams);
+        const convertedLocations = convertData(locationsFromUlrParams);
         setLocations(convertedLocations);
     }, [location.search]);
 

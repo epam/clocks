@@ -2,7 +2,6 @@ import generateIdFormat from './generateIdFormat';
 
 const convertToArrayWithIdField = list => {
     if (!Array.isArray(list)) {
-        /* eslint-disable */
         return console.error('List is not type of array!');
     }
     list.forEach(item => {
