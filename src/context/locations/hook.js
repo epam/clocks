@@ -47,8 +47,7 @@ export const useLocations = () => {
         SetParam(paramKeyWord, locations);
     };
 
-    const DeleteLocation = ({ cityAscii, iso2, lat, lng }) => {
-        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
+    const DeleteLocation = locationId => {
         if (!locationId) {
             return console.error('Id for deleting location is not valid!');
         }
@@ -56,7 +55,7 @@ export const useLocations = () => {
         if (!Array.isArray(locationsFromUrl)) {
             return console.error('Unexpected type!');
         }
-        const filteredLocations = locationsFromUrl.filter(location => location !== locationId);
+        const filteredLocations = locationsFromUrl.filter(location => !location.startsWith(locationId));
         SetParam(paramKeyWord, filteredLocations);
     };
 
