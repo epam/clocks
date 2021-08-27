@@ -6,7 +6,7 @@ import css from './Location.module.scss';
 import { CrossIcon, Gear } from '../../assets/icons/icons';
 import { LocationsContext } from '../../context/locations';
 
-const Location = ({ timezone, city, country, offset, host, message }) => {
+const Location = ({ timezone, city, country, offset, host, message, id }) => {
     const [currentTime, setCurrentTime] = React.useState(moment.tz(timezone));
     const [drawerVisibility, setDrawerVisibility] = React.useState(false);
     const { actions } = useContext(LocationsContext);
@@ -18,7 +18,7 @@ const Location = ({ timezone, city, country, offset, host, message }) => {
     }, [timezone]);
 
     const Delete = () => {
-        actions.DeleteLocation({ city, country, timezone });
+        actions.DeleteLocation(id);
         setDrawerVisibility(false);
     };
 
