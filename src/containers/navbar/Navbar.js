@@ -19,9 +19,6 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(2)
     },
     title: {
-        flexGrow: 1,
-        display: 'flex',
-        alignItems: 'center',
         '& img': {
             height: 28,
             objectFit: 'cover'
@@ -36,7 +33,7 @@ const Navbar = () => {
     return (
         <AppBar position="static" className={classes.appbar} color="transparent">
             <Toolbar className={classes.toolbar}>
-                <Button onClick={actions.ResetUrl}>
+                <Button className={classes.title} onClick={actions.ResetUrl}>
                     <img src={logo} alt="logo" />
                 </Button>
                 <Button variant="outlined" color="inherit" onClick={() => actions.CreateFormHandler(true)}>

@@ -60,6 +60,7 @@ const InputDrawer = ({ visibility, setVisibility }) => {
             lng: target.lng,
             message: ''
         });
+        setValue('');
         setVisibility(false);
     };
 
