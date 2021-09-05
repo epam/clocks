@@ -7,6 +7,7 @@ import { CrossIcon, Gear } from '../../assets/icons/icons';
 import { LocationsContext } from '../../context/locations';
 
 const Location = ({ timezone, city, country, offset, host, message, id }) => {
+    const { hours, minutes } = offset;
     const [currentTime, setCurrentTime] = React.useState(moment.tz(timezone));
     const [drawerVisibility, setDrawerVisibility] = React.useState(false);
     const { actions } = useContext(LocationsContext);
@@ -47,13 +48,15 @@ const Location = ({ timezone, city, country, offset, host, message, id }) => {
                 <Typography variant="subtitle2" className={css.pointer}>
                     You are here
                 </Typography>
-            ) : offset < 0 ? (
+            ) : hours < 0 ? (
                 <Typography variant="subtitle2" className={css.difference}>
-                    &ndash;{Math.abs(offset)} {Math.abs(offset) <= 1 ? 'HOUR' : 'HOURS'}
+                    &ndash;{Math.abs(hours)} {Math.abs(hours) <= 1 ? 'HOUR ' : 'HOURS '}
+                    {Math.abs(minutes)} {Math.abs(minutes) <= 1 ? 'MINUTE' : 'MINUTES'}
                 </Typography>
             ) : (
                 <Typography variant="subtitle2" className={css.difference}>
-                    &#43;{offset} {Math.abs(offset) <= 1 ? 'HOUR' : 'HOURS'}
+                    &#43;{hours} {Math.abs(hours) <= 1 ? 'HOUR ' : 'HOURS '}
+                    {minutes} {Math.abs(minutes) <= 1 ? 'MINUTE' : 'MINUTES'}
                 </Typography>
             )}
             <span className={css.time}>

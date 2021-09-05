@@ -12,7 +12,10 @@ const findOffset = timezone => {
     const myTimezone = moment.tz.zone(myTz).utcOffset(now);
     const otherTimezone = moment.tz.zone(timezone).utcOffset(now);
     // calculate the difference in hours
-    return Math.floor((myTimezone - otherTimezone) / 60);
+    return {
+        hours: Math.floor((myTimezone - otherTimezone) / 60),
+        minutes: Math.abs((myTimezone - otherTimezone) % 60)
+    };
 };
 
 const convertData = list => {
@@ -66,7 +69,7 @@ const convertData = list => {
                 timezone: target.timezone,
                 message: '',
 
-                offset: 0,
+                offset: { hours: 0, minutes: 0 },
                 host: true
             });
         } else {
@@ -76,11 +79,11 @@ const convertData = list => {
         let selected = false;
         array = converted.map(item => {
             if (city && item.city === myCity) {
-                return { ...item, offset: 0, host: true };
+                return { ...item, offset: { hours: 0, minutes: 0 }, host: true };
             }
             if (!city && item.timezone === myTz && !selected) {
                 selected = true;
-                return { ...item, offset: 0, host: true };
+                return { ...item, offset: { hours: 0, minutes: 0 }, host: true };
             }
             return {
                 ...item,
@@ -90,7 +93,11 @@ const convertData = list => {
         });
     }
 
-    array.sort((a, b) => a.offset - b.offset);
+    array.sort((a, b) => {
+        const first = a.offset['hours'] * 60 + a.offset['minutes'];
+        const second = b.offset['hours'] * 60 + b.offset['minutes'];
+        return first - second;
+    });
 
     return array;
 };
