@@ -22,9 +22,20 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    .city {
-      font-size: 16px;
-      font-weight: 600;
+    width: 100%;
+    .itemTitle {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      .city {
+        font-size: 16px;
+        font-weight: 600;
+      }
+      .mark {
+        color: red;
+        font-weight: 600;
+      }
     }
     .country {
       font-size: 14px;

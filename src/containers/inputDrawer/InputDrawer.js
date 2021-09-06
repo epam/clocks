@@ -51,6 +51,11 @@ const InputDrawer = ({ visibility, setVisibility }) => {
         const bestMatches = sortBestMatch(value, matchingCities.slice(0, 20));
         setCities(bestMatches);
     }, [value]);
+    React.useEffect(() => {
+        if (visibility === true && input.current) {
+            input.current.focus();
+        }
+    }, [visibility]);
 
     const handleSelect = target => {
         actions.AddLocation({
@@ -63,12 +68,21 @@ const InputDrawer = ({ visibility, setVisibility }) => {
         setValue('');
         setVisibility(false);
     };
-
-    React.useEffect(() => {
-        if (visibility === true && input.current) {
-            input.current.focus();
-        }
-    }, [visibility]);
+    const handleMatch = item => {
+        let result = false;
+        actions?.GetLocationsFromUrl().forEach(i => {
+            const id = i.split('_');
+            if (
+                item.city_ascii === id[0] &&
+                item.iso2 === id[1] &&
+                Math.floor(Math.abs(item.lat)) === parseInt(id[2], 10) &&
+                Math.floor(Math.abs(item.lng)) === parseInt(id[3], 10)
+            ) {
+                result = true;
+            }
+        });
+        return result;
+    };
 
     return (
         <SwipeableDrawer
@@ -109,7 +123,10 @@ const InputDrawer = ({ visibility, setVisibility }) => {
                             {cities.map(({ target }, index) => (
                                 <CustomItem key={index} onClick={() => handleSelect(target)}>
                                     <div className={css.text}>
-                                        <span className={css.city}>{target.city}</span>
+                                        <div className={css.itemTitle}>
+                                            <span className={css.city}>{target.city}</span>
+                                            <span className={css.mark}>{handleMatch(target) ? 'Added' : null}</span>
+                                        </div>
                                         <span className={css.country}>
                                             {target.country}, {target.province}
                                         </span>
