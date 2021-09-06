@@ -23,6 +23,35 @@ const Location = ({ timezone, city, country, offset, host, message, id }) => {
         setDrawerVisibility(false);
     };
 
+    const GetOffset = () => {
+        if (host) {
+            return (
+                <Typography variant="subtitle2" className={css.pointer}>
+                    You are here
+                </Typography>
+            );
+        }
+        const hourDif = Math.abs(hours);
+        const minuteDif = Math.abs(minutes);
+        if (hourDif === 0 && minuteDif === 0) {
+            return <></>;
+        }
+        if (hours < 0) {
+            return (
+                <Typography variant="subtitle2" className={css.difference}>
+                    &ndash;{hourDif} {hourDif <= 1 ? 'HOUR ' : 'HOURS '}
+                    {minuteDif !== 0 && `${minuteDif} ${minuteDif <= 1 ? ' MINUTE' : ' MINUTES'}`}
+                </Typography>
+            );
+        }
+        return (
+            <Typography variant="subtitle2" className={css.difference}>
+                {hourDif !== 0 && `&#43;${hourDif} ${hourDif <= 1 ? 'HOUR ' : 'HOURS '}`}
+                {minuteDif !== 0 && `${minuteDif} ${minuteDif <= 1 ? ' MINUTE' : ' MINUTES'}`}
+            </Typography>
+        );
+    };
+
     return (
         <div className={css.card}>
             <div className={css.gear}>
@@ -44,7 +73,8 @@ const Location = ({ timezone, city, country, offset, host, message, id }) => {
                     </MenuList>
                 </div>
             </div>
-            {host ? (
+            {GetOffset()}
+            {/* {host ? (
                 <Typography variant="subtitle2" className={css.pointer}>
                     You are here
                 </Typography>
@@ -58,7 +88,7 @@ const Location = ({ timezone, city, country, offset, host, message, id }) => {
                     &#43;{hours} {Math.abs(hours) <= 1 ? 'HOUR ' : 'HOURS '}
                     {minutes} {Math.abs(minutes) <= 1 ? 'MINUTE' : 'MINUTES'}
                 </Typography>
-            )}
+            )} */}
             <span className={css.time}>
                 <Typography variant="h2" className={css.hour}>
                     {currentTime.format('HH')}
