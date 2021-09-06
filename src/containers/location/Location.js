@@ -54,11 +54,13 @@ const Location = ({ timezone, city, country, offset, host, message, id }) => {
 
     return (
         <div className={css.card}>
-            <div className={css.gear}>
-                <IconButton onClick={() => setDrawerVisibility(true)}>
-                    <Gear />
-                </IconButton>
-            </div>
+            {!host && (
+                <div className={css.gear}>
+                    <IconButton onClick={() => setDrawerVisibility(true)}>
+                        <Gear />
+                    </IconButton>
+                </div>
+            )}
 
             <div className={`${css.backdrop} ${drawerVisibility && css.visible}`}>
                 <div className={`${css.drawer} ${drawerVisibility && css.drawerVisible}`}>
