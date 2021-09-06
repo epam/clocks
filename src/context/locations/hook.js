@@ -59,6 +59,16 @@ export const useLocations = () => {
         SetParam(paramKeyWord, filteredLocations);
     };
 
+    const GetLocationsFromUrl = () => {
+        const locationsFromUrl = GetParam(paramKeyWord) || [];
+        const locationIdsFromUrl = locationsFromUrl.reduce((res, location) => {
+            const id = location.split('__')[0];
+            return [...res, id];
+        }, []);
+        return locationIdsFromUrl;
+    };
+
+    GetLocationsFromUrl();
     useEffect(() => {
         let locations = GetParam(paramKeyWord) || [];
         const { city_ascii: cityAscii, iso2, lat, lng } = getCurrentUserLocation();
@@ -88,6 +98,6 @@ export const useLocations = () => {
 
     return {
         state: { hasCreateForm, locations },
-        actions: { CreateFormHandler, AddLocation, DeleteLocation, ResetUrl }
+        actions: { CreateFormHandler, AddLocation, DeleteLocation, ResetUrl, GetLocationsFromUrl }
     };
 };
