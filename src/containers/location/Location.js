@@ -46,7 +46,7 @@ const Location = ({ timezone, city, country, offset, host, message, id }) => {
         }
         return (
             <Typography variant="subtitle2" className={css.difference}>
-                {hourDif !== 0 && `&#43;${hourDif} ${hourDif <= 1 ? 'HOUR ' : 'HOURS '}`}
+                {hourDif !== 0 && `+${hourDif} ${hourDif <= 1 ? 'HOUR ' : 'HOURS '}`}
                 {minuteDif !== 0 && `${minuteDif} ${minuteDif <= 1 ? ' MINUTE' : ' MINUTES'}`}
             </Typography>
         );
