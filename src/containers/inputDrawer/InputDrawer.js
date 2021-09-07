@@ -57,7 +57,8 @@ const InputDrawer = ({ visibility, setVisibility }) => {
         }
     }, [visibility]);
 
-    const handleSelect = target => {
+    const handleSelect = (target, isAdded) => {
+        if (isAdded) return;
         actions.AddLocation({
             cityAscii: target.city_ascii,
             iso2: target.iso2,
@@ -120,19 +121,22 @@ const InputDrawer = ({ visibility, setVisibility }) => {
                     />
                     <div style={{ overflowY: 'auto' }}>
                         <MenuList>
-                            {cities.map(({ target }, index) => (
-                                <CustomItem key={index} onClick={() => handleSelect(target)}>
-                                    <div className={css.text}>
-                                        <div className={css.itemTitle}>
-                                            <span className={css.city}>{target.city}</span>
-                                            <span className={css.mark}>{handleMatch(target) ? 'Added' : null}</span>
+                            {cities.map(({ target }, index) => {
+                                const isAdded = handleMatch(target);
+                                return (
+                                    <CustomItem key={index} onClick={() => handleSelect(target, isAdded)}>
+                                        <div className={css.text}>
+                                            <div className={css.itemTitle}>
+                                                <span className={css.city}>{target.city}</span>
+                                                <span className={css.mark}>{isAdded ? 'Added' : null}</span>
+                                            </div>
+                                            <span className={css.country}>
+                                                {target.country}, {target.province}
+                                            </span>
                                         </div>
-                                        <span className={css.country}>
-                                            {target.country}, {target.province}
-                                        </span>
-                                    </div>
-                                </CustomItem>
-                            ))}
+                                    </CustomItem>
+                                );
+                            })}
                         </MenuList>
                     </div>
                 </div>
