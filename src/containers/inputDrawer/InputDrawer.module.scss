@@ -18,32 +18,9 @@
 
 .drawerBody {
   padding: 0 16px;
-  .text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-    .itemTitle {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      .city {
-        font-size: 16px;
-        font-weight: 600;
-      }
-      .mark {
-        color: red;
-        font-weight: 600;
-      }
-    }
-    .country {
-      font-size: 14px;
-      font-weight: 400;
-      color: #464547;
-    }
+  .drawerList {
+    overflow-y: auto !important;
   }
-
 }
 
 @media screen and (max-width: 500px) {

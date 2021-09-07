@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Grid } from '@material-ui/core';
 
 import { LocationsContext } from '../../context/locations';
 import Location from '../../containers/location';
@@ -8,14 +7,17 @@ import Footer from '../../containers/footer';
 import { handleResize } from '../../handlers';
 import InputDrawer from '../../containers/inputDrawer';
 
-// import css from './dashboard.module.scss';
+import css from './Dashboard.module.scss';
 
 const Dashboard = () => {
     const { state, actions } = useContext(LocationsContext);
     const [width, setWidth] = useState(280);
+    const grid = React.useRef(null);
 
     useEffect(() => {
-        const handle = () => setWidth(handleResize(state.locations.length || 1));
+        const handle = () => {
+            if (grid.current) setWidth(handleResize(state.locations.length || 1, grid.current));
+        };
 
         window.addEventListener('resize', handle);
 
@@ -33,12 +35,12 @@ const Dashboard = () => {
         window.addEventListener('keydown', handleKeyDown);
 
         return () => window.removeEventListener('keydown', handleKeyDown);
-    }, []);
+    }, [actions]);
 
     return (
         <>
             <Navbar />
-            <Grid style={{ maxWidth: '100%', margin: '0 auto' }} container>
+            <div ref={grid} className={css.container}>
                 {state.locations &&
                     state.locations.map((props, index) => (
                         <div style={{ width }} key={index}>
@@ -49,7 +51,7 @@ const Dashboard = () => {
                     visibility={state.hasCreateForm}
                     setVisibility={value => actions.CreateFormHandler(value)}
                 />
-            </Grid>
+            </div>
             <Footer />
         </>
     );
