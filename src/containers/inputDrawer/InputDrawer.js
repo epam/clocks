@@ -1,64 +1,37 @@
 import React from 'react';
-import {
-    Grid,
-    SwipeableDrawer,
-    Toolbar,
-    Typography,
-    IconButton,
-    withStyles,
-    InputBase,
-    MenuList,
-    MenuItem
-} from '@material-ui/core';
-import { CrossIcon, Search } from '../../assets/icons/icons';
+import { Grid, SwipeableDrawer, Toolbar, Typography, IconButton, MenuList } from '@material-ui/core';
+import { CrossIcon } from '../../assets/icons/icons';
 import css from './InputDrawer.module.scss';
 import { lookupCityAscii, sortBestMatch } from '../../helpers';
 import { LocationsContext } from '../../context/locations';
-
-const CustomInput = withStyles({
-    root: {
-        height: 48,
-        width: '100%',
-        borderRadius: 6,
-        boxShadow: 'rgba(66, 153, 225, 0.5) 0px 0px 0px 3px',
-        padding: '0 6px 0 12px'
-    },
-    input: {
-        paddingLeft: 8,
-        height: '-webkit-fill-available',
-        fontSize: 20
-    }
-})(InputBase);
-const CustomItem = withStyles({
-    root: {
-        backgroundColor: 'white',
-        padding: 8,
-        borderRadius: 4,
-        boxShadow: 'rgb(212, 217, 225) 0 1px 3px 0',
-        margin: '10px 5px 0 5px'
-    }
-})(MenuItem);
+import CustomInput from '../../components/customInput';
+import CustomItem from '../../components/cutomItem';
 
 const InputDrawer = ({ visibility, setVisibility }) => {
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const input = React.useRef(null);
     const { actions } = React.useContext(LocationsContext);
+    const input = React.useRef(null);
+    const urlLocations = React.useMemo(() => {
+        return new Set(actions?.GetLocationsFromUrl());
+    }, [actions]);
+
     const [value, setValue] = React.useState('');
     const [cities, setCities] = React.useState([]);
 
+    // find city on input value change
     React.useEffect(() => {
         const matchingCities = lookupCityAscii(value);
         const bestMatches = sortBestMatch(value, matchingCities.slice(0, 20));
         setCities(bestMatches);
     }, [value]);
+    // focus on input when drawer is open
     React.useEffect(() => {
         if (visibility === true && input.current) {
             input.current.focus();
         }
     }, [visibility]);
 
-    const handleSelect = (target, isAdded) => {
-        if (isAdded) return;
+    const handleSelect = target => {
         actions.AddLocation({
             cityAscii: target.city_ascii,
             iso2: target.iso2,
@@ -70,19 +43,10 @@ const InputDrawer = ({ visibility, setVisibility }) => {
         setVisibility(false);
     };
     const handleMatch = item => {
-        let result = false;
-        actions?.GetLocationsFromUrl().forEach(i => {
-            const id = i.split('_');
-            if (
-                item.city_ascii === id[0] &&
-                item.iso2 === id[1] &&
-                Math.floor(Math.abs(item.lat)) === parseInt(id[2], 10) &&
-                Math.floor(Math.abs(item.lng)) === parseInt(id[3], 10)
-            ) {
-                result = true;
-            }
-        });
-        return result;
+        const guid = [item.city_ascii, item.iso2, Math.floor(Math.abs(item.lat)), Math.floor(Math.abs(item.lng))].join(
+            '_'
+        );
+        return urlLocations.has(guid);
     };
 
     return (
@@ -96,49 +60,28 @@ const InputDrawer = ({ visibility, setVisibility }) => {
             onOpen={() => setVisibility(true)}
             ModalProps={{ keepMounted: true }}
         >
-            <div>
-                <Toolbar id={css.toolbar}>
-                    <Grid container alignItems="center" justifyContent="space-between">
-                        <Typography variant="button">Add New City</Typography>
-                        <IconButton id={css.closeButton} onClick={() => setVisibility(false)}>
-                            <CrossIcon />
-                        </IconButton>
-                    </Grid>
-                </Toolbar>
-                <div className={css.drawerBody}>
-                    <CustomInput
-                        inputRef={input}
-                        onChange={e => setValue(e?.target?.value)}
-                        value={value}
-                        text="text"
-                        placeholder="Search cities"
-                        startAdornment={<Search />}
-                        endAdornment={
-                            <IconButton onClick={() => setValue('')}>
-                                <CrossIcon />
-                            </IconButton>
-                        }
-                    />
-                    <div style={{ overflowY: 'auto' }}>
-                        <MenuList>
-                            {cities.map(({ target }, index) => {
-                                const isAdded = handleMatch(target);
-                                return (
-                                    <CustomItem key={index} onClick={() => handleSelect(target, isAdded)}>
-                                        <div className={css.text}>
-                                            <div className={css.itemTitle}>
-                                                <span className={css.city}>{target.city}</span>
-                                                <span className={css.mark}>{isAdded ? 'Added' : null}</span>
-                                            </div>
-                                            <span className={css.country}>
-                                                {target.country}, {target.province}
-                                            </span>
-                                        </div>
-                                    </CustomItem>
-                                );
-                            })}
-                        </MenuList>
-                    </div>
+            <Toolbar id={css.toolbar}>
+                <Grid container alignItems="center" justifyContent="space-between">
+                    <Typography variant="button">Add New City</Typography>
+                    <IconButton id={css.closeButton} onClick={() => setVisibility(false)}>
+                        <CrossIcon />
+                    </IconButton>
+                </Grid>
+            </Toolbar>
+
+            <div className={css.drawerBody}>
+                <CustomInput ref={input} value={value} setValue={value => setValue(value)} />
+                <div className={css.drawerList}>
+                    <MenuList>
+                        {cities.map(({ target }, index) => (
+                            <CustomItem
+                                key={index}
+                                target={target}
+                                added={handleMatch(target)}
+                                onSelect={() => handleSelect(target)}
+                            />
+                        ))}
+                    </MenuList>
                 </div>
             </div>
         </SwipeableDrawer>
