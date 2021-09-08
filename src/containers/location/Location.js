@@ -56,9 +56,8 @@ const Location = ({ timezone, city, country, offset, host, message, id }) => {
                 {country}
             </Typography>
             <Typography variant="subtitle2" className={css.grey}>
-                {timezone}
+                {timezone} GMT {moment.tz(moment.utc(), timezone).utcOffset() / 60}
             </Typography>
-            <Typography variant="body2">{moment.tz(moment.utc(), timezone).utcOffset() / 60}</Typography>
             <Typography variant="body2">{message}</Typography>
         </div>
     );
