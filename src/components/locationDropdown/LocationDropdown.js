@@ -3,7 +3,7 @@ import { IconButton, MenuItem, MenuList } from '@material-ui/core';
 import { CrossIcon } from '../../assets/icons/icons';
 import css from './LocationDropdown.module.scss';
 
-const LocationDropdown = ({ visibility = false, setVisibility, deleteCity }) => {
+const LocationDropdown = ({ visibility = false, setVisibility, deleteCity, addComment }) => {
     return (
         <div className={`${css.backdrop} ${visibility && css.visible}`}>
             <div className={`${css.drawer} ${visibility && css.drawerVisible}`}>
@@ -13,7 +13,14 @@ const LocationDropdown = ({ visibility = false, setVisibility, deleteCity }) => 
                     </IconButton>
                 </div>
                 <MenuList className={css.drawerBody}>
-                    <MenuItem> Add Comment </MenuItem>
+                    <MenuItem
+                        onClick={() => {
+                            addComment();
+                            setVisibility(false);
+                        }}
+                    >
+                        Add Comment
+                    </MenuItem>
                     <MenuItem onClick={deleteCity}> Delete </MenuItem>
                 </MenuList>
             </div>

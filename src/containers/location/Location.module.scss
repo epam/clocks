@@ -33,28 +33,4 @@
       opacity: 1;
     }
   }
-
-  .difference {
-    color: #bcb9b5;
-  }
-
-  .time {
-    color: #464547;
-    display: flex;
-    .hour {
-      &:after {
-        content: ":";
-        position: relative;
-        top: -.1em;
-        margin: 0 6px;
-      }
-    }
-  }
-  .country {
-    color: #bcb9b5;
-    text-transform: uppercase;
-  }
-  .grey {
-    color: #bcb9b5;
-  }
 }

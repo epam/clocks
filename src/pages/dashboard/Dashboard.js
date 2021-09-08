@@ -12,11 +12,10 @@ import css from './Dashboard.module.scss';
 const Dashboard = () => {
     const { state, actions } = useContext(LocationsContext);
     const [width, setWidth] = useState(280);
-    const grid = React.useRef(null);
 
     useEffect(() => {
         const handle = () => {
-            if (grid.current) setWidth(handleResize(state.locations.length || 1, grid.current));
+            setWidth(handleResize(state.locations.length || 1));
         };
 
         window.addEventListener('resize', handle);
@@ -40,7 +39,7 @@ const Dashboard = () => {
     return (
         <>
             <Navbar />
-            <div ref={grid} className={css.container}>
+            <div className={css.container}>
                 {state.locations &&
                     state.locations.map((props, index) => (
                         <div style={{ width }} key={index}>
