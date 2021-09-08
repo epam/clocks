@@ -31,7 +31,9 @@ const LocationContent = ({ city = '', country = '', timezone = '' }) => {
             <Typography variant="subtitle2" className={css.grey}>
                 {timezone}
             </Typography>
-            <Typography variant="body2">{moment.tz(moment.utc(), timezone).utcOffset() / 60}</Typography>
+            <Typography variant="body2">
+                {timezone} GMT {moment.tz(moment.utc(), timezone).utcOffset() / 60}
+            </Typography>
         </>
     );
 };

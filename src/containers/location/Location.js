@@ -36,8 +36,8 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
                 deleteCity={handleDelete}
             />
             <LocationOffsets hours={hours} minutes={minutes} host={host} />
-
             <LocationContent city={city} country={country} timezone={timezone} />
+
             {messageVisibility ? (
                 <textarea name="" id="" cols="20" rows="3" />
             ) : (
