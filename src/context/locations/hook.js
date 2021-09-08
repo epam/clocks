@@ -68,7 +68,17 @@ export const useLocations = () => {
         return locationIdsFromUrl;
     };
 
-    GetLocationsFromUrl();
+    const AddComment = (locationId, comment) => {
+        const locationsFromUrl = GetParam(paramKeyWord) || [];
+        const newLocations = locationsFromUrl.reduce((res, location) => {
+            if (location.startsWith(locationId)) {
+                return [...res, `${locationId}__${comment}`];
+            }
+            return [...res, location];
+        }, []);
+        SetParam(paramKeyWord, newLocations);
+    };
+
     useEffect(() => {
         let locations = GetParam(paramKeyWord) || [];
         const { city_ascii: cityAscii, iso2, lat, lng } = getCurrentUserLocation();
@@ -98,6 +108,6 @@ export const useLocations = () => {
 
     return {
         state: { hasCreateForm, locations },
-        actions: { CreateFormHandler, AddLocation, DeleteLocation, ResetUrl, GetLocationsFromUrl }
+        actions: { CreateFormHandler, AddLocation, DeleteLocation, ResetUrl, GetLocationsFromUrl, AddComment }
     };
 };
