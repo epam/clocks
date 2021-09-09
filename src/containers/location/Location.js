@@ -38,9 +38,19 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
             <LocationContent city={city} country={country} timezone={timezone} />
 
             {messageVisibility ? (
-                <textarea name="" id="" cols="20" rows="3" />
+                <textarea
+                    defaultValue={message}
+                    onBlur={event => {
+                        actions.AddComment(id, event.target.value);
+                        setMessageVisibility(false);
+                    }}
+                    className={css.textArea}
+                    rows="3"
+                />
             ) : (
-                <Typography variant="subtitle2">{message}</Typography>
+                <Typography onClick={() => setMessageVisibility(true)} className={css.message} variant="body1">
+                    {message}
+                </Typography>
             )}
         </div>
     );

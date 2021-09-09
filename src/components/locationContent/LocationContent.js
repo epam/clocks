@@ -36,9 +36,6 @@ const LocationContent = ({ city = '', country = '', timezone = '' }) => {
             <Typography variant="subtitle2" className={css.country}>
                 {country}
             </Typography>
-            <Typography variant="subtitle2" className={css.grey}>
-                {timezone}
-            </Typography>
             <Typography variant="body2">
                 {timezone} GMT {gmtOffset}
             </Typography>
