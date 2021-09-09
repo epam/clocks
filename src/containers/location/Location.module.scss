@@ -34,3 +34,20 @@
     }
   }
 }
+
+.textArea {
+  margin-top: 10px;
+  padding: 8px;
+  width: 90%;
+  resize: vertical;
+  border: 1px solid orange;
+  box-shadow: 0 0 2px 1px orange;
+  outline: none;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-size: 16px;
+}
+
+.message {
+  margin-top: 8px;
+  color: grey;
+}

@@ -20,7 +20,7 @@ const findOffset = timezone => {
 
 const convertData = list => {
     myTz = moment.tz.guess();
-
+    console.log(list);
     const matchingTimezones = lookupTimezones(myTz);
     const bestMatch = sortBestMatch(myTz, matchingTimezones);
 
@@ -28,17 +28,18 @@ const convertData = list => {
     myCity = target.city; // most possibly i live here.
 
     const converted = list.map(urlData => {
-        const id = urlData.id.split('_');
-        const message = urlData.m;
+        const { id } = urlData;
+        const { message } = urlData;
 
         // eslint-disable-next-line array-callback-return
         const obj = cityMapping.find(item => {
-            if (
-                item.city_ascii === id[0] &&
-                item.iso2 === id[1] &&
-                Math.floor(Math.abs(item.lat)) === parseInt(id[2], 10) &&
-                Math.floor(Math.abs(item.lng)) === parseInt(id[3], 10)
-            ) {
+            const guid = [
+                item.city_ascii,
+                item.iso2,
+                Math.floor(Math.abs(item.lat)),
+                Math.floor(Math.abs(item.lng))
+            ].join('_');
+            if (guid === id) {
                 return true;
             }
         });
