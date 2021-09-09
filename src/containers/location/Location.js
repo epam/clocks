@@ -27,15 +27,14 @@ const Location = ({ timezone, city, country, offset, host, message, id }) => {
 
     return (
         <div className={css.card}>
-            {!host && (
-                <div className={css.gear}>
-                    <IconButton onClick={() => setDrawerVisibility(true)}>
-                        <Gear />
-                    </IconButton>
-                </div>
-            )}
+            <div className={css.gear}>
+                <IconButton onClick={() => setDrawerVisibility(true)}>
+                    <Gear />
+                </IconButton>
+            </div>
             <LocationDropdown
                 visibility={drawerVisibility}
+                isHost={host}
                 setVisibility={value => setDrawerVisibility(value)}
                 deleteCity={handleDelete}
             />
