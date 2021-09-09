@@ -34,14 +34,14 @@ const LocationOffsets = ({ hours, minutes, host }) => {
             <Typography variant="subtitle2" className={css.text}>
                 &ndash;
                 {hourDif}
-                {hourDif <= 1 ? 'HOUR ' : 'HOURS '}
+                {hourDif <= 1 ? ' HOUR ' : ' HOURS '}
                 {minuteDif !== 0 && `${minuteDif} ${minuteDif <= 1 ? ' MINUTE' : ' MINUTES'}`}
             </Typography>
         );
     }
     return (
         <Typography variant="subtitle2" className={css.text}>
-            {hourDif !== 0 && `+${hourDif} ${hourDif <= 1 ? 'HOUR ' : 'HOURS '}`}
+            {hourDif !== 0 && `+${hourDif} ${hourDif <= 1 ? ' HOUR ' : ' HOURS '}`}
             {minuteDif !== 0 && `${minuteDif} ${minuteDif <= 1 ? ' MINUTE' : ' MINUTES'}`}
         </Typography>
     );
