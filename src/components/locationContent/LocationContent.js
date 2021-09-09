@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Typography } from '@material-ui/core';
 import moment from 'moment-timezone';
 import css from './LocationContent.module.scss';
@@ -10,6 +10,14 @@ const LocationContent = ({ city = '', country = '', timezone = '' }) => {
         const id = setInterval(() => setTime(moment.tz(timezone)), 1000);
 
         return () => clearInterval(id);
+    }, [timezone]);
+
+    const gmtOffset = useMemo(() => {
+        const offset = moment.tz(moment.utc(), timezone).utcOffset();
+        if (offset > 0) {
+            return `+${offset / 60}`;
+        }
+        return offset / 60;
     }, [timezone]);
 
     return (
@@ -32,7 +40,7 @@ const LocationContent = ({ city = '', country = '', timezone = '' }) => {
                 {timezone}
             </Typography>
             <Typography variant="body2">
-                {timezone} GMT {moment.tz(moment.utc(), timezone).utcOffset() / 60}
+                {timezone} GMT {gmtOffset}
             </Typography>
         </>
     );
