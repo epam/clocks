@@ -20,7 +20,6 @@ const findOffset = timezone => {
 
 const convertData = list => {
     myTz = moment.tz.guess();
-    console.log(list);
     const matchingTimezones = lookupTimezones(myTz);
     const bestMatch = sortBestMatch(myTz, matchingTimezones);
 
