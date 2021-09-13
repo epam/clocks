@@ -1,6 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 
+import Snackbar from '@material-ui/core/Snackbar';
+import IconButton from '@material-ui/core/IconButton';
+
 import { LocationsContext } from '../../context/locations';
+import { SnackbarContext } from '../../context/snackbar';
 import Location from '../../containers/location';
 import Navbar from '../../containers/navbar';
 import Footer from '../../containers/footer';
@@ -11,6 +15,7 @@ import css from './Dashboard.module.scss';
 
 const Dashboard = () => {
     const { state, actions } = useContext(LocationsContext);
+    const { isSnackbarOpen, SnackbarHandler, message } = useContext(SnackbarContext);
     const [width, setWidth] = useState(280);
 
     useEffect(() => {
@@ -51,6 +56,23 @@ const Dashboard = () => {
                     setVisibility={value => actions.CreateFormHandler(value)}
                 />
             </div>
+            <Snackbar
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'left'
+                }}
+                open={isSnackbarOpen}
+                autoHideDuration={6000}
+                onClose={SnackbarHandler}
+                message={message || ''}
+                action={
+                    <>
+                        <IconButton size="small" aria-label="close" color="inherit" onClick={SnackbarHandler}>
+                            x
+                        </IconButton>
+                    </>
+                }
+            />
             <Footer />
         </>
     );
