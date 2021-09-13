@@ -1,21 +1,20 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { PARAM_KEYWORD } from '../../constants';
 import { getCurrentUserLocation, generateIdFormat, convertData } from '../../handlers';
 import convertFromUrlLocations from '../../handlers/convertFromUrlLocations';
+import { CheckForCityExistence } from '../../helpers/checkCityExistence';
 import { useQueryParams } from '../../hooks/useQueryParams/useQueryParams';
-import { SnackbarContext } from '../snackbar';
-
-const paramKeyWord = 'locations';
+import { useUrl } from '../../hooks/useUrl/useUrl';
 
 export const useLocations = () => {
     const [locations, setLocations] = useState([]);
     const [hasCreateForm, setHasCreateForm] = useState(false);
 
-    const { OpenSnackbar } = useContext(SnackbarContext);
-
     const location = useLocation();
 
     const { SetParam, GetParam } = useQueryParams();
+    const { AddComment, AddLocation, DeleteLocation, ResetUrl, GetLocationsFromUrl } = useUrl();
 
     const CreateFormHandler = hasForm => {
         if (hasForm && typeof hasForm === 'boolean') {
@@ -25,70 +24,13 @@ export const useLocations = () => {
         }
     };
 
-    const CheckForCityExistence = (locations, locationId) => {
-        return !!locations.find(location => location.startsWith(locationId));
-    };
-
-    const AddLocation = ({ cityAscii, iso2, lat, lng, message = '' }) => {
-        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
-        const locationsFromUrl = GetParam(paramKeyWord) || [];
-        if (!Array.isArray(locationsFromUrl)) {
-            return console.error('Unexpected type!');
-        }
-        const isCityAlreadyAdded = CheckForCityExistence(locationsFromUrl, locationId);
-        if (isCityAlreadyAdded) {
-            return OpenSnackbar('This city has already been added!');
-        }
-        locationsFromUrl.push(`${locationId}${message && `__${message}`}`);
-        SetParam(paramKeyWord, locationsFromUrl);
-    };
-
-    const ResetUrl = () => {
-        const { city_ascii: cityAscii, iso2, lat, lng } = getCurrentUserLocation();
-        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
-        const locations = [locationId];
-        SetParam(paramKeyWord, locations);
-    };
-
-    const DeleteLocation = locationId => {
-        if (!locationId) {
-            return console.error('Id for deleting location is not valid!');
-        }
-        const locationsFromUrl = GetParam(paramKeyWord) || [];
-        if (!Array.isArray(locationsFromUrl)) {
-            return console.error('Unexpected type!');
-        }
-        const filteredLocations = locationsFromUrl.filter(location => !location.startsWith(locationId));
-        SetParam(paramKeyWord, filteredLocations);
-    };
-
-    const GetLocationsFromUrl = () => {
-        const locationsFromUrl = GetParam(paramKeyWord) || [];
-        const locationIdsFromUrl = locationsFromUrl.reduce((res, location) => {
-            const id = location.split('__')[0];
-            return [...res, id];
-        }, []);
-        return locationIdsFromUrl;
-    };
-
-    const AddComment = (locationId, comment) => {
-        const locationsFromUrl = GetParam(paramKeyWord) || [];
-        const newLocations = locationsFromUrl.reduce((res, location) => {
-            if (location.startsWith(locationId)) {
-                return [...res, `${locationId}__${comment}`];
-            }
-            return [...res, location];
-        }, []);
-        SetParam(paramKeyWord, newLocations);
-    };
-
     useEffect(() => {
-        let locations = GetParam(paramKeyWord) || [];
+        let locations = GetParam(PARAM_KEYWORD) || [];
         const { city_ascii: cityAscii, iso2, lat, lng } = getCurrentUserLocation();
         const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
         if (!locations || !locations.length) {
             locations = [locationId];
-            return SetParam(paramKeyWord, locations);
+            return SetParam(PARAM_KEYWORD, locations);
         }
         if (!Array.isArray(locations)) {
             return console.error('Locations are not valid');
@@ -100,7 +42,7 @@ export const useLocations = () => {
     }, []);
 
     useEffect(() => {
-        let locationsFromUlrParams = GetParam(paramKeyWord) || [];
+        let locationsFromUlrParams = GetParam(PARAM_KEYWORD) || [];
         if (!Array.isArray(locationsFromUlrParams)) {
             return console.error('Locations from url must be array');
         }
