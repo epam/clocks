@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useRef } from 'react';
 
 import { IconButton, Typography } from '@material-ui/core';
 import { Gear } from '../../assets/icons/icons';
@@ -11,9 +11,16 @@ import css from './Location.module.scss';
 const Location = ({ timezone, city, country, offset, host, id, message }) => {
     const { hours, minutes } = offset;
     const { actions } = useContext(LocationsContext);
+    const textAreaRef = useRef(null);
 
     const [drawerVisibility, setDrawerVisibility] = React.useState(false);
     const [messageVisibility, setMessageVisibility] = React.useState(false);
+
+    React.useEffect(() => {
+        if (messageVisibility && textAreaRef.current) {
+            textAreaRef.current.focus();
+        }
+    }, [messageVisibility]);
 
     const handleDelete = () => {
         actions.DeleteLocation(id);
@@ -39,6 +46,7 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
 
             {messageVisibility ? (
                 <textarea
+                    ref={textAreaRef}
                     defaultValue={message}
                     onBlur={event => {
                         actions.AddComment(id, event.target.value);
