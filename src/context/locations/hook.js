@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getCurrentUserLocation, generateIdFormat, convertData } from '../../handlers';
 import convertFromUrlLocations from '../../handlers/convertFromUrlLocations';
-import { useQueryParams } from '../../hooks/useUrlParams/useQueryParams';
+import { useQueryParams } from '../../hooks/useQueryParams/useQueryParams';
 
 const paramKeyWord = 'locations';
 
