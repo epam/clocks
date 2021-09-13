@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { getCurrentUserLocation, generateIdFormat, convertData } from '../../handlers';
 import convertFromUrlLocations from '../../handlers/convertFromUrlLocations';
-import { useQueryParams } from '../../hooks/useUrlParams/useQueryParams';
+import { useQueryParams } from '../../hooks/useQueryParams/useQueryParams';
+import { SnackbarContext } from '../snackbar';
 
 const paramKeyWord = 'locations';
 
 export const useLocations = () => {
     const [locations, setLocations] = useState([]);
     const [hasCreateForm, setHasCreateForm] = useState(false);
+
+    const { OpenSnackbar } = useContext(SnackbarContext);
 
     const location = useLocation();
 
@@ -22,7 +25,7 @@ export const useLocations = () => {
         }
     };
 
-    const CheckForCityExistance = (locations, locationId) => {
+    const CheckForCityExistence = (locations, locationId) => {
         return !!locations.find(location => location.startsWith(locationId));
     };
 
@@ -32,9 +35,9 @@ export const useLocations = () => {
         if (!Array.isArray(locationsFromUrl)) {
             return console.error('Unexpected type!');
         }
-        const isCityAlreadyAdded = CheckForCityExistance(locationsFromUrl, locationId);
+        const isCityAlreadyAdded = CheckForCityExistence(locationsFromUrl, locationId);
         if (isCityAlreadyAdded) {
-            return alert('This city has already been added!');
+            return OpenSnackbar('This city has already been added!');
         }
         locationsFromUrl.push(`${locationId}${message && `__${message}`}`);
         SetParam(paramKeyWord, locationsFromUrl);
@@ -90,7 +93,7 @@ export const useLocations = () => {
         if (!Array.isArray(locations)) {
             return console.error('Locations are not valid');
         }
-        const currentUserExists = CheckForCityExistance(locations, locationId);
+        const currentUserExists = CheckForCityExistence(locations, locationId);
         if (!currentUserExists) {
             AddLocation(locationId);
         }
