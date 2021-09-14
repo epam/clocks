@@ -28,8 +28,8 @@ const useStyle = makeStyles(() => ({
         fontWeight: 600
     },
     mark: {
-        color: 'red',
-        fontWeight: 600
+        color: '#464547',
+        fontWeight: 400
     },
     country: {
         fontSize: 14,
