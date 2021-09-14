@@ -1,34 +1,16 @@
-// import { useMemo } from 'react';
-// import qs from 'qs';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useBase64 } from '../useBase64/useBase64';
 
 const useQueryParams = () => {
     const history = useHistory();
     const location = useLocation();
-
-    // const queryParams = useMemo(() => qs.parse(location.search, { ignoreQueryPrefix: true }), [location.search]);
-
-    // const SetParam = (name, value) => {
-    //     const urlParams = { ...queryParams, [name]: value };
-    //     const url = qs.stringify(urlParams);
-    //     history.push({ search: url });
-    // };
-
-    // const GetParam = name => {
-    //     const paramValue = queryParams && queryParams[name];
-    //     if (typeof paramValue === 'string') {
-    //         const parsedValue = JSON.parse(paramValue);
-    //         if (typeof parsedValue === 'string') {
-    //             return JSON.parse(parsedValue);
-    //         }
-    //         return parsedValue;
-    //     }
-    //     return paramValue;
-    // };
+    const { encode, decode } = useBase64();
 
     const GetParam = paramName => {
         const usp = new URLSearchParams(location.search.replace('?', ''));
-        let paramValue = JSON.parse(usp.get(paramName));
+        let paramValue = usp.get(paramName);
+        const decoded = decode(paramValue);
+        paramValue = JSON.parse(decoded);
         if (typeof paramValue === 'string') {
             paramValue = JSON.parse(paramValue);
         }
@@ -36,9 +18,9 @@ const useQueryParams = () => {
     };
 
     const SetParam = (paramName, paramValue) => {
-        const ups = new URLSearchParams(location.search.replace('?', ''));
-        ups.set(paramName, JSON.stringify(paramValue));
-        const url = ups.toString();
+        const usp = new URLSearchParams(location.search.replace('?', ''));
+        usp.set(paramName, encode(JSON.stringify(paramValue)));
+        const url = usp.toString();
         history.push(`?${url}`);
     };
 
