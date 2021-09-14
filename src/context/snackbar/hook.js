@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export const useSnackbar = () => {
-    const [isSnackbarOpen, setIsSnackbarOpen] = useState(true);
+    const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
     const [message, setMessage] = useState('');
 
     const SnackbarHandler = isOpen => {
