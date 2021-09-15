@@ -41,25 +41,27 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
                 addComment={() => setMessageVisibility(true)}
                 deleteCity={handleDelete}
             />
-            <LocationOffsets hours={hours} minutes={minutes} host={host} />
-            <LocationContent city={city} country={country} timezone={timezone} />
+            <div className={css.content}>
+                <LocationOffsets hours={hours} minutes={minutes} host={host} />
+                <LocationContent city={city} country={country} timezone={timezone} />
 
-            {messageVisibility ? (
-                <textarea
-                    ref={textAreaRef}
-                    defaultValue={message}
-                    onBlur={event => {
-                        actions.AddComment(id, event.target.value);
-                        setMessageVisibility(false);
-                    }}
-                    className={css.textArea}
-                    rows="3"
-                />
-            ) : (
-                <Typography onClick={() => setMessageVisibility(true)} className={css.message} variant="body1">
-                    {message}
-                </Typography>
-            )}
+                {messageVisibility ? (
+                    <textarea
+                        ref={textAreaRef}
+                        defaultValue={message}
+                        onBlur={event => {
+                            actions.AddComment(id, event.target.value);
+                            setMessageVisibility(false);
+                        }}
+                        className={css.textArea}
+                        rows="3"
+                    />
+                ) : (
+                    <Typography onClick={() => setMessageVisibility(true)} className={css.message} variant="body1">
+                        {message}
+                    </Typography>
+                )}
+            </div>
         </div>
     );
 };
