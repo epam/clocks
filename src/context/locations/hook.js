@@ -49,7 +49,6 @@ export const useLocations = () => {
         locationsFromUlrParams = convertFromUrlLocations(locationsFromUlrParams);
         const convertedLocations = convertData(locationsFromUlrParams);
         setLocations(convertedLocations);
-        // setLocations([]);
     }, [location.search]);
 
     return {
