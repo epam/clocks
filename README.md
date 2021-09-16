@@ -6,7 +6,9 @@ Clock is a small web application that allows you to create a dashboard for keepi
 
 Clocks:
 Free to use;
+
 No account registration needed for every users to read previously configured data;
+
 Produces a permanent sharable link that can be sent to third party users;
 Allows to add arbitrary comments to time zones;
 Minimalistic enough to embed it into another HTML page via <iframe> (no ads or spy software, etc.)
