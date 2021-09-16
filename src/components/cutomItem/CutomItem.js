@@ -1,5 +1,6 @@
 import React from 'react';
 import { MenuItem, withStyles, makeStyles } from '@material-ui/core';
+import Badge from '@material-ui/core/Badge';
 
 const Item = withStyles({
     root: {
@@ -42,23 +43,38 @@ const useStyle = makeStyles(() => ({
         '&:hover': {
             backgroundColor: '#dcdcda'
         }
+    },
+    badge: {
+        display: 'block',
+        '& span.MuiBadge-badge': {
+            transform: 'translate(0, -50%)',
+            padding: '1em',
+            backgroundColor: '#39C2D7'
+        }
     }
 }));
 
 const CustomItem = ({ target, onSelect, added = false }) => {
     const css = useStyle();
-    return (
+
+    const render = () => (
         <Item onClick={onSelect} className={added ? css.disabled : ''}>
             <div className={css.text}>
                 <div className={css.title}>
                     <span className={css.city}>{target.city}</span>
-                    <span className={css.mark}>{added ? 'Added' : null}</span>
                 </div>
                 <span className={css.country}>
                     {target.country}, {target.province}
                 </span>
             </div>
         </Item>
+    );
+    return added ? (
+        <Badge className={css.badge} badgeContent="Added" color="primary">
+            {render()}
+        </Badge>
+    ) : (
+        render()
     );
 };
 
