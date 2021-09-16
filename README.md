@@ -5,7 +5,9 @@
 Clock is a small web application that allows you to create a dashboard for keeping track of time anywhere in the world.
 
 Clocks:
+
 Free to use;
+
 No account registration needed for every users to read previously configured data;
 Produces a permanent sharable link that can be sent to third party users:
 Allows to add arbitrary comments to time zones:
