@@ -11,6 +11,24 @@ No account registration needed for every users to read previously configured dat
 Produces a permanent sharable link that can be sent to third party users;\
 Allows to add arbitrary comments to time zones;\
 Minimalistic enough to embed it into another HTML page via <iframe> (no ads or spy software, etc.)\
+  
+## Application link
+
+  
+## How to use  
+  
+
+  
+## Using hotkeys 
+  
+Ctrl Q - open "Add new city"
+Esc - close "Add new city"
+Tab - switching to next element  
+  
+  
+  
+  
+  
 
 
 ### Getting Started with Create React App
