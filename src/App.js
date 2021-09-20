@@ -4,19 +4,22 @@ import { LocationsProvider } from './context/locations';
 import Dashboard from './pages/dashboard';
 import './assets/styles/index.scss';
 import { SnackbarProvider } from './context/snackbar';
+import { PlanningModeProvider } from './context/planningMode';
 
 function App() {
     return (
         <SnackbarProvider>
-            <LocationsProvider>
-                <div className="App">
-                    <Switch>
-                        <Route>
-                            <Dashboard />
-                        </Route>
-                    </Switch>
-                </div>
-            </LocationsProvider>
+            <PlanningModeProvider>
+                <LocationsProvider>
+                    <div className="App">
+                        <Switch>
+                            <Route>
+                                <Dashboard />
+                            </Route>
+                        </Switch>
+                    </div>
+                </LocationsProvider>
+            </PlanningModeProvider>
         </SnackbarProvider>
     );
 }
