@@ -10,7 +10,11 @@ const useStyle = makeStyles({
         marginBottom: 8
     },
     text: {
-        color: '#bcb9b5'
+        color: '#bcb9b5',
+        marginBottom: 10
+    },
+    empty: {
+        marginBottom: 32
     }
 });
 
@@ -27,7 +31,7 @@ const LocationOffsets = ({ hours, minutes, host }) => {
         );
     }
 
-    if (hourDif === 0 && minuteDif === 0) return null;
+    if (hourDif === 0 && minuteDif === 0) return <span className={css.empty} />;
 
     if (hours < 0) {
         return (

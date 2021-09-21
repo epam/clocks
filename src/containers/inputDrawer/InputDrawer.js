@@ -29,6 +29,9 @@ const InputDrawer = ({ visibility, setVisibility }) => {
         if (visibility === true && input.current) {
             input.current.focus();
         }
+        if (visibility === false && input.current) {
+            input.current.blur();
+        }
     }, [visibility]);
 
     const handleSelect = target => {
