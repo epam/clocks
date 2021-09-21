@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
-import { LinkedIn, Twitter, Facebook, Instagram } from '../../assets/icons/icons';
+import { LinkedIn, Twitter, Facebook, Instagram, GitHub } from '../../assets/icons/icons';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -44,16 +44,19 @@ const Footer = () => {
                 All Rights Reserved.
             </Typography>
             <div className={css.icons}>
-                <a href="https://www.linkedin.com/company/epam-systems/">
+                <a href="https://github.com/epam" target="_blank" rel="noreferrer">
+                    <GitHub />
+                </a>
+                <a href="https://www.linkedin.com/company/epam-systems/" target="_blank" rel="noreferrer">
                     <LinkedIn />
                 </a>
-                <a href="https://twitter.com/EPAMSYSTEMS">
+                <a href="https://twitter.com/EPAMSYSTEMS" target="_blank" rel="noreferrer">
                     <Twitter />
                 </a>
-                <a href="https://www.facebook.com/EPAM.Global">
+                <a href="https://www.facebook.com/EPAM.Global" target="_blank" rel="noreferrer">
                     <Facebook />
                 </a>
-                <a href="https://www.instagram.com/epamsystems/">
+                <a href="https://www.instagram.com/epamsystems/" target="_blank" rel="noreferrer">
                     <Instagram />
                 </a>
             </div>
