@@ -53,6 +53,7 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
                             actions.AddComment(id, event.target.value);
                             setMessageVisibility(false);
                         }}
+                        maxLength={100}
                         className={css.textArea}
                         rows="3"
                     />
