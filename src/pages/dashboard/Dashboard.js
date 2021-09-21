@@ -32,7 +32,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         const handleKeyDown = event => {
-            if (event.ctrlKey && event.code === 'KeyQ') {
+            if (event.key === '=' || event.key === '+') {
                 actions.CreateFormHandler();
             }
         };

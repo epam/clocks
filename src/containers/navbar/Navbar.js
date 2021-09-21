@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Button, Tooltip } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
 import logo from '../../assets/images/logo.svg';
 
@@ -36,9 +36,11 @@ const Navbar = () => {
                 <Button className={classes.title} onClick={actions.ResetUrl}>
                     <img src={logo} alt="logo" />
                 </Button>
-                <Button variant="outlined" color="inherit" onClick={() => actions.CreateFormHandler(true)}>
-                    Add City
-                </Button>
+                <Tooltip title="Toggle, + or = to toggle drawer" enterDelay={1000} leaveDelay={200}>
+                    <Button variant="outlined" color="inherit" onClick={() => actions.CreateFormHandler(true)}>
+                        Add City
+                    </Button>
+                </Tooltip>
             </Toolbar>
         </AppBar>
     );
