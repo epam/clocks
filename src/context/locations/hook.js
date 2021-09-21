@@ -37,7 +37,7 @@ export const useLocations = () => {
         }
         const currentUserExists = CheckForCityExistence(locations, locationId);
         if (!currentUserExists) {
-            AddLocation(locationId);
+            AddLocation({ cityAscii, iso2, lat, lng });
         }
     }, []);
 
