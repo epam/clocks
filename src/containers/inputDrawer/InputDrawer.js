@@ -21,7 +21,7 @@ const InputDrawer = ({ visibility, setVisibility }) => {
     // find city on input value change
     React.useEffect(() => {
         const matchingCities = lookupCityAscii(value);
-        const bestMatches = sortBestMatch(value, matchingCities.slice(0, 20));
+        const bestMatches = sortBestMatch(value, matchingCities.slice(0, 50));
         setCities(bestMatches);
     }, [value]);
     // focus on input when drawer is open
