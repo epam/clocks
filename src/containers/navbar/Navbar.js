@@ -39,7 +39,7 @@ const Navbar = () => {
                 <Button className={classes.title} onClick={actions.ResetUrl}>
                     <img src={logo} alt="logo" />
                 </Button>
-                <PlanningMode />
+                {/* <PlanningMode /> */}
                 <Button variant="outlined" color="inherit" onClick={() => actions.CreateFormHandler(true)}>
                     Add City
                 </Button>
