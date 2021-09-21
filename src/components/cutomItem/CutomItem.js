@@ -64,7 +64,7 @@ const CustomItem = ({ target, onSelect, added = false }) => {
                     <span className={css.city}>{target.city}</span>
                 </div>
                 <span className={css.country}>
-                    {target.country}, {target.province}
+                    {target.country} {target.province ? `, ${target.province}` : ''}
                 </span>
             </div>
         </Item>
