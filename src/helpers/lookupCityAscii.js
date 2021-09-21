@@ -1,10 +1,8 @@
 import { cityMapping } from 'city-timezones';
 
 function findPartialMatch(itemsToSearch, searchString) {
-    const searchItems = searchString.split(' ');
-    return searchItems.every(i => {
-        return itemsToSearch.join().toLowerCase().indexOf(i.toLowerCase()) >= 0;
-    });
+    const regexp = new RegExp(searchString.toLowerCase(), 'gi');
+    return regexp.test(itemsToSearch.join().toLowerCase());
 }
 
 function lookupCityAscii(searchString) {
