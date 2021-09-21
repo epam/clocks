@@ -34,6 +34,7 @@ const Dashboard = () => {
         const handleKeyDown = event => {
             if (event.key === '=' || event.key === '+') {
                 actions.CreateFormHandler();
+                event.preventDefault();
             }
         };
         window.addEventListener('keydown', handleKeyDown);
