@@ -11,7 +11,7 @@ const fs = require("fs");
     // await execa("yarn", ["build"]);
     // Understand if it's dist or build folder
     const folderName = fs.existsSync("dist") ? "dist" : "build";
-    // fs.writeFile(folderName + '/CNAME', "clocks.epam.com", function(err) {});
+    fs.writeFile(folderName + '/CNAME', "clocks.lab.epam.com", function(err) {});
     await execa("git", ["--work-tree", folderName, "add", "--all"]);
     await execa("git", ["--work-tree", folderName, "commit", "-m", "gh-pages"]);
     console.log("Pushing to gh-pages...");
