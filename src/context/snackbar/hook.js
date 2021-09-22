@@ -20,9 +20,13 @@ export const useSnackbar = () => {
     };
 
     return {
-        isSnackbarOpen,
-        message,
-        SnackbarHandler,
-        OpenSnackbar
+        state: {
+            isSnackbarOpen,
+            message
+        },
+        actions: {
+            SnackbarHandler,
+            OpenSnackbar
+        }
     };
 };
