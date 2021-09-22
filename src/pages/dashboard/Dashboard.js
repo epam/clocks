@@ -15,7 +15,10 @@ import css from './Dashboard.module.scss';
 
 const Dashboard = () => {
     const { state, actions } = useContext(LocationsContext);
-    const { isSnackbarOpen, SnackbarHandler, message } = useContext(SnackbarContext);
+    const {
+        state: { isSnackbarOpen, message },
+        actions: { SnackbarHandler }
+    } = useContext(SnackbarContext);
     const [width, setWidth] = useState(280);
 
     useEffect(() => {
@@ -63,8 +66,7 @@ const Dashboard = () => {
                     horizontal: 'left'
                 }}
                 open={isSnackbarOpen}
-                autoHideDuration={6000}
-                onClose={SnackbarHandler}
+                autoHideDuration={3}
                 message={message || ''}
                 action={
                     <>

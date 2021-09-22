@@ -7,7 +7,9 @@ import { PARAM_KEYWORD } from '../../constants';
 
 export const useUrl = () => {
     const { SetParam, GetParam } = useQueryParams();
-    const { OpenSnackbar } = useContext(SnackbarContext);
+    const {
+        actions: { OpenSnackbar }
+    } = useContext(SnackbarContext);
 
     const AddLocation = ({ cityAscii, iso2, lat, lng, message = '' }) => {
         const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
