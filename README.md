@@ -13,7 +13,7 @@ Allows to add arbitrary comments to time zones;\
 Minimalistic enough to embed it into another HTML page via <iframe> (no ads or spy software, etc.)\
   
 ## Environment
-Clocks.laba.epam.com
+Clocks.lab.epam.com
   
 ## How to use  
   
