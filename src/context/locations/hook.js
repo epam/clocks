@@ -42,6 +42,7 @@ export const useLocations = () => {
     }, []);
 
     useEffect(() => {
+        debugger;
         let locationsFromUlrParams = GetParam(PARAM_KEYWORD) || [];
         if (!Array.isArray(locationsFromUlrParams)) {
             return console.error('Locations from url must be array');

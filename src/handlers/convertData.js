@@ -62,16 +62,6 @@ const convertData = list => {
                 offset: findOffset(item.timezone),
                 host: false
             }));
-
-            array.push({
-                city: target.city,
-                country: target.country,
-                timezone: target.timezone,
-                message: '',
-
-                offset: { hours: 0, minutes: 0 },
-                host: true
-            });
         } else {
             return list;
         }

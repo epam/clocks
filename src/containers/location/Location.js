@@ -53,7 +53,6 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
             </div>
             <LocationDropdown
                 visibility={drawerVisibility}
-                isHost={host}
                 setVisibility={value => setDrawerVisibility(value)}
                 addComment={() => setMessageVisibility(true)}
                 deleteCity={handleDelete}
