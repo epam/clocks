@@ -26,6 +26,7 @@ export const useUrl = () => {
     };
 
     const DeleteLocation = locationId => {
+        debugger;
         if (!locationId) {
             return console.error('Id for deleting location is not valid!');
         }
