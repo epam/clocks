@@ -23,12 +23,13 @@ Clocks.lab.epam.com
   The application shows the time in the selected location, location name, country and time zone.
 When you go to the page to Clocks.lab.epam.com, the dashboard automatically creates a widget with information for the user's location.\
   
-![изображение](https://user-images.githubusercontent.com/88092877/134654225-7aacb58c-d308-47a6-ba07-cc2a35d01505.png)
+![изображение](https://user-images.githubusercontent.com/88092877/134662957-8c7729e0-2c8a-4986-a502-dea316dedace.png)
+
 
   Users can add other locations through the "add city" button. It also displays information about the time difference between the user's location and the added location. users can delete widgets for locations on the dashboard.
 In addition, it is possible to add comments for locations. \
   
-  ![изображение](https://user-images.githubusercontent.com/88092877/134655648-887616c7-9cf2-416a-b214-034713cbbbe6.png)
+![изображение](https://user-images.githubusercontent.com/88092877/134655648-887616c7-9cf2-416a-b214-034713cbbbe6.png)
   
 ### Using hotkeys 
   
