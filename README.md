@@ -16,10 +16,10 @@ Minimalistic enough to embed it into another HTML page via <iframe> (no ads or s
 
   
   
-## Environment
+### Environment
 Clocks.lab.epam.com
   
-## How to use  
+### How to use  
   The application shows the time in the selected location, location name, country and time zone.
 When you go to the page to Clocks.lab.epam.com, the dashboard automatically creates a widget with information for the user's location.\
   
@@ -30,7 +30,7 @@ In addition, it is possible to add comments for locations. \
   
   ![изображение](https://user-images.githubusercontent.com/88092877/134655648-887616c7-9cf2-416a-b214-034713cbbbe6.png)
   
-## Using hotkeys 
+### Using hotkeys 
   
 Ctrl Q - open "Add new city"\
 Esc - close "Add new city"\
