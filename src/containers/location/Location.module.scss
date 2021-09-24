@@ -1,61 +1,61 @@
 .card {
-  min-height: 350px;
-  padding: 3rem;
-  padding-bottom: .5rem;
-  height: 100%;
-  overflow: hidden;
-  transition: all 0.25s ease-out;
-  min-width: 280px;
-  position: relative;
-  &:hover {
-    box-shadow: 0 0 2px #bcb9b5;
-    .gear {
-      opacity: 0.3;
+    min-height: 350px;
+    padding: 3rem;
+    padding-bottom: 0.5rem;
+    height: 100%;
+    overflow: hidden;
+    transition: all 0.25s ease-out;
+    min-width: 280px;
+    position: relative;
+    &:hover {
+        box-shadow: 0 0 2px #bcb9b5;
+        .recycle-bin,
+        .comment-icon {
+            opacity: 0.7;
+        }
     }
-  }
-
-  .gear {
-    position: absolute;
-    top: .5rem;
-    right: 15px;
-    opacity: 0;
-    z-index: 2;
-    transition: opacity 0.2s linear;
-    cursor: pointer;
-    svg {
-      width: 24px;
-      height: 24px;
+    .recycle-bin {
+        position: absolute;
+        top: 12px;
+        right: 16px;
+        opacity: 0;
+        z-index: 2;
+        transition: opacity 0.2s linear;
+        cursor: pointer;
     }
-  }
+    .comment-icon {
+        opacity: 0;
+    }
 }
-
 
 .content {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
-.textArea, .message {
-  min-height: 100px;
-  margin-top: 8px;
+
+.textArea,
+.message {
+    min-height: 100px;
+    margin-top: 8px;
 }
 
 .textArea {
-  padding: 5px;
-  width: 90%;
-  resize: vertical;
-  border: 1px solid orange;
-  box-shadow: 0 0 2px 1px orange;
-  outline: none;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-size: 16px;
+    padding: 5px;
+    width: 90%;
+    resize: vertical;
+    border: 1px solid orange;
+    box-shadow: 0 0 2px 1px orange;
+    outline: none;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    font-size: 16px;
 }
 .message {
-  color: grey;
-  text-decoration: underline;
-  text-decoration-style: dotted;
-  white-space: pre-wrap;
-  cursor: pointer;
+    color: grey;
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    white-space: pre-wrap;
+    cursor: pointer;
 }

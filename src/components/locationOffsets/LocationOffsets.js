@@ -1,11 +1,12 @@
 import React from 'react';
 import { Typography, makeStyles } from '@material-ui/core';
+import { EpamColors } from '../../constants';
 
 const useStyle = makeStyles({
     host: {
         padding: '2px 8px',
         color: 'white',
-        backgroundColor: 'orange',
+        backgroundColor: EpamColors.blue,
         borderRadius: 20,
         marginBottom: 8
     },

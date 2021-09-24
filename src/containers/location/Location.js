@@ -1,24 +1,29 @@
 import React, { useContext, useRef, useState, useEffect } from 'react';
 
 import { IconButton, Typography } from '@material-ui/core';
-import { Gear } from '../../assets/icons/icons';
 import { LocationsContext } from '../../context/locations';
 import { SnackbarContext } from '../../context/snackbar';
-import LocationDropdown from '../../components/locationDropdown';
+import { ModalContext } from '../../context/modal';
 import LocationOffsets from '../../components/locationOffsets';
 import LocationContent from '../../components/locationContent';
 import css from './Location.module.scss';
+import { Comment } from '../../assets/icons/icons';
+import recycleBinIcon from '../../assets/icons/recycle-bin.svg';
 
 const Location = ({ timezone, city, country, offset, host, id, message }) => {
     const { hours, minutes } = offset;
-    const { actions } = useContext(LocationsContext);
+    const {
+        actions: { AddComment }
+    } = useContext(LocationsContext);
+    const {
+        actions: { OpenDeleteModal }
+    } = useContext(ModalContext);
     const {
         actions: { OpenSnackbar, SnackbarHandler },
         state: { isSnackbarOpen }
     } = useContext(SnackbarContext);
     const textAreaRef = useRef(null);
 
-    const [drawerVisibility, setDrawerVisibility] = useState(false);
     const [messageVisibility, setMessageVisibility] = useState(false);
 
     useEffect(() => {
@@ -26,11 +31,6 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
             textAreaRef.current.focus();
         }
     }, [messageVisibility]);
-
-    const handleDelete = () => {
-        actions.DeleteLocation(id);
-        setDrawerVisibility(false);
-    };
 
     const onBlurHandler = event => {
         const comment = event.target?.value;
@@ -40,23 +40,21 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
         if (isSnackbarOpen) {
             SnackbarHandler(false);
         }
-        actions.AddComment(id, event.target.value);
+        AddComment(id, event.target.value);
         setMessageVisibility(false);
+    };
+
+    const openDeleteModal = () => {
+        OpenDeleteModal(id);
     };
 
     return (
         <div className={css.card}>
-            <div className={css.gear}>
-                <IconButton onClick={() => setDrawerVisibility(true)}>
-                    <Gear />
+            <div className={css['recycle-bin']}>
+                <IconButton onClick={openDeleteModal}>
+                    <img src={recycleBinIcon} alt="recycle-bin" className="icon" />
                 </IconButton>
             </div>
-            <LocationDropdown
-                visibility={drawerVisibility}
-                setVisibility={value => setDrawerVisibility(value)}
-                addComment={() => setMessageVisibility(true)}
-                deleteCity={handleDelete}
-            />
             <div className={css.content}>
                 <LocationOffsets hours={hours} minutes={minutes} host={host} />
                 <LocationContent city={city} country={country} timezone={timezone} />
@@ -70,10 +68,14 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
                         className={css.textArea}
                         rows="3"
                     />
-                ) : (
+                ) : message ? (
                     <Typography onClick={() => setMessageVisibility(true)} className={css.message} variant="body1">
                         {message}
                     </Typography>
+                ) : (
+                    <IconButton className={css['comment-icon']} onClick={() => setMessageVisibility(true)}>
+                        <Comment />
+                    </IconButton>
                 )}
             </div>
         </div>
