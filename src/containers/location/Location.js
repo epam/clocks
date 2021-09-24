@@ -7,6 +7,7 @@ import { ModalContext } from '../../context/modal';
 import LocationOffsets from '../../components/locationOffsets';
 import LocationContent from '../../components/locationContent';
 import css from './Location.module.scss';
+import { Comment } from '../../assets/icons/icons';
 import recycleBinIcon from '../../assets/icons/recycle-bin.svg';
 
 const Location = ({ timezone, city, country, offset, host, id, message }) => {
@@ -67,10 +68,14 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
                         className={css.textArea}
                         rows="3"
                     />
-                ) : (
+                ) : message ? (
                     <Typography onClick={() => setMessageVisibility(true)} className={css.message} variant="body1">
                         {message}
                     </Typography>
+                ) : (
+                    <IconButton className={css['comment-icon']} onClick={() => setMessageVisibility(true)}>
+                        <Comment />
+                    </IconButton>
                 )}
             </div>
         </div>
