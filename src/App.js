@@ -5,20 +5,23 @@ import Dashboard from './pages/dashboard';
 import './assets/styles/index.scss';
 import { SnackbarProvider } from './context/snackbar';
 import { PlanningModeProvider } from './context/planningMode';
+import { ModalProvider } from './context/modal';
 
 function App() {
     return (
         <SnackbarProvider>
             <PlanningModeProvider>
-                <LocationsProvider>
-                    <div className="App">
-                        <Switch>
-                            <Route>
-                                <Dashboard />
-                            </Route>
-                        </Switch>
-                    </div>
-                </LocationsProvider>
+                <ModalProvider>
+                    <LocationsProvider>
+                        <div className="App">
+                            <Switch>
+                                <Route>
+                                    <Dashboard />
+                                </Route>
+                            </Switch>
+                        </div>
+                    </LocationsProvider>
+                </ModalProvider>
             </PlanningModeProvider>
         </SnackbarProvider>
     );
