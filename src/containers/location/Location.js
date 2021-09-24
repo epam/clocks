@@ -56,8 +56,15 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
                 </IconButton>
             </div>
             <div className={css.content}>
-                <LocationOffsets hours={hours} minutes={minutes} host={host} />
-                <LocationContent city={city} country={country} timezone={timezone} />
+                {/* <LocationOffsets hours={hours} minutes={minutes} host={host} /> */}
+                <LocationContent
+                    hours={hours}
+                    minutes={minutes}
+                    host={host}
+                    city={city}
+                    country={country}
+                    timezone={timezone}
+                />
 
                 {messageVisibility ? (
                     <textarea
