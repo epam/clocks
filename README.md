@@ -11,6 +11,10 @@ No account registration needed for every users to read previously configured dat
 Produces a permanent sharable link that can be sent to third party users;\
 Allows to add arbitrary comments to time zones;\
 Minimalistic enough to embed it into another HTML page via <iframe> (no ads or spy software, etc.)\
+
+  ![изображение](https://user-images.githubusercontent.com/88092877/134647694-1c002995-4737-4765-8e59-8cc91addcd5a.png)
+
+  
   
 ## Environment
 Clocks.lab.epam.com
