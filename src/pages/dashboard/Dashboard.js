@@ -12,6 +12,7 @@ import { handleResize } from '../../handlers';
 import InputDrawer from '../../containers/inputDrawer';
 
 import css from './Dashboard.module.scss';
+import { AppModal } from '../../components/modal';
 
 const Dashboard = () => {
     const { state, actions } = useContext(LocationsContext);
@@ -48,6 +49,7 @@ const Dashboard = () => {
     return (
         <>
             <Navbar />
+            <AppModal />
             <div className={css.container}>
                 {state.locations &&
                     state.locations.map((props, index) => (
