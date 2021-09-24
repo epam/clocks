@@ -5,6 +5,8 @@ import { LocationsContext } from '../../context/locations';
 import logo from '../../assets/images/logo.svg';
 import { PlanningMode } from '../../components/planningMode/PlanningMode';
 
+console.log('test');
+
 const useStyles = makeStyles(theme => ({
     appbar: {
         boxShadow: 'none',
