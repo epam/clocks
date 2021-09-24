@@ -32,9 +32,9 @@ In addition, it is possible to add comments for locations. \
   
 ## Using hotkeys 
   
-Ctrl Q - open "Add new city"
-Esc - close "Add new city"
-Tab - switching to next element  
+Ctrl Q - open "Add new city"\
+Esc - close "Add new city"\
+Tab - switching to next element\
   
   
   
