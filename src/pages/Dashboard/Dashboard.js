@@ -20,41 +20,24 @@ const Dashboard = () => {
         state: { isSnackbarOpen, message },
         actions: { SnackbarHandler }
     } = useContext(SnackbarContext);
-    const [width, setWidth] = useState(280);
 
-    useEffect(() => {
-        const handle = () => {
-            setWidth(handleResize(state.locations.length || 1));
-        };
-
-        window.addEventListener('resize', handle);
-
-        handle();
-
-        return () => window.removeEventListener('resize', handle);
-    }, [state.locations.length]);
-
-    useEffect(() => {
-        const handleKeyDown = event => {
-            if (event.key === '=' || event.key === '+') {
-                actions.CreateFormHandler();
-                event.preventDefault();
-            }
-        };
-        window.addEventListener('keydown', handleKeyDown);
-
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [actions]);
+    const handleKeyDown = event => {
+        if (event.key === '=' || event.key === '+') {
+            actions.CreateFormHandler();
+            event.preventDefault();
+        }
+    };
 
     return (
-        <>
+        // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex,jsx-a11y/no-static-element-interactions
+        <div tabIndex="0" onKeyPress={handleKeyDown} className="wrapper">
             <Navbar />
             <AppModal />
             <div className={css.container}>
                 {state.locations &&
                     state.locations.map((props, index) => (
-                        <div style={{ width }} key={index}>
-                            <Location {...props} width={width} />
+                        <div key={index}>
+                            <Location {...props} />
                         </div>
                     ))}
                 <InputDrawer
@@ -79,7 +62,7 @@ const Dashboard = () => {
                 }
             />
             <Footer />
-        </>
+        </div>
     );
 };
 

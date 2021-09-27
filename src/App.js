@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { LocationsProvider } from './context/locations';
-import Dashboard from './pages/dashboard';
+import Dashboard from './pages/Dashboard';
 import './assets/styles/index.scss';
 import { SnackbarProvider } from './context/snackbar';
 import { PlanningModeProvider } from './context/planningMode';

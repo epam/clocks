@@ -27,7 +27,7 @@ export const useUrl = () => {
 
     const DeleteLocation = locationId => {
         if (!locationId) {
-            return console.error('Id for deleting location is not valid!');
+            return console.error('Id for deleting Location is not valid!');
         }
         const locationsFromUrl = GetParam(PARAM_KEYWORD) || [];
         if (!Array.isArray(locationsFromUrl)) {
