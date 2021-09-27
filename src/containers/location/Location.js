@@ -4,7 +4,6 @@ import { IconButton, Typography } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
 import { SnackbarContext } from '../../context/snackbar';
 import { ModalContext } from '../../context/modal';
-import LocationOffsets from '../../components/LocationOffsets';
 import LocationContent from '../../components/LocationContent';
 import css from './Location.module.scss';
 import { Comment } from '../../assets/icons/icons';
@@ -56,7 +55,6 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
                 </IconButton>
             </div>
             <div className={css.content}>
-                {/* <LocationOffsets hours={hours} minutes={minutes} host={host} /> */}
                 <LocationContent
                     hours={hours}
                     minutes={minutes}
