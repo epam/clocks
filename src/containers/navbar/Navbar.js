@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Button, Tooltip } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
 import logo from '../../assets/images/logo.svg';
-import { PlanningMode } from '../../components/planningMode/PlanningMode';
+import PlanningMode from '../../components/PlanningMode';
 
 const useStyles = makeStyles(theme => ({
     appbar: {

@@ -1,6 +1,6 @@
 import React from 'react';
-import { SnackbarContext } from './Context';
-import { useSnackbar } from './hook';
+import { SnackbarContext } from './SnackbarContext';
+import { useSnackbar } from './useSnackbar';
 
 export const SnackbarProvider = ({ children }) => {
     const store = useSnackbar();

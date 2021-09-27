@@ -1,5 +1,5 @@
-import { ModalContext } from './Context';
-import { ModalProvider } from './Provider';
-import { useModal } from './hook';
+import { ModalContext } from './ModalContext';
+import { ModalProvider } from './ModalProvider';
+import { useModal } from './useModal';
 
 export { useModal, ModalProvider, ModalContext };

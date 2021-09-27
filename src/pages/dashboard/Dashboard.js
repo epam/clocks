@@ -12,7 +12,7 @@ import { handleResize } from '../../handlers';
 import InputDrawer from '../../containers/inputDrawer';
 
 import css from './Dashboard.module.scss';
-import { AppModal } from '../../components/modal';
+import AppModal from '../../components/Modal';
 
 const Dashboard = () => {
     const { state, actions } = useContext(LocationsContext);

@@ -1,5 +1,5 @@
-import { SnackbarContext } from './Context';
-import { SnackbarProvider } from './Provider';
-import { useSnackbar } from './hook';
+import { SnackbarContext } from './SnackbarContext';
+import { SnackbarProvider } from './SnackbarProvider';
+import { useSnackbar } from './useSnackbar';
 
 export { useSnackbar, SnackbarProvider, SnackbarContext };

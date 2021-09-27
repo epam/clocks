@@ -1,6 +1,6 @@
 import React from 'react';
-import { ModalContext } from './Context';
-import { useModal } from './hook';
+import { ModalContext } from './ModalContext';
+import { useModal } from './useModal';
 
 export const ModalProvider = ({ children }) => {
     const store = useModal();

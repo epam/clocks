@@ -76,4 +76,4 @@ const PlanningMode = () => {
     );
 };
 
-export { PlanningMode };
+export default PlanningMode;

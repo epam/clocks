@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { Typography } from '@material-ui/core';
 import moment from 'moment-timezone';
-import LocationOffsets from '../locationOffsets';
+import LocationOffsets from '../LocationOffsets';
 import css from './LocationContent.module.scss';
 
 const LocationContent = ({ city = '', country = '', timezone = '', hours, minutes, host }) => {
