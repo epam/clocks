@@ -5,11 +5,11 @@ import IconButton from '@material-ui/core/IconButton';
 
 import { LocationsContext } from '../../context/locations';
 import { SnackbarContext } from '../../context/snackbar';
-import Location from '../../containers/location';
-import Navbar from '../../containers/navbar';
-import Footer from '../../containers/footer';
+import Location from '../../containers/Location';
+import Navbar from '../../containers/Navbar';
+import Footer from '../../containers/Footer';
 import { handleResize } from '../../handlers';
-import InputDrawer from '../../containers/inputDrawer';
+import InputDrawer from '../../containers/InputDrawer';
 
 import css from './Dashboard.module.scss';
 import AppModal from '../../components/Modal';
