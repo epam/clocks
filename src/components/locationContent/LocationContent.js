@@ -34,7 +34,7 @@ const LocationContent = ({ city = '', country = '', timezone = '', hours, minute
             </span>
             <LocationOffsets hours={hours} minutes={minutes} host={host} />
             <Typography variant="h5">{city}</Typography>
-            <Typography variant="subtitle2" className={css.country}>
+            <Typography variant="subtitle2" className="text-uppercase text-gray">
                 {country}
             </Typography>
             <Typography variant="body2">

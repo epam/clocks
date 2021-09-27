@@ -6,4 +6,9 @@ const EpamColors = {
     ink: '#8e244d'
 };
 
-export { EpamColors };
+const Colors = {
+    gray: '#bcb9b5',
+    lightGray: '#dcdcda'
+};
+
+export { EpamColors, Colors };
