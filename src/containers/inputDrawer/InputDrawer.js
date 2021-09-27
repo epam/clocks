@@ -4,8 +4,8 @@ import { CrossIcon } from '../../assets/icons/icons';
 import css from './InputDrawer.module.scss';
 import { lookupCityAscii, sortBestMatch } from '../../helpers';
 import { LocationsContext } from '../../context/locations';
-import CustomInput from '../../components/customInput';
-import CustomItem from '../../components/cutomItem';
+import CustomInput from '../../components/CustomInput';
+import CustomItem from '../../components/CustomItem';
 
 const InputDrawer = ({ visibility, setVisibility }) => {
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);

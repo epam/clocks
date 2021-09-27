@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-export default function AppModal() {
+function AppModal() {
     const classes = useStyles();
     const {
         state: { isModalOpen, locationId },
@@ -75,3 +75,5 @@ export default function AppModal() {
         </Modal>
     );
 }
+
+export default AppModal;
