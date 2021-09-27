@@ -1,6 +1,7 @@
 import React from 'react';
 import { MenuItem, withStyles, makeStyles } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
+import { Colors, EpamColors } from '../../constants/colors';
 
 const Item = withStyles({
     root: {
@@ -29,27 +30,24 @@ const useStyle = makeStyles(() => ({
         fontWeight: 600
     },
     mark: {
-        color: '#464547',
+        color: EpamColors.black,
         fontWeight: 400
     },
     country: {
         fontSize: 14,
         fontWeight: 400,
-        color: '#464547'
+        color: EpamColors.black
     },
     disabled: {
-        backgroundColor: '#dcdcda',
-        pointerEvents: 'none',
-        '&:hover': {
-            backgroundColor: '#dcdcda'
-        }
+        backgroundColor: Colors.lightGray,
+        pointerEvents: 'none'
     },
     badge: {
         display: 'block',
         '& span.MuiBadge-badge': {
             transform: 'translate(0, -50%)',
             padding: '1em',
-            backgroundColor: '#39C2D7'
+            backgroundColor: EpamColors.blue
         }
     }
 }));
