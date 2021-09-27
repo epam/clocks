@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Button, Tooltip } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
 import logo from '../../assets/images/logo.svg';
-import PlanningMode from '../../components/PlanningMode';
 
 const useStyles = makeStyles(theme => ({
     appbar: {
@@ -38,7 +37,6 @@ const Navbar = () => {
                 <Button className={classes.title} onClick={actions.ResetUrl}>
                     <img src={logo} alt="logo" />
                 </Button>
-                {/* <PlanningMode /> */}
                 <Button variant="outlined" color="inherit" onClick={() => actions.CreateFormHandler(true)}>
                     Add City
                 </Button>
