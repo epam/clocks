@@ -23,7 +23,7 @@ const LocationContent = ({ city = '', country = '', timezone = '', hours, minute
 
     return (
         <>
-            <Typography paragraph variant="subtitle2" className={`${css.grey} m-0`}>
+            <Typography paragraph variant="subtitle2" className={`${css.grey} m-0 text-center`}>
                 {time.format('D MMM')}
             </Typography>
             <span className={css.time}>
@@ -33,11 +33,13 @@ const LocationContent = ({ city = '', country = '', timezone = '', hours, minute
                 <Typography variant="h2">{time.format('mm')}</Typography>
             </span>
             <LocationOffsets hours={hours} minutes={minutes} host={host} />
-            <Typography variant="h5">{city}</Typography>
-            <Typography variant="subtitle2" className="text-uppercase text-gray">
+            <Typography className="text-center" variant="h5">
+                {city}
+            </Typography>
+            <Typography variant="subtitle2" className="text-uppercase text-gray text-center">
                 {country}
             </Typography>
-            <Typography variant="body2">
+            <Typography className="text-center" variant="body2">
                 {timezone} GMT {gmtOffset}
             </Typography>
         </>
