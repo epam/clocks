@@ -6,6 +6,7 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { ModalContext } from '../../context/modal';
 import { LocationsContext } from '../../context/locations';
+import { EpamColors } from '../../constants';
 
 const useStyles = makeStyles(theme => ({
     modal: {
@@ -15,15 +16,36 @@ const useStyles = makeStyles(theme => ({
     },
     paper: {
         backgroundColor: theme.palette.background.paper,
-        borderRadius: '1em',
+        borderRadius: 0,
         boxShadow: theme.shadows[5],
-        padding: theme.spacing(2, 4, 3),
-        outline: 'none'
+        minWidth: '400px',
+        minHeight: '150px',
+        outline: 'none',
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'space-between'
+    },
+    textBlock: {
+        flex: '1 1 50px',
+        fontSize: '1.3rem',
+        letterSpacing: '.02em'
     },
     buttonsContainer: {
-        marginTop: '1.5rem',
         display: 'flex',
         justifyContent: 'space-around'
+    },
+    button: {
+        width: '50%',
+        borderRadius: 0
+    },
+    deleteButton: {
+        backgroundColor: EpamColors.red,
+        opacity: 0.95,
+        color: 'white',
+        '&:hover': {
+            backgroundColor: EpamColors.red,
+            opacity: 1
+        }
     }
 }));
 
@@ -61,12 +83,18 @@ function AppModal() {
         >
             <Fade in={isModalOpen}>
                 <div className={classes.paper}>
-                    <h2 id="transition-modal-title">Do you want to delete this location</h2>
+                    <div className={`content-center ${classes.textBlock}`}>
+                        <p id="transition-modal-title">Do you want to delete this location</p>
+                    </div>
                     <div className={classes.buttonsContainer}>
-                        <Button variant="contained" onClick={handleClose}>
+                        <Button variant="contained" className={classes.button} onClick={handleClose}>
                             Cancel
                         </Button>
-                        <Button variant="contained" color="secondary" onClick={deleteLocation}>
+                        <Button
+                            variant="contained"
+                            className={`${classes.button} ${classes.deleteButton}`}
+                            onClick={deleteLocation}
+                        >
                             Delete
                         </Button>
                     </div>
