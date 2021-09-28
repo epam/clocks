@@ -11,7 +11,7 @@ import Footer from '../../containers/Footer';
 import InputDrawer from '../../containers/InputDrawer';
 
 import css from './Dashboard.module.scss';
-import AppModal from '../../components/Modal';
+import AppModal from '../../components/AppModal';
 
 const Dashboard = () => {
     const { state, actions } = useContext(LocationsContext);
