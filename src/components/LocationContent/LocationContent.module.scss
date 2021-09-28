@@ -1,5 +1,7 @@
+@import '../../assets/styles/constants/colors.scss';
+
 .time {
-  color: #464547;
+  color: $epam-black;
   display: flex;
   .hour {
     &:after {
@@ -9,11 +11,4 @@
       margin: 0 6px;
     }
   }
-}
-.country {
-  color: #bcb9b5;
-  text-transform: uppercase;
-}
-.grey {
-  color: #bcb9b5;
 }

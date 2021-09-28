@@ -1,3 +1,5 @@
+@import '../../assets/styles/constants/colors.scss';
+
 .card {
     min-height: 350px;
     padding: 3rem;
@@ -8,7 +10,7 @@
     min-width: 280px;
     position: relative;
     &:hover {
-        box-shadow: 0 0 2px #bcb9b5;
+        box-shadow: 0 0 2px $gray;
         .recycle-bin,
         .comment-icon {
             opacity: 0.7;
@@ -53,7 +55,7 @@
     font-size: 16px;
 }
 .message {
-    color: grey;
+    color: $light-gray;
     text-decoration: underline;
     text-decoration-style: dotted;
     white-space: pre-wrap;
