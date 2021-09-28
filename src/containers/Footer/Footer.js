@@ -1,13 +1,14 @@
 import React from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 import { LinkedIn, Twitter, Facebook, Instagram, GitHub } from '../../assets/icons/icons';
+import { EpamColors } from '../../constants';
 
 const useStyles = makeStyles(() => ({
     root: {
         width: '100%',
         height: 64,
         padding: '0 24px',
-        background: '#464547',
+        background: EpamColors.black,
         color: 'white',
         display: 'flex',
         justifyContent: 'space-between',
@@ -29,7 +30,7 @@ const useStyles = makeStyles(() => ({
         '& svg': {
             width: 14,
             height: 14,
-            fill: '#fff',
+            fill: 'white',
             pointerEvents: 'none'
         }
     }

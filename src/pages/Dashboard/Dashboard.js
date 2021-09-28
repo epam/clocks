@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -8,11 +8,10 @@ import { SnackbarContext } from '../../context/snackbar';
 import Location from '../../containers/Location';
 import Navbar from '../../containers/Navbar';
 import Footer from '../../containers/Footer';
-import { handleResize } from '../../handlers';
 import InputDrawer from '../../containers/InputDrawer';
 
 import css from './Dashboard.module.scss';
-import AppModal from '../../components/Modal';
+import AppModal from '../../components/AppModal';
 
 const Dashboard = () => {
     const { state, actions } = useContext(LocationsContext);

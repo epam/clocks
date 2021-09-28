@@ -3,11 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Button, Tooltip } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
 import logo from '../../assets/images/logo.svg';
+import { EpamColors } from '../../constants';
 
 const useStyles = makeStyles(theme => ({
     appbar: {
         boxShadow: 'none',
-        background: '#464547',
+        background: EpamColors.black,
         borderBottom: '2px solid rgba(0,0,0,.06)',
         color: 'white'
     },

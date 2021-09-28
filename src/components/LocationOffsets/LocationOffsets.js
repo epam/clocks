@@ -1,6 +1,7 @@
 import React from 'react';
 import { Typography, makeStyles } from '@material-ui/core';
 import { EpamColors } from '../../constants';
+import { Colors } from '../../constants/colors';
 
 const useStyle = makeStyles({
     host: {
@@ -11,7 +12,7 @@ const useStyle = makeStyles({
         marginBottom: 8
     },
     text: {
-        color: '#bcb9b5',
+        color: Colors.gray,
         marginBottom: 10
     },
     empty: {
