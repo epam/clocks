@@ -15,6 +15,7 @@ import AppModal from '../../components/AppModal';
 
 const Dashboard = () => {
     const { state, actions } = useContext(LocationsContext);
+    console.log('🚀 ~ file: Dashboard.js ~ line 18 ~ Dashboard ~ state', state.locations);
     const {
         state: { isSnackbarOpen, message },
         actions: { SnackbarHandler }

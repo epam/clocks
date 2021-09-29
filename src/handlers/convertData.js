@@ -18,7 +18,7 @@ const findOffset = timezone => {
     };
 };
 
-const convertData = list => {
+const convertData = (list, currentUserLocationId) => {
     myTz = moment.tz.guess();
     const matchingTimezones = lookupTimezones(myTz);
     const bestMatch = sortBestMatch(myTz, matchingTimezones);
@@ -27,8 +27,7 @@ const convertData = list => {
     myCity = target.city; // most possibly i live here.
 
     const converted = list.map(urlData => {
-        const { id } = urlData;
-        const { message } = urlData;
+        const { id, message, host } = urlData;
 
         // eslint-disable-next-line array-callback-return
         const obj = cityMapping.find(item => {
@@ -44,10 +43,11 @@ const convertData = list => {
         });
 
         return {
-            id: urlData.id,
+            id,
             city: obj?.city,
             country: obj.country,
             timezone: obj.timezone,
+            host,
             message
         };
     });
@@ -59,8 +59,7 @@ const convertData = list => {
         if (converted.length < 12) {
             array = converted.map(item => ({
                 ...item,
-                offset: findOffset(item.timezone),
-                host: false
+                offset: findOffset(item.timezone)
             }));
         } else {
             return list;
@@ -69,16 +68,15 @@ const convertData = list => {
         let selected = false;
         array = converted.map(item => {
             if (city && item.city === myCity) {
-                return { ...item, offset: { hours: 0, minutes: 0 }, host: true };
+                return { ...item, offset: { hours: 0, minutes: 0 } };
             }
             if (!city && item.timezone === myTz && !selected) {
                 selected = true;
-                return { ...item, offset: { hours: 0, minutes: 0 }, host: true };
+                return { ...item, offset: { hours: 0, minutes: 0 } };
             }
             return {
                 ...item,
-                offset: findOffset(item.timezone),
-                host: false
+                offset: findOffset(item.timezone)
             };
         });
     }

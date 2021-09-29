@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { PARAM_KEYWORD } from '../../constants';
+import { CURRENT_USER_LOCATION_ID, PARAM_KEYWORD } from '../../constants';
 import { getCurrentUserLocation, generateIdFormat, convertData } from '../../handlers';
 import convertFromUrlLocations from '../../handlers/convertFromUrlLocations';
 import { CheckForCityExistence } from '../../helpers/checkCityExistence';
+import { useLocalStorage } from '../../hooks/useLocalStorage/useLocalStorage';
 import { useQueryParams } from '../../hooks/useQueryParams/useQueryParams';
 import { useUrl } from '../../hooks/useUrl/useUrl';
 
 export const useLocations = () => {
     const [locations, setLocations] = useState([]);
     const [hasCreateForm, setHasCreateForm] = useState(false);
+    const { getItem, setItem } = useLocalStorage();
 
     const location = useLocation();
 
@@ -24,10 +26,26 @@ export const useLocations = () => {
         }
     };
 
+    const ChangeUserCurrentLocation = locationId => {
+        if (!locationId) {
+            console.error('Location id for setting user current location is not valid');
+        }
+        setItem(CURRENT_USER_LOCATION_ID, locationId);
+        locations.forEach(location => {
+            if (location.id === locationId) {
+                /* eslint-disable no-param-reassign */
+                location.host = true;
+            } else {
+                location.host = false;
+            }
+        });
+        const convertedLocations = convertData(locations, locationId);
+        setLocations(convertedLocations);
+    };
+
     useEffect(() => {
         let locations = GetParam(PARAM_KEYWORD) || [];
-        const { city_ascii: cityAscii, iso2, lat, lng } = getCurrentUserLocation();
-        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
+        const locationId = getCurrentUserLocation();
         if (!locations || !locations.length) {
             locations = [locationId];
             return SetParam(PARAM_KEYWORD, locations);
@@ -37,7 +55,7 @@ export const useLocations = () => {
         }
         const currentUserExists = CheckForCityExistence(locations, locationId);
         if (!currentUserExists) {
-            AddLocation({ cityAscii, iso2, lat, lng });
+            AddLocation(locationId);
         }
     }, []);
 
@@ -46,13 +64,22 @@ export const useLocations = () => {
         if (!Array.isArray(locationsFromUlrParams)) {
             return console.error('Locations from url must be array');
         }
-        locationsFromUlrParams = convertFromUrlLocations(locationsFromUlrParams);
-        const convertedLocations = convertData(locationsFromUlrParams);
+        const currentUserLocationId = getCurrentUserLocation();
+        locationsFromUlrParams = convertFromUrlLocations(locationsFromUlrParams, currentUserLocationId);
+        const convertedLocations = convertData(locationsFromUlrParams, currentUserLocationId);
         setLocations(convertedLocations);
     }, [location.search]);
 
     return {
         state: { hasCreateForm, locations },
-        actions: { CreateFormHandler, AddLocation, DeleteLocation, ResetUrl, GetLocationsFromUrl, AddComment }
+        actions: {
+            CreateFormHandler,
+            ChangeUserCurrentLocation,
+            AddLocation,
+            DeleteLocation,
+            ResetUrl,
+            GetLocationsFromUrl,
+            AddComment
+        }
     };
 };

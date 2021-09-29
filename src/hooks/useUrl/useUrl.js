@@ -11,8 +11,7 @@ export const useUrl = () => {
         actions: { OpenSnackbar }
     } = useContext(SnackbarContext);
 
-    const AddLocation = ({ cityAscii, iso2, lat, lng, message = '' }) => {
-        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
+    const AddLocation = (locationId, message = '') => {
         const locationsFromUrl = GetParam(PARAM_KEYWORD) || [];
         if (!Array.isArray(locationsFromUrl)) {
             return console.error('Unexpected type!');
