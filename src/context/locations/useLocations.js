@@ -31,6 +31,14 @@ export const useLocations = () => {
             console.error('Location id for setting user current location is not valid');
         }
         setItem(CURRENT_USER_LOCATION_ID, locationId);
+        locations.forEach(location => {
+            if (location.id === locationId) {
+                /* eslint-disable no-param-reassign */
+                location.host = true;
+            } else {
+                location.host = false;
+            }
+        });
         const convertedLocations = convertData(locations, locationId);
         setLocations(convertedLocations);
     };
