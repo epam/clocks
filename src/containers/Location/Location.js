@@ -8,11 +8,12 @@ import LocationContent from '../../components/LocationContent';
 import css from './Location.module.scss';
 import { Comment } from '../../assets/icons/icons';
 import recycleBinIcon from '../../assets/icons/recycle-bin.svg';
+import homeIcon from '../../assets/icons/home.svg';
 
 const Location = ({ timezone, city, country, offset, host, id, message }) => {
     const { hours, minutes } = offset;
     const {
-        actions: { AddComment }
+        actions: { AddComment, ChangeUserCurrentLocation }
     } = useContext(LocationsContext);
     const {
         actions: { OpenDeleteModal }
@@ -47,9 +48,18 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
         OpenDeleteModal(id);
     };
 
+    const changeUserCurrentLocation = () => {
+        ChangeUserCurrentLocation(id);
+    };
+
     return (
         <div className={css.card}>
             <div className={css['recycle-bin']}>
+                {/* {!host && (
+                    <IconButton onClick={changeUserCurrentLocation}>
+                        <img src={homeIcon} alt="recycle-bin" className="icon" />
+                    </IconButton>
+                )} */}
                 <IconButton onClick={openDeleteModal}>
                     <img src={recycleBinIcon} alt="recycle-bin" className="icon" />
                 </IconButton>
