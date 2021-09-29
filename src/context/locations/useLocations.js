@@ -30,10 +30,9 @@ export const useLocations = () => {
         if (!locationId) {
             console.error('Location id for setting user current location is not valid');
         }
-        debugger;
         setItem(CURRENT_USER_LOCATION_ID, locationId);
         const convertedLocations = convertData(locations, locationId);
-        // setLocations(convertedLocations);
+        setLocations(convertedLocations);
     };
 
     useEffect(() => {

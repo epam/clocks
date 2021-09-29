@@ -55,11 +55,11 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
     return (
         <div className={css.card}>
             <div className={css['recycle-bin']}>
-                {/* {!host && (
+                {!host && (
                     <IconButton onClick={changeUserCurrentLocation}>
                         <img src={homeIcon} alt="recycle-bin" className="icon" />
                     </IconButton>
-                )} */}
+                )}
                 <IconButton onClick={openDeleteModal}>
                     <img src={recycleBinIcon} alt="recycle-bin" className="icon" />
                 </IconButton>
