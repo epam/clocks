@@ -58,7 +58,6 @@ export const useLocations = () => {
         }
         const currentUserLocationId = getCurrentUserLocation();
         locationsFromUlrParams = convertFromUrlLocations(locationsFromUlrParams, currentUserLocationId);
-        debugger;
         const convertedLocations = convertData(locationsFromUlrParams, currentUserLocationId);
         setLocations(convertedLocations);
     }, [location.search]);
