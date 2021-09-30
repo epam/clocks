@@ -31,14 +31,6 @@ export const useLocations = () => {
             console.error('Location id for setting user current location is not valid');
         }
         setItem(CURRENT_USER_LOCATION_ID, locationId);
-        locations.forEach(location => {
-            if (location.id === locationId) {
-                /* eslint-disable no-param-reassign */
-                location.host = true;
-            } else {
-                location.host = false;
-            }
-        });
         const convertedLocations = convertData(locations, locationId);
         setLocations(convertedLocations);
     };
@@ -65,7 +57,7 @@ export const useLocations = () => {
             return console.error('Locations from url must be array');
         }
         const currentUserLocationId = getCurrentUserLocation();
-        locationsFromUlrParams = convertFromUrlLocations(locationsFromUlrParams, currentUserLocationId);
+        locationsFromUlrParams = convertFromUrlLocations(locationsFromUlrParams);
         const convertedLocations = convertData(locationsFromUlrParams, currentUserLocationId);
         setLocations(convertedLocations);
     }, [location.search]);

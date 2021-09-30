@@ -1,6 +1,5 @@
 import moment from 'moment-timezone';
 import { cityMapping } from 'city-timezones';
-import { arrayIncludes } from '../helpers';
 
 const findOffset = (myTimezone, otherTimezone) => {
     const now = moment.utc();
@@ -33,23 +32,12 @@ const convertData = (urlDataList, locationId) => {
     const myLocation = convertIdToObject(locationId); // converts users location
     const list = urlDataList.map(urlData => convertIdToObject(urlData['id'], urlData['message']));
 
-    const listContainsLocation = arrayIncludes(locationId, 'id', list);
-
-    if (listContainsLocation) {
-        result = list.map(location => ({
-            ...location,
-            host: false,
-            offset: findOffset(myLocation.timezone, location.timezone)
-        }));
-        result.push({ ...myLocation, host: true, offset: { hours: 0, minutes: 0 } });
-    } else {
-        result = list.map(location => {
-            if (locationId === location['id']) {
-                return { ...location, host: true, offset: { hours: 0, minutes: 0 } };
-            }
-            return { ...location, host: false, offset: findOffset(myLocation.timezone, location.timezone) };
-        });
-    }
+    result = list.map(location => {
+        if (locationId === location['id']) {
+            return { ...location, host: true, offset: { hours: 0, minutes: 0 } };
+        }
+        return { ...location, host: false, offset: findOffset(myLocation.timezone, location.timezone) };
+    });
 
     result.sort((a, b) => {
         const first = a.offset['hours'] * 60 + a.offset['minutes'];
