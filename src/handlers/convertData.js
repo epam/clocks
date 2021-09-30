@@ -1,95 +1,51 @@
 import moment from 'moment-timezone';
 import { cityMapping } from 'city-timezones';
-import { lookupTimezones, sortBestMatch, arrayIncludes } from '../helpers';
 
-let myTz = {};
-let myCity = '';
-let array = [];
-
-const findOffset = timezone => {
+const findOffset = (myTimezone, otherTimezone) => {
     const now = moment.utc();
     // get the zone offsets for this time, in minutes
-    const myTimezone = moment.tz.zone(myTz).utcOffset(now);
-    const otherTimezone = moment.tz.zone(timezone).utcOffset(now);
-    // calculate the difference in hours
+    const myTz = moment.tz.zone(myTimezone).utcOffset(now);
+    const otherTz = moment.tz.zone(otherTimezone).utcOffset(now);
+    // calculate the difference in hours and minutes
     return {
-        hours: Math.floor((myTimezone - otherTimezone) / 60),
-        minutes: Math.abs((myTimezone - otherTimezone) % 60)
+        hours: Math.floor((myTz - otherTz) / 60),
+        minutes: Math.abs((myTz - otherTz) % 60)
     };
 };
 
-const convertData = list => {
-    myTz = moment.tz.guess();
-    const matchingTimezones = lookupTimezones(myTz);
-    const bestMatch = sortBestMatch(myTz, matchingTimezones);
+const convertIdToObject = (id, message = '') => {
+    const obj = cityMapping.find(
+        i => [i.city_ascii, i.iso2, Math.floor(Math.abs(i.lat)), Math.floor(Math.abs(i.lng))].join('_') === id
+    );
 
-    const { target } = bestMatch[0];
-    myCity = target.city; // most possibly i live here.
+    return {
+        id,
+        city: obj.city,
+        country: obj.country,
+        timezone: obj.timezone,
+        message
+    };
+};
 
-    const converted = list.map(urlData => {
-        const { id } = urlData;
-        const { message } = urlData;
+const convertData = (urlDataList, locationId) => {
+    let result = [];
+    const myLocation = convertIdToObject(locationId); // converts users location
+    const list = urlDataList.map(urlData => convertIdToObject(urlData['id'], urlData['message']));
 
-        // eslint-disable-next-line array-callback-return
-        const obj = cityMapping.find(item => {
-            const guid = [
-                item.city_ascii,
-                item.iso2,
-                Math.floor(Math.abs(item.lat)),
-                Math.floor(Math.abs(item.lng))
-            ].join('_');
-            if (guid === id) {
-                return true;
-            }
-        });
-
-        return {
-            id: urlData.id,
-            city: obj?.city,
-            country: obj.country,
-            timezone: obj.timezone,
-            message
-        };
+    result = list.map(location => {
+        if (locationId === location['id']) {
+            return { ...location, host: true, offset: { hours: 0, minutes: 0 } };
+        }
+        return { ...location, host: false, offset: findOffset(myLocation.timezone, location.timezone) };
     });
 
-    const city = arrayIncludes(myCity, 'city_ascii', converted);
-    const timezone = arrayIncludes(myTz, 'timezone', converted);
-
-    if (!city && !timezone) {
-        if (converted.length < 12) {
-            array = converted.map(item => ({
-                ...item,
-                offset: findOffset(item.timezone),
-                host: false
-            }));
-        } else {
-            return list;
-        }
-    } else {
-        let selected = false;
-        array = converted.map(item => {
-            if (city && item.city === myCity) {
-                return { ...item, offset: { hours: 0, minutes: 0 }, host: true };
-            }
-            if (!city && item.timezone === myTz && !selected) {
-                selected = true;
-                return { ...item, offset: { hours: 0, minutes: 0 }, host: true };
-            }
-            return {
-                ...item,
-                offset: findOffset(item.timezone),
-                host: false
-            };
-        });
-    }
-
-    array.sort((a, b) => {
+    result.sort((a, b) => {
         const first = a.offset['hours'] * 60 + a.offset['minutes'];
         const second = b.offset['hours'] * 60 + b.offset['minutes'];
         return first - second;
     });
 
-    return array;
+    return result;
 };
 
 export default convertData;

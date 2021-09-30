@@ -6,6 +6,7 @@ import { lookupCityAscii, sortBestMatch } from '../../helpers';
 import { LocationsContext } from '../../context/locations';
 import CustomInput from '../../components/CustomInput';
 import CustomItem from '../../components/CustomItem';
+import { generateIdFormat } from '../../handlers';
 
 const InputDrawer = ({ visibility, setVisibility }) => {
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -44,13 +45,9 @@ const InputDrawer = ({ visibility, setVisibility }) => {
     }, [visibility]);
 
     const handleSelect = target => {
-        actions.AddLocation({
-            cityAscii: target.city_ascii,
-            iso2: target.iso2,
-            lat: target.lat,
-            lng: target.lng,
-            message: ''
-        });
+        const { city_ascii: cityAscii, iso2, lat, lng } = target;
+        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
+        actions.AddLocation(locationId);
         setValue('');
         setVisibility(false);
     };

@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { Button } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import { ModalContext } from '../../context/modal';
@@ -26,9 +26,10 @@ const useStyles = makeStyles(theme => ({
         justifyContent: 'space-between'
     },
     textBlock: {
-        flex: '1 1 50px',
-        fontSize: '1.3rem',
-        letterSpacing: '.02em'
+        flex: '1 1 50px'
+    },
+    text: {
+        fontSize: '1.3rem'
     },
     buttonsContainer: {
         display: 'flex',
@@ -84,7 +85,9 @@ function AppModal() {
             <Fade in={isModalOpen}>
                 <div className={classes.paper}>
                     <div className={`content-center ${classes.textBlock}`}>
-                        <p id="transition-modal-title">Do you want to delete this location</p>
+                        <Typography paragraph variant="subtitle2" className={`${classes.text} m-0`}>
+                            <p id="transition-modal-title">Do you want to delete this location</p>
+                        </Typography>
                     </div>
                     <div className={classes.buttonsContainer}>
                         <Button variant="contained" className={classes.button} onClick={handleClose}>
