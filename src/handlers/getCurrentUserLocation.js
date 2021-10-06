@@ -1,10 +1,9 @@
 import moment from 'moment-timezone';
+import { cityMapping } from 'city-timezones';
 import generateIdFormat from './generateIdFormat';
 import { CURRENT_USER_LOCATION_ID } from '../constants';
 import { lookupTimezones, sortBestMatch } from '../helpers';
 import getUserLocation from './getUserLocation';
-
-let myTz = {};
 
 const getCurrentUserLocation = async () => {
     const currentUserLocationId = localStorage.getItem(CURRENT_USER_LOCATION_ID);
@@ -15,7 +14,13 @@ const getCurrentUserLocation = async () => {
     if (!error) {
         return id;
     }
-    myTz = moment.tz.guess();
+    const myTz = moment.tz.guess();
+    if (!myTz) {
+        const greenwichMainTime = cityMapping.find(city => city.city_ascii === 'London');
+        const { city_ascii: cityAscii, iso2, lat, lng } = greenwichMainTime;
+        const greenwichMainTimeId = generateIdFormat(cityAscii, iso2, lat, lng);
+        return greenwichMainTimeId;
+    }
     const matchingTimezones = lookupTimezones(myTz);
     // here if else statement
     const bestMatch = sortBestMatch(myTz, matchingTimezones);
