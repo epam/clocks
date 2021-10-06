@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { CURRENT_USER_LOCATION_ID, PARAM_KEYWORD } from '../../constants';
-import { getCurrentUserLocation, generateIdFormat, convertData } from '../../handlers';
+import { getCurrentUserLocation, convertData, getUserLocation } from '../../handlers';
 import convertFromUrlLocations from '../../handlers/convertFromUrlLocations';
 import { CheckForCityExistence } from '../../helpers/checkCityExistence';
 import { useLocalStorage } from '../../hooks/useLocalStorage/useLocalStorage';
@@ -11,7 +11,7 @@ import { useUrl } from '../../hooks/useUrl/useUrl';
 export const useLocations = () => {
     const [locations, setLocations] = useState([]);
     const [hasCreateForm, setHasCreateForm] = useState(false);
-    const { getItem, setItem } = useLocalStorage();
+    const { setItem } = useLocalStorage();
 
     const location = useLocation();
 
@@ -35,9 +35,9 @@ export const useLocations = () => {
         setLocations(convertedLocations);
     };
 
-    useEffect(() => {
+    const SetCurrentUserLocation = async () => {
         let locations = GetParam(PARAM_KEYWORD) || [];
-        const locationId = getCurrentUserLocation();
+        const locationId = await getCurrentUserLocation();
         if (!locations || !locations.length) {
             locations = [locationId];
             return SetParam(PARAM_KEYWORD, locations);
@@ -49,17 +49,25 @@ export const useLocations = () => {
         if (!currentUserExists) {
             AddLocation(locationId);
         }
-    }, []);
+    };
 
-    useEffect(() => {
+    const SetLocationsFromUrl = async () => {
         let locationsFromUlrParams = GetParam(PARAM_KEYWORD) || [];
         if (!Array.isArray(locationsFromUlrParams)) {
             return console.error('Locations from url must be array');
         }
-        const currentUserLocationId = getCurrentUserLocation();
+        const currentUserLocationId = await getCurrentUserLocation();
         locationsFromUlrParams = convertFromUrlLocations(locationsFromUlrParams);
         const convertedLocations = convertData(locationsFromUlrParams, currentUserLocationId);
         setLocations(convertedLocations);
+    };
+
+    useEffect(() => {
+        SetCurrentUserLocation();
+    }, []);
+
+    useEffect(() => {
+        SetLocationsFromUrl();
     }, [location.search]);
 
     return {
