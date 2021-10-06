@@ -1,4 +1,5 @@
 import { cityMapping } from 'city-timezones';
+import generateIdFormat from './generateIdFormat';
 
 const locations = [...cityMapping];
 
@@ -38,12 +39,8 @@ async function getUserLocation() {
                 });
 
                 const city = locations[0];
-                const id = [
-                    city.city_ascii,
-                    city.iso2,
-                    Math.floor(Math.abs(city.lat)),
-                    Math.floor(Math.abs(city.lng))
-                ].join('_');
+                const { city_ascii: cityAscii, iso2, lat, lng } = city;
+                const id = generateIdFormat(cityAscii, iso2, lat, lng);
                 resolve(id);
             }, handleError);
         });
