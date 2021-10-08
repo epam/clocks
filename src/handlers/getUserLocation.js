@@ -29,21 +29,32 @@ async function getUserLocation() {
     }
 
     if (navigator.geolocation) {
-        id = await new Promise(resolve => {
-            navigator.geolocation.getCurrentPosition(({ coords }) => {
-                locations.sort((a, b) => {
-                    const first = Math.abs(a.lat - coords['latitude']) + Math.abs(a.lng - coords['longitude']);
-                    const second = Math.abs(b.lat - coords['latitude']) + Math.abs(b.lng - coords['longitude']);
+        try {
+            id = await new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(
+                    ({ coords }) => {
+                        locations.sort((a, b) => {
+                            const first = Math.abs(a.lat - coords['latitude']) + Math.abs(a.lng - coords['longitude']);
+                            const second = Math.abs(b.lat - coords['latitude']) + Math.abs(b.lng - coords['longitude']);
 
-                    return first - second;
-                });
+                            return first - second;
+                        });
 
-                const city = locations[0];
-                const { city_ascii: cityAscii, iso2, lat, lng } = city;
-                const id = generateIdFormat(cityAscii, iso2, lat, lng);
-                resolve(id);
-            }, handleError);
-        });
+                        const city = locations[0];
+                        const { city_ascii: cityAscii, iso2, lat, lng } = city;
+                        const id = generateIdFormat(cityAscii, iso2, lat, lng);
+                        resolve(id);
+                    },
+                    props => {
+                        handleError(props);
+                        // eslint-disable-next-line prefer-promise-reject-errors
+                        reject('');
+                    }
+                );
+            });
+        } catch (err) {
+            console.error(err);
+        }
     } else {
         error = true;
         message = 'geolocation is not supported by this browser!';
