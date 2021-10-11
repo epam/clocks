@@ -1,5 +1,6 @@
 import moment from 'moment-timezone';
 import { cityMapping } from 'city-timezones';
+import generateIdFormat from './generateIdFormat';
 
 const findOffset = (myTimezone, otherTimezone) => {
     const now = moment.utc();
