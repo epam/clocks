@@ -36,9 +36,8 @@ export const useUrl = () => {
         SetParam(PARAM_KEYWORD, filteredLocations);
     };
 
-    const ResetUrl = () => {
-        const { city_ascii: cityAscii, iso2, lat, lng } = getCurrentUserLocation();
-        const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
+    const ResetUrl = async () => {
+        const locationId = await getCurrentUserLocation();
         const locations = [locationId];
         SetParam(PARAM_KEYWORD, locations);
     };

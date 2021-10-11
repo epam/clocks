@@ -53,7 +53,7 @@ async function getUserLocation() {
                 );
             });
         } catch (err) {
-            console.error(err);
+            console.warn('Getting user location is refused!');
         }
     } else {
         error = true;
