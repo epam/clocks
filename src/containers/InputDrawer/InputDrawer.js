@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Grid, SwipeableDrawer, Toolbar, Typography, IconButton, MenuList } from '@material-ui/core';
 import { CrossIcon } from '../../assets/icons/icons';
 import css from './InputDrawer.module.scss';
@@ -12,6 +12,7 @@ const InputDrawer = ({ visibility, setVisibility }) => {
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
     const { actions } = React.useContext(LocationsContext);
     const input = React.useRef(null);
+    const listRef = React.useRef(null);
     const urlLocations = React.useMemo(() => {
         return new Set(actions?.GetLocationsFromUrl());
     }, [actions]);
@@ -81,7 +82,7 @@ const InputDrawer = ({ visibility, setVisibility }) => {
             <div className={css.drawerBody}>
                 <CustomInput ref={input} value={value} setValue={value => setValue(value)} />
                 <div className={css.drawerList}>
-                    <MenuList>
+                    <MenuList variant="selectedMenu" autoFocus="true" ref={listRef}>
                         {cities.map(({ target }, index) => (
                             <CustomItem
                                 key={index}
