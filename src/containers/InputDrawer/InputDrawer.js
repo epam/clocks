@@ -82,7 +82,7 @@ const InputDrawer = ({ visibility, setVisibility }) => {
             <div className={css.drawerBody}>
                 <CustomInput ref={input} value={value} setValue={value => setValue(value)} />
                 <div className={css.drawerList}>
-                    <MenuList variant="selectedMenu" autoFocus="true" ref={listRef}>
+                    <MenuList variant="selectedMenu" autoFocus ref={listRef}>
                         {cities.map(({ target }, index) => (
                             <CustomItem
                                 key={index}
