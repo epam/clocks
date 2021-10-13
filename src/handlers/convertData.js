@@ -1,6 +1,5 @@
 import moment from 'moment-timezone';
 import { cityMapping } from 'city-timezones';
-import generateIdFormat from './generateIdFormat';
 
 const findOffset = (myTimezone, otherTimezone) => {
     const now = moment.utc();
@@ -15,6 +14,9 @@ const findOffset = (myTimezone, otherTimezone) => {
 };
 
 const convertIdToObject = (id, message = '') => {
+    if (!id) {
+        return null;
+    }
     const obj = cityMapping.find(
         i => [i.city_ascii, i.iso2, Math.floor(Math.abs(i.lat)), Math.floor(Math.abs(i.lng))].join('_') === id
     );
@@ -28,8 +30,11 @@ const convertIdToObject = (id, message = '') => {
     };
 };
 
-const convertData = (urlDataList, locationId) => {
+const convertData = (urlDataList = [], locationId) => {
     let result = [];
+    if (!Array.isArray(urlDataList) || typeof locationId !== 'string') {
+        return result;
+    }
     const myLocation = convertIdToObject(locationId); // converts users location
     const list = urlDataList.map(urlData => convertIdToObject(urlData['id'], urlData['message']));
 
