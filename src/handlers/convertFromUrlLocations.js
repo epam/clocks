@@ -1,6 +1,6 @@
-const convertFromUrlLocations = locations => {
+const convertFromUrlLocations = (locations = []) => {
     if (!Array.isArray(locations)) {
-        return console.error('Locations must be array!');
+        return [];
     }
     return locations.reduce((res, location) => {
         const data = location.split('__');
