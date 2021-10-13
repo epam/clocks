@@ -1,6 +1,7 @@
 import { cityMapping } from 'city-timezones';
 
 const lookupTimezones = timezone => {
+    if (!timezone) return [];
     const tzLookup = cityMapping.filter(o => {
         return o.timezone?.toLowerCase() === timezone.toLowerCase();
     });

@@ -27,8 +27,9 @@ function compareTwoStrings(first, second) {
     return (2.0 * intersectionSize) / (one.length + two.length - 2);
 }
 
-function sortBestMatch(mainString, targetObjects) {
+function sortBestMatch(mainString = '', targetObjects = []) {
     const ratings = [];
+    if (!mainString || targetObjects.length === 0) return [];
 
     for (let i = 0; i < targetObjects.length; i += 1) {
         const currentTargetString = targetObjects[i]?.city_ascii;
