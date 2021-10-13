@@ -36,6 +36,36 @@ const mockDataListResult = [
     }
 ];
 
+const mockDataListResultWithoutHost = [
+    {
+        city: 'Tashkent',
+        country: 'Uzbekistan',
+        host: false,
+        id: 'Tashkent_UZ_41_69',
+        message: '',
+        offset: { hours: 0, minutes: 0 },
+        timezone: 'Asia/Tashkent'
+    },
+    {
+        city: 'Namangan',
+        country: 'Uzbekistan',
+        host: false,
+        id: 'Namangan_UZ_41_71',
+        message: '',
+        offset: { hours: 0, minutes: 0 },
+        timezone: 'Asia/Tashkent'
+    },
+    {
+        city: 'Binghamton',
+        country: 'United States of America',
+        host: false,
+        id: 'Binghamton_US_42_75',
+        message: '',
+        offset: { hours: 0, minutes: 0 },
+        timezone: 'America/New_York'
+    }
+];
+
 describe('convert url locations data function', () => {
     it('returns empty array if arguments are not given or empty', () => {
         expect(convertData()).toEqual([]);
@@ -43,6 +73,13 @@ describe('convert url locations data function', () => {
         expect(convertData({})).toEqual([]);
         expect(convertData([], '')).toEqual([]);
         expect(convertData([], {})).toEqual([]);
+    });
+
+    it('returns converted data without host if host id is not given or not valid', () => {
+        expect(convertData(mockDataList)).toEqual(mockDataListResultWithoutHost);
+        expect(convertData(mockDataList, '')).toEqual(mockDataListResultWithoutHost);
+        expect(convertData(mockDataList, {})).toEqual(mockDataListResultWithoutHost);
+        expect(convertData(mockDataList, [])).toEqual(mockDataListResultWithoutHost);
     });
 
     it('returns widget locations list for valid arguments', () => {
