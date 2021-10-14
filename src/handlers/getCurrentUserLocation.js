@@ -22,7 +22,7 @@ const getCurrentUserLocation = async () => {
         const greenwichMainTimeId = generateIdFormat(cityAscii, iso2, lat, lng);
         return greenwichMainTimeId;
     }
-    const bestMatch = sortBestMatch(myTz, matchingTimezones);
+    const bestMatch = sortBestMatch(myTz, matchingTimezones, 'city_ascii');
     const { target } = bestMatch[0];
     const { city_ascii: cityAscii, iso2, lat, lng } = target;
     return generateIdFormat(cityAscii, iso2, lat, lng);

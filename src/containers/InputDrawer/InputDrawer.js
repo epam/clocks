@@ -23,7 +23,7 @@ const InputDrawer = ({ visibility, setVisibility }) => {
     // find city on input value change
     React.useEffect(() => {
         const matchingCities = lookupCityAscii(value);
-        const bestMatches = sortBestMatch(value, matchingCities.slice(0, 50));
+        const bestMatches = sortBestMatch(value, matchingCities.slice(0, 50), 'city_ascii');
         bestMatches.sort(({ target: a }, { target: b }) => {
             if (a['city'] < b['city']) {
                 return -1;

@@ -1,3 +1,5 @@
+import getObjectProperty from './getObjectProperty';
+
 function compareTwoStrings(first, second) {
     const one = first.replace(/\s+/g, '');
     const two = second.replace(/\s+/g, '');
@@ -27,14 +29,25 @@ function compareTwoStrings(first, second) {
     return (2.0 * intersectionSize) / (one.length + two.length - 2);
 }
 
-function sortBestMatch(mainString = '', targetObjects = []) {
+function sortBestMatch(mainString = '', targetObjects = [], path) {
+    if (typeof mainString !== 'string') return [];
+    if (!Array.isArray(targetObjects) || targetObjects.length === 0) return [];
     const ratings = [];
-    if (!mainString || targetObjects.length === 0) return [];
 
     for (let i = 0; i < targetObjects.length; i += 1) {
-        const currentTargetString = targetObjects[i]?.city_ascii;
+        const element = targetObjects[i];
+        let currentTargetString;
+
+        if (typeof element === 'object' && path) {
+            currentTargetString = getObjectProperty(element, path);
+        } else {
+            currentTargetString = element;
+        }
+
+        if (!currentTargetString || typeof currentTargetString !== 'string') return [];
+
         const currentRating = compareTwoStrings(mainString, currentTargetString);
-        ratings.push({ target: targetObjects[i], rating: currentRating });
+        ratings.push({ target: element, rating: currentRating });
     }
     ratings.sort((a, b) => b.rating - a.rating);
 
