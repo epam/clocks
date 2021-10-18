@@ -45,19 +45,39 @@ const Footer = () => {
                 All Rights Reserved.
             </Typography>
             <div className={css.icons}>
-                <a href="https://github.com/epam" target="_blank" rel="noreferrer">
+                <a href="https://github.com/epam" data-testid="GitHubIconLink" target="_blank" rel="noreferrer">
                     <GitHub />
                 </a>
-                <a href="https://www.linkedin.com/company/epam-systems/" target="_blank" rel="noreferrer">
+                <a
+                    href="https://www.linkedin.com/company/epam-systems/"
+                    data-testid="LinkedInIconLink"
+                    target="_blank"
+                    rel="noreferrer"
+                >
                     <LinkedIn />
                 </a>
-                <a href="https://twitter.com/EPAMSYSTEMS" target="_blank" rel="noreferrer">
+                <a
+                    href="https://twitter.com/EPAMSYSTEMS"
+                    data-testid="TwitterIconLink"
+                    target="_blank"
+                    rel="noreferrer"
+                >
                     <Twitter />
                 </a>
-                <a href="https://www.facebook.com/EPAM.Global" target="_blank" rel="noreferrer">
+                <a
+                    href="https://www.facebook.com/EPAM.Global"
+                    data-testid="FacebookIconLink"
+                    target="_blank"
+                    rel="noreferrer"
+                >
                     <Facebook />
                 </a>
-                <a href="https://www.instagram.com/epamsystems/" target="_blank" rel="noreferrer">
+                <a
+                    href="https://www.instagram.com/epamsystems/"
+                    data-testid="InstagramIconLink"
+                    target="_blank"
+                    rel="noreferrer"
+                >
                     <Instagram />
                 </a>
             </div>
