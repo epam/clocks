@@ -86,7 +86,7 @@ function AppModal() {
                 <div className={classes.paper}>
                     <div className={`content-center ${classes.textBlock}`}>
                         <Typography paragraph variant="subtitle2" className={`${classes.text} m-0`}>
-                            <p id="transition-modal-title">Do you want to delete this location</p>
+                            Do you want to delete this location
                         </Typography>
                     </div>
                     <div className={classes.buttonsContainer}>

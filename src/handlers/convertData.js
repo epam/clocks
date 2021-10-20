@@ -57,4 +57,5 @@ const convertData = (urlDataList = [], locationId) => {
     return result;
 };
 
+export { convertIdToObject };
 export default convertData;
