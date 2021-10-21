@@ -6,18 +6,18 @@ const useQueryParams = () => {
     const location = useLocation();
     const { encode, decode } = useBase64();
 
-    const GetParam = paramName => {
+    const GetParam = <T>(paramName: string): T => {
         const usp = new URLSearchParams(location.search.replace('?', ''));
-        let paramValue = usp.get(paramName);
+        const paramValue = usp.get(paramName);
         const decoded = decode(paramValue);
-        paramValue = JSON.parse(decoded);
-        if (typeof paramValue === 'string') {
-            paramValue = JSON.parse(paramValue);
+        let res: T = JSON.parse(decoded);
+        if (typeof res === 'string') {
+            res = JSON.parse(res);
         }
-        return paramValue;
+        return res;
     };
 
-    const SetParam = (paramName, paramValue) => {
+    const SetParam = <T>(paramName: string, paramValue: T) => {
         const usp = new URLSearchParams(location.search.replace('?', ''));
         usp.set(paramName, encode(JSON.stringify(paramValue)));
         const url = usp.toString();
