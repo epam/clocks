@@ -8,7 +8,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorage/useLocalStorage';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import { useUrl } from '../../hooks/useUrl/useUrl';
 import { ILocation, TLocationId } from '../../types/location';
-import { ILocationContext } from './LocationContext.type';
+import { ILocationContext } from './LocationsContext.type';
 
 export const useLocations = (): ILocationContext => {
     const [locations, setLocations] = useState<ILocation[]>([]);

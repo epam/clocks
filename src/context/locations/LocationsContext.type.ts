@@ -16,7 +16,6 @@ interface IActions {
     AddComment: (locationId: TLocationId, comment: string) => void;
 }
 
-export interface ILocationContext extends IContext {
-    state: Partial<IState>;
-    actions: Partial<IActions>;
-}
+interface ILocationContext extends IContext<IState, IActions> {}
+
+export type { ILocationContext };
