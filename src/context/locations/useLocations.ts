@@ -4,7 +4,7 @@ import { CURRENT_USER_LOCATION_ID, PARAM_KEYWORD } from '../../constants';
 import { getCurrentUserLocation, convertData } from '../../handlers';
 import convertFromUrlLocations from '../../handlers/convertFromUrlLocations';
 import { CheckForCityExistence } from '../../helpers/checkCityExistence';
-import { useLocalStorage } from '../../hooks/useLocalStorage/useLocalStorage';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import { useUrl } from '../../hooks/useUrl/useUrl';
 import { ILocation, TLocationId } from '../../types/location';
