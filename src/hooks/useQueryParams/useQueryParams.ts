@@ -1,16 +1,17 @@
 import { useHistory, useLocation } from 'react-router-dom';
-import { useBase64 } from '../useBase64/useBase64';
+import { useBase64 } from '../useBase64';
 
 const useQueryParams = () => {
     const history = useHistory();
     const location = useLocation();
     const { encode, decode } = useBase64();
 
-    const GetParam = <T>(paramName: string): T => {
+    const GetParam = <T>(paramName: string): T | null => {
         const usp = new URLSearchParams(location.search.replace('?', ''));
         const paramValue = usp.get(paramName);
         const decoded = decode(paramValue);
-        let res: T = JSON.parse(decoded);
+        // @ts-ignore
+        let res: T | null = JSON.parse(decoded);
         if (typeof res === 'string') {
             res = JSON.parse(res);
         }
