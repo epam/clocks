@@ -11,7 +11,18 @@
         "react/no-unescaped-entities": "off",
         "no-shadow": "off",
         "consistent-return": "off",
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+        "react/react-in-jsx-scope": "off",
+        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ],
         "dot-notation": [0, { "allowKeywords": true, "allowPattern": "" }],
         "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
         "react/jsx-props-no-spreading": "off",
@@ -26,5 +37,12 @@
                 "endOfLine": "auto"
             }
         ]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
     }
 }

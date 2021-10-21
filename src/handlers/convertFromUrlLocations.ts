@@ -1,11 +1,13 @@
-const convertFromUrlLocations = (locations = []) => {
+import { IUrlLocation } from '../types/location';
+
+const convertFromUrlLocations = (locations: string[] = []): IUrlLocation[] => {
     if (!Array.isArray(locations)) {
         return [];
     }
-    return locations.reduce((res, location) => {
+    return locations.reduce((res: IUrlLocation[], location: string) => {
         const data = location.split('__');
         const id = data[0];
-        const newLocation = {
+        const newLocation: IUrlLocation = {
             id,
             message: data[1] || ''
         };
