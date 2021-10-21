@@ -1,17 +1,18 @@
 import { useState } from 'react';
+import { TLocationId } from '../../types/location';
 
 export const useModal = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [locationId, setLocationId] = useState('');
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [locationId, setLocationId] = useState<TLocationId>('');
 
-    const ModalHandler = isModalOpen => {
+    const ModalHandler = (isModalOpen?: boolean) => {
         if (typeof isModalOpen === 'boolean') {
             return setIsModalOpen(isModalOpen);
         }
         setIsModalOpen(prev => !prev);
     };
 
-    const OpenDeleteModal = locationId => {
+    const OpenDeleteModal = (locationId: TLocationId) => {
         setIsModalOpen(true);
         setLocationId(locationId);
     };
