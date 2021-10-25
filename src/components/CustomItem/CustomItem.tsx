@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { MenuItem, withStyles, makeStyles } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import { Colors, EpamColors } from '../../constants/colors';
@@ -52,7 +52,12 @@ const useStyle = makeStyles(() => ({
     }
 }));
 
-const CustomItem = ({ target, onSelect, added = false }) => {
+interface IProps {
+    target: any;
+    onSelect: () => void;
+    added: boolean;
+}
+const CustomItem: FC<IProps> = ({ target, onSelect, added = false }) => {
     const css = useStyle();
 
     const render = () => (
