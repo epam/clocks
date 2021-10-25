@@ -4,14 +4,14 @@ export const useSnackbar = () => {
     const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
     const [message, setMessage] = useState('');
 
-    const SnackbarHandler = isOpen => {
+    const SnackbarHandler = (isOpen?: boolean) => {
         if (typeof isOpen === 'boolean') {
             return setIsSnackbarOpen(isOpen);
         }
         setIsSnackbarOpen(prev => !prev);
     };
 
-    const OpenSnackbar = message => {
+    const OpenSnackbar = (message: string) => {
         if (typeof message !== 'string') {
             console.error('Type of message is not string');
         }

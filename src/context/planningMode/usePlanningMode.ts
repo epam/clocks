@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { IPlanningModeContext } from './PlanningMode.type';
+import { IPlanningModeContext } from './PlanningModeContext.type';
 
 export const usePlanningMode = (): IPlanningModeContext => {
     const [isPlanningModeOn, setIsPlanningModeOn] = useState<boolean>(false);
