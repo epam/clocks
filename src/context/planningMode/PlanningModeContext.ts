@@ -1,4 +1,4 @@
 import { createContext } from 'react';
-import { IPlanningModeContext } from './PlanningMode.type';
+import { IPlanningModeContext } from './PlanningModeContext.type';
 
 export const PlanningModeContext = createContext<IPlanningModeContext>({ state: {}, actions: {} });
