@@ -7,11 +7,11 @@ import { CheckForCityExistence } from '../../helpers/checkCityExistence';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import { useUrl } from '../../hooks/useUrl/useUrl';
-import { ILocation, TLocationId } from '../../types/location';
+import { IAppLocation, TLocationId } from '../../types/location';
 import { ILocationContext } from './LocationsContext.type';
 
 export const useLocations = (): ILocationContext => {
-    const [locations, setLocations] = useState<ILocation[]>([]);
+    const [locations, setLocations] = useState<IAppLocation[]>([]);
     const [hasCreateForm, setHasCreateForm] = useState(false);
     const { setItem } = useLocalStorage();
 

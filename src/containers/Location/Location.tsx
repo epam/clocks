@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState, useEffect } from 'react';
+import { useContext, useRef, useState, useEffect, FC } from 'react';
 
 import { IconButton, Typography } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
@@ -9,8 +9,9 @@ import css from './Location.module.scss';
 import { Comment } from '../../assets/icons/icons';
 import recycleBinIcon from '../../assets/icons/recycle-bin.svg';
 import homeIcon from '../../assets/icons/home.svg';
+import { IAppLocation } from '../../types/location';
 
-const Location = ({ timezone, city, country, offset, host, id, message }) => {
+const Location: FC<IAppLocation> = ({ timezone, city, country, offset, host, id, message }) => {
     const { hours, minutes } = offset;
     const {
         actions: { AddComment, ChangeUserCurrentLocation }
@@ -28,28 +29,35 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
 
     useEffect(() => {
         if (messageVisibility && textAreaRef.current) {
+            // @ts-ignore
             textAreaRef.current.focus();
         }
     }, [messageVisibility]);
 
-    const onBlurHandler = event => {
+    const onBlurHandler = (event: any) => {
         const comment = event.target?.value;
-        if (comment.length > 100) {
+        if (comment.length > 100 && OpenSnackbar) {
             return OpenSnackbar('Comment message must not be longer than 100 characters');
         }
-        if (isSnackbarOpen) {
+        if (isSnackbarOpen && SnackbarHandler) {
             SnackbarHandler(false);
         }
-        AddComment(id, event.target.value);
+        if (AddComment) {
+            AddComment(id, event.target.value);
+        }
         setMessageVisibility(false);
     };
 
     const openDeleteModal = () => {
-        OpenDeleteModal(id);
+        if (OpenDeleteModal) {
+            OpenDeleteModal(id);
+        }
     };
 
     const changeUserCurrentLocation = () => {
-        ChangeUserCurrentLocation(id);
+        if (ChangeUserCurrentLocation) {
+            ChangeUserCurrentLocation(id);
+        }
     };
 
     return (
@@ -81,7 +89,7 @@ const Location = ({ timezone, city, country, offset, host, id, message }) => {
                         maxLength={100}
                         onBlur={onBlurHandler}
                         className={css.textArea}
-                        rows="3"
+                        rows={3}
                     />
                 ) : message ? (
                     <Typography onClick={() => setMessageVisibility(true)} className={css.message} variant="body1">

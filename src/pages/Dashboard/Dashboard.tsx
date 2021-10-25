@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -14,22 +14,33 @@ import css from './Dashboard.module.scss';
 import AppModal from '../../containers/AppModal';
 
 const Dashboard = () => {
-    const { state, actions } = useContext(LocationsContext);
+    const {
+        state,
+        actions: { CreateFormHandler }
+    } = useContext(LocationsContext);
     const {
         state: { isSnackbarOpen, message },
         actions: { SnackbarHandler }
     } = useContext(SnackbarContext);
 
-    const handleKeyDown = event => {
+    const handleKeyDown = (event: any) => {
         if (event.key === '=' || event.key === '+') {
-            actions.CreateFormHandler();
+            if (CreateFormHandler) {
+                CreateFormHandler();
+            }
             event.preventDefault();
+        }
+    };
+
+    const snackbarHandler = () => {
+        if (SnackbarHandler) {
+            SnackbarHandler(false);
         }
     };
 
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex,jsx-a11y/no-static-element-interactions
-        <div tabIndex="0" onKeyPress={handleKeyDown} className="wrapper">
+        <div tabIndex={0} onKeyPress={handleKeyDown} className="wrapper">
             <Navbar />
             <AppModal />
             <div className={css.container}>
@@ -39,10 +50,7 @@ const Dashboard = () => {
                             <Location {...props} />
                         </div>
                     ))}
-                <InputDrawer
-                    visibility={state.hasCreateForm}
-                    setVisibility={value => actions.CreateFormHandler(value)}
-                />
+                <InputDrawer visibility={state.hasCreateForm} setVisibility={CreateFormHandler} />
             </div>
             <Snackbar
                 anchorOrigin={{
@@ -54,7 +62,7 @@ const Dashboard = () => {
                 message={message || ''}
                 action={
                     <>
-                        <IconButton size="small" aria-label="close" color="inherit" onClick={SnackbarHandler}>
+                        <IconButton size="small" aria-label="close" color="inherit" onClick={snackbarHandler}>
                             x
                         </IconButton>
                     </>

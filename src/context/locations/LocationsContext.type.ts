@@ -1,9 +1,9 @@
-import { ILocation, TLocationId } from '../../types/location';
+import { IAppLocation, TLocationId } from '../../types/location';
 import { IContext } from '../../types/context';
 
 interface IState {
     hasCreateForm: boolean;
-    locations: ILocation[];
+    locations: IAppLocation[];
 }
 
 interface IActions {

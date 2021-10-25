@@ -12,11 +12,13 @@ import {
     TTimezone
 } from './location';
 import { IUrlLocation, TLocationId } from './urlLocation';
+import { IAppLocation } from './appLocation';
 
 export type {
     IUrlLocation,
-    TLocationId,
     ILocation,
+    IAppLocation,
+    TLocationId,
     TCountry,
     TCity,
     TCityAscii,
