@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC, forwardRef } from 'react';
 import { IconButton, InputBase, withStyles } from '@material-ui/core';
 import { CrossIcon, Search } from '../../assets/icons/icons';
 
@@ -17,13 +17,17 @@ const Input = withStyles({
     }
 })(InputBase);
 
-const CustomInput = React.forwardRef(({ value, setValue }, ref) => {
+interface IProps {
+    value: any;
+    setValue: any;
+}
+
+const CustomInput: FC<IProps> = forwardRef(({ value, setValue }, ref) => {
     return (
         <Input
             inputRef={ref}
             onChange={e => setValue(e?.target?.value)}
             value={value}
-            text="text"
             placeholder="Search cities"
             startAdornment={<Search />}
             endAdornment={
