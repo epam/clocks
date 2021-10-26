@@ -9,7 +9,7 @@ interface IState {
 interface IActions {
     CreateFormHandler: (hasForm?: boolean) => void;
     ChangeUserCurrentLocation: (locationId: TLocationId) => void;
-    AddLocation: (locationId: TLocationId, comment: string) => void;
+    AddLocation: (locationId: TLocationId, comment?: string) => void;
     DeleteLocation: (locationId: TLocationId) => void;
     ResetUrl: () => void;
     GetLocationsFromUrl: () => TLocationId[];

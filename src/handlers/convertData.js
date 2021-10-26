@@ -1,5 +1,6 @@
 import moment from 'moment-timezone';
 import { cityMapping } from 'city-timezones';
+import generateIdFormat from './generateIdFormat';
 
 const findOffset = (myTimezone, otherTimezone) => {
     if (!myTimezone) {
@@ -20,10 +21,7 @@ const convertIdToObject = (id, message = '') => {
     if (!id || typeof id !== 'string') {
         return null;
     }
-    const obj = cityMapping.find(
-        i => [i.city_ascii, i.iso2, Math.floor(Math.abs(i.lat)), Math.floor(Math.abs(i.lng))].join('_') === id
-    );
-
+    const obj = cityMapping.find(i => generateIdFormat(i.city_ascii, i.iso2, i.lat, i.lng) === id);
     return {
         id,
         city: obj.city,

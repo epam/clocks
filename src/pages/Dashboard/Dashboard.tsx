@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, KeyboardEvent } from 'react';
 
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -15,7 +15,7 @@ import AppModal from '../../containers/AppModal';
 
 const Dashboard = () => {
     const {
-        state,
+        state: { hasCreateForm, locations },
         actions: { CreateFormHandler }
     } = useContext(LocationsContext);
     const {
@@ -23,7 +23,7 @@ const Dashboard = () => {
         actions: { SnackbarHandler }
     } = useContext(SnackbarContext);
 
-    const handleKeyDown = (event: any) => {
+    const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
         if (event.key === '=' || event.key === '+') {
             if (CreateFormHandler) {
                 CreateFormHandler();
@@ -38,19 +38,25 @@ const Dashboard = () => {
         }
     };
 
+    const createFormHandler = (isVisible?: boolean) => {
+        if (CreateFormHandler) {
+            CreateFormHandler(isVisible);
+        }
+    };
+
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex,jsx-a11y/no-static-element-interactions
         <div tabIndex={0} onKeyPress={handleKeyDown} className="wrapper">
             <Navbar />
             <AppModal />
             <div className={css.container}>
-                {state.locations &&
-                    state.locations.map((props, index) => (
+                {locations &&
+                    locations.map((props, index) => (
                         <div key={index}>
                             <Location {...props} />
                         </div>
                     ))}
-                <InputDrawer visibility={state.hasCreateForm} setVisibility={CreateFormHandler} />
+                <InputDrawer visibility={hasCreateForm || false} setVisibility={createFormHandler} />
             </div>
             <Snackbar
                 anchorOrigin={{

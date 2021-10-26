@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { FC, useContext, useRef, useMemo, useState, useEffect } from 'react';
 import { Grid, SwipeableDrawer, Toolbar, Typography, IconButton, MenuList } from '@material-ui/core';
 import { CrossIcon } from '../../assets/icons/icons';
 import css from './InputDrawer.module.scss';
@@ -7,21 +7,33 @@ import { LocationsContext } from '../../context/locations';
 import CustomInput from '../../components/CustomInput';
 import CustomItem from '../../components/CustomItem';
 import { generateIdFormat } from '../../handlers';
+import { ILocation } from '../../types/location';
 
-const InputDrawer = ({ visibility, setVisibility }) => {
+interface IProps {
+    visibility: boolean;
+    setVisibility: (isVisible?: boolean) => void;
+}
+
+const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
+    // @ts-ignore
     const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const { actions } = React.useContext(LocationsContext);
-    const input = React.useRef(null);
-    const listRef = React.useRef(null);
-    const urlLocations = React.useMemo(() => {
-        return new Set(actions?.GetLocationsFromUrl());
-    }, [actions]);
+    const {
+        actions: { GetLocationsFromUrl, AddLocation }
+    } = useContext(LocationsContext);
 
-    const [value, setValue] = React.useState('');
-    const [cities, setCities] = React.useState([]);
+    const [cities, setCities] = useState([]);
+    const [value, setValue] = useState<string>('');
+    const input = useRef<HTMLInputElement>(null);
+    const listRef = useRef(null);
+
+    const urlLocations = useMemo(() => {
+        if (GetLocationsFromUrl) {
+            return new Set(GetLocationsFromUrl());
+        }
+    }, [GetLocationsFromUrl]);
 
     // find city on input value change
-    React.useEffect(() => {
+    useEffect(() => {
         const matchingCities = lookupCityAscii(value);
         const bestMatches = sortBestMatch(value, matchingCities.slice(0, 50), 'city_ascii');
         bestMatches.sort(({ target: a }, { target: b }) => {
@@ -33,10 +45,12 @@ const InputDrawer = ({ visibility, setVisibility }) => {
             }
             return 0;
         });
+        // @ts-ignore
         setCities(bestMatches);
     }, [value]);
+
     // focus on input when drawer is open
-    React.useEffect(() => {
+    useEffect(() => {
         if (visibility === true && input.current) {
             input.current.focus();
         }
@@ -45,17 +59,21 @@ const InputDrawer = ({ visibility, setVisibility }) => {
         }
     }, [visibility]);
 
-    const handleSelect = target => {
+    const handleSelect = (target: ILocation) => {
         const { city_ascii: cityAscii, iso2, lat, lng } = target;
         const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
-        actions.AddLocation(locationId);
+        if (AddLocation) {
+            AddLocation(locationId);
+        }
         setValue('');
         setVisibility(false);
     };
-    const handleMatch = item => {
-        const guid = [item.city_ascii, item.iso2, Math.floor(Math.abs(item.lat)), Math.floor(Math.abs(item.lng))].join(
-            '_'
-        );
+    const handleMatch = (item: ILocation): boolean => {
+        const { city_ascii: cityAscii, iso2, lat, lng } = item;
+        const guid = generateIdFormat(cityAscii, iso2, lat, lng);
+        if (!urlLocations) {
+            return false;
+        }
         return urlLocations.has(guid);
     };
 

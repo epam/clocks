@@ -3,15 +3,16 @@ type TCity = string;
 type TCityAscii = string;
 type TIso2 = string;
 type TIso3 = string;
-type TLat = string;
-type TLng = string;
-type TPop = string;
+type TLat = number;
+type TLng = number;
+type TPop = number;
 type TProvince = string;
 type TTimezone = string;
 
 interface ILocation {
     city?: TCity;
-    cityAscii: TCityAscii;
+    /* eslint-disable camelcase */
+    city_ascii: TCityAscii;
     country?: TCountry;
     iso2: TIso2;
     iso3?: TIso3;
