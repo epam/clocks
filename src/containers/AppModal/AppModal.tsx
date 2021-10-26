@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Typography } from '@material-ui/core';
@@ -61,12 +61,16 @@ function AppModal() {
     } = useContext(LocationsContext);
 
     const handleClose = () => {
-        ModalHandler(false);
+        if (ModalHandler) {
+            ModalHandler(false);
+        }
     };
 
     const deleteLocation = () => {
-        DeleteLocation(locationId);
-        ModalHandler(false);
+        if (DeleteLocation && ModalHandler && locationId) {
+            DeleteLocation(locationId);
+            ModalHandler(false);
+        }
     };
 
     return (
@@ -74,7 +78,7 @@ function AppModal() {
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
             className={classes.modal}
-            open={isModalOpen}
+            open={isModalOpen || false}
             onClose={handleClose}
             closeAfterTransition
             BackdropComponent={Backdrop}

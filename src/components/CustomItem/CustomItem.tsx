@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { MenuItem, withStyles, makeStyles } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import { Colors, EpamColors } from '../../constants/colors';
+import { ILocation } from '../../types/location';
 
 const Item = withStyles({
     root: {
@@ -53,15 +54,15 @@ const useStyle = makeStyles(() => ({
 }));
 
 interface IProps {
-    target: any;
-    onSelect: () => void;
+    target: ILocation;
+    onSelect: (target: ILocation) => void;
     added: boolean;
 }
 const CustomItem: FC<IProps> = ({ target, onSelect, added = false }) => {
     const css = useStyle();
 
     const render = () => (
-        <Item onClick={onSelect} className={added ? css.disabled : ''}>
+        <Item onClick={() => onSelect(target)} className={added ? css.disabled : ''}>
             <div className={css.text}>
                 <div className={css.title}>
                     <span className={css.city}>{target.city}</span>

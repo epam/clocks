@@ -1,4 +1,4 @@
-import { useContext, useRef, useState, useEffect, FC } from 'react';
+import { useContext, useRef, useState, useEffect, FC, FocusEvent } from 'react';
 
 import { IconButton, Typography } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
@@ -23,18 +23,17 @@ const Location: FC<IAppLocation> = ({ timezone, city, country, offset, host, id,
         actions: { OpenSnackbar, SnackbarHandler },
         state: { isSnackbarOpen }
     } = useContext(SnackbarContext);
-    const textAreaRef = useRef(null);
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-    const [messageVisibility, setMessageVisibility] = useState(false);
+    const [messageVisibility, setMessageVisibility] = useState<boolean>(false);
 
     useEffect(() => {
         if (messageVisibility && textAreaRef.current) {
-            // @ts-ignore
             textAreaRef.current.focus();
         }
     }, [messageVisibility]);
 
-    const onBlurHandler = (event: any) => {
+    const onBlurHandler = (event: FocusEvent<HTMLTextAreaElement>) => {
         const comment = event.target?.value;
         if (comment.length > 100 && OpenSnackbar) {
             return OpenSnackbar('Comment message must not be longer than 100 characters');

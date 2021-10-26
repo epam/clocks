@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function valuetext(value) {
+function valuetext(value: number) {
     return `${value}PM`;
 }
 
@@ -39,6 +39,12 @@ const PlanningMode = () => {
         state: { isPlanningModeOn },
         actions: { PlanningModeHandler }
     } = useContext(PlanningModeContext);
+
+    const planningModeHandler = () => {
+        if (PlanningModeHandler) {
+            PlanningModeHandler();
+        }
+    };
 
     return (
         <div className={classes.planningModeContainer}>
@@ -63,7 +69,7 @@ const PlanningMode = () => {
                 control={
                     <Switch
                         checked={isPlanningModeOn}
-                        onChange={PlanningModeHandler}
+                        onChange={planningModeHandler}
                         color="primary"
                         name="checkedA"
                         inputProps={{ 'aria-label': 'secondary checkbox' }}
