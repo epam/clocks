@@ -1,13 +1,23 @@
-import React, { useMemo } from 'react';
+import { useMemo, useState, useEffect, FC } from 'react';
 import { Typography } from '@material-ui/core';
 import moment from 'moment-timezone';
 import LocationOffsets from '../LocationOffsets';
 import css from './LocationContent.module.scss';
+import { TCity, TCountry, TTimezone } from '../../types/location';
 
-const LocationContent = ({ city = '', country = '', timezone = '', hours, minutes, host }) => {
-    const [time, setTime] = React.useState(moment.tz(timezone));
+interface IProps {
+    city: TCity;
+    country: TCountry;
+    timezone: TTimezone;
+    hours: number;
+    minutes: number;
+    host: boolean;
+}
 
-    React.useEffect(() => {
+const LocationContent: FC<IProps> = ({ city = '', country = '', timezone = '', hours, minutes, host }) => {
+    const [time, setTime] = useState(moment.tz(timezone));
+
+    useEffect(() => {
         const id = setInterval(() => setTime(moment.tz(timezone)), 1000);
 
         return () => clearInterval(id);

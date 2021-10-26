@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Typography, makeStyles } from '@material-ui/core';
 import { EpamColors } from '../../constants';
 import { Colors } from '../../constants/colors';
@@ -20,7 +20,13 @@ const useStyle = makeStyles({
     }
 });
 
-const LocationOffsets = ({ hours, minutes, host }) => {
+interface IProps {
+    hours: number;
+    minutes: number;
+    host: boolean;
+}
+
+const LocationOffsets: FC<IProps> = ({ hours, minutes, host }) => {
     const hourDif = Math.abs(hours);
     const minuteDif = Math.abs(minutes);
     const css = useStyle();

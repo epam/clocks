@@ -1,9 +1,10 @@
 import { useContext } from 'react';
 import { useQueryParams } from '../useQueryParams/useQueryParams';
-import { getCurrentUserLocation, generateIdFormat } from '../../handlers';
+import { getCurrentUserLocation } from '../../handlers';
 import { CheckForCityExistence } from '../../helpers/checkCityExistence';
 import { SnackbarContext } from '../../context/snackbar';
 import { PARAM_KEYWORD } from '../../constants';
+import { TLocationId } from '../../types/location';
 
 export const useUrl = () => {
     const { SetParam, GetParam } = useQueryParams();
@@ -11,20 +12,23 @@ export const useUrl = () => {
         actions: { OpenSnackbar }
     } = useContext(SnackbarContext);
 
-    const AddLocation = (locationId, message = '') => {
+    const AddLocation = (locationId: TLocationId, message: string = '') => {
         const locationsFromUrl = GetParam(PARAM_KEYWORD) || [];
         if (!Array.isArray(locationsFromUrl)) {
             return console.error('Unexpected type!');
         }
         const isCityAlreadyAdded = CheckForCityExistence(locationsFromUrl, locationId);
         if (isCityAlreadyAdded) {
-            return OpenSnackbar('This city has already been added!');
+            if (OpenSnackbar) {
+                OpenSnackbar('This city has already been added!');
+            }
+            return;
         }
         locationsFromUrl.push(`${locationId}${message && `__${message}`}`);
         SetParam(PARAM_KEYWORD, locationsFromUrl);
     };
 
-    const DeleteLocation = locationId => {
+    const DeleteLocation = (locationId: string) => {
         if (!locationId) {
             return console.error('Id for deleting Location is not valid!');
         }
@@ -43,21 +47,21 @@ export const useUrl = () => {
     };
 
     const GetLocationsFromUrl = () => {
-        const locationsFromUrl = GetParam(PARAM_KEYWORD) || [];
-        const locationIdsFromUrl = locationsFromUrl.reduce((res, location) => {
+        const locationsFromUrl = GetParam<TLocationId[]>(PARAM_KEYWORD) || [];
+        const locationIdsFromUrl = locationsFromUrl.map(location => {
             const id = location.split('__')[0];
-            return [...res, id];
-        }, []);
+            return id;
+        });
         return locationIdsFromUrl;
     };
 
-    const AddComment = (locationId, comment) => {
-        const locationsFromUrl = GetParam(PARAM_KEYWORD) || [];
-        const newLocations = locationsFromUrl.reduce((res, location) => {
+    const AddComment = (locationId: TLocationId, comment: string) => {
+        const locationsFromUrl = GetParam<TLocationId[]>(PARAM_KEYWORD) || [];
+        const newLocations = locationsFromUrl.map(location => {
             if (location.startsWith(locationId)) {
-                return [...res, `${locationId}__${comment}`];
+                return `${locationId}__${comment}`;
             }
-            return [...res, location];
+            return location;
         }, []);
         SetParam(PARAM_KEYWORD, newLocations);
     };

@@ -7,7 +7,7 @@ import { LocationsContext } from '../../context/locations';
 import CustomInput from '../../components/CustomInput';
 import CustomItem from '../../components/CustomItem';
 import { generateIdFormat } from '../../handlers';
-import { ILocation } from '../../types/location';
+import { ILocation, IMatchingLocation } from '../../types/location';
 
 interface IProps {
     visibility: boolean;
@@ -21,10 +21,10 @@ const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
         actions: { GetLocationsFromUrl, AddLocation }
     } = useContext(LocationsContext);
 
-    const [cities, setCities] = useState([]);
+    const [cities, setCities] = useState<IMatchingLocation[]>([]);
     const [value, setValue] = useState<string>('');
     const input = useRef<HTMLInputElement>(null);
-    const listRef = useRef(null);
+    const listRef = useRef<HTMLUListElement>(null);
 
     const urlLocations = useMemo(() => {
         if (GetLocationsFromUrl) {
@@ -45,7 +45,6 @@ const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
             }
             return 0;
         });
-        // @ts-ignore
         setCities(bestMatches);
     }, [value]);
 
@@ -106,7 +105,7 @@ const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
                                 key={index}
                                 target={target}
                                 added={handleMatch(target)}
-                                onSelect={() => handleSelect(target)}
+                                onSelect={handleSelect}
                             />
                         ))}
                     </MenuList>
