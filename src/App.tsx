@@ -1,4 +1,3 @@
-import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { LocationsProvider } from './context/locations';
 import Dashboard from './pages/Dashboard';

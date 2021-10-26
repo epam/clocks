@@ -1,4 +1,4 @@
-import { FC, forwardRef } from 'react';
+import { forwardRef } from 'react';
 import { IconButton, InputBase, withStyles } from '@material-ui/core';
 import { CrossIcon, Search } from '../../assets/icons/icons';
 
@@ -18,11 +18,11 @@ const Input = withStyles({
 })(InputBase);
 
 interface IProps {
-    value: any;
-    setValue: any;
+    value: string;
+    setValue: (value: string) => void;
 }
 
-const CustomInput: FC<IProps> = forwardRef(({ value, setValue }, ref) => {
+const CustomInput = forwardRef<HTMLInputElement, IProps>(({ value, setValue }, ref) => {
     return (
         <Input
             inputRef={ref}
