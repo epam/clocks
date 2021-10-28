@@ -12,7 +12,7 @@ const generateIdFormat = (cityAscii: TCityAscii, iso2: TIso2, lat: TLat, lng: TL
     ) {
         return '';
     }
-    return `${cityAscii}_${iso2}_${Math.floor(Math.abs(lat))}_${Math.floor(Math.abs(lng))}`;
+    return [cityAscii, iso2, Math.floor(Math.abs(lat)), Math.floor(Math.abs(lng))].join('_');
 };
 
 export default generateIdFormat;
