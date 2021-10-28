@@ -1,8 +1,9 @@
-import { cityMapping } from 'city-timezones';
+import { CityData } from 'city-timezones';
+import cityMapping from '../constants/cityMapping';
 
-const lookupTimezones = timezone => {
+const lookupTimezones = (timezone: string): CityData[] => {
     if (!timezone) return [];
-    const tzLookup = cityMapping.filter(o => {
+    const tzLookup: CityData[] = cityMapping.filter((o: CityData) => {
         return o.timezone?.toLowerCase() === timezone.toLowerCase();
     });
     if (tzLookup && tzLookup.length) {

@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 import getObjectProperty from './getObjectProperty';
 
-const deepCheck = (first, second) => {
+const deepCheck = (first: any, second: any): boolean => {
     const firstType = typeof first;
     const secondType = typeof second;
 
@@ -14,7 +14,7 @@ const deepCheck = (first, second) => {
     return first === second;
 };
 
-const arrayIncludes = (search, array = [], path) => {
+const arrayIncludes = (search: string, array: any = [], path: any): boolean => {
     if (!array || array.length === 0 || !Array.isArray(array)) return false;
 
     for (let i = 0; i < array.length; i += 1) {

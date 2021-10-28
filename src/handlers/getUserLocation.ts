@@ -1,14 +1,22 @@
-import { cityMapping } from 'city-timezones';
+import { CityData } from 'city-timezones';
+import cityMapping from '../constants/cityMapping';
 import generateIdFormat from './generateIdFormat';
 
-const locations = [...cityMapping];
+interface UserLocation {
+    error: boolean;
+    message: string;
+    id: string;
+}
 
-async function getUserLocation() {
+const locations: CityData[] = [...cityMapping];
+
+async function getUserLocation(): Promise<UserLocation> {
     let error = false;
     let message = '';
     let id = '';
 
-    function handleError(err) {
+    // eslint-disable-next-line no-undef
+    function handleError(err: GeolocationPositionError): void {
         error = true;
         switch (err.code) {
             case err.PERMISSION_DENIED:
@@ -19,9 +27,6 @@ async function getUserLocation() {
                 break;
             case err.TIMEOUT:
                 message = 'request time is out';
-                break;
-            case err.UNKNOWN_ERROR:
-                message = 'Unknown err occured';
                 break;
             default:
                 message = 'Something went wrong';
@@ -41,14 +46,13 @@ async function getUserLocation() {
                         });
 
                         const city = locations[0];
-                        const { city_ascii: cityAscii, iso2, lat, lng } = city;
+                        const { city_ascii: cityAscii, iso2, lat, lng }: CityData = city;
                         const id = generateIdFormat(cityAscii, iso2, lat, lng);
                         resolve(id);
                     },
                     props => {
                         handleError(props);
-                        // eslint-disable-next-line prefer-promise-reject-errors
-                        reject('');
+                        reject(new Error(''));
                     },
                     {
                         timeout: 0

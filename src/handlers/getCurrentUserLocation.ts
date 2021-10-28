@@ -1,11 +1,12 @@
 import moment from 'moment-timezone';
-import { cityMapping } from 'city-timezones';
+import { CityData } from 'city-timezones';
+import cityMapping from '../constants/cityMapping';
 import generateIdFormat from './generateIdFormat';
 import { CURRENT_USER_LOCATION_ID } from '../constants';
 import { lookupTimezones, sortBestMatch } from '../helpers';
 import getUserLocation from './getUserLocation';
 
-const getCurrentUserLocation = async () => {
+const getCurrentUserLocation = async (): Promise<string> => {
     const currentUserLocationId = localStorage.getItem(CURRENT_USER_LOCATION_ID);
     if (currentUserLocationId) {
         return currentUserLocationId;
@@ -17,8 +18,8 @@ const getCurrentUserLocation = async () => {
     const myTz = moment.tz.guess();
     const matchingTimezones = lookupTimezones(myTz);
     if (!matchingTimezones.length) {
-        const greenwichMainTime = cityMapping.find(city => city.city_ascii === 'London');
-        const { city_ascii: cityAscii, iso2, lat, lng } = greenwichMainTime;
+        const greenwichMainTime = (cityMapping as CityData[]).find(city => city.city_ascii === 'London');
+        const { city_ascii: cityAscii, iso2, lat, lng } = greenwichMainTime as CityData;
         const greenwichMainTimeId = generateIdFormat(cityAscii, iso2, lat, lng);
         return greenwichMainTimeId;
     }

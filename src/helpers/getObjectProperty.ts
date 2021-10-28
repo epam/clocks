@@ -1,6 +1,5 @@
 /* eslint-disable no-param-reassign */
-
-function getObjectProperty(obj = {}, arr = []) {
+function getObjectProperty(obj: any, arr: any = []): any {
     // object is undefined or empty return undefined
     if (!obj || Object.keys(obj).length === 0) return undefined;
     if (arr === undefined || arr === null) return undefined;
@@ -14,8 +13,7 @@ function getObjectProperty(obj = {}, arr = []) {
     const { length } = arr;
     let index = 0;
     while (obj && index < length) {
-        // eslint-disable-next-line no-plusplus
-        obj = obj[arr[index++]];
+        obj = obj[arr[(index += 1)]];
     }
     return index === length ? obj : undefined;
 }
