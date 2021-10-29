@@ -39,8 +39,7 @@ function sortBestMatch(mainString: TTimezone = '', targetObjects: CityData[] = [
         const element: CityData = targetObjects[i];
         let currentTargetString;
         if (typeof element === 'object' && path) {
-            // @ts-ignore
-            currentTargetString = element[path];
+            currentTargetString = element[path as keyof CityData];
         } else {
             currentTargetString = element;
         }
