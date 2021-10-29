@@ -16,4 +16,4 @@ interface IAppLocation {
     message: string;
 }
 
-export type { IAppLocation };
+export type { IAppLocation, IOffset };

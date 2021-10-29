@@ -1,5 +1,6 @@
 import { FC, useContext, useRef, useMemo, useState, useEffect } from 'react';
 import { Grid, SwipeableDrawer, Toolbar, Typography, IconButton, MenuList } from '@material-ui/core';
+import { CityData } from 'city-timezones';
 import { CrossIcon } from '../../assets/icons/icons';
 import css from './InputDrawer.module.scss';
 import { lookupCityAscii, sortBestMatch } from '../../helpers';
@@ -7,7 +8,7 @@ import { LocationsContext } from '../../context/locations';
 import CustomInput from '../../components/CustomInput';
 import CustomItem from '../../components/CustomItem';
 import { generateIdFormat } from '../../handlers';
-import { ILocation, IMatchingLocation } from '../../types/location';
+import { IMatchingLocation } from '../../types/location';
 
 interface IProps {
     visibility: boolean;
@@ -58,7 +59,7 @@ const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
         }
     }, [visibility]);
 
-    const handleSelect = (target: ILocation) => {
+    const handleSelect = (target: CityData) => {
         const { city_ascii: cityAscii, iso2, lat, lng } = target;
         const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
         if (AddLocation) {
@@ -67,7 +68,7 @@ const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
         setValue('');
         setVisibility(false);
     };
-    const handleMatch = (item: ILocation): boolean => {
+    const handleMatch = (item: CityData): boolean => {
         const { city_ascii: cityAscii, iso2, lat, lng } = item;
         const guid = generateIdFormat(cityAscii, iso2, lat, lng);
         if (!urlLocations) {

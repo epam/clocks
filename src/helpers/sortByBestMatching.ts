@@ -1,5 +1,5 @@
 import { CityData } from 'city-timezones';
-import getObjectProperty from './getObjectProperty';
+import { IMatchingLocation, TTimezone } from '../types/location';
 
 function compareTwoStrings(first: string, second: string): number {
     const one = first.replace(/\s+/g, '');
@@ -30,22 +30,17 @@ function compareTwoStrings(first: string, second: string): number {
     return (2.0 * intersectionSize) / (one.length + two.length - 2);
 }
 
-interface Rating {
-    target: CityData;
-    rating: number;
-}
-
-function sortBestMatch(mainString: string = '', targetObjects: any = [], path: string): Rating[] {
+function sortBestMatch(mainString: TTimezone = '', targetObjects: CityData[] = [], path: string): IMatchingLocation[] {
     if (typeof mainString !== 'string') return [];
     if (!Array.isArray(targetObjects) || targetObjects.length === 0) return [];
-    const ratings: Rating[] = [];
+    const ratings: IMatchingLocation[] = [];
 
     for (let i = 0; i < targetObjects.length; i += 1) {
-        const element = targetObjects[i];
+        const element: CityData = targetObjects[i];
         let currentTargetString;
-
         if (typeof element === 'object' && path) {
-            currentTargetString = getObjectProperty(element, path);
+            // @ts-ignore
+            currentTargetString = element[path];
         } else {
             currentTargetString = element;
         }

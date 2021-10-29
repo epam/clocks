@@ -1,8 +1,8 @@
-import { ILocation } from './location';
+import { CityData } from 'city-timezones';
 
 interface IMatchingLocation {
     rating: number;
-    target: ILocation;
+    target: CityData;
 }
 
 export type { IMatchingLocation };

@@ -17,13 +17,13 @@ const getCurrentUserLocation = async (): Promise<string> => {
     }
     const myTz = moment.tz.guess();
     const matchingTimezones = lookupTimezones(myTz);
-    if (!matchingTimezones.length) {
+    const bestMatch = sortBestMatch(myTz, matchingTimezones, 'city_ascii');
+    if (!matchingTimezones.length || !bestMatch[0]) {
         const greenwichMainTime = (cityMapping as CityData[]).find(city => city.city_ascii === 'London');
         const { city_ascii: cityAscii, iso2, lat, lng } = greenwichMainTime as CityData;
         const greenwichMainTimeId = generateIdFormat(cityAscii, iso2, lat, lng);
         return greenwichMainTimeId;
     }
-    const bestMatch = sortBestMatch(myTz, matchingTimezones, 'city_ascii');
     const { target } = bestMatch[0];
     const { city_ascii: cityAscii, iso2, lat, lng } = target;
     return generateIdFormat(cityAscii, iso2, lat, lng);
