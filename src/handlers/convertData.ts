@@ -2,23 +2,18 @@ import moment from 'moment-timezone';
 import { CityData } from 'city-timezones';
 import cityMapping from '../constants/cityMapping';
 import generateIdFormat from './generateIdFormat';
+import { IAppLocation, IOffset, IUrlLocation, TCity, TCountry, TLocationId, TTimezone } from '../types/location';
 
-type offset = {
-    hours: number;
-    minutes: number;
-};
-interface Location {
-    host: boolean;
-    offset: { hours: number; minutes: number };
-    id?: string | undefined;
-    city?: any;
-    country?: any;
-    timezone?: any;
-    message?: string | undefined;
+interface IConvertedObject {
+    id: TLocationId;
+    city: TCity;
+    country: TCountry;
+    timezone: TTimezone;
+    message: string;
 }
 
-const findOffset = (myTimezone: string, otherTimezone: string): offset => {
-    if (!myTimezone) {
+const findOffset = (myTimezone?: string, otherTimezone?: string): IOffset => {
+    if (!myTimezone || !otherTimezone) {
         return { hours: 0, minutes: 0 };
     }
     const now = moment.utc();
@@ -32,23 +27,19 @@ const findOffset = (myTimezone: string, otherTimezone: string): offset => {
     };
 };
 
-const convertIdToObject = (id: string, message = '') => {
-    if (!id || typeof id !== 'string') {
-        return null;
-    }
+const convertIdToObject = (id: string, message = ''): IConvertedObject => {
     const obj = cityMapping.find((i: CityData) => generateIdFormat(i.city_ascii, i.iso2, i.lat, i.lng) === id);
-
     return {
         id,
-        city: obj?.city,
-        country: obj?.country,
-        timezone: obj?.timezone,
+        city: obj?.city || '',
+        country: obj?.country || '',
+        timezone: obj?.timezone || '',
         message
     };
 };
 
-const convertData = (urlDataList: any = [], locationId: string): Location[] => {
-    let result: Location[] = [];
+const convertData = (urlDataList: IUrlLocation[] = [], locationId: TLocationId): IAppLocation[] => {
+    let result: IAppLocation[] = [];
     if (!Array.isArray(urlDataList)) {
         return result;
     }
@@ -56,13 +47,13 @@ const convertData = (urlDataList: any = [], locationId: string): Location[] => {
     const list = urlDataList.map(urlData => convertIdToObject(urlData['id'], urlData['message']));
 
     result = list.map(location => {
-        if (locationId === (location as Location)['id']) {
+        if (locationId === (location as IAppLocation)['id']) {
             return { ...location, host: true, offset: { hours: 0, minutes: 0 } };
         }
         return { ...location, host: false, offset: findOffset(myLocation?.timezone, location?.timezone) };
     });
 
-    result.sort((a: Location, b: Location) => {
+    result.sort((a: IAppLocation, b: IAppLocation) => {
         const first = a?.offset['hours'] * 60 + a?.offset['minutes'];
         const second = b?.offset['hours'] * 60 + b?.offset['minutes'];
         return first - second;
