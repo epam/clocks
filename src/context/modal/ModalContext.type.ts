@@ -12,4 +12,4 @@ interface IActions {
 }
 interface IModalContext extends IContext<IState, IActions> {}
 
-export type { IModalContext };
+export type { IModalContext, IState };

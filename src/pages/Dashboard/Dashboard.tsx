@@ -11,7 +11,7 @@ import Footer from '../../containers/Footer';
 import InputDrawer from '../../containers/InputDrawer';
 
 import css from './Dashboard.module.scss';
-import AppModal from '../../containers/AppModal';
+import DeleteModal from '../../containers/DeleteModal';
 
 const Dashboard = () => {
     const {
@@ -48,7 +48,7 @@ const Dashboard = () => {
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex,jsx-a11y/no-static-element-interactions
         <div tabIndex={0} onKeyPress={handleKeyDown} className="wrapper">
             <Navbar />
-            <AppModal />
+            <DeleteModal />
             <div className={css.container}>
                 {locations &&
                     locations.map((props, index) => (
