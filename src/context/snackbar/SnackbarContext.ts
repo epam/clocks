@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { DefaultContext } from '../default';
+import { InitialContext } from '../../constants';
 import { ISnackbarContext } from './SnackbarContext.type';
 
-export const SnackbarContext = createContext<ISnackbarContext>(DefaultContext);
+export const SnackbarContext = createContext<ISnackbarContext>(InitialContext);

@@ -1,4 +1,8 @@
-const EpamColors = {
+interface IColor {
+    [colorName: string]: string;
+}
+
+const EpamColors: IColor = {
     blue: '#39C2D7',
     green: '#A3C644',
     black: '#464547',
@@ -6,7 +10,7 @@ const EpamColors = {
     ink: '#8e244d'
 };
 
-const Colors = {
+const Colors: IColor = {
     gray: '#bcb9b5',
     lightGray: '#dcdcda'
 };

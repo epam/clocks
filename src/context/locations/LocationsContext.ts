@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { DefaultContext } from '../default';
+import { InitialContext } from '../../constants';
 import { ILocationContext } from './LocationsContext.type';
 
-export const LocationsContext = createContext<ILocationContext>(DefaultContext);
+export const LocationsContext = createContext<ILocationContext>(InitialContext);
