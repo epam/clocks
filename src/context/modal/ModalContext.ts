@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { DefaultContext } from '../default';
+import { InitialContext } from '../../constants';
 import { IModalContext } from './ModalContext.type';
 
-export const ModalContext = createContext<IModalContext>(DefaultContext);
+export const ModalContext = createContext<IModalContext>(InitialContext);

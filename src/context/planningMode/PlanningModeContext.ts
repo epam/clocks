@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { DefaultContext } from '../default';
+import { InitialContext } from '../../constants';
 import { IPlanningModeContext } from './PlanningModeContext.type';
 
-export const PlanningModeContext = createContext<IPlanningModeContext>(DefaultContext);
+export const PlanningModeContext = createContext<IPlanningModeContext>(InitialContext);
