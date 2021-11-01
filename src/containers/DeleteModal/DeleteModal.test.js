@@ -27,6 +27,5 @@ describe('test for AppModal component', () => {
         await act(async () => userEvent.click(cancelButton));
         // expect(cancelButton).not.toBeInTheDocument();
         // const modal = getByRole('modal');
-        debug();
     });
 });
