@@ -31,7 +31,7 @@ const CustomInput = forwardRef<HTMLInputElement, IProps>(({ value, setValue }, r
             placeholder="Search cities"
             startAdornment={<Search />}
             endAdornment={
-                <IconButton onClick={() => setValue('')}>
+                <IconButton aria-label="input-cleaner" onClick={() => setValue('')}>
                     <CrossIcon />
                 </IconButton>
             }
