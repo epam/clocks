@@ -13,10 +13,7 @@ const useStyle = makeStyles({
     },
     text: {
         color: Colors.gray,
-        marginBottom: 10
-    },
-    empty: {
-        marginBottom: 32
+        height: 32
     }
 });
 
@@ -27,9 +24,10 @@ interface IProps {
 }
 
 const LocationOffsets: FC<IProps> = ({ hours, minutes, host }) => {
-    const hourDif = Math.abs(hours);
-    const minuteDif = Math.abs(minutes);
     const css = useStyle();
+
+    const strHour = hours !== 0 ? `${Math.abs(hours)} ${Math.abs(hours) <= 1 ? ' HOUR ' : ' HOURS '}` : '';
+    const strMinute = minutes !== 0 ? `${Math.abs(minutes)} ${Math.abs(minutes) <= 1 ? ' MINUTE ' : ' MINUTES '}` : '';
 
     if (host) {
         return (
@@ -39,22 +37,11 @@ const LocationOffsets: FC<IProps> = ({ hours, minutes, host }) => {
         );
     }
 
-    if (hourDif === 0 && minuteDif === 0) return <span className={css.empty} />;
-
-    if (hours < 0) {
-        return (
-            <Typography variant="subtitle2" className={css.text}>
-                &ndash;
-                {hourDif}
-                {hourDif <= 1 ? ' HOUR ' : ' HOURS '}
-                {minuteDif !== 0 && `${minuteDif} ${minuteDif <= 1 ? ' MINUTE' : ' MINUTES'}`}
-            </Typography>
-        );
-    }
     return (
         <Typography variant="subtitle2" className={css.text}>
-            {hourDif !== 0 && `+${hourDif} ${hourDif <= 1 ? ' HOUR ' : ' HOURS '}`}
-            {minuteDif !== 0 && `${minuteDif} ${minuteDif <= 1 ? ' MINUTE' : ' MINUTES'}`}
+            {hours < 0 && <>&ndash;</>}
+            {strHour}
+            {strMinute}
         </Typography>
     );
 };
