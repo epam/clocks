@@ -92,7 +92,7 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 #### NVM
 
-Node version - 14.17.3/
+Node version - 14.17.3\
 
 #### Code Splitting
 
