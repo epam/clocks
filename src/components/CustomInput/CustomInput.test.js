@@ -5,7 +5,7 @@ import CustomInput from './CustomInput';
 
 const MockComponent = () => {
     const [value, setValue] = React.useState('');
-    return <CustomInput value={value} setValue={setValue} />;
+    return <CustomInput value={value} setValue={setValue} autoFocus />;
 };
 
 describe('Custom input Component: ', () => {
@@ -22,6 +22,7 @@ describe('Custom input Component: ', () => {
         const input = screen.getByPlaceholderText('Search cities');
         const button = screen.getByLabelText('input-cleaner');
 
+        expect(input).toHaveFocus();
         userEvent.type(input, 'React');
         expect(input).toHaveValue('React');
         userEvent.click(button);
