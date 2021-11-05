@@ -25,7 +25,6 @@ const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
     const [cities, setCities] = useState<IMatchingLocation[]>([]);
     const [value, setValue] = useState<string>('');
     const input = useRef<HTMLInputElement>(null);
-    const listRef = useRef<HTMLUListElement>(null);
 
     const urlLocations = useMemo(() => {
         if (GetLocationsFromUrl) {
@@ -51,10 +50,10 @@ const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
 
     // focus on input when drawer is open
     useEffect(() => {
-        if (visibility === true && input.current) {
+        if (visibility && input.current) {
             input.current.focus();
         }
-        if (visibility === false && input.current) {
+        if (!visibility && input.current) {
             input.current.blur();
         }
     }, [visibility]);
@@ -91,7 +90,11 @@ const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
             <Toolbar id={css.toolbar}>
                 <Grid container alignItems="center" justifyContent="space-between">
                     <Typography variant="button">Add New City</Typography>
-                    <IconButton id={css.closeButton} onClick={() => setVisibility(false)}>
+                    <IconButton
+                        aria-label="Close Drawer Button"
+                        id={css.closeButton}
+                        onClick={() => setVisibility(false)}
+                    >
                         <CrossIcon />
                     </IconButton>
                 </Grid>
@@ -100,7 +103,7 @@ const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
             <div className={css.drawerBody}>
                 <CustomInput ref={input} value={value} setValue={value => setValue(value)} />
                 <div className={css.drawerList}>
-                    <MenuList variant="selectedMenu" autoFocus ref={listRef}>
+                    <MenuList variant="selectedMenu" autoFocus>
                         {cities.map(({ target }, index) => (
                             <CustomItem
                                 key={index}
