@@ -10,10 +10,12 @@ function getObjectProperty(obj: any, arr: any = []): any {
             arr = [arr];
         }
     }
+
     const { length } = arr;
     let index = 0;
     while (obj && index < length) {
-        obj = obj[arr[(index += 1)]];
+        obj = obj[arr[index]];
+        index += 1;
     }
     return index === length ? obj : undefined;
 }
