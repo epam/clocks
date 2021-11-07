@@ -22,8 +22,8 @@ describe('Custom input Component: ', () => {
         const input = screen.getByPlaceholderText('Search cities');
         const button = screen.getByLabelText('input-cleaner');
 
-        expect(input).toHaveFocus();
         userEvent.type(input, 'React');
+        expect(input).toHaveFocus();
         expect(input).toHaveValue('React');
         userEvent.click(button);
         expect(input).toHaveValue('');
