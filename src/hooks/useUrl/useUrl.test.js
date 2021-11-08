@@ -1,7 +1,9 @@
+import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 import { useUrl } from './useUrl';
 
 const MockFunction = jest.fn();
+const MockOpenSnackbar = jest.fn();
 
 jest.mock('react-router-dom', () => {
     return {
@@ -16,6 +18,12 @@ jest.mock('react-router-dom', () => {
     };
 });
 
+React.useContext = () => {
+    return {
+        actions: { OpenSnackbar: MockOpenSnackbar }
+    };
+};
+
 describe('testing useUrl hook without mocks', () => {
     it('add comment to url params', () => {
         const expectedURI =
@@ -26,5 +34,20 @@ describe('testing useUrl hook without mocks', () => {
         current.AddComment('Tashkent_UZ_41_69', 'this is test comment');
         expect(MockFunction).toHaveBeenCalledTimes(1);
         expect(MockFunction).toHaveBeenCalledWith(expectedURI);
+    });
+    it('show notification snackbar if city has already been added', () => {
+        const {
+            result: { current }
+        } = renderHook(useUrl);
+        current.AddLocation('Tashkent_UZ_41_69');
+        expect(MockOpenSnackbar).toHaveBeenCalledTimes(1);
+    });
+    it('return location ids from url params', () => {
+        const expectedLocationIds = ['Tashkent_UZ_41_69', 'Namangan_UZ_41_71'];
+        const {
+            result: { current }
+        } = renderHook(useUrl);
+        const locationIdsFromUrl = current.GetLocationsFromUrl();
+        expect(locationIdsFromUrl).toEqual(expectedLocationIds);
     });
 });

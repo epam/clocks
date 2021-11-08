@@ -3,11 +3,8 @@ import { PARAM_KEYWORD } from '../../constants';
 import { getCurrentUserLocation } from '../../handlers';
 import { useUrl } from './useUrl';
 
-const locationIds = ['Tashkent_UZ_41_69', 'Namangan_UZ_41_71', 'Binghamton_US_42_75'];
 const MockSetParam = jest.fn();
-const MockGetParam = jest.fn(() => {
-    return locationIds;
-});
+const MockGetParam = jest.fn();
 
 jest.mock('react-router-dom', () => ({
     useLocation: () => ({
@@ -35,9 +32,9 @@ describe('test cases for useUrl hook', () => {
             result: { current }
         } = renderHook(useUrl);
         current.AddLocation('Andijon_UZ_40_72');
+        expect(MockGetParam).toHaveBeenCalledTimes(1);
         expect(MockSetParam).toHaveBeenCalledTimes(1);
     });
-    it.todo('show notification snackbar if city has already been added');
     it('delete location from url params', () => {
         const {
             result: { current }
@@ -45,6 +42,14 @@ describe('test cases for useUrl hook', () => {
         current.DeleteLocation('Tashkent_UZ_41_69');
         expect(MockGetParam).toHaveBeenCalledTimes(1);
         expect(MockSetParam).toHaveBeenCalledTimes(1);
+    });
+    it('delete location from url params error case', () => {
+        const {
+            result: { current }
+        } = renderHook(useUrl);
+        current.DeleteLocation();
+        expect(MockGetParam).toHaveBeenCalledTimes(0);
+        expect(MockSetParam).toHaveBeenCalledTimes(0);
     });
     it('reset url for current user', async () => {
         const {
@@ -59,9 +64,8 @@ describe('test cases for useUrl hook', () => {
         const {
             result: { current }
         } = renderHook(useUrl);
-        const locationIdsFromUrl = current.GetLocationsFromUrl();
+        current.GetLocationsFromUrl();
         expect(MockGetParam).toHaveBeenCalledTimes(1);
         expect(MockGetParam).toHaveBeenCalledWith(PARAM_KEYWORD);
-        expect(locationIdsFromUrl).toEqual(locationIds);
     });
 });
