@@ -12,7 +12,7 @@ export const useTheme = () => {
         }
     });
 
-    const ThemeHandler = (theme: string) => {
+    const ThemeHandler = () => {
         setType(type => {
             if (type === 'light') {
                 return 'dark';
@@ -23,7 +23,8 @@ export const useTheme = () => {
 
     return {
         state: {
-            theme
+            theme,
+            type
         },
         actions: {
             ThemeHandler

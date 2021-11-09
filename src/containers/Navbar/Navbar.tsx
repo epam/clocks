@@ -2,8 +2,10 @@ import { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Button } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
+import { ThemeContext } from '../../context/theme';
 import logo from '../../assets/images/logo.svg';
 import { EpamColors } from '../../constants';
+import { DarkModeIcon, LightModeIcon } from '../../assets/icons/icons';
 
 const useStyles = makeStyles(theme => ({
     appbar: {
@@ -25,6 +27,16 @@ const useStyles = makeStyles(theme => ({
             height: 28,
             objectFit: 'cover'
         }
+    },
+    buttons: {
+        display: 'flex',
+        alignItems: 'center'
+    },
+    modeIcon: {
+        color: theme.palette.background.paper
+    },
+    addCityButton: {
+        marginLeft: '1rem'
     }
 }));
 
@@ -33,6 +45,11 @@ const Navbar = () => {
     const {
         actions: { CreateFormHandler, ResetUrl }
     } = useContext(LocationsContext);
+
+    const {
+        actions: { ThemeHandler },
+        state: { type }
+    } = useContext(ThemeContext);
 
     const createFormHandler = () => {
         if (CreateFormHandler) {
@@ -46,9 +63,19 @@ const Navbar = () => {
                 <Button className={classes.title} onClick={ResetUrl}>
                     <img src={logo} alt="logo" />
                 </Button>
-                <Button variant="outlined" color="inherit" onClick={createFormHandler}>
-                    Add City
-                </Button>
+                <div className={classes.buttons}>
+                    <Button color="inherit" onClick={ThemeHandler} className={classes.modeIcon}>
+                        {type === 'light' ? <LightModeIcon color="#fff" /> : <DarkModeIcon color="#000" />}
+                    </Button>
+                    <Button
+                        variant="outlined"
+                        color="inherit"
+                        onClick={createFormHandler}
+                        className={classes.addCityButton}
+                    >
+                        Add City
+                    </Button>
+                </div>
             </Toolbar>
         </AppBar>
     );
