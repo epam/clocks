@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { useQueryParams } from '../useQueryParams/useQueryParams';
+import { useQueryParams } from '../useQueryParams';
 import { getCurrentUserLocation } from '../../handlers';
 import { CheckForCityExistence } from '../../helpers/checkCityExistence';
 import { SnackbarContext } from '../../context/snackbar';

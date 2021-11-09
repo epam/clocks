@@ -20,7 +20,7 @@ const MockComponent = ({ name, value, DeleteLocationMock }) => {
 describe('test for AppModal component', () => {
     it('renders delete text', async () => {
         const DeleteLocation = jest.fn();
-        const { getByRole, debug } = render(
+        const { getByRole } = render(
             <MockComponent name="isModalOpen" value="true" DeleteLocationMock={DeleteLocation} />
         );
         const cancelButton = getByRole('button', { name: /cancel/i });

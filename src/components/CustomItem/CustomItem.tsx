@@ -61,7 +61,7 @@ interface IProps {
 const CustomItem: FC<IProps> = ({ target, onSelect, added = false }) => {
     const css = useStyle();
 
-    const render = () => (
+    const Render = () => (
         <Item onClick={() => onSelect(target)} className={added ? css.disabled : ''}>
             <div className={css.text}>
                 <div className={css.title}>
@@ -74,12 +74,13 @@ const CustomItem: FC<IProps> = ({ target, onSelect, added = false }) => {
             </div>
         </Item>
     );
+
     return added ? (
-        <Badge className={css.badge} badgeContent="Added" color="primary">
-            {render()}
+        <Badge data-testid="Badge" className={css.badge} badgeContent="Added" color="primary">
+            <Render />
         </Badge>
     ) : (
-        render()
+        <Render />
     );
 };
 
