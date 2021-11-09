@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Button } from '@material-ui/core';
+import { AppBar, Toolbar, Button, IconButton } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
 import { ThemeContext } from '../../context/theme';
 import logo from '../../assets/images/logo.svg';
@@ -64,9 +64,9 @@ const Navbar = () => {
                     <img src={logo} alt="logo" />
                 </Button>
                 <div className={classes.buttons}>
-                    <Button color="inherit" onClick={ThemeHandler} className={classes.modeIcon}>
+                    <IconButton color="inherit" onClick={ThemeHandler} className={classes.modeIcon}>
                         {type === 'light' ? <LightModeIcon color="#fff" /> : <DarkModeIcon color="#000" />}
-                    </Button>
+                    </IconButton>
                     <Button
                         variant="outlined"
                         color="inherit"
