@@ -64,7 +64,7 @@ const Location: FC<IAppLocation> = ({ timezone, city, country, offset, host, id,
             <div className={css['recycle-bin']}>
                 {!host && (
                     <IconButton onClick={changeUserCurrentLocation}>
-                        <img src={homeIcon} alt="recycle-bin" className="icon" />
+                        <img src={homeIcon} alt="home" className="icon" />
                     </IconButton>
                 )}
                 <IconButton onClick={openDeleteModal}>
@@ -95,7 +95,11 @@ const Location: FC<IAppLocation> = ({ timezone, city, country, offset, host, id,
                         {message}
                     </Typography>
                 ) : (
-                    <IconButton className={css['comment-icon']} onClick={() => setMessageVisibility(true)}>
+                    <IconButton
+                        data-testid="commentButton"
+                        className={css['comment-icon']}
+                        onClick={() => setMessageVisibility(true)}
+                    >
                         <Comment />
                     </IconButton>
                 )}
