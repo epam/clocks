@@ -33,23 +33,25 @@ const LocationContent: FC<IProps> = ({ city = '', country = '', timezone = '', h
 
     return (
         <>
-            <Typography paragraph variant="subtitle2" className={`${css.grey} m-0 text-center`}>
+            <Typography paragraph variant="subtitle2" className={`${css.grey} m-0 text-center`} color="textPrimary">
                 {time.format('D MMM')}
             </Typography>
             <span className={css.time}>
-                <Typography variant="h2" className={css.hour}>
+                <Typography variant="h2" className={css.hour} color="textPrimary">
                     {time.format('HH')}
                 </Typography>
-                <Typography variant="h2">{time.format('mm')}</Typography>
+                <Typography variant="h2" color="textPrimary">
+                    {time.format('mm')}
+                </Typography>
             </span>
             <LocationOffsets hours={hours} minutes={minutes} host={host} />
-            <Typography className="text-center" variant="h5">
+            <Typography className="text-center" variant="h5" color="textPrimary">
                 {city}
             </Typography>
-            <Typography variant="subtitle2" className="text-uppercase text-gray text-center">
+            <Typography variant="subtitle2" className="text-uppercase text-gray text-center" color="textSecondary">
                 {country}
             </Typography>
-            <Typography className="text-center" variant="body2">
+            <Typography className="text-center" variant="body2" color="textPrimary">
                 {timezone} GMT {gmtOffset}
             </Typography>
         </>

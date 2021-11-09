@@ -3,6 +3,7 @@ import { useContext, KeyboardEvent } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 
+import { makeStyles } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
 import { SnackbarContext } from '../../context/snackbar';
 import Location from '../../containers/Location';
@@ -13,7 +14,14 @@ import InputDrawer from '../../containers/InputDrawer';
 import css from './Dashboard.module.scss';
 import DeleteModal from '../../containers/DeleteModal';
 
+const useStyles = makeStyles(theme => ({
+    mainDisplay: {
+        background: theme.palette.background.paper
+    }
+}));
+
 const Dashboard = () => {
+    const classes = useStyles();
     const {
         state: { hasCreateForm, locations },
         actions: { CreateFormHandler }
@@ -46,7 +54,7 @@ const Dashboard = () => {
 
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex,jsx-a11y/no-static-element-interactions
-        <div tabIndex={0} onKeyPress={handleKeyDown} className="wrapper">
+        <div tabIndex={0} onKeyPress={handleKeyDown} className={`${classes.mainDisplay} wrapper`}>
             <Navbar />
             <DeleteModal />
             <div className={css.container}>
