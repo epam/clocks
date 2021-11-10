@@ -1,6 +1,7 @@
 import { useContext, useRef, useState, useEffect, FC, FocusEvent } from 'react';
 
 import { IconButton, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { LocationsContext } from '../../context/locations';
 import { SnackbarContext } from '../../context/snackbar';
 import { ModalContext } from '../../context/modal';
@@ -47,17 +48,8 @@ const Location: FC<IAppLocation> = ({ timezone, city, country, offset, host, id,
         setMessageVisibility(false);
     };
 
-    const openDeleteModal = () => {
-        if (OpenDeleteModal) {
-            OpenDeleteModal(id);
-        }
-    };
-
-    const changeUserCurrentLocation = () => {
-        if (ChangeUserCurrentLocation) {
-            ChangeUserCurrentLocation(id);
-        }
-    };
+    const openDeleteModal = () => OpenDeleteModal && OpenDeleteModal(id);
+    const changeUserCurrentLocation = () => ChangeUserCurrentLocation && ChangeUserCurrentLocation(id);
 
     return (
         <div className={css.card}>

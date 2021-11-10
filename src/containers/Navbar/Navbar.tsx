@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Button, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Button, IconButton, Tooltip } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
 import { ThemeContext } from '../../context/theme';
 import logo from '../../assets/images/logo.svg';
@@ -10,7 +10,7 @@ import { DarkModeIcon, LightModeIcon } from '../../assets/icons/icons';
 const useStyles = makeStyles(theme => ({
     appbar: {
         boxShadow: 'none',
-        background: EpamColors.black,
+        background: EpamColors.darkGray,
         borderBottom: '2px solid rgba(0,0,0,.06)',
         color: 'white'
     },
@@ -23,10 +23,9 @@ const useStyles = makeStyles(theme => ({
         marginRight: theme.spacing(2)
     },
     title: {
-        '& img': {
-            height: 28,
-            objectFit: 'cover'
-        }
+        height: 28,
+        objectFit: 'cover',
+        cursor: 'pointer'
     },
     buttons: {
         display: 'flex',
@@ -60,21 +59,22 @@ const Navbar = () => {
     return (
         <AppBar position="static" className={classes.appbar} color="transparent">
             <Toolbar className={classes.toolbar}>
-                <Button className={classes.title} onClick={ResetUrl}>
-                    <img src={logo} alt="logo" />
-                </Button>
+                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
+                <img className={classes.title} src={logo} alt="logo" onClick={ResetUrl} />
                 <div className={classes.buttons}>
                     <IconButton color="inherit" onClick={ThemeHandler} className={classes.modeIcon}>
-                        {type === 'light' ? <LightModeIcon color="#fff" /> : <DarkModeIcon color="#000" />}
+                        {type === 'light' ? <LightModeIcon /> : <DarkModeIcon />}
                     </IconButton>
-                    <Button
-                        variant="outlined"
-                        color="inherit"
-                        onClick={createFormHandler}
-                        className={classes.addCityButton}
-                    >
-                        Add City
-                    </Button>
+                    <Tooltip title="Toggle, + or = to toggle drawer" enterDelay={1000} leaveDelay={200}>
+                        <Button
+                            variant="outlined"
+                            color="inherit"
+                            onClick={createFormHandler}
+                            className={classes.addCityButton}
+                        >
+                            Add City
+                        </Button>
+                    </Tooltip>
                 </div>
             </Toolbar>
         </AppBar>

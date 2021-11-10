@@ -3,11 +3,16 @@ interface IColor {
 }
 
 const EpamColors: IColor = {
-    blue: '#39C2D7',
-    green: '#A3C644',
-    black: '#464547',
-    red: '#b22746',
-    ink: '#8e244d'
+    epamBlue: '#76CDD8',
+    limeGreen: '#A3C644',
+    graphite: '#222222',
+    white: '#FFFFFF',
+    coral: '#D35D47',
+    brightBlue: '#008ACE',
+    sharpBlue: '#39C2D7',
+    darkBlue: '#263852',
+    lightGray: '#CCCCCC',
+    darkGray: '#464547'
 };
 
 const Colors: IColor = {

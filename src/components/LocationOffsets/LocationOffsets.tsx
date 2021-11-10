@@ -1,21 +1,19 @@
 import { FC } from 'react';
 import { Typography, makeStyles } from '@material-ui/core';
-import { EpamColors } from '../../constants';
-import { Colors } from '../../constants/colors';
 
-const useStyle = makeStyles({
+const useStyle = makeStyles(theme => ({
     host: {
         padding: '2px 8px',
         color: 'white',
-        backgroundColor: EpamColors.blue,
+        backgroundColor: theme.palette.primary.main,
         borderRadius: 20,
         marginBottom: 8
     },
     text: {
-        color: Colors.gray,
+        color: theme.palette.grey[300],
         height: 32
     }
-});
+}));
 
 interface IProps {
     hours: number;

@@ -1,33 +1,14 @@
-import { createTheme } from '@material-ui/core';
 import { useState } from 'react';
-import { EpamColors } from '../../constants';
+import themes from '../../assets/themes/themes';
 
 export const useTheme = () => {
     const [type, setType] = useState<'light' | 'dark'>('light');
 
-    const theme = createTheme({
-        palette: {
-            type,
-            background: { paper: type === 'dark' ? EpamColors.black : '#fff' }
-        }
-    });
-
-    const ThemeHandler = () => {
-        setType(type => {
-            if (type === 'light') {
-                return 'dark';
-            }
-            return 'light';
-        });
-    };
+    const theme = themes(type);
+    const ThemeHandler = () => setType(type => (type === 'light' ? 'dark' : 'light'));
 
     return {
-        state: {
-            theme,
-            type
-        },
-        actions: {
-            ThemeHandler
-        }
+        state: { theme, type },
+        actions: { ThemeHandler }
     };
 };
