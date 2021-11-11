@@ -4,6 +4,7 @@ import { AppBar, Toolbar, Button } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
 import logo from '../../assets/images/logo.svg';
 import { EpamColors } from '../../constants';
+import { DashboardName } from '../../components/DashboardName';
 
 const useStyles = makeStyles(theme => ({
     appbar: {
@@ -43,9 +44,12 @@ const Navbar = () => {
     return (
         <AppBar position="static" className={classes.appbar} color="transparent">
             <Toolbar className={classes.toolbar}>
-                <Button className={classes.title} onClick={ResetUrl}>
-                    <img src={logo} alt="logo" />
-                </Button>
+                <div className="content-center">
+                    <Button className={classes.title} onClick={ResetUrl}>
+                        <img src={logo} alt="logo" />
+                    </Button>
+                    <DashboardName />
+                </div>
                 <Button variant="outlined" color="inherit" onClick={createFormHandler}>
                     Add City
                 </Button>
