@@ -10,21 +10,37 @@ const useQueryParams = () => {
         const usp = new URLSearchParams(location.search.replace('?', ''));
         const paramValue = usp.get(paramName);
         const decoded = decode(paramValue);
-        // @ts-ignore
-        let res: T | null = JSON.parse(decoded);
-        if (typeof res === 'string') {
-            res = JSON.parse(res);
+        try {
+            // @ts-ignore
+            let res: T | null = JSON.parse(decoded);
+            if (typeof res === 'string') {
+                res = JSON.parse(res);
+            }
+            return res;
+        } catch (e) {
+            // @ts-ignore
+            return decoded;
         }
-        return res;
+    };
+
+    const DeleteParam = (paramName: string) => {
+        const usp: URLSearchParams = new URLSearchParams(location.search.replace('?', ''));
+        usp.delete(paramName);
+        const newUrl = usp.toString();
+        history.push(`?${newUrl}`);
     };
 
     const SetParam = <T>(paramName: string, paramValue: T) => {
         const usp = new URLSearchParams(location.search.replace('?', ''));
-        usp.set(paramName, encode(JSON.stringify(paramValue)));
-        const url = usp.toString();
-        history.push(`?${url}`);
+        if (typeof paramValue !== 'string') {
+            usp.set(paramName, encode(JSON.stringify(paramValue)));
+        } else {
+            usp.set(paramName, encode(paramValue));
+        }
+        const newUrl = usp.toString();
+        history.push(`?${newUrl}`);
     };
 
-    return { SetParam, GetParam };
+    return { SetParam, GetParam, DeleteParam };
 };
 export { useQueryParams };
