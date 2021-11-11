@@ -1,10 +1,10 @@
 FROM node:14-alpine AS build
 WORKDIR /app
-COPY package* yarn.lock ./
-RUN yarn install
+COPY package* package.lock ./
+RUN npm ci
 COPY public ./public
 COPY src ./src
-RUN yarn build
+RUN npm run build
 
 FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
