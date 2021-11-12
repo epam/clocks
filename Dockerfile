@@ -1,9 +1,10 @@
 FROM node:14-alpine AS build
 WORKDIR /app
-COPY package* package-lock.json ./
+COPY package* ./
 RUN npm ci
 COPY public ./public
 COPY src ./src
+COPY tsconfig.json ./
 RUN npm run build
 
 FROM nginx:alpine
