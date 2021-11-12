@@ -29,7 +29,8 @@ const useStyles = makeStyles(theme => ({
         flex: '1 1 50px'
     },
     text: {
-        fontSize: '1.3rem'
+        fontSize: '1.3rem',
+        color: theme.palette.text.primary
     },
     buttonsContainer: {
         display: 'flex',
@@ -38,6 +39,15 @@ const useStyles = makeStyles(theme => ({
     button: {
         width: '50%',
         borderRadius: 0
+    },
+    cancelButton: {
+        backgroundColor: theme.palette.primary.main,
+        opacity: 0.95,
+        color: 'white',
+        '&:hover': {
+            backgroundColor: theme.palette.primary.main,
+            opacity: 1
+        }
     },
     deleteButton: {
         backgroundColor: EpamColors.red,
@@ -94,7 +104,11 @@ function AppModal() {
                         </Typography>
                     </div>
                     <div className={classes.buttonsContainer}>
-                        <Button variant="contained" className={classes.button} onClick={handleClose}>
+                        <Button
+                            variant="contained"
+                            className={`${classes.button} ${classes.cancelButton}`}
+                            onClick={handleClose}
+                        >
                             Cancel
                         </Button>
                         <Button

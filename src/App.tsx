@@ -5,24 +5,27 @@ import './assets/styles/index.scss';
 import { SnackbarProvider } from './context/snackbar';
 import { PlanningModeProvider } from './context/planningMode';
 import { ModalProvider } from './context/modal';
+import { ThemeProvider } from './context/theme';
 
 function App() {
     return (
-        <SnackbarProvider>
-            <PlanningModeProvider>
-                <ModalProvider>
-                    <LocationsProvider>
-                        <div className="App">
-                            <Switch>
-                                <Route>
-                                    <Dashboard />
-                                </Route>
-                            </Switch>
-                        </div>
-                    </LocationsProvider>
-                </ModalProvider>
-            </PlanningModeProvider>
-        </SnackbarProvider>
+        <ThemeProvider>
+            <SnackbarProvider>
+                <PlanningModeProvider>
+                    <ModalProvider>
+                        <LocationsProvider>
+                            <div className="App">
+                                <Switch>
+                                    <Route>
+                                        <Dashboard />
+                                    </Route>
+                                </Switch>
+                            </div>
+                        </LocationsProvider>
+                    </ModalProvider>
+                </PlanningModeProvider>
+            </SnackbarProvider>
+        </ThemeProvider>
     );
 }
 

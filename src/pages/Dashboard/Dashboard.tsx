@@ -3,6 +3,7 @@ import { useContext, KeyboardEvent } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 
+import { makeStyles } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
 import { SnackbarContext } from '../../context/snackbar';
 import Location from '../../containers/Location';
@@ -10,10 +11,20 @@ import Navbar from '../../containers/Navbar';
 import Footer from '../../containers/Footer';
 import InputDrawer from '../../containers/InputDrawer';
 
-import css from './Dashboard.module.scss';
 import DeleteModal from '../../containers/DeleteModal';
 
+const useStyles = makeStyles(theme => ({
+    container: {
+        maxWidth: '100%',
+        margin: 0,
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+        background: theme.palette.background.default
+    }
+}));
+
 const Dashboard = () => {
+    const css = useStyles();
     const {
         state: { hasCreateForm, locations },
         actions: { CreateFormHandler }
@@ -32,17 +43,8 @@ const Dashboard = () => {
         }
     };
 
-    const snackbarHandler = () => {
-        if (SnackbarHandler) {
-            SnackbarHandler(false);
-        }
-    };
-
-    const createFormHandler = (isVisible?: boolean) => {
-        if (CreateFormHandler) {
-            CreateFormHandler(isVisible);
-        }
-    };
+    const snackbarHandler = () => SnackbarHandler && SnackbarHandler(false);
+    const createFormHandler = (isVisible?: boolean) => CreateFormHandler && CreateFormHandler(isVisible);
 
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex,jsx-a11y/no-static-element-interactions
@@ -67,11 +69,9 @@ const Dashboard = () => {
                 autoHideDuration={3}
                 message={message || ''}
                 action={
-                    <>
-                        <IconButton size="small" aria-label="close" color="inherit" onClick={snackbarHandler}>
-                            x
-                        </IconButton>
-                    </>
+                    <IconButton size="small" aria-label="close" color="inherit" onClick={snackbarHandler}>
+                        x
+                    </IconButton>
                 }
             />
             <Footer />

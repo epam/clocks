@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
         width: '100%',
         height: 64,
         padding: '0 24px',
-        background: EpamColors.black,
+        background: EpamColors.darkGray,
         color: 'white',
         display: 'flex',
         justifyContent: 'space-between',
@@ -21,8 +21,8 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         alignItems: 'center',
         '& a': {
-            textDecoration: 'none',
             color: 'white',
+            textDecoration: 'none',
             verticalAlign: 'middle',
             margin: '0 10px'
         },

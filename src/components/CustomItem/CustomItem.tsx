@@ -2,18 +2,18 @@ import { FC } from 'react';
 import { MenuItem, withStyles, makeStyles } from '@material-ui/core';
 import { CityData } from 'city-timezones';
 import Badge from '@material-ui/core/Badge';
-import { Colors, EpamColors } from '../../constants/colors';
 
-const Item = withStyles({
+const Item = withStyles(theme => ({
     root: {
-        backgroundColor: 'white',
+        backgroundColor: theme.palette.background.paper,
         padding: 8,
         borderRadius: 4,
-        boxShadow: 'rgb(212, 217, 225) 0 1px 3px 0',
+        boxShadow: theme.palette.type === 'light' ? 'rgb(212, 217, 225) 0 1px 3px 0' : 'rgb(34, 34, 34) 0 1px 3px 0',
         margin: '10px 5px 0 5px'
     }
-})(MenuItem);
-const useStyle = makeStyles(() => ({
+}))(MenuItem);
+
+const useStyle = makeStyles(theme => ({
     text: {
         display: 'flex',
         flexDirection: 'column',
@@ -30,17 +30,13 @@ const useStyle = makeStyles(() => ({
         fontSize: 16,
         fontWeight: 600
     },
-    mark: {
-        color: EpamColors.black,
-        fontWeight: 400
-    },
     country: {
         fontSize: 14,
         fontWeight: 400,
-        color: EpamColors.black
+        color: theme.palette.text.primary
     },
     disabled: {
-        backgroundColor: Colors.lightGray,
+        backgroundColor: theme.palette.type === 'light' ? '#dcdcda' : '#000',
         pointerEvents: 'none'
     },
     badge: {
@@ -48,7 +44,8 @@ const useStyle = makeStyles(() => ({
         '& span.MuiBadge-badge': {
             transform: 'translate(0, -50%)',
             padding: '1em',
-            backgroundColor: EpamColors.blue
+            backgroundColor: theme.palette.primary.main,
+            color: 'white'
         }
     }
 }));

@@ -1,17 +1,27 @@
 import { useContext, useRef, useState, useEffect, FC, FocusEvent } from 'react';
 
 import { IconButton, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import { LocationsContext } from '../../context/locations';
 import { SnackbarContext } from '../../context/snackbar';
 import { ModalContext } from '../../context/modal';
 import LocationContent from '../../components/LocationContent';
 import css from './Location.module.scss';
-import { Comment } from '../../assets/icons/icons';
-import recycleBinIcon from '../../assets/icons/recycle-bin.svg';
-import homeIcon from '../../assets/icons/home.svg';
+import { Comment, HomeIcon, DeleteIcon } from '../../assets/icons/icons';
 import { IAppLocation } from '../../types/location';
+import { ThemeContext } from '../../context/theme';
+
+const useStyles = makeStyles(theme => ({
+    button: {
+        background: theme.palette.background.default
+    }
+}));
 
 const Location: FC<IAppLocation> = ({ timezone, city, country, offset, host, id, message }) => {
+    const classes = useStyles();
+    const {
+        state: { type }
+    } = useContext(ThemeContext);
     const { hours, minutes } = offset;
     const {
         actions: { AddComment, ChangeUserCurrentLocation }
@@ -47,28 +57,19 @@ const Location: FC<IAppLocation> = ({ timezone, city, country, offset, host, id,
         setMessageVisibility(false);
     };
 
-    const openDeleteModal = () => {
-        if (OpenDeleteModal) {
-            OpenDeleteModal(id);
-        }
-    };
-
-    const changeUserCurrentLocation = () => {
-        if (ChangeUserCurrentLocation) {
-            ChangeUserCurrentLocation(id);
-        }
-    };
+    const openDeleteModal = () => OpenDeleteModal && OpenDeleteModal(id);
+    const changeUserCurrentLocation = () => ChangeUserCurrentLocation && ChangeUserCurrentLocation(id);
 
     return (
         <div className={css.card}>
             <div className={css['recycle-bin']}>
                 {!host && (
-                    <IconButton onClick={changeUserCurrentLocation}>
-                        <img src={homeIcon} alt="home" className="icon" />
+                    <IconButton onClick={changeUserCurrentLocation} className={classes.button}>
+                        <HomeIcon color={type === 'light' ? '#000' : '#FFF'} />
                     </IconButton>
                 )}
-                <IconButton onClick={openDeleteModal}>
-                    <img src={recycleBinIcon} alt="recycle-bin" className="icon" />
+                <IconButton onClick={openDeleteModal} className={classes.button}>
+                    <DeleteIcon color={type === 'light' ? '#000' : '#FFF'} />
                 </IconButton>
             </div>
             <div className={css.content}>
@@ -96,11 +97,11 @@ const Location: FC<IAppLocation> = ({ timezone, city, country, offset, host, id,
                     </Typography>
                 ) : (
                     <IconButton
+                        className={`${css['comment-icon']} ${classes.button}`}
                         data-testid="commentButton"
-                        className={css['comment-icon']}
                         onClick={() => setMessageVisibility(true)}
                     >
-                        <Comment />
+                        <Comment color={type === 'light' ? '#000' : '#FFF'} />
                     </IconButton>
                 )}
             </div>
