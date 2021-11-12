@@ -12,7 +12,8 @@ const EpamColors: IColor = {
     sharpBlue: '#39C2D7',
     darkBlue: '#263852',
     lightGray: '#CCCCCC',
-    darkGray: '#464547'
+    darkGray: '#464547',
+    red: '#B22746'
 };
 
 const Colors: IColor = {
