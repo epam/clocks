@@ -6,6 +6,7 @@ import { ThemeContext } from '../../context/theme';
 import logo from '../../assets/images/logo.svg';
 import { EpamColors } from '../../constants';
 import { DarkModeIcon, LightModeIcon } from '../../assets/icons/icons';
+import { DashboardName } from '../../components/DashboardName';
 
 const useStyles = makeStyles(theme => ({
     appbar: {
@@ -60,7 +61,12 @@ const Navbar = () => {
         <AppBar position="static" className={classes.appbar} color="transparent">
             <Toolbar className={classes.toolbar}>
                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-                <img className={classes.title} src={logo} alt="logo" onClick={ResetUrl} />
+                <div className="content-center">
+                    <Button className={classes.title} onClick={ResetUrl}>
+                        <img src={logo} alt="logo" />
+                    </Button>
+                    <DashboardName />
+                </div>
                 <div className={classes.buttons}>
                     <IconButton color="inherit" onClick={ThemeHandler} className={classes.modeIcon}>
                         {type === 'light' ? <LightModeIcon /> : <DarkModeIcon />}

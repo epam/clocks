@@ -98,6 +98,7 @@ const Location: FC<IAppLocation> = ({ timezone, city, country, offset, host, id,
                 ) : (
                     <IconButton
                         className={`${css['comment-icon']} ${classes.button}`}
+                        data-testid="commentButton"
                         onClick={() => setMessageVisibility(true)}
                     >
                         <Comment color={type === 'light' ? '#000' : '#FFF'} />

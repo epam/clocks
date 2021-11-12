@@ -12,7 +12,15 @@
     justify-content: center;
 }
 
-.max-content{
+.d-flex {
+    display: flex;
+}
+
+.position-relative {
+    position: relative;
+}
+
+.max-content {
     height: 100%;
     display: block;
 }
@@ -55,6 +63,11 @@
 .icon {
     width: $icon-size;
     height: $icon-size;
+}
+
+.small-icon {
+    width: $small-icon-size;
+    height: $small-icon-size;
 }
 
 .text-gray {

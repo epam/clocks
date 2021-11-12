@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { LocationsContext, LocationsProvider } from '../../context/locations';
+import { LocationsContext } from '../../context/locations';
 import Navbar from './Navbar';
 
 const MockResetUrl = jest.fn();
@@ -13,6 +13,15 @@ const wrapper = children => (
         {children}
     </LocationsContext.Provider>
 );
+
+jest.mock('../../hooks/useQueryParams', () => {
+    const originalModule = jest.requireActual('../../hooks/useQueryParams');
+    return {
+        __esModule: true,
+        ...originalModule,
+        useQueryParams: () => ({ SetParam: jest.fn(), GetParam: jest.fn(), DeleteParam: jest.fn() })
+    };
+});
 
 describe('test Navbar component', () => {
     it('renders Navbar component', () => {

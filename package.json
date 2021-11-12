@@ -2,7 +2,7 @@
   "name": "clocks",
   "version": "0.1.0",
   "engines": {
-    "node": "14.17.3"
+    "node": "14.15.1"
   },
   "private": true,
   "homepage": "./",
