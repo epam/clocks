@@ -25,11 +25,11 @@ jest.mock('../../hooks/useQueryParams', () => {
 
 describe('test Navbar component', () => {
     it('renders Navbar component', () => {
-        const { getByRole } = render(<Navbar />);
+        const { getByRole, getByText } = render(<Navbar />);
         const navbar = getByRole('banner');
         const logoButton = getByRole('button', { name: 'logo' });
         const logoImg = getByRole('img', { name: 'logo' });
-        const addCityButton = getByRole('button', { name: 'Add City' });
+        const addCityButton = getByText('Add City');
         expect(navbar).toBeInTheDocument();
         expect(logoButton).toBeInTheDocument();
         expect(logoImg).toBeInTheDocument();
@@ -42,8 +42,8 @@ describe('test Navbar component', () => {
         expect(MockResetUrl).toHaveBeenCalledTimes(1);
     });
     it('open sidebar by clicking the Add City Button', () => {
-        const { getByRole } = render(wrapper(<Navbar />));
-        const addCityButton = getByRole('button', { name: 'Add City' });
+        const { getByText } = render(wrapper(<Navbar />));
+        const addCityButton = getByText('Add City');
         userEvent.click(addCityButton);
         expect(MockCreateFormHandler).toHaveBeenCalledTimes(1);
         expect(MockCreateFormHandler).toHaveBeenCalledWith(true);

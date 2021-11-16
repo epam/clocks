@@ -38,13 +38,11 @@ describe('test Location component', () => {
     it('renders Location component', () => {
         const { getAllByRole, getByTestId, getByRole } = render(<Location {...mockLocation} />);
         const headings = getAllByRole('heading');
-        const recycleBinButton = getByRole('button', { name: 'recycle-bin' });
+        const recycleBinIcon = getByTestId(/DeleteIcon/i);
         const commentButton = getByTestId('commentButton');
-        const recycleBinIcon = getByRole('img', { name: 'recycle-bin' });
         const city = getByRole('heading', { name: 'Tashkent' });
         const country = getByRole('heading', { name: 'Uzbekistan' });
         expect(headings.length).toBe(5);
-        expect(recycleBinButton).toBeInTheDocument();
         expect(recycleBinIcon).toBeInTheDocument();
         expect(city).toBeInTheDocument();
         expect(country).toBeInTheDocument();
@@ -64,15 +62,15 @@ describe('test Location component', () => {
         const commentMessage = getByText(commentMessageText);
         expect(commentMessage).toBeInTheDocument();
     });
-    it('set current user location id by clicking recycle bin icon', () => {
-        const { getByRole } = render(locationsWithSnackbarWrapper(<Location {...mockLocation} />));
-        const recycleBinButton = getByRole('button', { name: 'home' });
-        userEvent.click(recycleBinButton);
+    it('set current user location id by clicking home icon button', () => {
+        const { getByTestId } = render(locationsWithSnackbarWrapper(<Location {...mockLocation} />));
+        const homeButton = getByTestId(/HomeIconButton/i);
+        userEvent.click(homeButton);
         expect(MockChangeUserCurrentLocation).toHaveBeenCalledWith('Tashkent_UZ_41_69');
     });
     it('open delete modal by clicking delete icon button', () => {
-        const { getByRole } = render(deleteModalWrapper(<Location {...mockLocation} />));
-        const deleteButton = getByRole('button', { name: 'recycle-bin' });
+        const { getByTestId } = render(deleteModalWrapper(<Location {...mockLocation} />));
+        const deleteButton = getByTestId(/DeleteButton/i);
         userEvent.click(deleteButton);
         expect(MockOpenDeleteModal).toHaveBeenCalledWith('Tashkent_UZ_41_69');
     });

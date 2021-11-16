@@ -101,7 +101,12 @@ const LightModeIcon = () => (
 );
 
 const HomeIcon = ({ color }) => (
-    <svg viewBox="0 0 176.532 176.532" width="32px" style={{ 'enable-background': 'new 0 0 176.532 176.532' }}>
+    <svg
+        viewBox="0 0 176.532 176.532"
+        data-testid="HomeIcon"
+        width="32px"
+        style={{ 'enable-background': 'new 0 0 176.532 176.532' }}
+    >
         <g>
             <path
                 style={{ fill: color }}

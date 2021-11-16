@@ -64,11 +64,15 @@ const Location: FC<IAppLocation> = ({ timezone, city, country, offset, host, id,
         <div className={css.card}>
             <div className={css['recycle-bin']}>
                 {!host && (
-                    <IconButton onClick={changeUserCurrentLocation} className={classes.button}>
+                    <IconButton
+                        data-testid="HomeIconButton"
+                        onClick={changeUserCurrentLocation}
+                        className={classes.button}
+                    >
                         <HomeIcon color={type === 'light' ? '#000' : '#FFF'} />
                     </IconButton>
                 )}
-                <IconButton onClick={openDeleteModal} className={classes.button}>
+                <IconButton data-testid="DeleteButton" onClick={openDeleteModal} className={classes.button}>
                     <DeleteIcon color={type === 'light' ? '#000' : '#FFF'} />
                 </IconButton>
             </div>

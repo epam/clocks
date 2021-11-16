@@ -26,7 +26,8 @@ const useStyles = makeStyles(theme => ({
     title: {
         height: 28,
         objectFit: 'cover',
-        cursor: 'pointer'
+        cursor: 'pointer',
+        marginRight: 12
     },
     buttons: {
         display: 'flex',
@@ -60,10 +61,9 @@ const Navbar = () => {
     return (
         <AppBar position="static" className={classes.appbar} color="transparent">
             <Toolbar className={classes.toolbar}>
-                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
                 <div className="content-center">
-                    <Button className={classes.title} onClick={ResetUrl}>
-                        <img src={logo} alt="logo" />
+                    <Button onClick={ResetUrl}>
+                        <img className={classes.title} src={logo} alt="logo" />
                     </Button>
                     <DashboardName />
                 </div>
