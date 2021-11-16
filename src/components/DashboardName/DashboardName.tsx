@@ -63,7 +63,7 @@ export const DashboardName = () => {
         }
         if (isBeingNamed) {
             return (
-                <form onSubmit={EditDashboardName}>
+                <form onSubmit={EditDashboardName} data-testid="form">
                     <Input
                         autoFocus
                         onBlur={() => EditDashboardName()}
