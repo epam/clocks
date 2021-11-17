@@ -5,7 +5,7 @@ import { LocationsContext } from '../../context/locations';
 import { ThemeContext } from '../../context/theme';
 import logo from '../../assets/images/logo.svg';
 import { EpamColors } from '../../constants';
-import { DarkModeIcon, LightModeIcon } from '../../assets/icons/icons';
+import { DarkModeIcon, LightModeIcon, SettingsIcon } from '../../assets/icons/icons';
 import { DashboardName } from '../../components/DashboardName';
 
 const useStyles = makeStyles(theme => ({
@@ -70,6 +70,9 @@ const Navbar = () => {
                 <div className={classes.buttons}>
                     <IconButton color="inherit" onClick={ThemeHandler} className={classes.modeIcon}>
                         {type === 'light' ? <LightModeIcon /> : <DarkModeIcon />}
+                    </IconButton>
+                    <IconButton>
+                        <SettingsIcon />
                     </IconButton>
                     <Tooltip title="Toggle, + or = to toggle drawer" enterDelay={1000} leaveDelay={200}>
                         <Button
