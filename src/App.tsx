@@ -6,25 +6,28 @@ import { SnackbarProvider } from './context/snackbar';
 import { PlanningModeProvider } from './context/planningMode';
 import { ModalProvider } from './context/modal';
 import { ThemeProvider } from './context/theme';
+import { SettingsProvider } from './context/settings';
 
 function App() {
     return (
         <ThemeProvider>
-            <SnackbarProvider>
-                <PlanningModeProvider>
-                    <ModalProvider>
-                        <LocationsProvider>
-                            <div className="App">
-                                <Switch>
-                                    <Route>
-                                        <Dashboard />
-                                    </Route>
-                                </Switch>
-                            </div>
-                        </LocationsProvider>
-                    </ModalProvider>
-                </PlanningModeProvider>
-            </SnackbarProvider>
+            <SettingsProvider>
+                <SnackbarProvider>
+                    <PlanningModeProvider>
+                        <ModalProvider>
+                            <LocationsProvider>
+                                <div className="App">
+                                    <Switch>
+                                        <Route>
+                                            <Dashboard />
+                                        </Route>
+                                    </Switch>
+                                </div>
+                            </LocationsProvider>
+                        </ModalProvider>
+                    </PlanningModeProvider>
+                </SnackbarProvider>
+            </SettingsProvider>
         </ThemeProvider>
     );
 }

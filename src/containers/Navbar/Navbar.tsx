@@ -5,8 +5,9 @@ import { LocationsContext } from '../../context/locations';
 import { ThemeContext } from '../../context/theme';
 import logo from '../../assets/images/logo.svg';
 import { EpamColors } from '../../constants';
-import { DarkModeIcon, LightModeIcon } from '../../assets/icons/icons';
+import { DarkModeIcon, LightModeIcon, SettingsIcon } from '../../assets/icons/icons';
 import { DashboardName } from '../../components/DashboardName';
+import { SettingsContext } from '../../context/settings';
 
 const useStyles = makeStyles(theme => ({
     appbar: {
@@ -46,6 +47,9 @@ const Navbar = () => {
     const {
         actions: { CreateFormHandler, ResetUrl }
     } = useContext(LocationsContext);
+    const {
+        actions: { SettingsModalHandler }
+    } = useContext(SettingsContext);
 
     const {
         actions: { ThemeHandler },
@@ -55,6 +59,12 @@ const Navbar = () => {
     const createFormHandler = () => {
         if (CreateFormHandler) {
             CreateFormHandler(true);
+        }
+    };
+
+    const settingsModalHandler = () => {
+        if (SettingsModalHandler) {
+            SettingsModalHandler();
         }
     };
 
@@ -70,6 +80,9 @@ const Navbar = () => {
                 <div className={classes.buttons}>
                     <IconButton color="inherit" onClick={ThemeHandler} className={classes.modeIcon}>
                         {type === 'light' ? <LightModeIcon /> : <DarkModeIcon />}
+                    </IconButton>
+                    <IconButton onClick={settingsModalHandler}>
+                        <SettingsIcon />
                     </IconButton>
                     <Tooltip title="Toggle, + or = to toggle drawer" enterDelay={1000} leaveDelay={200}>
                         <Button

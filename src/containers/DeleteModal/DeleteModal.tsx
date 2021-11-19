@@ -60,7 +60,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-function AppModal() {
+function DeleteModal() {
     const classes = useStyles();
     const {
         state: { isModalOpen, locationId },
@@ -125,4 +125,4 @@ function AppModal() {
     );
 }
 
-export default AppModal;
+export default DeleteModal;

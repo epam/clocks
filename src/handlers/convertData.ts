@@ -3,6 +3,7 @@ import { CityData } from 'city-timezones';
 import cityMapping from '../constants/cityMapping';
 import generateIdFormat from './generateIdFormat';
 import { IAppLocation, IOffset, IUrlLocation, TCity, TCountry, TLocationId, TTimezone } from '../types/location';
+import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../constants';
 
 interface IConvertedObject {
     id: TLocationId;
@@ -38,6 +39,14 @@ const convertIdToObject = (id: string, message = ''): IConvertedObject => {
     };
 };
 
+const getStorageValue = (key: string) => {
+    const storageValue = localStorage.getItem(key);
+    if (!storageValue && storageValue !== 'false') {
+        return true;
+    }
+    return JSON.parse(storageValue);
+};
+
 const convertData = (urlDataList: IUrlLocation[] = [], locationId: TLocationId): IAppLocation[] => {
     let result: IAppLocation[] = [];
     if (!Array.isArray(urlDataList)) {
@@ -45,12 +54,21 @@ const convertData = (urlDataList: IUrlLocation[] = [], locationId: TLocationId):
     }
     const myLocation = convertIdToObject(locationId); // converts users location
     const list = urlDataList.map(urlData => convertIdToObject(urlData['id'], urlData['message']));
-
+    const hasDate = getStorageValue(HAS_DATE);
+    const hasCountry = getStorageValue(HAS_COUNTRY);
+    const hasTimezone = getStorageValue(HAS_TIMEZONE);
     result = list.map(location => {
         if (locationId === (location as IAppLocation)['id']) {
-            return { ...location, host: true, offset: { hours: 0, minutes: 0 } };
+            return { ...location, host: true, offset: { hours: 0, minutes: 0 }, hasDate, hasCountry, hasTimezone };
         }
-        return { ...location, host: false, offset: findOffset(myLocation?.timezone, location?.timezone) };
+        return {
+            ...location,
+            host: false,
+            offset: findOffset(myLocation?.timezone, location?.timezone),
+            hasDate,
+            hasCountry,
+            hasTimezone
+        };
     });
 
     result.sort((a: IAppLocation, b: IAppLocation) => {
