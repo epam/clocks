@@ -2,6 +2,9 @@ import { useContext, useRef, useState, useEffect, FC, FocusEvent } from 'react';
 
 import { IconButton, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ReactHtmlParser from 'react-html-parser';
 import { LocationsContext } from '../../context/locations';
 import { SnackbarContext } from '../../context/snackbar';
 import { ModalContext } from '../../context/modal';
@@ -10,10 +13,14 @@ import css from './Location.module.scss';
 import { Comment, HomeIcon, DeleteIcon } from '../../assets/icons/icons';
 import { IAppLocation } from '../../types/location';
 import { ThemeContext } from '../../context/theme';
+import { editorConfig } from '../../constants';
 
 const useStyles = makeStyles(theme => ({
     button: {
         background: theme.palette.background.default
+    },
+    comment: {
+        color: theme.palette.text.primary
     }
 }));
 
@@ -33,26 +40,26 @@ const Location: FC<IAppLocation> = ({ offset, host, id, message, ...props }) => 
         actions: { OpenSnackbar, SnackbarHandler },
         state: { isSnackbarOpen }
     } = useContext(SnackbarContext);
-    const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    const [commentText, setCommentText] = useState(message);
+    const CKEditorRef = useRef<any>(null);
 
     const [messageVisibility, setMessageVisibility] = useState<boolean>(false);
 
     useEffect(() => {
-        if (messageVisibility && textAreaRef.current) {
-            textAreaRef.current.focus();
+        if (messageVisibility && CKEditorRef.current) {
+            CKEditorRef.current.editor.editing.view.focus();
         }
     }, [messageVisibility]);
 
     const onBlurHandler = (event: FocusEvent<HTMLTextAreaElement>) => {
-        const comment = event.target?.value;
-        if (comment.length > 100 && OpenSnackbar) {
+        if (commentText.length > 100 && OpenSnackbar) {
             return OpenSnackbar('Comment message must not be longer than 100 characters');
         }
         if (isSnackbarOpen && SnackbarHandler) {
             SnackbarHandler(false);
         }
         if (AddComment) {
-            AddComment(id, event.target.value);
+            AddComment(id, commentText);
         }
         setMessageVisibility(false);
     };
@@ -80,17 +87,25 @@ const Location: FC<IAppLocation> = ({ offset, host, id, message, ...props }) => 
                 <LocationContent hours={hours} minutes={minutes} host={host} {...props} />
 
                 {messageVisibility ? (
-                    <textarea
-                        ref={textAreaRef}
-                        defaultValue={message}
-                        maxLength={100}
+                    <CKEditor
+                        editor={ClassicEditor}
+                        config={editorConfig}
+                        data={commentText}
+                        onChange={(event: any, editor: { getData: () => any }) => {
+                            const data = editor.getData();
+                            setCommentText(data);
+                        }}
                         onBlur={onBlurHandler}
                         className={css.textArea}
-                        rows={3}
+                        ref={CKEditorRef}
                     />
                 ) : message ? (
-                    <Typography onClick={() => setMessageVisibility(true)} className={css.message} variant="body1">
-                        {message}
+                    <Typography
+                        onClick={() => setMessageVisibility(true)}
+                        className={`${css.message} ${classes.comment}`}
+                        variant="button"
+                    >
+                        {ReactHtmlParser(commentText)}
                     </Typography>
                 ) : (
                     <IconButton

@@ -60,7 +60,7 @@ const Dashboard = () => {
                 {locations &&
                     locations.map((props, index) => (
                         <div key={index}>
-                            <Location {...props} clocksFont={clocksFont} />
+                            <Location {...props} />
                         </div>
                     ))}
                 <InputDrawer visibility={hasCreateForm || false} setVisibility={createFormHandler} />

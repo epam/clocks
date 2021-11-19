@@ -103,7 +103,7 @@ const HomeIcon = ({ color }) => (
         viewBox="0 0 176.532 176.532"
         data-testid="HomeIcon"
         width="32px"
-        style={{ 'enable-background': 'new 0 0 176.532 176.532' }}
+        style={{ enableBackground: 'new 0 0 176.532 176.532' }}
     >
         <g>
             <path
