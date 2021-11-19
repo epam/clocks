@@ -81,7 +81,8 @@ export const useLocations = (): ILocationContext => {
             DeleteLocation,
             ResetUrl,
             GetLocationsFromUrl,
-            AddComment
+            AddComment,
+            SetLocationsFromUrl
         }
     };
 };

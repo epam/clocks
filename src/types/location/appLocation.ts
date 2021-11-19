@@ -14,6 +14,9 @@ interface IAppLocation {
     country: TCountry;
     host: boolean;
     message: string;
+    hasDate?: boolean;
+    hasCountry?: boolean;
+    hasTimezone?: boolean;
 }
 
 export type { IAppLocation, IOffset };

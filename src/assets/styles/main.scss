@@ -16,6 +16,10 @@
     display: flex;
 }
 
+.flex-column {
+    flex-direction: column;
+}
+
 .position-relative {
     position: relative;
 }
@@ -28,10 +32,6 @@
 .section {
     width: 100%;
     min-height: 100vh;
-}
-
-.flex-column {
-    flex-direction: column;
 }
 
 .fs-3 {
