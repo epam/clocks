@@ -3,10 +3,11 @@ import { Typography } from '@material-ui/core';
 import moment from 'moment-timezone';
 import { makeStyles } from '@material-ui/core/styles';
 import LocationOffsets from '../LocationOffsets';
-import { TCity, TCountry, TTimezone } from '../../types/location';
+import { IAppLocation, TCity, TCountry, TTimezone } from '../../types/location';
 import { EpamColors } from '../../constants';
+import { getGmtOffset } from '../../handlers';
 
-interface IProps {
+interface IProps extends Partial<IAppLocation> {
     city: TCity;
     country: TCountry;
     timezone: TTimezone;
@@ -37,7 +38,17 @@ const useStyle = makeStyles(theme => ({
     }
 }));
 
-const LocationContent: FC<IProps> = ({ city = '', country = '', timezone = '', hours, minutes, host }) => {
+const LocationContent: FC<IProps> = ({
+    city = '',
+    country = '',
+    timezone = '',
+    hours,
+    minutes,
+    host,
+    hasCountry = true,
+    hasDate = true,
+    hasTimezone = true
+}) => {
     const css = useStyle();
     const [time, setTime] = useState(moment.tz(timezone));
 
@@ -47,19 +58,15 @@ const LocationContent: FC<IProps> = ({ city = '', country = '', timezone = '', h
         return () => clearInterval(id);
     }, [timezone]);
 
-    const gmtOffset = useMemo(() => {
-        const offset = moment.tz(moment.utc(), timezone).utcOffset();
-        if (offset > 0) {
-            return `+${offset / 60}`;
-        }
-        return offset / 60;
-    }, [timezone]);
+    const gmtOffset = useMemo(() => getGmtOffset(timezone), [timezone]);
 
     return (
         <>
-            <Typography paragraph variant="subtitle2" className={`${css.default} m-0`}>
-                {time.format('D MMM')}
-            </Typography>
+            {hasDate && (
+                <Typography paragraph variant="subtitle2" className={`${css.default} m-0`}>
+                    {time.format('D MMM')}
+                </Typography>
+            )}
             <span className={css.time}>
                 <Typography variant="h2" className={css.hour}>
                     {time.format('HH')}
@@ -70,12 +77,16 @@ const LocationContent: FC<IProps> = ({ city = '', country = '', timezone = '', h
             <Typography className={css.default} variant="h5">
                 {city}
             </Typography>
-            <Typography variant="subtitle2" className={`${css.grey} text-uppercase text-center`}>
-                {country}
-            </Typography>
-            <Typography className={css.default} variant="body2">
-                {timezone} GMT {gmtOffset}
-            </Typography>
+            {hasCountry && (
+                <Typography variant="subtitle2" className={`${css.grey} text-uppercase text-center`}>
+                    {country}
+                </Typography>
+            )}
+            {hasTimezone && (
+                <Typography className={css.default} variant="body2">
+                    {timezone} GMT {gmtOffset}
+                </Typography>
+            )}
         </>
     );
 };

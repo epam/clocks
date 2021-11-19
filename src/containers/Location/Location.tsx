@@ -17,7 +17,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const Location: FC<IAppLocation> = ({ timezone, city, country, offset, host, id, message }) => {
+const Location: FC<IAppLocation> = ({ offset, host, id, message, ...props }) => {
     const classes = useStyles();
     const {
         state: { type }
@@ -77,14 +77,7 @@ const Location: FC<IAppLocation> = ({ timezone, city, country, offset, host, id,
                 </IconButton>
             </div>
             <div className={css.content}>
-                <LocationContent
-                    hours={hours}
-                    minutes={minutes}
-                    host={host}
-                    city={city}
-                    country={country}
-                    timezone={timezone}
-                />
+                <LocationContent hours={hours} minutes={minutes} host={host} {...props} />
 
                 {messageVisibility ? (
                     <textarea

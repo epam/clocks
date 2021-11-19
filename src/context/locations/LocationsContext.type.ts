@@ -14,6 +14,7 @@ interface IActions {
     ResetUrl: () => void;
     GetLocationsFromUrl: () => TLocationId[];
     AddComment: (locationId: TLocationId, comment: string) => void;
+    SetLocationsFromUrl: () => Promise<void>;
 }
 
 interface ILocationContext extends IContext<IState, IActions> {}

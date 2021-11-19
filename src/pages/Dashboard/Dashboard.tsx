@@ -1,17 +1,16 @@
 import { useContext, KeyboardEvent } from 'react';
-
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
-
 import { makeStyles } from '@material-ui/core';
+
 import { LocationsContext } from '../../context/locations';
 import { SnackbarContext } from '../../context/snackbar';
 import Location from '../../containers/Location';
 import Navbar from '../../containers/Navbar';
 import Footer from '../../containers/Footer';
 import InputDrawer from '../../containers/InputDrawer';
-
 import DeleteModal from '../../containers/DeleteModal';
+import SettingsModal from '../../containers/SettingsModal';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -51,6 +50,7 @@ const Dashboard = () => {
         <div tabIndex={0} onKeyPress={handleKeyDown} className="wrapper">
             <Navbar />
             <DeleteModal />
+            <SettingsModal />
             <div className={css.container}>
                 {locations &&
                     locations.map((props, index) => (
