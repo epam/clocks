@@ -136,6 +136,7 @@ describe('test Location component', () => {
         expect(MockAddComment).toHaveBeenCalledWith(mockLocation.id, newComment);
     });
 <<<<<<< HEAD
+<<<<<<< HEAD
     it('hides date, timezone and country name', () => {
         mockLocation.hasDate = false;
         mockLocation.hasCountry = false;
@@ -148,6 +149,8 @@ describe('test Location component', () => {
         expect(timezone).toBe(null);
         expect(date).toBe(null);
 =======
+=======
+>>>>>>> c8f8977 (test cases for CKEditor)
     it('check for adding comment with length more than 100 characters', () => {
         const { getByText, getByRole } = render(snackbarProvider(<Location {...mockLocation} />));
         const commentMessage = getByText(commentMessageText);
@@ -161,6 +164,9 @@ describe('test Location component', () => {
         userEvent.click(heading);
         expect(MockOpenSnackbar).toHaveBeenCalledTimes(1);
         expect(MockOpenSnackbar).toHaveBeenCalledWith('Comment message must not be longer than 100 characters');
+<<<<<<< HEAD
+>>>>>>> c8f8977 (test cases for CKEditor)
+=======
 >>>>>>> c8f8977 (test cases for CKEditor)
     });
 });
