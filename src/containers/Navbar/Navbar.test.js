@@ -1,13 +1,14 @@
-import React from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { LocationsContext } from '../../context/locations';
+import { SettingsContext } from '../../context/settings';
 import { ThemeContext, useTheme } from '../../context/theme';
 import Navbar from './Navbar';
 
 const MockResetUrl = jest.fn();
 const MockCreateFormHandler = jest.fn();
 const MockThemeHandler = jest.fn();
+const MockSettingsModalHandler = jest.fn();
 
 const wrapper = children => (
     <LocationsContext.Provider
@@ -32,6 +33,12 @@ const ThemeWrapper = () => {
     );
 };
 
+const settingsWrapper = children => (
+    <SettingsContext.Provider value={{ actions: { SettingsModalHandler: MockSettingsModalHandler } }}>
+        {children}
+    </SettingsContext.Provider>
+);
+
 jest.mock('../../hooks/useQueryParams', () => {
     const originalModule = jest.requireActual('../../hooks/useQueryParams');
     return {
@@ -49,11 +56,13 @@ describe('test Navbar component', () => {
         const logoImg = getByRole('img', { name: 'logo' });
         const addCityButton = getByText('Add City');
         const themeIcon = getByTestId(/DarkModeIcon/i);
+        const settingsIcon = getByTestId(/SettingsIcon/i);
         expect(navbar).toBeInTheDocument();
         expect(logoButton).toBeInTheDocument();
         expect(logoImg).toBeInTheDocument();
         expect(addCityButton).toBeInTheDocument();
         expect(themeIcon).toBeInTheDocument();
+        expect(settingsIcon).toBeInTheDocument();
     });
     it('reset url by clocking the logo', () => {
         const { getByRole } = render(wrapper(<Navbar />));
@@ -80,5 +89,11 @@ describe('test Navbar component', () => {
         userEvent.click(lightThemeIcon);
         const darkThemeIcon = getByTestId(/DarkModeIcon/i);
         expect(darkThemeIcon).toBeInTheDocument();
+    });
+    it('open settings modal', () => {
+        const { getByTestId } = render(settingsWrapper(<Navbar />));
+        const settingsIconButton = getByTestId(/SettingsIcon/i);
+        userEvent.click(settingsIconButton);
+        expect(MockSettingsModalHandler).toHaveBeenCalledTimes(1);
     });
 });
