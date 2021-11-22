@@ -1,4 +1,4 @@
-import { useContext, useRef, useState, useEffect, FC, FocusEvent } from 'react';
+import { useContext, useRef, useState, useEffect, FC } from 'react';
 
 import { IconButton, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -40,7 +40,6 @@ const Location: FC<IAppLocation> = ({ offset, host, id, message, ...props }) => 
         actions: { OpenSnackbar, SnackbarHandler },
         state: { isSnackbarOpen }
     } = useContext(SnackbarContext);
-    const [commentText, setCommentText] = useState(message);
     const CKEditorRef = useRef<any>(null);
 
     const [messageVisibility, setMessageVisibility] = useState<boolean>(false);
@@ -51,15 +50,16 @@ const Location: FC<IAppLocation> = ({ offset, host, id, message, ...props }) => 
         }
     }, [messageVisibility]);
 
-    const onBlurHandler = (event: FocusEvent<HTMLTextAreaElement>) => {
-        if (commentText.length > 100 && OpenSnackbar) {
+    const onBlurHandler = (event: any, editor: { getData: () => string }) => {
+        const comment = editor.getData();
+        if (comment.length > 100 && OpenSnackbar) {
             return OpenSnackbar('Comment message must not be longer than 100 characters');
         }
         if (isSnackbarOpen && SnackbarHandler) {
             SnackbarHandler(false);
         }
         if (AddComment) {
-            AddComment(id, commentText);
+            AddComment(id, comment);
         }
         setMessageVisibility(false);
     };
@@ -90,11 +90,7 @@ const Location: FC<IAppLocation> = ({ offset, host, id, message, ...props }) => 
                     <CKEditor
                         editor={ClassicEditor}
                         config={editorConfig}
-                        data={commentText}
-                        onChange={(event: any, editor: { getData: () => any }) => {
-                            const data = editor.getData();
-                            setCommentText(data);
-                        }}
+                        data={message}
                         onBlur={onBlurHandler}
                         className={css.textArea}
                         ref={CKEditorRef}
@@ -105,7 +101,7 @@ const Location: FC<IAppLocation> = ({ offset, host, id, message, ...props }) => 
                         className={`${css.message} ${classes.comment}`}
                         variant="button"
                     >
-                        {ReactHtmlParser(commentText)}
+                        {ReactHtmlParser(message)}
                     </Typography>
                 ) : (
                     <IconButton
