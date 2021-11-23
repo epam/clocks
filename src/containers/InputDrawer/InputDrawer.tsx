@@ -1,6 +1,6 @@
 import { FC, useContext, useRef, useMemo, useState, useEffect } from 'react';
 import { Grid, SwipeableDrawer, Toolbar, Typography, IconButton, MenuList } from '@material-ui/core';
-import { CityData } from 'city-timezones';
+import CityData from '../../types/city-timezones';
 import { CrossIcon } from '../../assets/icons/icons';
 import css from './InputDrawer.module.scss';
 import { lookupCityAscii, sortBestMatch } from '../../helpers';

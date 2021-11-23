@@ -1,5 +1,5 @@
 import moment from 'moment-timezone';
-import { CityData } from 'city-timezones';
+import CityData from '../types/city-timezones';
 import cityMapping from '../constants/cityMapping';
 import generateIdFormat from './generateIdFormat';
 import { IAppLocation, IOffset, IUrlLocation, TCity, TCountry, TLocationId, TTimezone } from '../types/location';

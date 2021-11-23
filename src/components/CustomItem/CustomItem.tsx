@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { MenuItem, withStyles, makeStyles } from '@material-ui/core';
-import { CityData } from 'city-timezones';
 import Badge from '@material-ui/core/Badge';
+import CityData from '../../types/city-timezones';
 
 const Item = withStyles(theme => ({
     root: {
