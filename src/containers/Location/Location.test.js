@@ -112,4 +112,16 @@ describe('test Location component', () => {
         userEvent.click(heading);
         expect(MockAddComment).toHaveBeenCalledWith(mockLocation.id, newComment);
     });
+    it('hides date, timezone and country name', () => {
+        mockLocation.hasDate = false;
+        mockLocation.hasCountry = false;
+        mockLocation.hasTimezone = false;
+        const { queryByText, queryByTestId } = render(<Location {...mockLocation} />);
+        const date = queryByTestId('date');
+        const country = queryByText(mockLocation.country);
+        const timezone = queryByText(mockLocation.timezone);
+        expect(country).toBe(null);
+        expect(timezone).toBe(null);
+        expect(date).toBe(null);
+    });
 });

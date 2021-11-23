@@ -63,7 +63,7 @@ const LocationContent: FC<IProps> = ({
     return (
         <>
             {hasDate && (
-                <Typography paragraph variant="subtitle2" className={`${css.default} m-0`}>
+                <Typography paragraph variant="subtitle2" data-testid="date" className={`${css.default} m-0`}>
                     {time.format('D MMM')}
                 </Typography>
             )}
