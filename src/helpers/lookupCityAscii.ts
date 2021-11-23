@@ -1,4 +1,4 @@
-import { CityData } from 'city-timezones';
+import CityData from '../types/city-timezones';
 import cityMapping from '../constants/cityMapping';
 
 function findPartialMatch(itemsToSearch: string[], searchString: string): boolean {
@@ -9,7 +9,7 @@ function findPartialMatch(itemsToSearch: string[], searchString: string): boolea
 function lookupCityAscii(searchString: string): CityData[] {
     if (searchString) {
         const cityLookup = cityMapping.filter((o: CityData) => {
-            return findPartialMatch([o.city, o.city_ascii, o.province, o.country], searchString);
+            return findPartialMatch([o.city, o.city_ascii, o.names, o.province, o.country], searchString);
         });
         if (cityLookup && cityLookup.length) {
             return cityLookup;
