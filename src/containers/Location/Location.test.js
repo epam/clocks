@@ -2,6 +2,7 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { LocationsContext } from '../../context/locations';
 import { ModalContext } from '../../context/modal';
+import { SnackbarContext } from '../../context/snackbar';
 import Location from './Location';
 
 const mockLocation = {
@@ -17,8 +18,22 @@ const mockLocation = {
 const MockChangeUserCurrentLocation = jest.fn();
 const MockAddComment = jest.fn();
 const MockOpenDeleteModal = jest.fn();
+const MockOpenSnackbar = jest.fn();
+const MockSnackbarHandler = jest.fn();
 
-const locationsWithSnackbarWrapper = children => (
+jest.mock('@ckeditor/ckeditor5-react', () => ({
+    CKEditor: ({ onBlur }) => {
+        const OnBlur = event => {
+            const editor = {
+                getData: () => event.target?.value || ''
+            };
+            onBlur(null, editor);
+        };
+        return <textarea onBlur={OnBlur} />;
+    }
+}));
+
+const locationsProvider = children => (
     <LocationsContext.Provider
         value={{
             actions: { AddComment: MockAddComment, ChangeUserCurrentLocation: MockChangeUserCurrentLocation }
@@ -28,11 +43,23 @@ const locationsWithSnackbarWrapper = children => (
     </LocationsContext.Provider>
 );
 
+const snackbarProvider = children => (
+    <SnackbarContext.Provider
+        value={{
+            actions: { OpenSnackbar: MockOpenSnackbar, SnackbarHandler: MockSnackbarHandler },
+            state: { isSnackbarOpen: false }
+        }}
+    >
+        {children}
+    </SnackbarContext.Provider>
+);
+
 const deleteModalWrapper = children => (
     <ModalContext.Provider value={{ actions: { OpenDeleteModal: MockOpenDeleteModal } }}>
         {children}
     </ModalContext.Provider>
 );
+const commentMessageText = 'This is test comment message';
 
 describe('test Location component', () => {
     it('renders Location component', () => {
@@ -56,14 +83,13 @@ describe('test Location component', () => {
         expect(textarea).toBeInTheDocument();
     });
     it('renders Location component with comment message', () => {
-        const commentMessageText = 'This is test comment';
         mockLocation.message = commentMessageText;
         const { getByText } = render(<Location {...mockLocation} />);
         const commentMessage = getByText(commentMessageText);
         expect(commentMessage).toBeInTheDocument();
     });
     it('set current user location id by clicking home icon button', () => {
-        const { getByTestId } = render(locationsWithSnackbarWrapper(<Location {...mockLocation} />));
+        const { getByTestId } = render(locationsProvider(<Location {...mockLocation} />));
         const homeButton = getByTestId(/HomeIconButton/i);
         userEvent.click(homeButton);
         expect(MockChangeUserCurrentLocation).toHaveBeenCalledWith('Tashkent_UZ_41_69');
@@ -76,7 +102,7 @@ describe('test Location component', () => {
     });
     it('not render home icon if location is host', () => {
         mockLocation.host = true;
-        const { queryByRole } = render(locationsWithSnackbarWrapper(<Location {...mockLocation} />));
+        const { queryByRole } = render(locationsProvider(<Location {...mockLocation} />));
         const homeButton = queryByRole('button', { name: 'home' });
         expect(homeButton).toBe(null);
     });
@@ -87,7 +113,6 @@ describe('test Location component', () => {
         expect(youAreHereLabel).toBeInTheDocument();
     });
     it('opens textarea for adding comment by clicking comment message', () => {
-        const commentMessageText = 'This is test comment message';
         mockLocation.message = commentMessageText;
         const { getByText, queryByRole } = render(<Location {...mockLocation} />);
         const commentMessage = getByText(commentMessageText);
@@ -96,12 +121,10 @@ describe('test Location component', () => {
         userEvent.click(commentMessage);
         const textareaAfterClick = queryByRole('textbox');
         expect(textareaAfterClick).toBeInTheDocument();
-        expect(textareaAfterClick).toHaveAttribute('maxLength', '100');
     });
     it('add comment by blurring from the textarea', () => {
-        const commentMessageText = 'This is test comment message';
         mockLocation.message = commentMessageText;
-        const { getByText, getByRole } = render(locationsWithSnackbarWrapper(<Location {...mockLocation} />));
+        const { getByText, getByRole } = render(locationsProvider(<Location {...mockLocation} />));
         const commentMessage = getByText(commentMessageText);
         userEvent.click(commentMessage);
         const textarea = getByRole('textbox');
@@ -112,6 +135,8 @@ describe('test Location component', () => {
         userEvent.click(heading);
         expect(MockAddComment).toHaveBeenCalledWith(mockLocation.id, newComment);
     });
+<<<<<<< HEAD
+<<<<<<< HEAD
     it('hides date, timezone and country name', () => {
         mockLocation.hasDate = false;
         mockLocation.hasCountry = false;
@@ -123,5 +148,25 @@ describe('test Location component', () => {
         expect(country).toBe(null);
         expect(timezone).toBe(null);
         expect(date).toBe(null);
+=======
+=======
+>>>>>>> c8f8977fb6d5aed6451f6884077269cafe30a8ef
+    it('check for adding comment with length more than 100 characters', () => {
+        const { getByText, getByRole } = render(snackbarProvider(<Location {...mockLocation} />));
+        const commentMessage = getByText(commentMessageText);
+        const heading = getByRole('heading', { name: 'Tashkent' });
+        userEvent.click(commentMessage);
+        const textarea = getByRole('textbox');
+        userEvent.type(
+            textarea,
+            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
+        );
+        userEvent.click(heading);
+        expect(MockOpenSnackbar).toHaveBeenCalledTimes(1);
+        expect(MockOpenSnackbar).toHaveBeenCalledWith('Comment message must not be longer than 100 characters');
+<<<<<<< HEAD
+>>>>>>> c8f8977 (test cases for CKEditor)
+=======
+>>>>>>> c8f8977fb6d5aed6451f6884077269cafe30a8ef
     });
 });

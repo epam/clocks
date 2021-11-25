@@ -1,4 +1,5 @@
 import { EpamColors } from './colors';
+import { editorConfig } from './ckeditorConfig';
 import { InitialContext } from './initialContext';
 
 const PARAM_KEYWORD = 'locations';
@@ -55,5 +56,6 @@ export {
     DASHBOARD_PARAM_KEYWORD,
     HAS_TIMEZONE,
     CLOCKS_FONT,
-    CLOCKS_FONTS
+    CLOCKS_FONTS,
+    editorConfig
 };
