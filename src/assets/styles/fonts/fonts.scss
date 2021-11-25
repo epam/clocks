@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Qahiri&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans+Condensed:ital,wght@0,300;0,700;1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Estonia&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,400;0,700;1,200;1,500&display=swap');
+
+* .press-start {
+    font-family: 'Press Start 2P', cursive !important;
+}
+
+* .orbitron {
+    font-family: 'Orbitron', sans-serif !important;
+}
+
+* .qahiri {
+    font-family: 'Qahiri', sans-serif !important;
+}
+
+* .open-sans {
+    font-family: 'Open Sans Condensed', sans-serif !important;
+}
+
+* .estonia {
+    font-family: 'Estonia', cursive !important;
+}
+
+* .roboto-mono {
+    font-family: 'Roboto Mono', monospace !important;
+}
+
+.MuiButton-root {
+    font-family: unset !important;
+}
+
+*[class*='MuiTypography-'] {
+    font-family: unset !important;
+}

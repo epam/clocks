@@ -1,17 +1,17 @@
-import { FC, useContext, useMemo, useState } from 'react';
+import { ChangeEvent, useContext, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { Button, IconButton, Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import moment from 'moment-timezone';
 import { SettingsContext } from '../../context/settings';
-import { EpamColors, HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../../constants';
-import { EyeIcon, EyeSlashIcon } from '../../assets/icons/icons';
+import { CLOCKS_FONT, CLOCKS_FONTS, EpamColors, HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../../constants';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { LocationsContext } from '../../context/locations';
 import { IAppLocation } from '../../types/location';
 import { getGmtOffset, getGreenwichMainTime } from '../../handlers';
+import { EyeButton } from '../../components/EyeButton';
 
 const useStyles = makeStyles(theme => ({
     modal: {
@@ -37,6 +37,15 @@ const useStyles = makeStyles(theme => ({
     text: {
         fontSize: '1.3rem',
         color: theme.palette.text.primary
+    },
+    label: {
+        textAlign: 'center'
+    },
+    select: {
+        border: 'none',
+        outline: 'none',
+        textAlign: 'center',
+        paddingLeft: '4%'
     },
     buttonsContainer: {
         display: 'flex',
@@ -85,33 +94,6 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const useStyles1 = makeStyles(theme => ({
-    eye: {
-        position: 'absolute',
-        right: '0',
-        top: '50%',
-        transform: 'translate(110%, -50%)'
-    }
-}));
-
-interface IProps {
-    isOpen: boolean;
-    eyeHandler: (isOpen: boolean) => void;
-}
-
-const EyeButton: FC<IProps> = ({ isOpen, eyeHandler }) => {
-    const classes = useStyles1();
-
-    const EyeHandler = () => {
-        eyeHandler(!isOpen);
-    };
-    return (
-        <IconButton className={`${classes.eye} content-center`} onClick={EyeHandler}>
-            {isOpen ? <EyeIcon /> : <EyeSlashIcon />}
-        </IconButton>
-    );
-};
-
 const getStorageValue = (key: string) => {
     const storageValue = localStorage.getItem(key);
     if (!storageValue && storageValue !== 'false') {
@@ -124,6 +106,9 @@ function SettingsModal() {
     const [hasCountry, setHasCountry] = useState<boolean>(getStorageValue(HAS_COUNTRY));
     const [hasDate, setHasDate] = useState<boolean>(getStorageValue(HAS_DATE));
     const [hasTimezone, setHasTimezone] = useState<boolean>(getStorageValue(HAS_TIMEZONE));
+    const [clocksFont, setClocksFont] = useState<string>(
+        localStorage.getItem(CLOCKS_FONT) || CLOCKS_FONTS.ROBOTO.value
+    );
     const classes = useStyles();
     const { setItem } = useLocalStorage();
     const {
@@ -145,6 +130,7 @@ function SettingsModal() {
         setItem(HAS_TIMEZONE, hasTimezone);
         setItem(HAS_DATE, hasDate);
         setItem(HAS_COUNTRY, hasCountry);
+        setItem(CLOCKS_FONT, clocksFont);
         if (SetLocationsFromUrl) {
             SetLocationsFromUrl();
         }
@@ -168,11 +154,16 @@ function SettingsModal() {
         return { ...userLocation, time, gmtOffset };
     }, [locations]);
 
+    const SetClocksFont = (event: ChangeEvent<HTMLSelectElement>) => {
+        const selectedFont = event.target.value;
+        setClocksFont(selectedFont);
+    };
+
     return (
         <Modal
             aria-labelledby="transition-modal-title"
             aria-describedby="transition-modal-description"
-            className={classes.modal}
+            className={`${classes.modal} ${clocksFont}`}
             open={isSettingsModalOpen || false}
             onClose={handleClose}
             closeAfterTransition
@@ -211,6 +202,21 @@ function SettingsModal() {
                             {timezone} GMT {gmtOffset}
                             <EyeButton isOpen={hasTimezone} eyeHandler={setHasTimezone} />
                         </Typography>
+                        <label htmlFor="font" className={classes.label}>
+                            Select a font
+                            <select
+                                id="font"
+                                className={classes.select}
+                                onChange={SetClocksFont}
+                                defaultValue={clocksFont}
+                            >
+                                {Object.values(CLOCKS_FONTS).map((font, index) => (
+                                    <option value={font.value} key={index}>
+                                        {font.label}
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
                     </div>
                     <div className={classes.buttonsContainer}>
                         <Button

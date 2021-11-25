@@ -1,4 +1,4 @@
-import { useContext, KeyboardEvent } from 'react';
+import { useContext, KeyboardEvent, useMemo } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core';
@@ -11,6 +11,8 @@ import Footer from '../../containers/Footer';
 import InputDrawer from '../../containers/InputDrawer';
 import DeleteModal from '../../containers/DeleteModal';
 import SettingsModal from '../../containers/SettingsModal';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { CLOCKS_FONT, CLOCKS_FONTS } from '../../constants';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -24,6 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = () => {
     const css = useStyles();
+    const { getItem } = useLocalStorage();
     const {
         state: { hasCreateForm, locations },
         actions: { CreateFormHandler }
@@ -45,9 +48,11 @@ const Dashboard = () => {
     const snackbarHandler = () => SnackbarHandler && SnackbarHandler(false);
     const createFormHandler = (isVisible?: boolean) => CreateFormHandler && CreateFormHandler(isVisible);
 
+    const clocksFont = useMemo<string>(() => getItem(CLOCKS_FONT) || CLOCKS_FONTS.ROBOTO.value, [locations]);
+
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex,jsx-a11y/no-static-element-interactions
-        <div tabIndex={0} onKeyPress={handleKeyDown} className="wrapper">
+        <div tabIndex={0} onKeyPress={handleKeyDown} className={`wrapper ${clocksFont}`}>
             <Navbar />
             <DeleteModal />
             <SettingsModal />
@@ -55,7 +60,7 @@ const Dashboard = () => {
                 {locations &&
                     locations.map((props, index) => (
                         <div key={index}>
-                            <Location {...props} />
+                            <Location {...props} clocksFont={clocksFont} />
                         </div>
                     ))}
                 <InputDrawer visibility={hasCreateForm || false} setVisibility={createFormHandler} />
