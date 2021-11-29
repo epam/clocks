@@ -1,6 +1,6 @@
 import { useContext, useRef, useState, useEffect, FC } from 'react';
 
-import { IconButton, Typography } from '@material-ui/core';
+import { IconButton, Typography, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -10,7 +10,7 @@ import { SnackbarContext } from '../../context/snackbar';
 import { ModalContext } from '../../context/modal';
 import LocationContent from '../../components/LocationContent';
 import css from './Location.module.scss';
-import { Comment, HomeIcon, DeleteIcon } from '../../assets/icons/icons';
+import { HomeIcon, DeleteIcon, Pencil } from '../../assets/icons/icons';
 import { IAppLocation } from '../../types/location';
 import { ThemeContext } from '../../context/theme';
 import { editorConfig } from '../../constants';
@@ -21,6 +21,9 @@ const useStyles = makeStyles(theme => ({
     },
     comment: {
         color: theme.palette.text.primary
+    },
+    grey: {
+        color: theme.palette.grey[300]
     }
 }));
 
@@ -96,21 +99,20 @@ const Location: FC<IAppLocation> = ({ offset, host, id, message, ...props }) => 
                         ref={CKEditorRef}
                     />
                 ) : message ? (
-                    <Typography
-                        onClick={() => setMessageVisibility(true)}
-                        className={`${css.message} ${classes.comment}`}
-                        variant="button"
-                    >
+                    <Typography className={`${css.message} ${classes.comment}`}>
                         {ReactHtmlParser(message)}
+                        <IconButton className={css['pencil-icon']} onClick={() => setMessageVisibility(true)}>
+                            <Pencil color={type === 'light' ? '#000' : '#FFF'} />
+                        </IconButton>
                     </Typography>
                 ) : (
-                    <IconButton
-                        className={`${css['comment-icon']} ${classes.button}`}
+                    <Button
+                        className={`${css['comment-icon']} ${classes.button} ${classes.grey}`}
                         data-testid="commentButton"
                         onClick={() => setMessageVisibility(true)}
                     >
-                        <Comment color={type === 'light' ? '#000' : '#FFF'} />
-                    </IconButton>
+                        Add comment
+                    </Button>
                 )}
             </div>
         </div>
