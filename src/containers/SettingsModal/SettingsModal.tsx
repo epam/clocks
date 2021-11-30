@@ -91,6 +91,9 @@ const useStyles = makeStyles(theme => ({
             top: '-.1em',
             margin: '0 6px'
         }
+    },
+    marginBottom: {
+        marginBottom: 12
     }
 }));
 
@@ -193,30 +196,34 @@ function SettingsModal() {
                         </Typography>
                         <Typography
                             variant="subtitle2"
-                            className={`${classes.grey} text-uppercase text-center position-relative`}
+                            className={`${classes.grey} ${classes.marginBottom} text-uppercase text-center position-relative`}
                         >
                             {country}
                             <EyeButton isOpen={hasCountry} eyeHandler={setHasCountry} />
                         </Typography>
-                        <Typography className={`${classes.default} position-relative`} variant="body2">
+                        <Typography
+                            className={`${classes.default} ${classes.marginBottom} position-relative`}
+                            variant="body2"
+                        >
                             {timezone} GMT {gmtOffset}
                             <EyeButton isOpen={hasTimezone} eyeHandler={setHasTimezone} />
                         </Typography>
-                        <label htmlFor="font" className={classes.label}>
+                        {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                        <label htmlFor="font-selector" className={`${classes.label} ${classes.marginBottom}`}>
                             Select a font
-                            <select
-                                id="font"
-                                className={classes.select}
-                                onChange={SetClocksFont}
-                                defaultValue={clocksFont}
-                            >
-                                {Object.values(CLOCKS_FONTS).map((font, index) => (
-                                    <option value={font.value} key={index}>
-                                        {font.label}
-                                    </option>
-                                ))}
-                            </select>
                         </label>
+                        <select
+                            id="font-selector"
+                            className={classes.select}
+                            onBlur={SetClocksFont}
+                            defaultValue={clocksFont}
+                        >
+                            {Object.values(CLOCKS_FONTS).map((font, index) => (
+                                <option value={font.value} key={index}>
+                                    {font.label}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className={classes.buttonsContainer}>
                         <Button
