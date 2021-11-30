@@ -1,4 +1,4 @@
-import { CityData } from 'city-timezones';
+import CityData from '../types/city-timezones';
 import cityMapping from '../constants/cityMapping';
 
 const lookupTimezones = (timezone: string): CityData[] => {

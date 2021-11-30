@@ -1,5 +1,5 @@
 import moment from 'moment-timezone';
-import { CityData } from 'city-timezones';
+import CityData from '../types/city-timezones';
 import generateIdFormat from './generateIdFormat';
 import { CURRENT_USER_LOCATION_ID } from '../constants';
 import { lookupTimezones, sortBestMatch } from '../helpers';

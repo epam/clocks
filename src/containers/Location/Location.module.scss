@@ -56,11 +56,9 @@
     font-size: 16px;
 }
 .message {
-    color: $light-gray;
-    text-decoration: underline;
-    text-decoration-style: dotted;
     white-space: pre-wrap;
     cursor: pointer;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
 }
 
 @media screen and (max-width: 360px) {

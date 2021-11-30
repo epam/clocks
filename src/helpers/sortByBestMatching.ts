@@ -1,4 +1,4 @@
-import { CityData } from 'city-timezones';
+import CityData from '../types/city-timezones';
 import { IMatchingLocation, TTimezone } from '../types/location';
 
 function compareTwoStrings(first: string, second: string): number {

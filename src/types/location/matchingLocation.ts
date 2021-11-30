@@ -1,4 +1,4 @@
-import { CityData } from 'city-timezones';
+import CityData from '../city-timezones';
 
 interface IMatchingLocation {
     rating: number;

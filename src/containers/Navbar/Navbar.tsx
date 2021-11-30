@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react';
+import { FC, useContext, useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Button, IconButton, Tooltip } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
@@ -23,7 +23,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const Navbar = () => {
+const Navbar: FC = () => {
     const classes = useStyles();
     const {
         actions: { CreateFormHandler, ResetUrl }
