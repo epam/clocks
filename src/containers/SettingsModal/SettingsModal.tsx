@@ -1,4 +1,4 @@
-import { ChangeEvent, useContext, useMemo, useState } from 'react';
+import { FocusEvent, useContext, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Typography } from '@material-ui/core';
@@ -154,7 +154,7 @@ function SettingsModal() {
         return { ...userLocation, time, gmtOffset };
     }, [locations]);
 
-    const SetClocksFont = (event: ChangeEvent<HTMLSelectElement>) => {
+    const SetClocksFont = (event: FocusEvent<HTMLSelectElement>) => {
         const selectedFont = event.target.value;
         setClocksFont(selectedFont);
     };
@@ -207,7 +207,7 @@ function SettingsModal() {
                             <select
                                 id="font"
                                 className={classes.select}
-                                onChange={SetClocksFont}
+                                onBlur={SetClocksFont}
                                 defaultValue={clocksFont}
                             >
                                 {Object.values(CLOCKS_FONTS).map((font, index) => (
