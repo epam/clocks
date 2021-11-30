@@ -1,6 +1,7 @@
 import { makeStyles, Typography } from '@material-ui/core';
 import { LinkedIn, Twitter, Facebook, Instagram, GitHub } from '../../assets/icons/icons';
 import { EpamColors } from '../../constants';
+import styles from './Footer.module.scss';
 
 const useStyles = makeStyles(() => ({
     root: {
@@ -23,8 +24,7 @@ const useStyles = makeStyles(() => ({
         '& a': {
             color: 'white',
             textDecoration: 'none',
-            verticalAlign: 'middle',
-            margin: '0 10px'
+            verticalAlign: 'middle'
         },
         '& svg': {
             width: 14,
@@ -43,7 +43,7 @@ const Footer = () => {
                 © {new Date().getFullYear()} EPAM Systems, Inc. <br />
                 All Rights Reserved.
             </Typography>
-            <div className={css.icons}>
+            <div className={`${css.icons} ${styles.icons}`}>
                 <a href="https://github.com/epam" data-testid="GitHubIconLink" target="_blank" rel="noreferrer">
                     <GitHub />
                 </a>

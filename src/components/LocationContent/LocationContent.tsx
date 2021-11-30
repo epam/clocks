@@ -6,6 +6,7 @@ import LocationOffsets from '../LocationOffsets';
 import { IAppLocation, TCity, TCountry, TTimezone } from '../../types/location';
 import { EpamColors } from '../../constants';
 import { getGmtOffset } from '../../handlers';
+import styles from './LocationContent.module.scss';
 
 interface IProps extends Partial<IAppLocation> {
     city: TCity;
@@ -61,33 +62,37 @@ const LocationContent: FC<IProps> = ({
     const gmtOffset = useMemo(() => getGmtOffset(timezone), [timezone]);
 
     return (
-        <>
-            {hasDate && (
-                <Typography paragraph variant="subtitle2" data-testid="date" className={`${css.default} m-0`}>
-                    {time.format('D MMM')}
+        <div className={styles.locationContent}>
+            <div className={styles['date-and-time']}>
+                {hasDate && (
+                    <Typography paragraph variant="subtitle2" data-testid="date" className={`${css.default} m-0`}>
+                        {time.format('D MMM')}
+                    </Typography>
+                )}
+                <span className={css.time}>
+                    <Typography variant="h2" className={css.hour}>
+                        {time.format('HH')}
+                    </Typography>
+                    <Typography variant="h2">{time.format('mm')}</Typography>
+                </span>
+                <LocationOffsets hours={hours} minutes={minutes} host={host} />
+            </div>
+            <div className={styles['location-and-timezone']}>
+                <Typography className={css.default} variant="h5">
+                    {city}
                 </Typography>
-            )}
-            <span className={css.time}>
-                <Typography variant="h2" className={css.hour}>
-                    {time.format('HH')}
-                </Typography>
-                <Typography variant="h2">{time.format('mm')}</Typography>
-            </span>
-            <LocationOffsets hours={hours} minutes={minutes} host={host} />
-            <Typography className={css.default} variant="h5">
-                {city}
-            </Typography>
-            {hasCountry && (
-                <Typography variant="subtitle2" className={`${css.grey} text-uppercase text-center`}>
-                    {country}
-                </Typography>
-            )}
-            {hasTimezone && (
-                <Typography className={css.default} variant="body2">
-                    {timezone} GMT {gmtOffset}
-                </Typography>
-            )}
-        </>
+                {hasCountry && (
+                    <Typography variant="subtitle2" className={`${css.grey} text-uppercase text-center`}>
+                        {country}
+                    </Typography>
+                )}
+                {hasTimezone && (
+                    <Typography className={css.default} variant="body2">
+                        {timezone} GMT {gmtOffset}
+                    </Typography>
+                )}
+            </div>
+        </div>
     );
 };
 

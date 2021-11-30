@@ -6,12 +6,14 @@ const useStyle = makeStyles(theme => ({
         padding: '2px 8px',
         color: 'white',
         backgroundColor: theme.palette.primary.main,
+        textAlign: 'center',
         borderRadius: 20,
         marginBottom: 8
     },
     text: {
         color: theme.palette.grey[300],
-        height: 32
+        height: 32,
+        textAlign: 'center'
     }
 }));
 

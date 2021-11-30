@@ -1,16 +1,16 @@
 @import '../../assets/styles/constants/colors.scss';
 
 .card {
-    min-height: 350px;
-    padding: 3rem;
-    padding-bottom: 0.5rem;
+    min-height: 280px;
     height: 100%;
     overflow: hidden;
     transition: all 0.25s ease-out;
     min-width: 280px;
     position: relative;
+    padding: 3rem;
+    padding-bottom: 0.5rem;
+    box-shadow: 0 0 2px $gray;
     &:hover {
-        box-shadow: 0 0 2px $gray;
         .recycle-bin,
         .comment-icon {
             opacity: 0.7;
@@ -18,12 +18,14 @@
     }
     .recycle-bin {
         position: absolute;
-        top: 12px;
-        right: 16px;
         opacity: 0;
         z-index: 2;
         transition: opacity 0.2s linear;
         cursor: pointer;
+
+        button {
+            padding: 8px;
+        }
     }
     .comment-icon {
         opacity: 0;
@@ -38,7 +40,6 @@
     justify-content: center;
 }
 
-.textArea,
 .message {
     min-height: 100px;
     margin-top: 8px;
@@ -60,4 +61,43 @@
     text-decoration-style: dotted;
     white-space: pre-wrap;
     cursor: pointer;
+}
+
+@media screen and (max-width: 360px) {
+    .recycle-bin {
+        top: 4px;
+        right: 6px;
+
+        button {
+            padding: 4px;
+        }
+    }
+}
+
+@media screen and (min-width: 360px) and (max-width: 600px) {
+    .recycle-bin {
+        top: 6px;
+        right: 8px;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 960px) {
+    .recycle-bin {
+        top: 8px;
+        right: 10px;
+    }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1279px) {
+    .recycle-bin {
+        top: 10px;
+        right: 14px;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    .recycle-bin {
+        top: 12px;
+        right: 16px;
+    }
 }

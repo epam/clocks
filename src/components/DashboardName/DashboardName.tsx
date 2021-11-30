@@ -76,7 +76,7 @@ export const DashboardName = () => {
         }
         return (
             <Button variant="outlined" color="inherit" onClick={() => setIsBeingNamed(true)}>
-                Name dashboard
+                Name
             </Button>
         );
     };
