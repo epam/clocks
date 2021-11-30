@@ -39,13 +39,13 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.text.primary
     },
     label: {
-        textAlign: 'center'
+        fontFamily: 'Roboto!important'
     },
     select: {
         border: 'none',
         outline: 'none',
-        textAlign: 'center',
-        paddingLeft: '4%'
+        marginLeft: '.5rem',
+        fontFamily: 'Roboto!important'
     },
     buttonsContainer: {
         display: 'flex',
