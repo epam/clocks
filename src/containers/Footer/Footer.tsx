@@ -24,7 +24,8 @@ const useStyles = makeStyles(() => ({
             color: 'white',
             textDecoration: 'none',
             verticalAlign: 'middle',
-            margin: '0 10px'
+            padding: '4px 5px',
+            margin: '0 5px'
         },
         '& svg': {
             width: 14,

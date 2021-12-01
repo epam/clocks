@@ -15,6 +15,11 @@
             opacity: 0.7;
         }
     }
+    &:focus-within {
+        .recycle-bin {
+            opacity: 0.7;
+        }
+    }
     .recycle-bin {
         position: absolute;
         top: 12px;

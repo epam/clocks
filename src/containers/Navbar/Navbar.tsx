@@ -24,11 +24,13 @@ const useStyles = makeStyles(theme => ({
     menuButton: {
         marginRight: theme.spacing(2)
     },
+    logoButton: {
+        marginRight: 12
+    },
     title: {
         height: 28,
         objectFit: 'cover',
-        cursor: 'pointer',
-        marginRight: 12
+        cursor: 'pointer'
     },
     buttons: {
         display: 'flex',
@@ -72,7 +74,7 @@ const Navbar: FC = () => {
         <AppBar position="static" className={classes.appbar} color="transparent">
             <Toolbar className={classes.toolbar}>
                 <div className="content-center">
-                    <Button onClick={ResetUrl}>
+                    <Button className={classes.logoButton} onClick={ResetUrl}>
                         <img className={classes.title} src={logo} alt="logo" />
                     </Button>
                     <DashboardName />
