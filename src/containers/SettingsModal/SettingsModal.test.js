@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SettingsModal from './SettingsModal';
-import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../../constants';
+import { CLOCKS_FONT, CLOCKS_FONTS, HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../../constants';
 import { SettingsContext } from '../../context/settings';
 
 const MockSettingsModalHandler = jest.fn();
@@ -75,15 +75,15 @@ describe('test cases for settings modal', () => {
         const { getByRole, getAllByTestId } = render(settingsWrapper(<SettingsModal />));
         const eyeIcon = getAllByTestId('open-eye-icon')[0];
         userEvent.click(eyeIcon);
-
         const saveButton = getByRole('button', { name: /Save/i });
         userEvent.click(saveButton);
 
         expect(MockSettingsModalHandler).toHaveReturnedTimes(1);
-        expect(MockSetItem).toHaveBeenCalledTimes(3);
+        expect(MockSetItem).toHaveBeenCalledTimes(4);
         expect(MockSetItem).toHaveBeenCalledWith(HAS_DATE, false);
         expect(MockSetItem).toHaveBeenCalledWith(HAS_COUNTRY, false);
         expect(MockSetItem).toHaveBeenCalledWith(HAS_TIMEZONE, true);
+        expect(MockSetItem).toHaveBeenCalledWith(CLOCKS_FONT, CLOCKS_FONTS.ROBOTO.value);
     });
     it('switching icons', () => {
         const { getAllByTestId } = render(settingsWrapper(<SettingsModal />));
@@ -93,5 +93,15 @@ describe('test cases for settings modal', () => {
         const eyeIcons = getAllByTestId('open-eye-icon');
         expect(closedEyeIcon).toBeInTheDocument();
         expect(eyeIcons.length).toBe(1);
+    });
+    it('change font by selecting new font', () => {
+        const { getByRole } = render(settingsWrapper(<SettingsModal />));
+        const select = getByRole('combobox', { name: /Select a font/ });
+        const saveButton = getByRole('button', { name: /Save/i });
+
+        userEvent.selectOptions(select, CLOCKS_FONTS.OPEN_SANS.value);
+        userEvent.click(saveButton);
+
+        expect(MockSetItem).toHaveBeenCalledWith(CLOCKS_FONT, CLOCKS_FONTS.OPEN_SANS.value);
     });
 });
