@@ -75,12 +75,12 @@ describe('test Location component', () => {
       <Location {...mockLocation} />
     );
     const headings = getAllByRole('heading');
-    const recycleBinIcon = getByTestId(/DeleteIcon/i);
+    // const recycleBinIcon = getByTestId(/DeleteIcon/i);
     const commentButton = getByTestId('commentButton');
     const city = getByRole('heading', { name: 'Tashkent' });
     const country = getByRole('heading', { name: 'Uzbekistan' });
     expect(headings.length).toBe(5);
-    expect(recycleBinIcon).toBeInTheDocument();
+    // expect(recycleBinIcon).toBeInTheDocument();
     expect(city).toBeInTheDocument();
     expect(country).toBeInTheDocument();
     expect(commentButton).toBeInTheDocument();

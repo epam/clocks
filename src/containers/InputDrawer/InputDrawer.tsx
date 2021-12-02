@@ -5,14 +5,14 @@ import {
   Toolbar,
   Typography,
   IconButton,
-  MenuList
+  MenuList,
+  TextField
 } from '@material-ui/core';
+import { Close } from '@mui/icons-material';
 import { ICityData } from '../../types/timezones';
-import { CrossIcon } from '../../assets/icons/icons';
 import css from './InputDrawer.module.scss';
 import { lookupCityAscii, sortBestMatch } from '../../helpers';
 import { LocationsContext } from '../../context/locations';
-import CustomInput from '../../components/CustomInput';
 import CustomItem from '../../components/CustomItem';
 import { generateIdFormat } from '../../handlers';
 import { IMatchingLocation } from '../../types/location';
@@ -103,19 +103,20 @@ const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
           <Typography variant="button">Add New City</Typography>
           <IconButton
             aria-label="Close Drawer Button"
-            id={css.closeButton}
             onClick={() => setVisibility(false)}
           >
-            <CrossIcon />
+            <Close />
           </IconButton>
         </Grid>
       </Toolbar>
 
       <div className={css.drawerBody}>
-        <CustomInput
-          ref={input}
+        <TextField
+          onChange={(e: any) => setValue(e?.target?.value)}
           value={value}
-          setValue={value => setValue(value)}
+          label="Search cities"
+          variant="outlined"
+          className={css.textFieldSize}
         />
         <div className={css.drawerList}>
           <MenuList variant="selectedMenu" autoFocus>

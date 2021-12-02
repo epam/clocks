@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton } from '@material-ui/core';
-import { EyeIcon, EyeSlashIcon } from '../../assets/icons/icons';
+import { VisibilityOutlined, VisibilityOffOutlined } from '@mui/icons-material';
 
 const useStyles = makeStyles(theme => ({
   eye: {
     position: 'absolute',
     right: '0',
-    top: '50%',
+    top: '10px',
     transform: 'translate(110%, -50%)'
   }
 }));
@@ -28,7 +28,11 @@ const EyeButton: FC<IProps> = ({ isOpen, eyeHandler }) => {
       className={`${classes.eye} content-center`}
       onClick={EyeHandler}
     >
-      {isOpen ? <EyeIcon /> : <EyeSlashIcon />}
+      {isOpen ? (
+        <VisibilityOutlined fontSize="small" />
+      ) : (
+        <VisibilityOffOutlined fontSize="small" />
+      )}
     </IconButton>
   );
 };

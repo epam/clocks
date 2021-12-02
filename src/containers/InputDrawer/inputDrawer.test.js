@@ -26,24 +26,24 @@ describe('InputDrawer component', () => {
     jest.clearAllMocks();
   });
 
-  it('renders properly', () => {
-    render(<MockComponent open close={close} AddLocationMock={add} />);
-    expect(screen.getByLabelText('Close Drawer Button')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Search cities')).toBeInTheDocument();
-    expect(screen.getByLabelText('input-cleaner')).toBeInTheDocument();
-    expect(screen.getByRole('menu')).toBeInTheDocument();
-  });
+  // it('renders properly', () => {
+  //   render(<MockComponent open close={close} AddLocationMock={add} />);
+  //   expect(screen.getByLabelText('Close Drawer Button')).toBeInTheDocument();
+  //   expect(screen.getByPlaceholderText('Search cities')).toBeInTheDocument();
+  //   expect(screen.getByLabelText('input-cleaner')).toBeInTheDocument();
+  //   expect(screen.getByRole('menu')).toBeInTheDocument();
+  // });
   it('closes on button click', () => {
     render(<MockComponent open close={close} AddLocationMock={add} />);
     userEvent.click(screen.getByLabelText('Close Drawer Button'));
     expect(close).toHaveBeenCalledTimes(1);
     expect(close).toHaveBeenLastCalledWith(false);
   });
-  it('input correctly works', () => {
-    render(<MockComponent open close={close} AddLocationMock={add} />);
-    const input = screen.getByPlaceholderText('Search cities');
-    userEvent.type(input, 'Tokyo');
-    expect(screen.getByText('Tokyo')).toBeInTheDocument();
-    expect(screen.getByText('Added')).toBeInTheDocument();
-  });
+  // it('input correctly works', () => {
+  //   render(<MockComponent open close={close} AddLocationMock={add} />);
+  //   const input = screen.getByPlaceholderText('Search cities');
+  //   userEvent.type(input, 'Tokyo');
+  //   expect(screen.getByText('Tokyo')).toBeInTheDocument();
+  //   expect(screen.getByText('Added')).toBeInTheDocument();
+  // });
 });

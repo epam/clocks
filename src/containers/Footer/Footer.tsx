@@ -5,7 +5,7 @@ import {
   Facebook,
   Instagram,
   GitHub
-} from '../../assets/icons/icons';
+} from '@mui/icons-material';
 import { EpamColors } from '../../constants';
 
 const useStyles = makeStyles(() => ({
@@ -31,12 +31,6 @@ const useStyles = makeStyles(() => ({
       textDecoration: 'none',
       verticalAlign: 'middle',
       margin: '0 10px'
-    },
-    '& svg': {
-      width: 14,
-      height: 14,
-      fill: 'white',
-      pointerEvents: 'none'
     }
   }
 }));

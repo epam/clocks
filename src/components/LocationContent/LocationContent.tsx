@@ -20,6 +20,9 @@ const useStyle = makeStyles(theme => ({
   grey: {
     color: theme.palette.grey[300]
   },
+  mt15: {
+    marginTop: '15px'
+  },
   default: {
     color: theme.palette.text.primary,
     textAlign: 'center'
@@ -35,6 +38,9 @@ const useStyle = makeStyles(theme => ({
       top: '-.1em',
       margin: '0 6px'
     }
+  },
+  cityCountry: {
+    color: theme.palette.type === 'light' ? EpamColors.darkGray : 'white'
   }
 }));
 
@@ -69,7 +75,7 @@ const LocationContent: FC<IProps> = ({
           data-testid="date"
           className={`${css.default} m-0`}
         >
-          {time.format('D MMM')}
+          {time.format('D MMM').toUpperCase()}
         </Typography>
       )}
       <span className={css.time}>
@@ -79,20 +85,20 @@ const LocationContent: FC<IProps> = ({
         <Typography variant="h2">{time.format('mm')}</Typography>
       </span>
       <LocationOffsets hours={hours} minutes={minutes} host={host} />
-      <Typography className={css.default} variant="h5">
+      {hasTimezone && (
+        <Typography className={css.grey} variant="body2">
+          {timezone} GMT {gmtOffset}
+        </Typography>
+      )}
+      <Typography className={`${css.mt15} ${css.cityCountry}`} variant="h5">
         {city}
       </Typography>
       {hasCountry && (
         <Typography
           variant="subtitle2"
-          className={`${css.grey} text-uppercase text-center`}
+          className={`${css.cityCountry} text-uppercase text-center`}
         >
           {country}
-        </Typography>
-      )}
-      {hasTimezone && (
-        <Typography className={css.default} variant="body2">
-          {timezone} GMT {gmtOffset}
         </Typography>
       )}
     </>

@@ -7,15 +7,10 @@ import {
   IconButton,
   Tooltip
 } from '@material-ui/core';
+import { SettingsOutlined, Add } from '@mui/icons-material';
 import { LocationsContext } from '../../context/locations';
-import { ThemeContext } from '../../context/theme';
 import logo from '../../assets/images/logo.svg';
 import { EpamColors } from '../../constants';
-import {
-  DarkModeIcon,
-  LightModeIcon,
-  SettingsIcon
-} from '../../assets/icons/icons';
 import { DashboardName } from '../../components/DashboardName';
 import { SettingsContext } from '../../context/settings';
 
@@ -61,11 +56,6 @@ const Navbar: FC = () => {
     actions: { SettingsModalHandler }
   } = useContext(SettingsContext);
 
-  const {
-    actions: { ThemeHandler },
-    state: { type }
-  } = useContext(ThemeContext);
-
   const createFormHandler = () => {
     if (CreateFormHandler) {
       CreateFormHandler(true);
@@ -88,15 +78,8 @@ const Navbar: FC = () => {
           <DashboardName />
         </div>
         <div className={classes.buttons}>
-          <IconButton
-            color="inherit"
-            onClick={ThemeHandler}
-            className={classes.modeIcon}
-          >
-            {type === 'light' ? <LightModeIcon /> : <DarkModeIcon />}
-          </IconButton>
           <IconButton onClick={settingsModalHandler}>
-            <SettingsIcon />
+            <SettingsOutlined sx={{ color: '#fff' }} />
           </IconButton>
           <Tooltip
             title="Toggle, + or = to toggle drawer"
@@ -108,6 +91,7 @@ const Navbar: FC = () => {
               color="inherit"
               onClick={createFormHandler}
               className={classes.addCityButton}
+              endIcon={<Add />}
             >
               Add City
             </Button>
