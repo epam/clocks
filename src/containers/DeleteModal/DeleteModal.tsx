@@ -12,11 +12,12 @@ const useStyles = makeStyles(theme => ({
   modal: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    fontFamily: 'Roboto'
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    borderRadius: 0,
+    borderRadius: '4px',
     boxShadow: theme.shadows[5],
     minWidth: '400px',
     minHeight: '150px',
@@ -37,21 +38,16 @@ const useStyles = makeStyles(theme => ({
     justifyContent: 'space-around'
   },
   button: {
-    width: '50%',
-    borderRadius: 0
+    width: '50%'
   },
   cancelButton: {
-    backgroundColor: theme.palette.primary.main,
-    opacity: 0.95,
-    color: 'white',
-    '&:hover': {
-      backgroundColor: theme.palette.primary.main,
-      opacity: 1
-    }
+    margin: '0 5px 10px 10px'
   },
   deleteButton: {
     backgroundColor: EpamColors.red,
+    borderColor: EpamColors.red,
     opacity: 0.95,
+    margin: '0 10px 10px 5px',
     color: 'white',
     '&:hover': {
       backgroundColor: EpamColors.red,
@@ -104,19 +100,19 @@ function DeleteModal() {
               variant="subtitle2"
               className={`${classes.text} m-0`}
             >
-              Do you want to delete this location
+              Are you sure you want to delete?
             </Typography>
           </div>
           <div className={classes.buttonsContainer}>
             <Button
-              variant="contained"
+              variant="outlined"
               className={`${classes.button} ${classes.cancelButton}`}
               onClick={handleClose}
             >
               Cancel
             </Button>
             <Button
-              variant="contained"
+              variant="outlined"
               className={`${classes.button} ${classes.deleteButton}`}
               onClick={deleteLocation}
             >

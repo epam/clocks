@@ -1,11 +1,13 @@
-import { FocusEvent, useContext, useMemo, useState } from 'react';
+import { useContext, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { Button, Typography } from '@material-ui/core';
+import { Button, Typography, Select, MenuItem } from '@material-ui/core';
+import { Brightness7, Brightness4 } from '@mui/icons-material';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import moment from 'moment-timezone';
 import { SettingsContext } from '../../context/settings';
+import { ThemeContext } from '../../context/theme';
 import {
   CLOCKS_FONT,
   CLOCKS_FONTS,
@@ -28,7 +30,7 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    borderRadius: 0,
+    borderRadius: '4px',
     boxShadow: theme.shadows[5],
     minWidth: '400px',
     minHeight: '150px',
@@ -49,31 +51,23 @@ const useStyles = makeStyles(theme => ({
     fontFamily: 'Roboto'
   },
   select: {
-    border: 'none',
-    outline: 'none',
-    marginLeft: '.5rem',
-    fontFamily: 'Roboto'
+    width: '200px'
   },
   buttonsContainer: {
     display: 'flex',
     justifyContent: 'space-around'
   },
   button: {
-    width: '50%',
-    borderRadius: 0
+    width: '50%'
   },
   cancelButton: {
-    backgroundColor: EpamColors.red,
-    opacity: 0.95,
-    color: 'white',
-    '&:hover': {
-      backgroundColor: EpamColors.red,
-      opacity: 1
-    }
+    margin: '0 5px 10px 10px'
   },
-  deleteButton: {
+  saveButton: {
     backgroundColor: theme.palette.primary.main,
+    borderColor: theme.palette.primary.main,
     opacity: 0.95,
+    margin: '0 10px 10px 5px',
     color: 'white',
     '&:hover': {
       backgroundColor: theme.palette.primary.main,
@@ -98,6 +92,20 @@ const useStyles = makeStyles(theme => ({
       top: '-.1em',
       margin: '0 6px'
     }
+  },
+  mb20: {
+    marginBottom: '20px'
+  },
+  mb25: {
+    marginBottom: '25px'
+  },
+  bottomContainer: {
+    display: 'flex',
+    alignItems: 'center'
+  },
+  modeControlBtn: {
+    height: '56px',
+    marginLeft: '10px'
   }
 }));
 
@@ -130,6 +138,11 @@ function SettingsModal() {
     state: { locations },
     actions: { SetLocationsFromUrl }
   } = useContext(LocationsContext);
+
+  const {
+    actions: { ThemeHandler },
+    state: { type }
+  } = useContext(ThemeContext);
 
   const handleClose = () => {
     if (SettingsModalHandler) {
@@ -167,11 +180,6 @@ function SettingsModal() {
     return { ...userLocation, time, gmtOffset };
   }, [locations]);
 
-  const SetClocksFont = (event: FocusEvent<HTMLSelectElement>) => {
-    const selectedFont = event.target.value;
-    setClocksFont(selectedFont);
-  };
-
   return (
     <Modal
       aria-labelledby="transition-modal-title"
@@ -193,7 +201,7 @@ function SettingsModal() {
               variant="subtitle2"
               className={`${classes.default} m-0 position-relative`}
             >
-              {time.format('D MMM')}{' '}
+              {time.format('D MMM').toUpperCase()}{' '}
               <EyeButton isOpen={hasDate} eyeHandler={setHasDate} />
             </Typography>
             <span className={`${classes.time} position-relative`}>
@@ -202,51 +210,58 @@ function SettingsModal() {
               </Typography>
               <Typography variant="h2">{time.format('mm')}</Typography>
             </span>
-            <Typography className={`${classes.default}`} variant="h5">
-              {city}
-            </Typography>
             <Typography
-              variant="subtitle2"
-              className={`${classes.grey} text-uppercase text-center position-relative`}
-            >
-              {country}
-              <EyeButton isOpen={hasCountry} eyeHandler={setHasCountry} />
-            </Typography>
-            <Typography
-              className={`${classes.default} position-relative`}
+              className={`${classes.grey} ${classes.mb20} position-relative`}
               variant="body2"
             >
               {timezone} GMT {gmtOffset}
               <EyeButton isOpen={hasTimezone} eyeHandler={setHasTimezone} />
             </Typography>
-            <label htmlFor="font" className={classes.label}>
-              Select a font
-              <select
-                id="font"
+            <Typography className={`${classes.default}`} variant="h5">
+              {city}
+            </Typography>
+            <Typography
+              variant="subtitle2"
+              className={`${classes.default} ${classes.mb25} text-uppercase text-center position-relative`}
+            >
+              {country}
+              <EyeButton isOpen={hasCountry} eyeHandler={setHasCountry} />
+            </Typography>
+            <div className={classes.bottomContainer}>
+              <Select
+                variant="outlined"
                 className={classes.select}
-                onBlur={SetClocksFont}
-                defaultValue={clocksFont}
+                onChange={(e: any) => setClocksFont(e.target.value)}
+                value={clocksFont}
               >
                 {Object.values(CLOCKS_FONTS).map((font, index) => (
-                  <option value={font.value} key={index}>
+                  <MenuItem value={font.value} key={`FONT${index}`}>
                     {font.label}
-                  </option>
+                  </MenuItem>
                 ))}
-              </select>
-            </label>
+              </Select>
+              <Button
+                variant="outlined"
+                onClick={ThemeHandler}
+                endIcon={type === 'light' ? <Brightness7 /> : <Brightness4 />}
+                className={classes.modeControlBtn}
+              >
+                {type === 'light' ? 'LIGHT' : 'DARK'}
+              </Button>
+            </div>
           </div>
           <div className={classes.buttonsContainer}>
             <Button
-              variant="contained"
+              variant="outlined"
               className={`${classes.button} ${classes.cancelButton}`}
               onClick={handleClose}
             >
               Cancel
             </Button>
             <Button
-              variant="contained"
+              variant="outlined"
               onClick={SubmitHandler}
-              className={`${classes.button} ${classes.deleteButton}`}
+              className={`${classes.button} ${classes.saveButton}`}
             >
               Save
             </Button>

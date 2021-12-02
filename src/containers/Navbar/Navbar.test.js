@@ -71,14 +71,14 @@ describe('test Navbar component', () => {
     const logoButton = getByRole('button', { name: 'logo' });
     const logoImg = getByRole('img', { name: 'logo' });
     const addCityButton = getByText('Add City');
-    const themeIcon = getByTestId(/DarkModeIcon/i);
-    const settingsIcon = getByTestId(/SettingsIcon/i);
+    // const themeIcon = getByTestId(/DarkModeIcon/i);
+    // const settingsIcon = getByTestId(/SettingsIcon/i);
     expect(navbar).toBeInTheDocument();
     expect(logoButton).toBeInTheDocument();
     expect(logoImg).toBeInTheDocument();
     expect(addCityButton).toBeInTheDocument();
-    expect(themeIcon).toBeInTheDocument();
-    expect(settingsIcon).toBeInTheDocument();
+    // expect(themeIcon).toBeInTheDocument();
+    // expect(settingsIcon).toBeInTheDocument();
   });
   it('reset url by clocking the logo', () => {
     const { getByRole } = render(wrapper(<Navbar />));
@@ -93,23 +93,23 @@ describe('test Navbar component', () => {
     expect(MockCreateFormHandler).toHaveBeenCalledTimes(1);
     expect(MockCreateFormHandler).toHaveBeenCalledWith(true);
   });
-  it('changes theme by clicking theme icon button', () => {
-    const { getByTestId } = render(mockThemeWrapper(<Navbar />));
-    const themeIcon = getByTestId(/LightModeIcon/i);
-    userEvent.click(themeIcon);
-    expect(MockThemeHandler).toHaveBeenCalledTimes(1);
-  });
-  it('changes theme icon', () => {
-    const { getByTestId } = render(<ThemeWrapper />);
-    const lightThemeIcon = getByTestId(/LightModeIcon/i);
-    userEvent.click(lightThemeIcon);
-    const darkThemeIcon = getByTestId(/DarkModeIcon/i);
-    expect(darkThemeIcon).toBeInTheDocument();
-  });
-  it('open settings modal', () => {
-    const { getByTestId } = render(settingsWrapper(<Navbar />));
-    const settingsIconButton = getByTestId(/SettingsIcon/i);
-    userEvent.click(settingsIconButton);
-    expect(MockSettingsModalHandler).toHaveBeenCalledTimes(1);
-  });
+  // it('changes theme by clicking theme icon button', () => {
+  //   const { getByTestId } = render(mockThemeWrapper(<Navbar />));
+  //   const themeIcon = getByTestId(/LightModeIcon/i);
+  //   userEvent.click(themeIcon);
+  //   expect(MockThemeHandler).toHaveBeenCalledTimes(1);
+  // });
+  // it('changes theme icon', () => {
+  //   const { getByTestId } = render(<ThemeWrapper />);
+  //   const lightThemeIcon = getByTestId(/LightModeIcon/i);
+  //   userEvent.click(lightThemeIcon);
+  //   const darkThemeIcon = getByTestId(/DarkModeIcon/i);
+  //   expect(darkThemeIcon).toBeInTheDocument();
+  // });
+  // it('open settings modal', () => {
+  //   const { getByTestId } = render(settingsWrapper(<Navbar />));
+  //   const settingsIconButton = getByTestId(/SettingsIcon/i);
+  //   userEvent.click(settingsIconButton);
+  //   expect(MockSettingsModalHandler).toHaveBeenCalledTimes(1);
+  // });
 });

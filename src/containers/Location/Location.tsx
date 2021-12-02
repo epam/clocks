@@ -1,6 +1,7 @@
 import { useContext, useRef, useState, useEffect, FC } from 'react';
 
-import { IconButton, Typography, Button } from '@material-ui/core';
+import { IconButton, Button } from '@material-ui/core';
+import { EditOutlined, DeleteOutline, HomeOutlined } from '@mui/icons-material';
 import { makeStyles } from '@material-ui/core/styles';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
@@ -10,20 +11,18 @@ import { SnackbarContext } from '../../context/snackbar';
 import { ModalContext } from '../../context/modal';
 import LocationContent from '../../components/LocationContent';
 import css from './Location.module.scss';
-import { HomeIcon, DeleteIcon, Pencil } from '../../assets/icons/icons';
 import { IAppLocation } from '../../types/location';
-import { ThemeContext } from '../../context/theme';
 import { editorConfig } from '../../constants';
 
 const useStyles = makeStyles(theme => ({
   button: {
     background: theme.palette.background.default
   },
-  comment: {
-    color: theme.palette.text.primary
-  },
   grey: {
     color: theme.palette.grey[300]
+  },
+  mt20: {
+    marginTop: '20px'
   }
 }));
 
@@ -35,9 +34,6 @@ const Location: FC<IAppLocation> = ({
   ...props
 }) => {
   const classes = useStyles();
-  const {
-    state: { type }
-  } = useContext(ThemeContext);
   const { hours, minutes } = offset;
   const {
     actions: { AddComment, ChangeUserCurrentLocation }
@@ -88,7 +84,7 @@ const Location: FC<IAppLocation> = ({
             onClick={changeUserCurrentLocation}
             className={classes.button}
           >
-            <HomeIcon color={type === 'light' ? '#000' : '#FFF'} />
+            <HomeOutlined />
           </IconButton>
         )}
         <IconButton
@@ -96,7 +92,7 @@ const Location: FC<IAppLocation> = ({
           onClick={openDeleteModal}
           className={classes.button}
         >
-          <DeleteIcon color={type === 'light' ? '#000' : '#FFF'} />
+          <DeleteOutline />
         </IconButton>
       </div>
       <div className={css.content}>
@@ -108,29 +104,28 @@ const Location: FC<IAppLocation> = ({
         />
 
         {messageVisibility ? (
-          <CKEditor
-            editor={ClassicEditor}
-            config={editorConfig}
-            data={message}
-            onBlur={onBlurHandler}
-            className={css.textArea}
-            ref={CKEditorRef}
-          />
+          <div className={css.ckEditorContainer}>
+            <CKEditor
+              editor={ClassicEditor}
+              config={editorConfig}
+              data={message}
+              onBlur={onBlurHandler}
+              ref={CKEditorRef}
+            />
+          </div>
         ) : message ? (
-          <Typography className={`${css.message} ${classes.comment}`}>
+          <div className={`${css.message} ${classes.grey}`}>
             {ReactHtmlParser(message)}
-            <IconButton
-              className={css['pencil-icon']}
-              onClick={() => setMessageVisibility(true)}
-            >
-              <Pencil color={type === 'light' ? '#000' : '#FFF'} />
+            <IconButton onClick={() => setMessageVisibility(true)}>
+              <EditOutlined className={classes.grey} />
             </IconButton>
-          </Typography>
+          </div>
         ) : (
           <Button
-            className={`${css['comment-icon']} ${classes.button} ${classes.grey}`}
+            className={`${css['comment-icon']} ${classes.button} ${classes.grey} ${classes.mt20}`}
             data-testid="commentButton"
             onClick={() => setMessageVisibility(true)}
+            variant="outlined"
           >
             Add comment
           </Button>

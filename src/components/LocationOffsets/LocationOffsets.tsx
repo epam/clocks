@@ -3,15 +3,14 @@ import { Typography, makeStyles } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
   host: {
-    padding: '2px 8px',
+    padding: '1px 8px',
     color: 'white',
     backgroundColor: theme.palette.primary.main,
     borderRadius: 20,
-    marginBottom: 8
+    fontSize: '13px'
   },
   text: {
-    color: theme.palette.grey[300],
-    height: 32
+    color: theme.palette.grey[300]
   }
 }));
 
@@ -25,12 +24,12 @@ const LocationOffsets: FC<IProps> = ({ hours, minutes, host }) => {
   const css = useStyle();
   const strHour =
     hours !== 0
-      ? `${Math.abs(hours)} ${Math.abs(hours) <= 1 ? ' HOUR ' : ' HOURS '}`
+      ? `${Math.abs(hours)} ${Math.abs(hours) <= 1 ? ' hour ' : ' hours '}`
       : '';
   const strMinute =
     minutes !== 0
       ? `${Math.abs(minutes)} ${
-          Math.abs(minutes) <= 1 ? ' MINUTE ' : ' MINUTES '
+          Math.abs(minutes) <= 1 ? ' minute ' : ' minutes '
         }`
       : '';
   const sign =

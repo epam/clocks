@@ -38,26 +38,18 @@
   min-height: 100px;
 }
 
-.textArea {
-  padding: 5px;
+.ckEditorContainer {
+  margin-top: 20px;
   width: 90%;
-  resize: vertical;
-  border: 1px solid orange;
-  box-shadow: 0 0 2px 1px orange;
-  outline: none;
-  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  font-size: 16px;
 }
 
 .message {
+  display: flex;
+  align-items: flex-end;
   min-height: 42px;
   white-space: pre-wrap;
-  position: relative;
   align-items: center;
-  & .pencil-icon {
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(100%, 0%);
-  }
+  margin-top: 15px;
+  position: relative;
+  left: 20px;
 }

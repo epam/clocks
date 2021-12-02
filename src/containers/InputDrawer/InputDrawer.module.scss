@@ -3,6 +3,7 @@
 }
 
 #toolbar {
+  font-family: 'Roboto';
   padding-right: 20px !important;
 
   #closeButton {
@@ -21,6 +22,10 @@
   .drawerList {
     overflow-y: auto !important;
   }
+}
+
+.textFieldSize {
+  width: 100%;
 }
 
 @media screen and (max-width: 500px) {

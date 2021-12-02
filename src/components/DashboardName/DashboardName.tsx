@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState, FormEvent } from 'react';
-import { Typography, Input, IconButton, Button } from '@material-ui/core';
+import { Input, IconButton, Button } from '@material-ui/core';
+import { DeleteOutline, EditOutlined } from '@mui/icons-material';
 import { useQueryParams } from '../../hooks/useQueryParams';
-import recycleBinIcon from '../../assets/icons/recycle-bin_white.svg';
 import classes from './DashboardName.module.scss';
 import { DASHBOARD_PARAM_KEYWORD } from '../../constants';
 
@@ -46,17 +46,15 @@ export const DashboardName = () => {
       return (
         <>
           <div className={classes['name-container']}>
-            <Button color="inherit" onDoubleClick={BeingNamedHandler}>
-              <Typography variant="h5">{name}</Typography>
+            <Button color="inherit" onClick={BeingNamedHandler}>
+              <div className={classes.name}>{name}</div>
             </Button>
             <div className={classes['icons']}>
+              <IconButton onClick={BeingNamedHandler}>
+                <EditOutlined sx={{ color: '#fff' }} />
+              </IconButton>
               <IconButton onClick={DeleteDashboardName}>
-                <img
-                  src={recycleBinIcon}
-                  style={{ color: 'white' }}
-                  alt="recycle-bin"
-                  className="small-icon"
-                />
+                <DeleteOutline sx={{ color: '#fff' }} />
               </IconButton>
             </div>
           </div>
@@ -82,7 +80,7 @@ export const DashboardName = () => {
         color="inherit"
         onClick={() => setIsBeingNamed(true)}
       >
-        Name dashboard
+        Dashboard Name
       </Button>
     );
   };
