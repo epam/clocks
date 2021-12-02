@@ -55,9 +55,9 @@ const Dashboard = () => {
   );
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex,jsx-a11y/no-static-element-interactions
     <div
       tabIndex={0}
+      role="button"
       onKeyPress={handleKeyDown}
       className={`wrapper ${clocksFont}`}
     >
