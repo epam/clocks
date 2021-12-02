@@ -2,6 +2,7 @@ import { EpamColors } from './colors';
 import { editorConfig } from './ckeditorConfig';
 import { InitialContext } from './initialContext';
 import { CLOCKS_FONTS } from './fonts';
+import cityMapping from './city-timezones.json';
 
 const PARAM_KEYWORD = 'locations';
 const DASHBOARD_PARAM_KEYWORD = 'name';
@@ -22,5 +23,6 @@ export {
     HAS_TIMEZONE,
     CLOCKS_FONT,
     CLOCKS_FONTS,
-    editorConfig
+    editorConfig,
+    cityMapping
 };

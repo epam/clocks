@@ -1,9 +1,8 @@
 import moment from 'moment-timezone';
 import { ICityData } from '../../types/timezones';
-import cityMapping from '../../constants/cityMapping';
 import { generateIdFormat } from '../index';
 import { IAppLocation, IOffset, IUrlLocation, TCity, TCountry, TLocationId, TTimezone } from '../../types/location';
-import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../../constants';
+import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE, cityMapping } from '../../constants';
 
 interface IConvertedObject {
     id: TLocationId;

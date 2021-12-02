@@ -1,5 +1,5 @@
 import { ICityData } from '../../types/timezones';
-import cityMapping from '../../constants/cityMapping';
+import { cityMapping } from '../../constants';
 
 function findPartialMatch(itemsToSearch: string[], searchString: string): boolean {
     const regexp = new RegExp(searchString.toLowerCase(), 'gi');

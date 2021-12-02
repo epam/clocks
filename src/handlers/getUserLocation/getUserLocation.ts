@@ -1,5 +1,5 @@
 import { ICityData } from '../../types/timezones';
-import cityMapping from '../../constants/cityMapping';
+import { cityMapping } from '../../constants';
 import generateIdFormat from '../generateIdFormat/generateIdFormat';
 
 interface UserLocation {
