@@ -80,7 +80,7 @@ describe('test cases for settings modal', () => {
         userEvent.click(saveButton);
 
         expect(MockSettingsModalHandler).toHaveReturnedTimes(1);
-        expect(MockSetItem).toHaveBeenCalledTimes(3);
+        expect(MockSetItem).toHaveBeenCalledTimes(4);
         expect(MockSetItem).toHaveBeenCalledWith(HAS_DATE, false);
         expect(MockSetItem).toHaveBeenCalledWith(HAS_COUNTRY, false);
         expect(MockSetItem).toHaveBeenCalledWith(HAS_TIMEZONE, true);

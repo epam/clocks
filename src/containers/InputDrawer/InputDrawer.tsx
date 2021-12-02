@@ -1,6 +1,6 @@
 import { FC, useContext, useRef, useMemo, useState, useEffect } from 'react';
 import { Grid, SwipeableDrawer, Toolbar, Typography, IconButton, MenuList } from '@material-ui/core';
-import CityData from '../../types/city-timezones';
+import { ICityData } from '../../types/timezones';
 import { CrossIcon } from '../../assets/icons/icons';
 import css from './InputDrawer.module.scss';
 import { lookupCityAscii, sortBestMatch } from '../../helpers';
@@ -58,7 +58,7 @@ const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
         }
     }, [visibility]);
 
-    const handleSelect = (target: CityData) => {
+    const handleSelect = (target: ICityData) => {
         const { city_ascii: cityAscii, iso2, lat, lng } = target;
         const locationId = generateIdFormat(cityAscii, iso2, lat, lng);
         if (AddLocation) {
@@ -67,7 +67,7 @@ const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
         setValue('');
         setVisibility(false);
     };
-    const handleMatch = (item: CityData): boolean => {
+    const handleMatch = (item: ICityData): boolean => {
         const { city_ascii: cityAscii, iso2, lat, lng } = item;
         const guid = generateIdFormat(cityAscii, iso2, lat, lng);
         if (!urlLocations) {

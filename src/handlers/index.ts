@@ -1,8 +1,8 @@
-import convertData from './convertData';
-import getCurrentUserLocation from './getCurrentUserLocation';
-import generateIdFormat from './generateIdFormat';
-import getUserLocation from './getUserLocation';
-import getGreenwichMainTime from './getGreenwichMainTime';
-import getGmtOffset from './getGmtOffset';
+import convertData from './converData/convertData';
+import getCurrentUserLocation from './getCurrentUserLocation/getCurrentUserLocation';
+import generateIdFormat from './generateIdFormat/generateIdFormat';
+import getUserLocation from './getUserLocation/getUserLocation';
+import getGreenwichMainTime from './getGreenwichMainTime/getGreenwichMainTime';
+import getGmtOffset from './getGmtOffset/getGmtOffset';
 
 export { convertData, getGmtOffset, getCurrentUserLocation, getGreenwichMainTime, getUserLocation, generateIdFormat };
