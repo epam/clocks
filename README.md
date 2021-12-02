@@ -12,35 +12,30 @@ Produces a permanent sharable link that can be sent to third party users;\
 Allows to add arbitrary comments to time zones;\
 Minimalistic enough to embed it into another HTML page via <iframe> (no ads or spy software, etc.)\
 
-  ![изображение](https://user-images.githubusercontent.com/88092877/134647694-1c002995-4737-4765-8e59-8cc91addcd5a.png)
+![изображение](https://user-images.githubusercontent.com/88092877/134647694-1c002995-4737-4765-8e59-8cc91addcd5a.png)
 
-  
-  
 ### Environment
+
 Clocks.lab.epam.com
-  
-### How to use  
-  The application shows the time in the selected location, location name, country and time zone.
+
+### How to use
+
+The application shows the time in the selected location, location name, country and time zone.
 When you go to the page to Clocks.lab.epam.com, the dashboard automatically creates a widget with information for the user's location.\
-  
+
 ![изображение](https://user-images.githubusercontent.com/88092877/134662957-8c7729e0-2c8a-4986-a502-dea316dedace.png)
 
-
-  Users can add other locations through the "add city" button. It also displays information about the time difference between the user's location and the added location. users can delete widgets for locations on the dashboard.
+Users can add other locations through the "add city" button. It also displays information about the time difference between the user's location and the added location. users can delete widgets for locations on the dashboard.
 In addition, it is possible to add comments for locations. \
-  
+
 ![изображение](https://user-images.githubusercontent.com/88092877/134655648-887616c7-9cf2-416a-b214-034713cbbbe6.png)
-  
-### Using hotkeys 
-  
+
+### Using hotkeys
+
 Ctrl Q - open "Add new city"\
 Esc - close "Add new city"\
 Tab - switching to next element\
-  
-  
-  
-  
-  
+
 ## For Contributors
 
 ### Getting Started with Create React App
@@ -85,7 +80,7 @@ Instead, it will copy all the configuration files and the transitive dependencie
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ### Learn More
-  
+
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).

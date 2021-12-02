@@ -1,4 +1,4 @@
-@import '../../assets/styles/constants/colors.scss';
+@import '../../assets/styles/variables/colors.scss';
 
 .card {
     min-height: 350px;
@@ -48,6 +48,7 @@
     font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
     font-size: 16px;
 }
+
 .message {
     min-height: 42px;
     white-space: pre-wrap;

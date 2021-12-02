@@ -4,12 +4,14 @@
   "engines": {
     "node": ">=14.15.1"
   },
+  "author": "EPAM Systems",
   "private": true,
   "homepage": "./",
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^31.0.0",
     "@ckeditor/ckeditor5-react": "^3.0.3",
     "@material-ui/core": "^4.12.3",
+    "@testing-library/dom": "^8.11.1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/react-hooks": "^7.0.2",
@@ -31,7 +33,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "node gh-pages-deploy.js"
+    "deploy": "node gh-pages-deploy.js",
+    "format": "prettier --write \"**/*.+(js|jsx|tsx|json|css|md)\"",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -64,9 +68,9 @@
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
     "execa": "^5.1.1",
-    "husky": "^7.0.1",
+    "husky": "^7.0.4",
     "lint-staged": "^11.0.1",
-    "prettier": "^2.3.2",
+    "prettier": "^2.5.0",
     "typescript": "^4.4.4"
   }
 }
