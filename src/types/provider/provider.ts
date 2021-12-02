@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 
 interface IProviderProp {
-    children: ReactNode;
+  children: ReactNode;
 }
 
 export type { IProviderProp };

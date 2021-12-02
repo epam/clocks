@@ -9,27 +9,27 @@ import { ThemeProvider } from '../../context/theme';
 import { SettingsProvider } from '../../context/settings';
 
 function App() {
-    return (
-        <ThemeProvider>
-            <SettingsProvider>
-                <SnackbarProvider>
-                    <PlanningModeProvider>
-                        <ModalProvider>
-                            <LocationsProvider>
-                                <div className="App">
-                                    <Switch>
-                                        <Route>
-                                            <Dashboard />
-                                        </Route>
-                                    </Switch>
-                                </div>
-                            </LocationsProvider>
-                        </ModalProvider>
-                    </PlanningModeProvider>
-                </SnackbarProvider>
-            </SettingsProvider>
-        </ThemeProvider>
-    );
+  return (
+    <ThemeProvider>
+      <SettingsProvider>
+        <SnackbarProvider>
+          <PlanningModeProvider>
+            <ModalProvider>
+              <LocationsProvider>
+                <div className="App">
+                  <Switch>
+                    <Route>
+                      <Dashboard />
+                    </Route>
+                  </Switch>
+                </div>
+              </LocationsProvider>
+            </ModalProvider>
+          </PlanningModeProvider>
+        </SnackbarProvider>
+      </SettingsProvider>
+    </ThemeProvider>
+  );
 }
 
 export default App;
