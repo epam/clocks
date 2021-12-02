@@ -112,21 +112,21 @@ describe('test Location component', () => {
         const youAreHereLabel = getByRole('heading', { name: 'You are here' });
         expect(youAreHereLabel).toBeInTheDocument();
     });
-    it('opens textarea for adding comment by clicking comment message', () => {
+    it('opens textarea for adding comment by clicking edit icon button', () => {
         mockLocation.message = commentMessageText;
-        const { getByText, queryByRole } = render(<Location {...mockLocation} />);
-        const commentMessage = getByText(commentMessageText);
+        const { queryByRole, getByTestId } = render(<Location {...mockLocation} />);
+        const pencilIconButton = getByTestId('pencil-icon');
         const textarea = queryByRole('textbox');
         expect(textarea).toBe(null);
-        userEvent.click(commentMessage);
+        userEvent.click(pencilIconButton);
         const textareaAfterClick = queryByRole('textbox');
         expect(textareaAfterClick).toBeInTheDocument();
     });
     it('add comment by blurring from the textarea', () => {
         mockLocation.message = commentMessageText;
-        const { getByText, getByRole } = render(locationsProvider(<Location {...mockLocation} />));
-        const commentMessage = getByText(commentMessageText);
-        userEvent.click(commentMessage);
+        const { getByRole, getByTestId } = render(locationsProvider(<Location {...mockLocation} />));
+        const pencilIconButton = getByTestId('pencil-icon');
+        userEvent.click(pencilIconButton);
         const textarea = getByRole('textbox');
         const heading = getByRole('heading', { name: 'Tashkent' });
         userEvent.clear(textarea);
@@ -148,10 +148,10 @@ describe('test Location component', () => {
         expect(date).toBe(null);
     });
     it('check for adding comment with length more than 100 characters', () => {
-        const { getByText, getByRole } = render(snackbarProvider(<Location {...mockLocation} />));
-        const commentMessage = getByText(commentMessageText);
+        const { getByRole, getByTestId } = render(snackbarProvider(<Location {...mockLocation} />));
+        const pencilIconButton = getByTestId('pencil-icon');
         const heading = getByRole('heading', { name: 'Tashkent' });
-        userEvent.click(commentMessage);
+        userEvent.click(pencilIconButton);
         const textarea = getByRole('textbox');
         userEvent.type(
             textarea,
