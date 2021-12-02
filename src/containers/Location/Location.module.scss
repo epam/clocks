@@ -1,63 +1,63 @@
 @import '../../assets/styles/variables/colors.scss';
 
 .card {
-    min-height: 350px;
-    padding: 3rem;
-    padding-bottom: 0.5rem;
-    height: 100%;
-    overflow: hidden;
-    transition: all 0.25s ease-out;
-    min-width: 280px;
-    position: relative;
-    &:hover {
-        box-shadow: 0 0 2px $gray;
-        .recycle-bin {
-            opacity: 0.7;
-        }
-    }
+  min-height: 350px;
+  padding: 3rem;
+  padding-bottom: 0.5rem;
+  height: 100%;
+  overflow: hidden;
+  transition: all 0.25s ease-out;
+  min-width: 280px;
+  position: relative;
+  &:hover {
+    box-shadow: 0 0 2px $gray;
     .recycle-bin {
-        position: absolute;
-        top: 12px;
-        right: 16px;
-        opacity: 0;
-        z-index: 2;
-        transition: opacity 0.2s linear;
-        cursor: pointer;
+      opacity: 0.7;
     }
+  }
+  .recycle-bin {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.2s linear;
+    cursor: pointer;
+  }
 }
 
 .content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .textArea {
-    min-height: 100px;
+  min-height: 100px;
 }
 
 .textArea {
-    padding: 5px;
-    width: 90%;
-    resize: vertical;
-    border: 1px solid orange;
-    box-shadow: 0 0 2px 1px orange;
-    outline: none;
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    font-size: 16px;
+  padding: 5px;
+  width: 90%;
+  resize: vertical;
+  border: 1px solid orange;
+  box-shadow: 0 0 2px 1px orange;
+  outline: none;
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-size: 16px;
 }
 
 .message {
-    min-height: 42px;
-    white-space: pre-wrap;
-    position: relative;
-    align-items: center;
-    & .pencil-icon {
-        position: absolute;
-        top: 0;
-        right: 0;
-        transform: translate(100%, 0%);
-    }
+  min-height: 42px;
+  white-space: pre-wrap;
+  position: relative;
+  align-items: center;
+  & .pencil-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(100%, 0%);
+  }
 }

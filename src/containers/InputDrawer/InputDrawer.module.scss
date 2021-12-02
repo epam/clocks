@@ -9,7 +9,8 @@
     position: absolute;
     right: 20px;
     transform: translateY(-500px);
-    &:focus, &:hover {
+    &:focus,
+    &:hover {
       transform: translateY(0);
     }
   }
