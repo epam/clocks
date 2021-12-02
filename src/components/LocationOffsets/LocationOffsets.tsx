@@ -23,9 +23,9 @@ interface IProps {
 
 const LocationOffsets: FC<IProps> = ({ hours, minutes, host }) => {
     const css = useStyle();
-
     const strHour = hours !== 0 ? `${Math.abs(hours)} ${Math.abs(hours) <= 1 ? ' HOUR ' : ' HOURS '}` : '';
     const strMinute = minutes !== 0 ? `${Math.abs(minutes)} ${Math.abs(minutes) <= 1 ? ' MINUTE ' : ' MINUTES '}` : '';
+    const sign = hours < 0 || minutes < 0 ? <>&ndash;</> : hours === 0 && minutes === 0 ? '' : '+';
 
     if (host) {
         return (
@@ -37,7 +37,7 @@ const LocationOffsets: FC<IProps> = ({ hours, minutes, host }) => {
 
     return (
         <Typography variant="subtitle2" className={css.text}>
-            {hours < 0 && <>&ndash;</>}
+            {sign}
             {strHour}
             {strMinute}
         </Typography>
