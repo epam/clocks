@@ -13,16 +13,16 @@ const HAS_TIMEZONE = 'HAS_TIMEZONE';
 const CLOCKS_FONT = 'CLOCKS_FONT';
 
 export {
-    PARAM_KEYWORD,
-    HAS_COUNTRY,
-    HAS_DATE,
-    EpamColors,
-    CURRENT_USER_LOCATION_ID,
-    InitialContext,
-    DASHBOARD_PARAM_KEYWORD,
-    HAS_TIMEZONE,
-    CLOCKS_FONT,
-    CLOCKS_FONTS,
-    editorConfig,
-    cityMapping
+  PARAM_KEYWORD,
+  HAS_COUNTRY,
+  HAS_DATE,
+  EpamColors,
+  CURRENT_USER_LOCATION_ID,
+  InitialContext,
+  DASHBOARD_PARAM_KEYWORD,
+  HAS_TIMEZONE,
+  CLOCKS_FONT,
+  CLOCKS_FONTS,
+  editorConfig,
+  cityMapping
 };

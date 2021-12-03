@@ -1,48 +1,59 @@
 {
-    "extends": ["react-app", "airbnb", "plugin:jsx-a11y/recommended", "prettier"],
-    "plugins": ["jsx-a11y", "prettier"],
-    "rules": {
-        "semi": 1,
-        "react/prop-types": "off",
-        "import/prefer-default-export": "off",
-        "arrow-body-style": "off",
-        "react/no-array-index-key": "off",
-        "no-nested-ternary": "off",
-        "react/no-unescaped-entities": "off",
-        "no-shadow": "off",
-        "consistent-return": "off",
-        "react/react-in-jsx-scope": "off",
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", ".tsx"] }],
-        "import/extensions": [
-            "error",
-            "ignorePackages",
-            {
-                "js": "never",
-                "jsx": "never",
-                "ts": "never",
-                "tsx": "never"
-            }
-        ],
-        "dot-notation": [0, { "allowKeywords": true, "allowPattern": "" }],
-        "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
-        "react/jsx-props-no-spreading": "off",
-        "no-debugger": "off",
-        "no-console": "off",
-        "react-hooks/exhaustive-deps": "off",
-        "no-unused-vars": "off",
-        "prettier/prettier": [
-            "error",
-            {
-                "semi": true,
-                "endOfLine": "auto"
-            }
-        ]
-    },
-    "settings": {
-        "import/resolver": {
-            "node": {
-                "extensions": [".js", ".jsx", ".ts", ".tsx"]
-            }
-        }
-    }
+	"extends": ["react-app", "airbnb", "plugin:jsx-a11y/recommended", "prettier"],
+	"plugins": ["jsx-a11y", "prettier"],
+	"rules": {
+		"semi": 1,
+		"react/prop-types": "off",
+		"import/prefer-default-export": "off",
+		"arrow-body-style": "off",
+		"react/no-array-index-key": "off",
+		"no-nested-ternary": "off",
+		"react/no-unescaped-entities": "off",
+		"no-shadow": "off",
+		"consistent-return": "off",
+		"react/react-in-jsx-scope": "off",
+		"react/jsx-filename-extension": [
+			1,
+			{ "extensions": [".js", ".jsx", ".ts", ".tsx"] }
+		],
+		"import/extensions": [
+			"error",
+			"ignorePackages",
+			{
+				"js": "never",
+				"jsx": "never",
+				"ts": "never",
+				"tsx": "never"
+			}
+		],
+		"dot-notation": [0, { "allowKeywords": true, "allowPattern": "" }],
+		"import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+		"react/jsx-props-no-spreading": "off",
+		"no-debugger": "off",
+		"no-console": "off",
+		"react-hooks/exhaustive-deps": "off",
+		"no-unused-vars": "off",
+		"prettier/prettier": [
+			"error",
+			{
+				"printWidth": 80,
+				"tabWidth": 2,
+				"useTabs": false,
+				"semi": true,
+				"singleQuote": true,
+				"trailingComma": "none",
+				"bracketSpacing": true,
+				"jsxBracketSameLine": false,
+				"arrowParens": "avoid",
+				"endOfLine": "auto"
+			}
+		]
+	},
+	"settings": {
+		"import/resolver": {
+			"node": {
+				"extensions": [".js", ".jsx", ".ts", ".tsx"]
+			}
+		}
+	}
 }

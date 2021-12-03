@@ -1,11 +1,11 @@
 import { IContext } from '../../types/context';
 
 interface IState {
-    isPlanningModeOn: boolean;
+  isPlanningModeOn: boolean;
 }
 
 interface IActions {
-    PlanningModeHandler: (isPlanningModeOn?: boolean) => void;
+  PlanningModeHandler: (isPlanningModeOn?: boolean) => void;
 }
 
 interface IPlanningModeContext extends IContext<IState, IActions> {}

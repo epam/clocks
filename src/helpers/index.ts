@@ -5,4 +5,11 @@ import lookupCityAscii from './lookupCityAscii/lookupCityAscii';
 import getObjectProperty from './getObjectProperty/getObjectProperty';
 import CheckForCityExistence from './checkCityExistence/checkCityExistence';
 
-export { lookupTimezones, sortBestMatch, arrayIncludes, lookupCityAscii, getObjectProperty, CheckForCityExistence };
+export {
+  lookupTimezones,
+  sortBestMatch,
+  arrayIncludes,
+  lookupCityAscii,
+  getObjectProperty,
+  CheckForCityExistence
+};
