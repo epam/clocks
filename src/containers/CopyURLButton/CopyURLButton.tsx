@@ -34,7 +34,13 @@ const CopyURLButton: FC = () => {
     };
 
     return (
-        <Button disabled={isLoading} onClick={handleCopy} variant="outlined" color="inherit">
+        <Button
+            aria-label="copy to clipboard button"
+            disabled={isLoading}
+            onClick={handleCopy}
+            variant="outlined"
+            color="inherit"
+        >
             Copy
         </Button>
     );
