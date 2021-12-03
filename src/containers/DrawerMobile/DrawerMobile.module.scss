@@ -1,0 +1,32 @@
+.sidebarPaper {
+  width: 400px;
+}
+
+#toolbar {
+  padding-right: 20px !important;
+
+  #closeButton {
+    position: absolute;
+    right: 20px;
+    transform: translateY(-500px);
+    &:focus, &:hover {
+      transform: translateY(0);
+    }
+  }
+}
+
+.drawerBody {
+  padding: 0 16px;
+  .drawerList {
+    overflow-y: auto !important;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .sidebarPaper {
+    width: 100vw !important;
+  }
+  #closeButton {
+    transform: translateY(0) !important;
+  }
+}

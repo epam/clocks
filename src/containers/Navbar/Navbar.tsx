@@ -1,14 +1,13 @@
-import { FC, useContext, useState, useEffect } from 'react';
+import { FC, useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Button, IconButton, Tooltip } from '@material-ui/core';
 import { LocationsContext } from '../../context/locations';
 import { ThemeContext } from '../../context/theme';
 import logo from '../../assets/images/logo.svg';
 import { EpamColors } from '../../constants';
-import { DarkModeIcon, LightModeIcon, SettingsIcon, AddIcon } from '../../assets/icons/icons';
+import { DarkModeIcon, LightModeIcon, SettingsIcon } from '../../assets/icons/icons';
 import { DashboardName } from '../../components/DashboardName';
 import { SettingsContext } from '../../context/settings';
-import { ScreenSizesContext } from '../../context/screenSizes';
 import styles from './Navbar.module.scss';
 
 const useStyles = makeStyles(theme => ({
@@ -37,20 +36,6 @@ const Navbar: FC = () => {
         state: { type }
     } = useContext(ThemeContext);
 
-    const {
-        state: { width }
-    } = useContext(ScreenSizesContext);
-
-    const [showAddIcon, setShowAddIcon] = useState(false);
-
-    useEffect(() => {
-        if (width && width <= 600) {
-            setShowAddIcon(true);
-        } else {
-            setShowAddIcon(false);
-        }
-    }, [width]);
-
     const createFormHandler = () => {
         if (CreateFormHandler) {
             CreateFormHandler(true);
@@ -77,23 +62,17 @@ const Navbar: FC = () => {
                         {type === 'light' ? <LightModeIcon /> : <DarkModeIcon />}
                     </IconButton>
                     <IconButton onClick={settingsModalHandler}>
-                        <SettingsIcon />
+                        <SettingsIcon color="#FFF" />
                     </IconButton>
                     <Tooltip title="Toggle, + or = to toggle drawer" enterDelay={1000} leaveDelay={200}>
-                        {showAddIcon ? (
-                            <IconButton onClick={createFormHandler} className={styles.addCityButton}>
-                                <AddIcon />
-                            </IconButton>
-                        ) : (
-                            <Button
-                                variant="outlined"
-                                color="inherit"
-                                onClick={createFormHandler}
-                                className={styles.addCityButton}
-                            >
-                                Add City
-                            </Button>
-                        )}
+                        <Button
+                            variant="outlined"
+                            color="inherit"
+                            onClick={createFormHandler}
+                            className={styles.addCityButton}
+                        >
+                            Add City
+                        </Button>
                     </Tooltip>
                 </div>
             </Toolbar>

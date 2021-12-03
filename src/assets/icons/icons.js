@@ -138,9 +138,9 @@ const DeleteIcon = ({ color }) => (
     </svg>
 );
 
-const SettingsIcon = () => (
+const SettingsIcon = ({ color }) => (
     <svg
-        fill="#FFF"
+        fill={color}
         data-testid="SettingsIcon"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 32 32"
@@ -187,9 +187,9 @@ const EyeSlashIcon = () => (
     </svg>
 );
 
-const AddIcon = () => (
+const AddIcon = ({ color }) => (
     <svg
-        fill="#fff"
+        fill={color}
         viewBox="0 0 24 24"
         aria-hidden="true"
         data-testid="AddIcon"
@@ -216,7 +216,21 @@ l55.921,55.921l-83.786,27.866L66.55,326.731z M141.411,373.307l-65.516-65.516L299
         />
     </svg>
 );
-
+const MenuIcon = () => (
+    <svg
+        focusable="false"
+        viewBox="0 0 24 24"
+        aria-hidden="true"
+        title="MenuRounded"
+        data-ga-event-category="material-icons"
+        data-ga-event-action="click"
+        data-ga-event-label="MenuRounded"
+        width="32px"
+        fill="#FFF"
+    >
+        <path d="M4 18h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zm0-5h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1s.45 1 1 1zM3 7c0 .55.45 1 1 1h16c.55 0 1-.45 1-1s-.45-1-1-1H4c-.55 0-1 .45-1 1z" />
+    </svg>
+);
 export {
     LinkedIn,
     GitHub,
@@ -234,5 +248,6 @@ export {
     EyeIcon,
     EyeSlashIcon,
     AddIcon,
-    Pencil
+    Pencil,
+    MenuIcon
 };

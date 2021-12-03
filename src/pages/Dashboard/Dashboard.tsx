@@ -5,14 +5,17 @@ import { makeStyles } from '@material-ui/core';
 
 import { LocationsContext } from '../../context/locations';
 import { SnackbarContext } from '../../context/snackbar';
+import { ScreenSizesContext } from '../../context/screenSizes';
 import Location from '../../containers/Location';
 import Navbar from '../../containers/Navbar';
+import NavbarMobile from '../../containers/NavbarMobile';
 import Footer from '../../containers/Footer';
 import InputDrawer from '../../containers/InputDrawer';
 import DeleteModal from '../../containers/DeleteModal';
 import SettingsModal from '../../containers/SettingsModal';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { CLOCKS_FONT, CLOCKS_FONTS } from '../../constants';
+import DrawerMobile from '../../containers/DrawerMobile';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -35,6 +38,10 @@ const Dashboard = () => {
         state: { isSnackbarOpen, message },
         actions: { SnackbarHandler }
     } = useContext(SnackbarContext);
+    const {
+        state: { width, showDrawerMobile },
+        actions: { HandleDrawerMobile }
+    } = useContext(ScreenSizesContext);
 
     const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
         if (event.key === '=' || event.key === '+') {
@@ -47,13 +54,14 @@ const Dashboard = () => {
 
     const snackbarHandler = () => SnackbarHandler && SnackbarHandler(false);
     const createFormHandler = (isVisible?: boolean) => CreateFormHandler && CreateFormHandler(isVisible);
+    const handleDrawerMobile = (isVisible: boolean) => HandleDrawerMobile && HandleDrawerMobile(isVisible);
 
     const clocksFont = useMemo<string>(() => getItem(CLOCKS_FONT) || CLOCKS_FONTS.ROBOTO.value, [locations]);
 
     return (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex,jsx-a11y/no-static-element-interactions
         <div tabIndex={0} onKeyPress={handleKeyDown} className={`wrapper ${clocksFont}`}>
-            <Navbar />
+            {width && width <= 600 ? <NavbarMobile /> : <Navbar />}
             <DeleteModal />
             <SettingsModal />
             <div className={css.container}>
@@ -64,6 +72,7 @@ const Dashboard = () => {
                         </div>
                     ))}
                 <InputDrawer visibility={hasCreateForm || false} setVisibility={createFormHandler} />
+                <DrawerMobile visibility={showDrawerMobile || false} setVisibility={handleDrawerMobile} />
             </div>
             <Snackbar
                 anchorOrigin={{
