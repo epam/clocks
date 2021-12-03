@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, act, screen, getByText } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import InputDrawer from './InputDrawer';
 import { LocationsContext } from '../../context/locations';

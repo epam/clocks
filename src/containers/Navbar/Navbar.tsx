@@ -8,6 +8,7 @@ import { EpamColors } from '../../constants';
 import { DarkModeIcon, LightModeIcon, SettingsIcon } from '../../assets/icons/icons';
 import { DashboardName } from '../../components/DashboardName';
 import { SettingsContext } from '../../context/settings';
+import CopyURLButton from '../CopyURLButton';
 
 const useStyles = makeStyles(theme => ({
     appbar: {
@@ -38,7 +39,8 @@ const useStyles = makeStyles(theme => ({
         color: theme.palette.background.paper
     },
     addCityButton: {
-        marginLeft: '1rem'
+        marginLeft: '1rem',
+        marginRight: '1rem'
     }
 }));
 
@@ -94,6 +96,7 @@ const Navbar: FC = () => {
                             Add City
                         </Button>
                     </Tooltip>
+                    <CopyURLButton />
                 </div>
             </Toolbar>
         </AppBar>
