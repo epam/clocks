@@ -15,15 +15,17 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('test case for DashboardName component', () => {
-  // it('render DashboardName component with name param in the url', () => {
-  //   const { getByRole, getByText } = render(<DashboardName />);
-  //   const dashboardNameButton = getByRole('button', { name: 'Clocks' });
-  //   const recycleBinIcon = getByRole('button', { name: 'recycle-bin' });
-  //   const dashboardNameText = getByText(/Clocks/i);
-  //   expect(dashboardNameButton).toBeInTheDocument();
-  //   expect(recycleBinIcon).toBeInTheDocument();
-  //   expect(dashboardNameText).toBeInTheDocument();
-  // });
+  it('render DashboardName component with name param in the url', () => {
+    const { getByRole, getByText, getByTestId } = render(<DashboardName />);
+    const dashboardNameButton = getByRole('button', { name: 'Clocks' });
+    const editIcon = getByTestId(/edit-icon/i);
+    const recycleBinIcon = getByTestId(/delete-icon/i);
+    const dashboardNameText = getByText(/Clocks/i);
+    expect(dashboardNameButton).toBeInTheDocument();
+    expect(recycleBinIcon).toBeInTheDocument();
+    expect(editIcon).toBeInTheDocument();
+    expect(dashboardNameText).toBeInTheDocument();
+  });
   it('edit existing dashboard name on submit', () => {
     const { getByRole, getByText } = render(<DashboardName />);
     const nameButton = getByRole('button', { name: 'Clocks' });

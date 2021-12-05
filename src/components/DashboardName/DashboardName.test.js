@@ -15,20 +15,20 @@ jest.mock('react-router-dom', () => ({
 }));
 
 describe('test case for DashboardName component', () => {
-  // it('render DashboardName component without name param in the url', () => {
-  //   const { getByRole } = render(<DashboardName />);
-  //   const nameDashboardButton = getByRole('button', {
-  //     name: /Name Dashboard/i
-  //   });
-  //   expect(nameDashboardButton).toBeInTheDocument();
-  // });
+  it('render DashboardName component without name param in the url', () => {
+    const { getByRole } = render(<DashboardName />);
+    const nameDashboardButton = getByRole('button', {
+      name: /Dashboard Name/i
+    });
+    expect(nameDashboardButton).toBeInTheDocument();
+  });
   it('open input by clicking "Name Dashboard" button', () => {
-    // const { getByRole } = render(<DashboardName />);
-    // const nameDashboardButton = getByRole('button', {
-    //   name: /Name Dashboard/i
-    // });
-    // userEvent.click(nameDashboardButton);
-    // const input = getByRole('textbox');
-    // expect(input).toBeInTheDocument();
+    const { getByRole } = render(<DashboardName />);
+    const nameDashboardButton = getByRole('button', {
+      name: /Dashboard Name/i
+    });
+    userEvent.click(nameDashboardButton);
+    const input = getByRole('textbox');
+    expect(input).toBeInTheDocument();
   });
 });
