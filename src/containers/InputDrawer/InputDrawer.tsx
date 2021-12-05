@@ -117,6 +117,7 @@ const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
           label="Search cities"
           variant="outlined"
           className={css.textFieldSize}
+          inputProps={{ 'data-testid': 'search-input' }}
         />
         <div className={css.drawerList}>
           <MenuList variant="selectedMenu" autoFocus>
