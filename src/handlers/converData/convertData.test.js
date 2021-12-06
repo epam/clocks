@@ -13,8 +13,11 @@ const mockDataListResult = [
     host: false,
     id: 'Binghamton_US_42_75',
     message: '',
-    offset: { hours: -9, minutes: 0 },
-    timezone: 'America/New_York'
+    offset: { hours: -10, minutes: 0 },
+    timezone: 'America/New_York',
+    hasCountry: true,
+    hasDate: true,
+    hasTimezone: true
   },
   {
     city: 'Tashkent',
@@ -23,7 +26,10 @@ const mockDataListResult = [
     id: 'Tashkent_UZ_41_69',
     message: '',
     offset: { hours: 0, minutes: 0 },
-    timezone: 'Asia/Tashkent'
+    timezone: 'Asia/Tashkent',
+    hasCountry: true,
+    hasDate: true,
+    hasTimezone: true
   },
   {
     city: 'Namangan',
@@ -32,7 +38,10 @@ const mockDataListResult = [
     id: 'Namangan_UZ_41_71',
     message: '',
     offset: { hours: 0, minutes: 0 },
-    timezone: 'Asia/Tashkent'
+    timezone: 'Asia/Tashkent',
+    hasCountry: true,
+    hasDate: true,
+    hasTimezone: true
   }
 ];
 
@@ -44,7 +53,10 @@ const mockDataListResultWithoutHost = [
     id: 'Tashkent_UZ_41_69',
     message: '',
     offset: { hours: 0, minutes: 0 },
-    timezone: 'Asia/Tashkent'
+    timezone: 'Asia/Tashkent',
+    hasCountry: true,
+    hasDate: true,
+    hasTimezone: true
   },
   {
     city: 'Namangan',
@@ -53,7 +65,10 @@ const mockDataListResultWithoutHost = [
     id: 'Namangan_UZ_41_71',
     message: '',
     offset: { hours: 0, minutes: 0 },
-    timezone: 'Asia/Tashkent'
+    timezone: 'Asia/Tashkent',
+    hasCountry: true,
+    hasDate: true,
+    hasTimezone: true
   },
   {
     city: 'Binghamton',
@@ -62,7 +77,10 @@ const mockDataListResultWithoutHost = [
     id: 'Binghamton_US_42_75',
     message: '',
     offset: { hours: 0, minutes: 0 },
-    timezone: 'America/New_York'
+    timezone: 'America/New_York',
+    hasCountry: true,
+    hasDate: true,
+    hasTimezone: true
   }
 ];
 
@@ -75,14 +93,19 @@ describe('convert url locations data function', () => {
     expect(convertData([], {})).toEqual([]);
   });
 
-  // it('returns converted data without host if host id is not given or not valid', () => {
-  //     expect(convertData(mockDataList)).toEqual(mockDataListResultWithoutHost);
-  //     expect(convertData(mockDataList, '')).toEqual(mockDataListResultWithoutHost);
-  //     expect(convertData(mockDataList, {})).toEqual(mockDataListResultWithoutHost);
-  //     expect(convertData(mockDataList, [])).toEqual(mockDataListResultWithoutHost);
-  // });
+  it('returns converted data without host if host id is not given or not valid', () => {
+    expect(convertData(mockDataList)).toEqual(mockDataListResultWithoutHost);
+    expect(convertData(mockDataList, {})).toEqual(
+      mockDataListResultWithoutHost
+    );
+    expect(convertData(mockDataList, [])).toEqual(
+      mockDataListResultWithoutHost
+    );
+  });
 
-  // it('returns widget locations list for valid arguments', () => {
-  //     expect(convertData(mockDataList, 'Tashkent_UZ_41_69')).toEqual(mockDataListResult);
-  // });
+  it('returns widget locations list for valid arguments', () => {
+    expect(convertData(mockDataList, 'Tashkent_UZ_41_69')).toEqual(
+      mockDataListResult
+    );
+  });
 });
