@@ -50,10 +50,13 @@ export const DashboardName = () => {
               <div className={classes.name}>{name}</div>
             </Button>
             <div className={classes['icons']}>
-              <IconButton onClick={BeingNamedHandler}>
+              <IconButton data-testid="edit-icon" onClick={BeingNamedHandler}>
                 <EditOutlined sx={{ color: '#fff' }} />
               </IconButton>
-              <IconButton onClick={DeleteDashboardName}>
+              <IconButton
+                data-testid="delete-icon"
+                onClick={DeleteDashboardName}
+              >
                 <DeleteOutline sx={{ color: '#fff' }} />
               </IconButton>
             </div>
