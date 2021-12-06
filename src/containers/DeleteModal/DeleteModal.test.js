@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import DeleteModal from './DeleteModal';
-import { ModalContext, useModal } from '../../context/modal';
+import { ModalContext } from '../../context/modal';
 import { LocationsContext } from '../../context/locations';
 
 const MockDeleteLocation = jest.fn();
