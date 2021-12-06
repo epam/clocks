@@ -2,6 +2,8 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { DashboardName } from './DashboardName';
 
+const MockHistoryPush = jest.fn();
+
 jest.mock('react-router-dom', () => ({
   useLocation: () => ({
     pathname: '/',
@@ -10,7 +12,7 @@ jest.mock('react-router-dom', () => ({
     hash: ''
   }),
   useHistory: () => ({
-    push: jest.fn()
+    push: MockHistoryPush
   })
 }));
 
@@ -22,13 +24,22 @@ describe('test case for DashboardName component', () => {
     });
     expect(nameDashboardButton).toBeInTheDocument();
   });
-  it('open input by clicking "Name Dashboard" button', () => {
-    const { getByRole } = render(<DashboardName />);
+  it('add name param to the url', () => {
+    const { getByRole, getByTestId, debug } = render(<DashboardName />);
     const nameDashboardButton = getByRole('button', {
       name: /Dashboard Name/i
     });
     userEvent.click(nameDashboardButton);
+
     const input = getByRole('textbox');
-    expect(input).toBeInTheDocument();
+    userEvent.type(input, 'Clocks');
+
+    const form = getByTestId(/form/);
+    userEvent.click(form);
+    debug();
+
+    const urlWithNameParam =
+      '?locations=WyJUYXNoa2VudF9VWl80MV82OSIsIk5hbWFuZ2FuX1VaXzQxXzcxIl0%3D&name=Q2xvY2tz';
+    expect(MockHistoryPush).toHaveBeenCalledWith(urlWithNameParam);
   });
 });
