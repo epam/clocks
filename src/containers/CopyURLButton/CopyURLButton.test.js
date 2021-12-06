@@ -22,6 +22,7 @@ describe('Snackbar Component: ', () => {
     expect(
       screen.getByLabelText('copy to clipboard button')
     ).toBeInTheDocument();
+    expect(screen.getByText(/Copy/i)).toBeInTheDocument();
     expect(screen.getByTestId('ContentCopyIcon')).toBeInTheDocument();
     expect(
       screen.getByLabelText('copy to clipboard button')
