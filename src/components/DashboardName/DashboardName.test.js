@@ -25,7 +25,7 @@ describe('test case for DashboardName component', () => {
     expect(nameDashboardButton).toBeInTheDocument();
   });
   it('add name param to the url', () => {
-    const { getByRole, getByTestId, debug } = render(<DashboardName />);
+    const { getByRole, getByTestId } = render(<DashboardName />);
     const nameDashboardButton = getByRole('button', {
       name: /Dashboard Name/i
     });
@@ -36,7 +36,6 @@ describe('test case for DashboardName component', () => {
 
     const form = getByTestId(/form/);
     userEvent.click(form);
-    debug();
 
     const urlWithNameParam =
       '?locations=WyJUYXNoa2VudF9VWl80MV82OSIsIk5hbWFuZ2FuX1VaXzQxXzcxIl0%3D&name=Q2xvY2tz';
