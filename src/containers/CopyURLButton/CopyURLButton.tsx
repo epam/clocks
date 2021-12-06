@@ -1,5 +1,6 @@
 import { FC, useState, useContext } from 'react';
-import { Button } from '@material-ui/core';
+import { IconButton } from '@material-ui/core';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { SnackbarContext } from '../../context/snackbar';
 
 const CopyURLButton: FC = () => {
@@ -34,15 +35,14 @@ const CopyURLButton: FC = () => {
   };
 
   return (
-    <Button
+    <IconButton
       aria-label="copy to clipboard button"
       disabled={isLoading}
       onClick={handleCopy}
-      variant="outlined"
       color="inherit"
     >
-      Copy
-    </Button>
+      <ContentCopyIcon />
+    </IconButton>
   );
 };
 

@@ -83,6 +83,7 @@ const Navbar: FC = () => {
           <IconButton onClick={settingsModalHandler}>
             <SettingsOutlined sx={{ color: '#fff' }} />
           </IconButton>
+          <CopyURLButton />
           <Tooltip
             title="Toggle, + or = to toggle drawer"
             enterDelay={1000}
@@ -98,7 +99,6 @@ const Navbar: FC = () => {
               Add City
             </Button>
           </Tooltip>
-          <CopyURLButton />
         </div>
       </Toolbar>
     </AppBar>
