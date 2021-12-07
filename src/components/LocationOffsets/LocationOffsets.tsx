@@ -33,13 +33,7 @@ const LocationOffsets: FC<IProps> = ({ hours, minutes, host }) => {
         }`
       : '';
   const sign =
-    hours < 0 || minutes < 0 ? (
-      <>&ndash;</>
-    ) : hours === 0 && minutes === 0 ? (
-      ''
-    ) : (
-      '+'
-    );
+    hours < 0 || minutes < 0 ? '-' : hours === 0 && minutes === 0 ? '' : '+';
 
   if (host) {
     return (
