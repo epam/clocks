@@ -11,6 +11,7 @@ const HAS_COUNTRY = 'HAS_COUNTRY';
 const HAS_DATE = 'HAS_DATE';
 const HAS_TIMEZONE = 'HAS_TIMEZONE';
 const CLOCKS_FONT = 'CLOCKS_FONT';
+const AUTO_THEMING = 'AUTO_THEMING';
 
 export {
   PARAM_KEYWORD,
@@ -21,6 +22,7 @@ export {
   InitialContext,
   DASHBOARD_PARAM_KEYWORD,
   HAS_TIMEZONE,
+  AUTO_THEMING,
   CLOCKS_FONT,
   CLOCKS_FONTS,
   editorConfig,
