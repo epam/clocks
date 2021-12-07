@@ -29,9 +29,9 @@ const EyeButton: FC<IProps> = ({ isOpen, eyeHandler }) => {
       onClick={EyeHandler}
     >
       {isOpen ? (
-        <VisibilityOutlined fontSize="small" />
+        <VisibilityOutlined data-testid="open-eye-icon" fontSize="small" />
       ) : (
-        <VisibilityOffOutlined fontSize="small" />
+        <VisibilityOffOutlined data-testid="closed-eye-icon" fontSize="small" />
       )}
     </IconButton>
   );

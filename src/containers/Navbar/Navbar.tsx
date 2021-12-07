@@ -78,7 +78,10 @@ const Navbar: FC = () => {
           <DashboardName />
         </div>
         <div className={classes.buttons}>
-          <IconButton onClick={settingsModalHandler}>
+          <IconButton
+            data-testid="settings-icon"
+            onClick={settingsModalHandler}
+          >
             <SettingsOutlined sx={{ color: '#fff' }} />
           </IconButton>
           <Tooltip
