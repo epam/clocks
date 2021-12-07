@@ -1,8 +1,8 @@
 declare module '@ckeditor/ckeditor5-react' {
-    export const CKEditor: any;
+  export const CKEditor: any;
 }
 
 declare module '@ckeditor/ckeditor5-build-classic' {
-    const ClassicEditor: any;
-    export = ClassicEditor;
+  const ClassicEditor: any;
+  export = ClassicEditor;
 }

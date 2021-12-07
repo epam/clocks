@@ -1,18 +1,18 @@
 export const useLocalStorage = () => {
-    const getItem = (itemName: string) => {
-        return localStorage.getItem(itemName);
-    };
+  const getItem = (itemName: string) => {
+    return localStorage.getItem(itemName);
+  };
 
-    const setItem = (itemName: string, value: any) => {
-        localStorage.setItem(itemName, value);
-    };
+  const setItem = (itemName: string, value: any) => {
+    localStorage.setItem(itemName, value);
+  };
 
-    const removeItem = (itemName: string) => {
-        localStorage.removeItem(itemName);
-    };
+  const removeItem = (itemName: string) => {
+    localStorage.removeItem(itemName);
+  };
 
-    const clear = () => {
-        localStorage.clear();
-    };
-    return { clear, getItem, setItem, removeItem };
+  const clear = () => {
+    localStorage.clear();
+  };
+  return { clear, getItem, setItem, removeItem };
 };

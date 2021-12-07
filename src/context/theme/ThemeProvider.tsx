@@ -5,10 +5,10 @@ import { ThemeContext } from './ThemeContext';
 import { useTheme } from './useTheme';
 
 export const ThemeProvider: FC<IProviderProp> = ({ children }) => {
-    const store = useTheme();
-    return (
-        <Theme theme={store.state.theme}>
-            <ThemeContext.Provider value={store}>{children}</ThemeContext.Provider>
-        </Theme>
-    );
+  const store = useTheme();
+  return (
+    <Theme theme={store.state.theme}>
+      <ThemeContext.Provider value={store}>{children}</ThemeContext.Provider>
+    </Theme>
+  );
 };

@@ -3,23 +3,27 @@ import { TLocationId } from '../../types/location';
 import { IState } from './ModalContext.type';
 
 export const useModal = (defaultValues?: IState) => {
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(defaultValues?.isModalOpen || false);
-    const [locationId, setLocationId] = useState<TLocationId>(defaultValues?.locationId || '');
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(
+    defaultValues?.isModalOpen || false
+  );
+  const [locationId, setLocationId] = useState<TLocationId>(
+    defaultValues?.locationId || ''
+  );
 
-    const ModalHandler = (isModalOpen?: boolean) => {
-        if (typeof isModalOpen === 'boolean') {
-            return setIsModalOpen(isModalOpen);
-        }
-        setIsModalOpen(prev => !prev);
-    };
+  const ModalHandler = (isModalOpen?: boolean) => {
+    if (typeof isModalOpen === 'boolean') {
+      return setIsModalOpen(isModalOpen);
+    }
+    setIsModalOpen(prev => !prev);
+  };
 
-    const OpenDeleteModal = (locationId: TLocationId) => {
-        setIsModalOpen(true);
-        setLocationId(locationId);
-    };
+  const OpenDeleteModal = (locationId: TLocationId) => {
+    setIsModalOpen(true);
+    setLocationId(locationId);
+  };
 
-    return {
-        state: { isModalOpen, locationId },
-        actions: { ModalHandler, OpenDeleteModal }
-    };
+  return {
+    state: { isModalOpen, locationId },
+    actions: { ModalHandler, OpenDeleteModal }
+  };
 };

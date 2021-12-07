@@ -2,12 +2,12 @@ import { Theme } from '@material-ui/core';
 import { IContext } from '../../types/context';
 
 interface IState {
-    type: string;
-    theme: Theme;
+  type: string;
+  theme: Theme;
 }
 
 interface IActions {
-    ThemeHandler: () => void;
+  ThemeHandler: () => void;
 }
 
 interface IThemeContext extends IContext<IState, IActions> {}

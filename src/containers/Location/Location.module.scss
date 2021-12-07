@@ -1,104 +1,96 @@
-@import '../../assets/styles/constants/colors.scss';
+@import '../../assets/styles/variables/colors.scss';
 
 .card {
-    min-height: 280px;
-    height: 100%;
-    overflow: hidden;
-    transition: all 0.25s ease-out;
-    min-width: 280px;
-    position: relative;
-    padding: 3rem;
-    padding-bottom: 0.5rem;
-    box-shadow: 0 0 2px $gray;
-    &:hover {
-        .recycle-bin {
-            opacity: 0.7;
-        }
-    }
+  min-height: 350px;
+  padding: 3rem;
+  padding-bottom: 0.5rem;
+  height: 100%;
+  overflow: hidden;
+  transition: all 0.25s ease-out;
+  min-width: 280px;
+  position: relative;
+  box-shadow: 0 0 2px $gray;
+  &:hover {
     .recycle-bin {
-        position: absolute;
-        opacity: 0;
-        z-index: 2;
-        transition: opacity 0.2s linear;
-        cursor: pointer;
-
-        button {
-            padding: 8px;
-        }
+      opacity: 0.7;
     }
+  }
+  .recycle-bin {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    opacity: 0;
+    z-index: 2;
+    transition: opacity 0.2s linear;
+    cursor: pointer;
+  }
 }
 
 .content {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .textArea {
-    min-height: 100px;
+  min-height: 100px;
 }
 
-.textArea {
-    padding: 5px;
-    width: 90%;
-    resize: vertical;
-    border: 1px solid orange;
-    box-shadow: 0 0 2px 1px orange;
-    outline: none;
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    font-size: 16px;
+.ckEditorContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  width: 90%;
 }
+
 .message {
-    min-height: 42px;
-    white-space: pre-wrap;
-    position: relative;
-    display: flex;
-    align-items: center;
-    & .pencil-icon {
-        position: absolute;
-        top: 0;
-        right: 0;
-        transform: translate(100%, 0%);
-    }
+  display: flex;
+  align-items: flex-end;
+  min-height: 42px;
+  white-space: pre-wrap;
+  align-items: center;
+  margin-top: 15px;
+  position: relative;
+  left: 20px;
 }
 
 @media screen and (max-width: 360px) {
-    .recycle-bin {
-        top: 4px;
-        right: 6px;
+  .recycle-bin {
+    top: 4px;
+    right: 6px;
 
-        button {
-            padding: 4px;
-        }
+    button {
+      padding: 4px;
     }
+  }
 }
 
 @media screen and (min-width: 360px) and (max-width: 600px) {
-    .recycle-bin {
-        top: 6px;
-        right: 8px;
-    }
+  .recycle-bin {
+    top: 6px;
+    right: 8px;
+  }
 }
 
 @media screen and (min-width: 600px) and (max-width: 960px) {
-    .recycle-bin {
-        top: 8px;
-        right: 10px;
-    }
+  .recycle-bin {
+    top: 8px;
+    right: 10px;
+  }
 }
 
 @media screen and (min-width: 960px) and (max-width: 1279px) {
-    .recycle-bin {
-        top: 10px;
-        right: 14px;
-    }
+  .recycle-bin {
+    top: 10px;
+    right: 14px;
+  }
 }
 
 @media screen and (min-width: 1280px) {
-    .recycle-bin {
-        top: 12px;
-        right: 16px;
-    }
+  .recycle-bin {
+    top: 12px;
+    right: 16px;
+  }
 }
