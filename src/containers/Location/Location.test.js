@@ -75,12 +75,12 @@ describe('test Location component', () => {
       <Location {...mockLocation} />
     );
     const headings = getAllByRole('heading');
-    // const recycleBinIcon = getByTestId(/DeleteIcon/i);
+    const recycleBinIcon = getByTestId(/DeleteButton/i);
     const commentButton = getByTestId('commentButton');
     const city = getByRole('heading', { name: 'Tashkent' });
     const country = getByRole('heading', { name: 'Uzbekistan' });
     expect(headings.length).toBe(5);
-    // expect(recycleBinIcon).toBeInTheDocument();
+    expect(recycleBinIcon).toBeInTheDocument();
     expect(city).toBeInTheDocument();
     expect(country).toBeInTheDocument();
     expect(commentButton).toBeInTheDocument();
@@ -130,29 +130,31 @@ describe('test Location component', () => {
     const youAreHereLabel = getByRole('heading', { name: 'You are here' });
     expect(youAreHereLabel).toBeInTheDocument();
   });
-  // it('opens textarea for adding comment by clicking comment message', () => {
-  //     mockLocation.message = commentMessageText;
-  //     const { getByText, queryByRole } = render(<Location {...mockLocation} />);
-  //     const commentMessage = getByText(commentMessageText);
-  //     const textarea = queryByRole('textbox');
-  //     expect(textarea).toBe(null);
-  //     userEvent.click(commentMessage);
-  //     const textareaAfterClick = queryByRole('textbox');
-  //     expect(textareaAfterClick).toBeInTheDocument();
-  // });
-  // it('add comment by blurring from the textarea', () => {
-  //     mockLocation.message = commentMessageText;
-  //     const { getByText, getByRole } = render(locationsProvider(<Location {...mockLocation} />));
-  //     const commentMessage = getByText(commentMessageText);
-  //     userEvent.click(commentMessage);
-  //     const textarea = getByRole('textbox');
-  //     const heading = getByRole('heading', { name: 'Tashkent' });
-  //     userEvent.clear(textarea);
-  //     const newComment = 'New comment';
-  //     userEvent.type(textarea, newComment);
-  //     userEvent.click(heading);
-  //     expect(MockAddComment).toHaveBeenCalledWith(mockLocation.id, newComment);
-  // });
+  it('opens textarea for adding comment by clicking pencil icon', () => {
+    mockLocation.message = commentMessageText;
+    const { getByTestId, queryByRole } = render(<Location {...mockLocation} />);
+    const pencilIcon = getByTestId(/pencil-icon/i);
+    const textarea = queryByRole('textbox');
+    expect(textarea).toBe(null);
+    userEvent.click(pencilIcon);
+    const textareaAfterClick = queryByRole('textbox');
+    expect(textareaAfterClick).toBeInTheDocument();
+  });
+  it('add comment by blurring from the textarea', () => {
+    mockLocation.message = commentMessageText;
+    const { getByRole, getByTestId } = render(
+      locationsProvider(<Location {...mockLocation} />)
+    );
+    const pencilIcon = getByTestId(/pencil-icon/i);
+    userEvent.click(pencilIcon);
+    const textarea = getByRole('textbox');
+    const heading = getByRole('heading', { name: 'Tashkent' });
+    userEvent.clear(textarea);
+    const newComment = 'New comment';
+    userEvent.type(textarea, newComment);
+    userEvent.click(heading);
+    expect(MockAddComment).toHaveBeenCalledWith(mockLocation.id, newComment);
+  });
   it('hides date, timezone and country name', () => {
     mockLocation.hasDate = false;
     mockLocation.hasCountry = false;
@@ -167,18 +169,22 @@ describe('test Location component', () => {
     expect(timezone).toBe(null);
     expect(date).toBe(null);
   });
-  // it('check for adding comment with length more than 100 characters', () => {
-  //     const { getByText, getByRole } = render(snackbarProvider(<Location {...mockLocation} />));
-  //     const commentMessage = getByText(commentMessageText);
-  //     const heading = getByRole('heading', { name: 'Tashkent' });
-  //     userEvent.click(commentMessage);
-  //     const textarea = getByRole('textbox');
-  //     userEvent.type(
-  //         textarea,
-  //         "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
-  //     );
-  //     userEvent.click(heading);
-  //     expect(MockOpenSnackbar).toHaveBeenCalledTimes(1);
-  //     expect(MockOpenSnackbar).toHaveBeenCalledWith('Comment message must not be longer than 100 characters');
-  // });
+  it('check for adding comment with length more than 100 characters', () => {
+    const { getByTestId, getByRole } = render(
+      snackbarProvider(<Location {...mockLocation} />)
+    );
+    const pencilIcon = getByTestId(/pencil-icon/i);
+    const heading = getByRole('heading', { name: 'Tashkent' });
+    userEvent.click(pencilIcon);
+    const textarea = getByRole('textbox');
+    userEvent.type(
+      textarea,
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy"
+    );
+    userEvent.click(heading);
+    expect(MockOpenSnackbar).toHaveBeenCalledTimes(1);
+    expect(MockOpenSnackbar).toHaveBeenCalledWith(
+      'Comment message must not be longer than 100 characters'
+    );
+  });
 });
