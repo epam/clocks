@@ -51,7 +51,14 @@ const LocationOffsets: FC<IProps> = ({ hours, minutes, host }) => {
 
   return (
     <Typography variant="subtitle2" className={css.text}>
-      {!strHour ? 'Same Time' : `${sign} ${strHour} ${strMinute}`}
+      {!strHour ? (
+        'Same Time'
+      ) : (
+        <>
+          {sign}
+          {` ${strHour} ${strMinute}`}
+        </>
+      )}
     </Typography>
   );
 };
