@@ -29,7 +29,7 @@ const Dashboard = () => {
     state: { hasCreateForm, locations },
     actions: { CreateFormHandler }
   } = useContext(LocationsContext);
-  console.log('refresh');
+
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === '=' || event.key === '+') {
       if (CreateFormHandler) {

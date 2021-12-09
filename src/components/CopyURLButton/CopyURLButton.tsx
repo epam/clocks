@@ -26,11 +26,11 @@ const CopyURLButton: FC = () => {
         .catch(() => {
           setLoading(false);
           if (OpenSnackbar) {
-            OpenSnackbar('Failed', 'danger');
+            OpenSnackbar('Failed', 'error');
           }
         });
     } else if (OpenSnackbar) {
-      OpenSnackbar('Failed', 'danger');
+      OpenSnackbar('Failed', 'error');
     }
   };
 
@@ -43,7 +43,7 @@ const CopyURLButton: FC = () => {
       endIcon={<ContentCopyIcon />}
       color="inherit"
     >
-      Copy
+      COPY URL
     </Button>
   );
 };

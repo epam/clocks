@@ -13,7 +13,7 @@ import logo from '../../assets/images/logo.svg';
 import { EpamColors } from '../../constants';
 import { DashboardName } from '../../components/DashboardName';
 import { SettingsContext } from '../../context/settings';
-import CopyURLButton from '../CopyURLButton';
+import CopyURLButton from '../../components/CopyURLButton';
 
 const useStyles = makeStyles(theme => ({
   appbar: {
@@ -39,6 +39,9 @@ const useStyles = makeStyles(theme => ({
   buttons: {
     display: 'flex',
     alignItems: 'center'
+  },
+  settingsBtn: {
+    marginRight: 5
   },
   modeIcon: {
     color: theme.palette.background.paper
@@ -81,6 +84,7 @@ const Navbar: FC = () => {
         </div>
         <div className={classes.buttons}>
           <IconButton
+            className={classes.settingsBtn}
             data-testid="settings-icon"
             onClick={settingsModalHandler}
           >

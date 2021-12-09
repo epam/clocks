@@ -1,7 +1,7 @@
 import { FC, useContext, SyntheticEvent } from 'react';
-import { IconButton, Snackbar as MuiSnackbar } from '@material-ui/core';
+import { Snackbar as MuiSnackbar } from '@material-ui/core';
+import MuiAlert from '@material-ui/lab/Alert';
 import { SnackbarContext } from '../../context/snackbar';
-import css from './Snackbar.module.scss';
 
 const Snackbar: FC = () => {
   const {
@@ -26,18 +26,14 @@ const Snackbar: FC = () => {
       autoHideDuration={5000}
       onClose={handleClose}
     >
-      <div className={`${css.container} ${css[SnackbarStatus]}`}>
-        <span className={css.message}>{message || ''}</span>
-        <IconButton
-          className={css.closeButton}
-          size="small"
-          aria-label="close"
-          color="inherit"
-          onClick={handleClose}
-        >
-          x
-        </IconButton>
-      </div>
+      <MuiAlert
+        severity={SnackbarStatus}
+        onClose={handleClose}
+        elevation={6}
+        variant="filled"
+      >
+        {message || ''}
+      </MuiAlert>
     </MuiSnackbar>
   );
 };

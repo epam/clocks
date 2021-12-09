@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 type Vertical = 'bottom' | 'top';
 type Horizontal = 'left' | 'right' | 'center';
-type Status = 'warning' | 'danger' | 'info' | 'success';
+type Status = 'warning' | 'error' | 'info' | 'success';
 
 interface Position {
   vertical: Vertical;
