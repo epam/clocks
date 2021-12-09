@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SettingsModal from './SettingsModal';
-import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../../constants';
+import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE, THEMES } from '../../constants';
 import { SettingsContext } from '../../context/settings';
 
 const MockSettingsModalHandler = jest.fn();
@@ -31,7 +31,28 @@ const localStorageMock = {
   clear: jest.fn()
 };
 
+const MockMatchMedia = query => {
+  switch (query) {
+    case '(prefers-color-scheme)':
+      return {
+        matches: true,
+        media: query
+      };
+    case `(prefers-color-scheme: ${THEMES.dark})`:
+      return {
+        matches: true,
+        media: query
+      };
+    default:
+      return {
+        matches: false,
+        media: query
+      };
+  }
+};
+
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+Object.defineProperty(window, 'matchMedia', { value: MockMatchMedia });
 
 const settingsWrapper = (children: any) => {
   return (
@@ -84,7 +105,7 @@ describe('test cases for settings modal', () => {
     userEvent.click(saveButton);
 
     expect(MockSettingsModalHandler).toHaveReturnedTimes(1);
-    expect(MockSetItem).toHaveBeenCalledTimes(4);
+    expect(MockSetItem).toHaveBeenCalledTimes(6);
     expect(MockSetItem).toHaveBeenCalledWith(HAS_DATE, false);
     expect(MockSetItem).toHaveBeenCalledWith(HAS_COUNTRY, true);
     expect(MockSetItem).toHaveBeenCalledWith(HAS_TIMEZONE, false);
