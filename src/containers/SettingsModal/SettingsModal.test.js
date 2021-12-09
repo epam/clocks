@@ -1,15 +1,35 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import SettingsModal from './SettingsModal';
-import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE, THEMES } from '../../constants';
+import {
+  AUTO_THEMING,
+  HAS_COUNTRY,
+  HAS_DATE,
+  HAS_TIMEZONE,
+  THEME,
+  THEMES
+} from '../../constants';
 import { SettingsContext } from '../../context/settings';
+import { ThemeContext, ThemeProvider } from '../../context/theme';
 
 const MockSettingsModalHandler = jest.fn();
 const MockSetItem = jest.fn();
+const MockThemeHandler = jest.fn();
+const MockAutoThemingHandler = jest.fn();
 
 jest.mock('../../hooks/useLocalStorage', () => ({
   useLocalStorage: () => ({
-    setItem: MockSetItem
+    setItem: MockSetItem,
+    getItem: key => {
+      switch (key) {
+        case 'THEME':
+          return 'dark';
+        case 'AUTO_THEMING':
+          return 'false';
+        default:
+          return null;
+      }
+    }
   })
 }));
 
@@ -66,6 +86,20 @@ const settingsWrapper = children => {
     </SettingsContext.Provider>
   );
 };
+
+const mockThemeWrapper = children => {
+  const store = {
+    actions: {
+      ThemeHandler: MockThemeHandler,
+      AutoThemingHandler: MockAutoThemingHandler
+    },
+    state: { type: 'dark', autoTheming: false }
+  };
+  return (
+    <ThemeContext.Provider value={store}>{children}</ThemeContext.Provider>
+  );
+};
+
 describe('test cases for settings modal', () => {
   it('render settings modal', () => {
     const { getByRole, getAllByRole, getAllByTestId } = render(
@@ -118,5 +152,49 @@ describe('test cases for settings modal', () => {
     const eyeIcons = getAllByTestId('open-eye-icon');
     expect(closedEyeIcon).toBeInTheDocument();
     expect(eyeIcons.length).toBe(1);
+  });
+  it('switch auto theming', () => {
+    const { getByRole } = render(
+      mockThemeWrapper(settingsWrapper(<SettingsModal />))
+    );
+    const autoThemeSwitcher = getByRole('checkbox', { name: /Auto Theming/i });
+    userEvent.click(autoThemeSwitcher);
+    expect(MockAutoThemingHandler).toHaveBeenCalledTimes(1);
+  });
+  it('change theme by clicking theme button', () => {
+    const { getByRole } = render(
+      mockThemeWrapper(settingsWrapper(<SettingsModal />))
+    );
+    const themeButton = getByRole('button', { name: /dark/i });
+    userEvent.click(themeButton);
+    expect(MockThemeHandler).toHaveBeenCalledTimes(1);
+  });
+  it('save theme changes into localStorage', () => {
+    const { getByRole } = render(
+      settingsWrapper(
+        <ThemeProvider>
+          <SettingsModal />
+        </ThemeProvider>
+      )
+    );
+    const autoThemeSwitcher = getByRole('checkbox', { name: /Auto Theming/i });
+    userEvent.click(autoThemeSwitcher);
+    const themeButton = getByRole('button', { name: /dark/i });
+    expect(themeButton).toBeInTheDocument();
+    userEvent.click(themeButton);
+    const saveButton = getByRole('button', { name: /save/i });
+    userEvent.click(saveButton);
+    expect(MockSetItem).toHaveBeenCalledWith(AUTO_THEMING, false);
+    expect(MockSetItem).toHaveBeenLastCalledWith(THEME, THEMES.light);
+  });
+  it('reverting all by clicking Cancel button', () => {
+    const { getByRole } = render(
+      mockThemeWrapper(settingsWrapper(<SettingsModal />))
+    );
+    const cancelButton = getByRole('button', { name: /cancel/i });
+    userEvent.click(cancelButton);
+    expect(MockSetItem).toHaveBeenCalledTimes(0);
+    expect(MockAutoThemingHandler).toHaveBeenCalledWith(false);
+    expect(MockThemeHandler).toHaveBeenCalledWith('dark');
   });
 });
