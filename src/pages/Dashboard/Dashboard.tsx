@@ -1,4 +1,4 @@
-import { useContext, KeyboardEvent, useMemo, useEffect } from 'react';
+import { useContext, KeyboardEvent, useMemo } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core';
@@ -12,7 +12,7 @@ import InputDrawer from '../../containers/InputDrawer';
 import DeleteModal from '../../containers/DeleteModal';
 import SettingsModal from '../../containers/SettingsModal';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { AUTO_THEMING, CLOCKS_FONT, CLOCKS_FONTS } from '../../constants';
+import { CLOCKS_FONT, CLOCKS_FONTS } from '../../constants';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -26,7 +26,7 @@ const useStyles = makeStyles(theme => ({
 
 const Dashboard = () => {
   const css = useStyles();
-  const { getItem, setItem } = useLocalStorage();
+  const { getItem } = useLocalStorage();
   const {
     state: { hasCreateForm, locations },
     actions: { CreateFormHandler }
@@ -53,14 +53,6 @@ const Dashboard = () => {
     () => getItem(CLOCKS_FONT) || CLOCKS_FONTS.ROBOTO.value,
     [locations]
   );
-
-  const setAutoThemingOn = () => {
-    setItem(AUTO_THEMING, true);
-  };
-
-  useEffect(() => {
-    setAutoThemingOn();
-  }, []);
 
   return (
     <div

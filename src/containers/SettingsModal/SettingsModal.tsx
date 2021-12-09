@@ -1,25 +1,40 @@
 import { useContext, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { Button, Typography, Select, MenuItem } from '@material-ui/core';
+import {
+  Button,
+  Typography,
+  Select,
+  MenuItem,
+  Backdrop,
+  Fade,
+  FormControlLabel,
+  Switch
+} from '@material-ui/core';
 import { Brightness7, Brightness4 } from '@mui/icons-material';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '@material-ui/core/Fade';
 import moment from 'moment-timezone';
 import { SettingsContext } from '../../context/settings';
 import { ThemeContext } from '../../context/theme';
 import {
+  AUTO_THEMING,
   CLOCKS_FONT,
   CLOCKS_FONTS,
   EpamColors,
   HAS_COUNTRY,
   HAS_DATE,
-  HAS_TIMEZONE
+  HAS_TIMEZONE,
+  THEME,
+  THEMES
 } from '../../constants';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { LocationsContext } from '../../context/locations';
 import { IAppLocation } from '../../types/location';
-import { getGmtOffset, getGreenwichMainTime } from '../../handlers';
+import {
+  getGmtOffset,
+  getGreenwichMainTime,
+  checkComputerThemeSupport,
+  getComputerTheme
+} from '../../handlers';
 import { EyeButton } from '../../components/EyeButton';
 
 const useStyles = makeStyles(theme => ({
@@ -129,7 +144,7 @@ function SettingsModal() {
     localStorage.getItem(CLOCKS_FONT) || CLOCKS_FONTS.ROBOTO.value
   );
   const classes = useStyles();
-  const { setItem } = useLocalStorage();
+  const { setItem, getItem } = useLocalStorage();
   const {
     state: { isSettingsModalOpen },
     actions: { SettingsModalHandler }
@@ -140,13 +155,42 @@ function SettingsModal() {
   } = useContext(LocationsContext);
 
   const {
-    actions: { ThemeHandler },
-    state: { type }
+    actions: { ThemeHandler, AutoThemingHandler },
+    state: { type, autoTheming }
   } = useContext(ThemeContext);
+  const doesComputerSupportTheming = useMemo(
+    () => checkComputerThemeSupport(),
+    []
+  );
 
   const handleClose = () => {
     if (SettingsModalHandler) {
       SettingsModalHandler(false);
+    }
+  };
+
+  const cancel = () => {
+    setHasCountry(getStorageValue(HAS_COUNTRY));
+    setHasDate(getStorageValue(HAS_DATE));
+    setHasTimezone(getStorageValue(HAS_TIMEZONE));
+    handleClose();
+    if (!ThemeHandler || !AutoThemingHandler) return;
+    const isAutoThemingOn = JSON.parse(getItem(AUTO_THEMING) || '');
+    // @ts-ignore
+    AutoThemingHandler(isAutoThemingOn);
+    if (isAutoThemingOn) {
+      const computerTheme = getComputerTheme();
+      ThemeHandler(computerTheme);
+    } else {
+      const theme = getItem(THEME) || THEMES.light;
+      // @ts-ignore
+      ThemeHandler(theme);
+    }
+  };
+
+  const autoThemingHandler = () => {
+    if (AutoThemingHandler) {
+      AutoThemingHandler();
     }
   };
 
@@ -155,10 +199,20 @@ function SettingsModal() {
     setItem(HAS_DATE, hasDate);
     setItem(HAS_COUNTRY, hasCountry);
     setItem(CLOCKS_FONT, clocksFont);
+    setItem(AUTO_THEMING, autoTheming);
+    if (!autoTheming) {
+      setItem(THEME, type);
+    }
     if (SetLocationsFromUrl) {
       SetLocationsFromUrl();
     }
     handleClose();
+  };
+
+  const themeHandler = () => {
+    if (ThemeHandler) {
+      ThemeHandler();
+    }
   };
 
   const { time, city, country, timezone, gmtOffset } = useMemo(() => {
@@ -227,6 +281,33 @@ function SettingsModal() {
               {country}
               <EyeButton isOpen={hasCountry} eyeHandler={setHasCountry} />
             </Typography>
+            <div className={`${classes.mb25}`}>
+              {doesComputerSupportTheming && (
+                <FormControlLabel
+                  classes={{ root: `${classes.default}` }}
+                  control={
+                    <Switch
+                      checked={autoTheming}
+                      onChange={autoThemingHandler}
+                      name="checkedB"
+                      color="primary"
+                    />
+                  }
+                  label="Auto theming"
+                  labelPlacement="start"
+                />
+              )}
+              {!autoTheming && (
+                <Button
+                  variant="outlined"
+                  onClick={themeHandler}
+                  endIcon={type === 'light' ? <Brightness7 /> : <Brightness4 />}
+                  className={classes.modeControlBtn}
+                >
+                  {type === 'light' ? 'LIGHT' : 'DARK'}
+                </Button>
+              )}
+            </div>
             <div className={classes.bottomContainer}>
               <Select
                 variant="outlined"
@@ -240,21 +321,13 @@ function SettingsModal() {
                   </MenuItem>
                 ))}
               </Select>
-              <Button
-                variant="outlined"
-                onClick={ThemeHandler}
-                endIcon={type === 'light' ? <Brightness7 /> : <Brightness4 />}
-                className={classes.modeControlBtn}
-              >
-                {type === 'light' ? 'LIGHT' : 'DARK'}
-              </Button>
             </div>
           </div>
           <div className={classes.buttonsContainer}>
             <Button
               variant="outlined"
               className={`${classes.button} ${classes.cancelButton}`}
-              onClick={handleClose}
+              onClick={cancel}
             >
               Cancel
             </Button>
