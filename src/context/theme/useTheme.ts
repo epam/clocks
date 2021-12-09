@@ -12,11 +12,7 @@ import { TTheme } from './ThemeContext.type';
 export const useTheme = () => {
   const [type, setType] = useState<TTheme>('light');
   const [autoTheming, setAutoTheming] = useState<boolean>(
-    Boolean(JSON.parse(localStorage.getItem(AUTO_THEMING) || ''))
-  );
-  console.log(
-    '🚀 ~ file: useTheme.ts ~ line 17 ~ useTheme ~ autoTheming',
-    autoTheming
+    Boolean(JSON.parse(localStorage.getItem(AUTO_THEMING) || 'true'))
   );
   const { getItem } = useLocalStorage();
 
@@ -32,7 +28,7 @@ export const useTheme = () => {
     const theme = getUserTheme();
     setType(theme);
     setAutoTheming(
-      Boolean(JSON.parse(localStorage.getItem(AUTO_THEMING) || ''))
+      Boolean(JSON.parse(localStorage.getItem(AUTO_THEMING) || 'true'))
     );
   }, []);
 
