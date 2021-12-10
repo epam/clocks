@@ -79,7 +79,7 @@ describe('test Location component', () => {
     const commentButton = getByTestId('commentButton');
     const city = getByRole('heading', { name: 'Tashkent' });
     const country = getByRole('heading', { name: 'Uzbekistan' });
-    expect(headings.length).toBe(5);
+    expect(headings.length).toBe(4);
     expect(recycleBinIcon).toBeInTheDocument();
     expect(city).toBeInTheDocument();
     expect(country).toBeInTheDocument();

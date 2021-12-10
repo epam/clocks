@@ -7,6 +7,7 @@ import {
   GitHub
 } from '@mui/icons-material';
 import { EpamColors } from '../../constants';
+import styles from './Footer.module.scss';
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -29,8 +30,7 @@ const useStyles = makeStyles(() => ({
     '& a': {
       color: 'white',
       textDecoration: 'none',
-      verticalAlign: 'middle',
-      margin: '0 10px'
+      verticalAlign: 'middle'
     }
   }
 }));
@@ -39,11 +39,15 @@ const Footer = () => {
   const css = useStyles();
   return (
     <footer className={css.root}>
-      <Typography variant="caption" className={css.rights} gutterBottom>
+      <Typography
+        variant="caption"
+        className={`${css.rights} ${styles.rights}`}
+        gutterBottom
+      >
         © {new Date().getFullYear()} EPAM Systems, Inc. <br />
         All Rights Reserved.
       </Typography>
-      <div className={css.icons}>
+      <div className={`${css.icons} ${styles.icons}`}>
         <a
           href="https://github.com/epam"
           data-testid="GitHubIconLink"

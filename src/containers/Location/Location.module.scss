@@ -1,24 +1,21 @@
-@import '../../assets/styles/variables/colors.scss';
+@import '../../assets/styles/colors.scss';
 
 .card {
-  min-height: 350px;
+  min-height: 280px;
   padding: 3rem;
-  padding-bottom: 0.5rem;
   height: 100%;
   overflow: hidden;
   transition: all 0.25s ease-out;
   min-width: 280px;
   position: relative;
+  box-shadow: 0 0 2px $gray;
   &:hover {
-    box-shadow: 0 0 2px $gray;
     .recycle-bin {
       opacity: 0.7;
     }
   }
   .recycle-bin {
     position: absolute;
-    top: 12px;
-    right: 16px;
     opacity: 0;
     z-index: 2;
     transition: opacity 0.2s linear;
@@ -42,6 +39,7 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  margin-bottom: 0.5rem;
   width: 90%;
 }
 
@@ -54,4 +52,49 @@
   margin-top: 15px;
   position: relative;
   left: 20px;
+}
+
+@media screen and (max-width: 360px) {
+  .card {
+    padding: 2rem;
+  }
+  .recycle-bin {
+    top: 4px;
+    right: 6px;
+
+    button {
+      padding: 4px;
+    }
+  }
+}
+
+@media screen and (min-width: 360px) and (max-width: 600px) {
+  .card {
+    padding: 2.25rem;
+  }
+  .recycle-bin {
+    top: 6px;
+    right: 8px;
+  }
+}
+
+@media screen and (min-width: 600px) and (max-width: 960px) {
+  .recycle-bin {
+    top: 8px;
+    right: 10px;
+  }
+}
+
+@media screen and (min-width: 960px) and (max-width: 1279px) {
+  .recycle-bin {
+    top: 10px;
+    right: 14px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .recycle-bin {
+    top: 12px;
+    right: 16px;
+  }
 }

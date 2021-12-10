@@ -7,6 +7,7 @@ import Fade from '@material-ui/core/Fade';
 import { ModalContext } from '../../context/modal';
 import { LocationsContext } from '../../context/locations';
 import { EpamColors } from '../../constants';
+import styles from './DeleteModal.module.scss';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -19,8 +20,6 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     borderRadius: '4px',
     boxShadow: theme.shadows[5],
-    minWidth: '400px',
-    minHeight: '150px',
     outline: 'none',
     display: 'flex',
     flexDirection: 'column',
@@ -93,7 +92,7 @@ function DeleteModal() {
       }}
     >
       <Fade in={isModalOpen}>
-        <div className={classes.paper}>
+        <div className={`${classes.paper} ${styles.paper}`}>
           <div className={`content-center ${classes.textBlock}`}>
             <Typography
               paragraph

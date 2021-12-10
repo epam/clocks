@@ -1,0 +1,49 @@
+@import '../../assets/styles/colors.scss';
+
+.time {
+  color: $epam-black;
+  display: flex;
+  .hour {
+    &:after {
+      content: ':';
+      position: relative;
+      top: -0.1em;
+      margin: 0 6px;
+    }
+  }
+}
+
+.timezone {
+  font-size: 0.875rem;
+}
+
+@media screen and (max-width: 360px) {
+  .locationContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .date-and-time {
+    margin: 4px;
+  }
+  .location {
+    margin: 4px;
+  }
+}
+
+@media screen and (min-width: 360px) and (max-width: 561px) {
+  .locationContent {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .date-and-time {
+    margin: 12px;
+  }
+  .location {
+    margin: 12px;
+  }
+  .timezone {
+    font-size: 0.75rem;
+  }
+}

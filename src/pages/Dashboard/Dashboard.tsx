@@ -20,7 +20,8 @@ const useStyles = makeStyles(theme => ({
     margin: 0,
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    background: theme.palette.background.default
+    background: theme.palette.background.default,
+    textAlign: 'center'
   }
 }));
 
@@ -55,6 +56,7 @@ const Dashboard = () => {
   );
 
   return (
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex,jsx-a11y/no-static-element-interactions
     <div
       tabIndex={0}
       role="button"
