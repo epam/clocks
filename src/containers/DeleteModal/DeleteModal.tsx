@@ -1,12 +1,14 @@
 import { useContext } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
 import { Button, Typography } from '@material-ui/core';
+import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+
 import { ModalContext } from '../../context/modal';
 import { LocationsContext } from '../../context/locations';
 import { EpamColors } from '../../constants';
+
 import styles from './DeleteModal.module.scss';
 
 const useStyles = makeStyles(theme => ({
@@ -30,7 +32,8 @@ const useStyles = makeStyles(theme => ({
   },
   text: {
     fontSize: '1.3rem',
-    color: theme.palette.text.primary
+    color: theme.palette.text.primary,
+    margin: '0px'
   },
   buttonsContainer: {
     display: 'flex',
@@ -93,12 +96,8 @@ function DeleteModal() {
     >
       <Fade in={isModalOpen}>
         <div className={`${classes.paper} ${styles.paper}`}>
-          <div className={`content-center ${classes.textBlock}`}>
-            <Typography
-              paragraph
-              variant="subtitle2"
-              className={`${classes.text} m-0`}
-            >
+          <div className={classes.textBlock}>
+            <Typography paragraph variant="subtitle2" className={classes.text}>
               Are you sure you want to delete?
             </Typography>
           </div>

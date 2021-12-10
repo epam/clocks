@@ -18,13 +18,11 @@ function App() {
             <PlanningModeProvider>
               <ModalProvider>
                 <LocationsProvider>
-                  <div className="App">
-                    <Switch>
-                      <Route>
-                        <Dashboard />
-                      </Route>
-                    </Switch>
-                  </div>
+                  <Switch>
+                    <Route>
+                      <Dashboard />
+                    </Route>
+                  </Switch>
                 </LocationsProvider>
               </ModalProvider>
             </PlanningModeProvider>

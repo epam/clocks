@@ -1,4 +1,4 @@
-import { makeStyles, Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
 import {
   LinkedIn,
   Twitter,
@@ -39,14 +39,10 @@ const Footer = () => {
   const css = useStyles();
   return (
     <footer className={css.root}>
-      <Typography
-        variant="caption"
-        className={`${css.rights} ${styles.rights}`}
-        gutterBottom
-      >
+      <div className={`${css.rights} ${styles.rights}`}>
         © {new Date().getFullYear()} EPAM Systems, Inc. <br />
         All Rights Reserved.
-      </Typography>
+      </div>
       <div className={`${css.icons} ${styles.icons}`}>
         <a
           href="https://github.com/epam"

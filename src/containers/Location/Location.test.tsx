@@ -12,7 +12,10 @@ const mockLocation = {
   offset: { hours: 0, minutes: 0 },
   host: false,
   id: 'Tashkent_UZ_41_69',
-  message: ''
+  message: '',
+  hasDate: false,
+  hasCountry: false,
+  hasTimezone: false
 };
 
 const MockChangeUserCurrentLocation = jest.fn();
@@ -22,8 +25,8 @@ const MockOpenSnackbar = jest.fn();
 const MockSnackbarHandler = jest.fn();
 
 jest.mock('@ckeditor/ckeditor5-react', () => ({
-  CKEditor: ({ onBlur }) => {
-    const OnBlur = event => {
+  CKEditor: ({ onBlur }: any) => {
+    const OnBlur = (event: any) => {
       const editor = {
         getData: () => event.target?.value || ''
       };
@@ -33,20 +36,21 @@ jest.mock('@ckeditor/ckeditor5-react', () => ({
   }
 }));
 
-const locationsProvider = children => (
+const locationsProvider = (children: any) => (
   <LocationsContext.Provider
     value={{
       actions: {
         AddComment: MockAddComment,
         ChangeUserCurrentLocation: MockChangeUserCurrentLocation
-      }
+      },
+      state: {}
     }}
   >
     {children}
   </LocationsContext.Provider>
 );
 
-const snackbarProvider = children => (
+const snackbarProvider = (children: any) => (
   <SnackbarContext.Provider
     value={{
       actions: {
@@ -60,9 +64,9 @@ const snackbarProvider = children => (
   </SnackbarContext.Provider>
 );
 
-const deleteModalWrapper = children => (
+const deleteModalWrapper = (children: any) => (
   <ModalContext.Provider
-    value={{ actions: { OpenDeleteModal: MockOpenDeleteModal } }}
+    value={{ actions: { OpenDeleteModal: MockOpenDeleteModal }, state: {} }}
   >
     {children}
   </ModalContext.Provider>
@@ -78,11 +82,9 @@ describe('test Location component', () => {
     const recycleBinIcon = getByTestId(/DeleteButton/i);
     const commentButton = getByTestId('commentButton');
     const city = getByRole('heading', { name: 'Tashkent' });
-    const country = getByRole('heading', { name: 'Uzbekistan' });
-    expect(headings.length).toBe(4);
+    expect(headings.length).toBe(3);
     expect(recycleBinIcon).toBeInTheDocument();
     expect(city).toBeInTheDocument();
-    expect(country).toBeInTheDocument();
     expect(commentButton).toBeInTheDocument();
   });
   it('renders textarea for adding comment', () => {
@@ -124,12 +126,6 @@ describe('test Location component', () => {
     const homeButton = queryByRole('button', { name: 'home' });
     expect(homeButton).toBe(null);
   });
-  it('render "You are here label" if location is host', () => {
-    mockLocation.host = true;
-    const { getByRole } = render(<Location {...mockLocation} />);
-    const youAreHereLabel = getByRole('heading', { name: 'You are here' });
-    expect(youAreHereLabel).toBeInTheDocument();
-  });
   it('opens textarea for adding comment by clicking pencil icon', () => {
     mockLocation.message = commentMessageText;
     const { getByTestId, queryByRole } = render(<Location {...mockLocation} />);
@@ -156,9 +152,6 @@ describe('test Location component', () => {
     expect(MockAddComment).toHaveBeenCalledWith(mockLocation.id, newComment);
   });
   it('hides date, timezone and country name', () => {
-    mockLocation.hasDate = false;
-    mockLocation.hasCountry = false;
-    mockLocation.hasTimezone = false;
     const { queryByText, queryByTestId } = render(
       <Location {...mockLocation} />
     );

@@ -1,44 +1,15 @@
-@media screen and (max-width: 360px) {
-  .rights {
-    font-size: 0.5rem !important;
+@import '../../assets/styles/index.scss';
+
+.rights {
+  @include screenMax500 {
+    font-size: 12px;
   }
-  .icons {
-    a {
+}
+
+.icons {
+  a {
+    @include screenMax500 {
       margin: 0 0.25rem;
-    }
-  }
-}
-
-@media screen and (min-width: 360px) and (max-width: 600px) {
-  .rights {
-    font-size: 0.6rem !important;
-  }
-  .icons {
-    a {
-      margin: 0 0.375rem;
-    }
-  }
-}
-@media screen and (min-width: 600px) and (max-width: 960px) {
-  .icons {
-    a {
-      margin: 0 0.5rem;
-    }
-  }
-}
-
-@media screen and (min-width: 960px) and (max-width: 1280px) {
-  .icons {
-    a {
-      margin: 0 0.625rem;
-    }
-  }
-}
-
-@media screen and (min-width: 1280px) {
-  .icons {
-    a {
-      margin: 0 0.75rem;
     }
   }
 }

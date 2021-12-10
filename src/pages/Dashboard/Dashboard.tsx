@@ -14,6 +14,8 @@ import SettingsModal from '../../containers/SettingsModal';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { CLOCKS_FONT, CLOCKS_FONTS } from '../../constants';
 
+import styles from './Dashboard.module.scss';
+
 const useStyles = makeStyles(theme => ({
   container: {
     maxWidth: '100%',
@@ -56,12 +58,11 @@ const Dashboard = () => {
   );
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex,jsx-a11y/no-static-element-interactions
     <div
       tabIndex={0}
       role="button"
       onKeyPress={handleKeyDown}
-      className={`wrapper ${clocksFont}`}
+      className={`${styles.body} ${clocksFont}`}
     >
       <Navbar />
       <DeleteModal />

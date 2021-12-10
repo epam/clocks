@@ -41,7 +41,12 @@ const useStyle = makeStyles(theme => ({
     }
   },
   cityCountry: {
-    color: theme.palette.type === 'light' ? EpamColors.darkGray : 'white'
+    color: theme.palette.type === 'light' ? EpamColors.darkGray : 'white',
+    textTransform: 'uppercase',
+    textAlign: 'center'
+  },
+  m0: {
+    margin: 0
   }
 }));
 
@@ -75,7 +80,7 @@ const LocationContent: FC<IProps> = ({
             paragraph
             variant="subtitle2"
             data-testid="date"
-            className={`${css.default} m-0`}
+            className={`${css.default} ${css.m0}`}
           >
             {time.format('D MMM').toUpperCase()}
           </Typography>
@@ -97,14 +102,7 @@ const LocationContent: FC<IProps> = ({
         <Typography className={`${css.mt15} ${css.cityCountry}`} variant="h5">
           {city}
         </Typography>
-        {hasCountry && (
-          <Typography
-            variant="subtitle2"
-            className={`${css.cityCountry} text-uppercase text-center`}
-          >
-            {country}
-          </Typography>
-        )}
+        {hasCountry && <div className={css.cityCountry}>{country}</div>}
       </div>
     </div>
   );

@@ -45,6 +45,11 @@ const useStyles = makeStyles(theme => ({
   },
   addCityButton: {
     marginLeft: '1rem'
+  },
+  flexCenter: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 }));
 
@@ -75,7 +80,7 @@ const Navbar: FC = () => {
   return (
     <AppBar position="static" className={classes.appbar} color="transparent">
       <Toolbar className={classes.toolbar}>
-        <div className="content-center">
+        <div className={classes.flexCenter}>
           <Button onClick={ResetUrl}>
             <img className={classes.title} src={logo} alt="logo" />
           </Button>

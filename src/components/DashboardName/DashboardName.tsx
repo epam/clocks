@@ -87,7 +87,5 @@ export const DashboardName = () => {
       </Button>
     );
   };
-  return (
-    <div className="content-center position-relative">{renderContent()}</div>
-  );
+  return <div className={classes.body}>{renderContent()}</div>;
 };
