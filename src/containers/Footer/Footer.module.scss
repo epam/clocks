@@ -1,15 +1,15 @@
 @import '../../assets/styles/index.scss';
 
 .rights {
-  @include screenMax500 {
-    font-size: 12px;
-  }
+  font-size: 12px;
 }
 
 .icons {
   a {
+    margin: 0 10px;
+
     @include screenMax500 {
-      margin: 0 0.25rem;
+      margin: 0 5px;
     }
   }
 }

@@ -33,7 +33,11 @@ const useStyles = makeStyles(theme => ({
   text: {
     fontSize: '1.3rem',
     color: theme.palette.text.primary,
-    margin: '0px'
+    margin: '0px',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100px'
   },
   buttonsContainer: {
     display: 'flex',
