@@ -1,4 +1,4 @@
-@import '../../assets/styles/variables/colors.scss';
+@import '../../assets/styles/colors.scss';
 
 .time {
   color: $epam-black;
@@ -13,6 +13,10 @@
   }
 }
 
+.timezone {
+  font-size: 0.875rem;
+}
+
 @media screen and (max-width: 360px) {
   .locationContent {
     display: flex;
@@ -24,9 +28,6 @@
   }
   .location {
     margin: 4px;
-  }
-  .timezone {
-    font-size: 0.75rem !important;
   }
 }
 
@@ -43,6 +44,6 @@
     margin: 12px;
   }
   .timezone {
-    font-size: 0.75rem !important;
+    font-size: 0.75rem;
   }
 }
