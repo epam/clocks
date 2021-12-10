@@ -1,14 +1,10 @@
+@import '../../assets/styles/index.scss';
+
 .paper {
-  width: 400px;
   min-height: 150px;
-}
-@media screen and (max-width: 360px) {
-  .paper {
-    width: 315px;
-  }
-}
-@media screen and (min-width: 360px) and (max-width: 600px) {
-  .paper {
+  margin: 10px;
+
+  @include screenMax500 {
     width: 90vw;
   }
 }

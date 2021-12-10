@@ -1,4 +1,4 @@
-@import '../../assets/styles/colors.scss';
+@import '../../assets/styles/index.scss';
 
 .time {
   color: $epam-black;
@@ -17,33 +17,27 @@
   font-size: 0.875rem;
 }
 
-@media screen and (max-width: 360px) {
-  .locationContent {
+.locationContent {
+  @include screenMax500 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-  }
-  .date-and-time {
-    margin: 4px;
-  }
-  .location {
-    margin: 4px;
   }
 }
 
-@media screen and (min-width: 360px) and (max-width: 561px) {
-  .locationContent {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .date-and-time {
+.date-and-time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  @include screenMax500 {
     margin: 12px;
   }
-  .location {
-    margin: 12px;
-  }
-  .timezone {
-    font-size: 0.75rem;
+}
+
+.location {
+  @include screenMax500 {
+    margin: 4px;
   }
 }

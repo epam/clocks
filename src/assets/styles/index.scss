@@ -1,5 +1,3 @@
-@import './minimize.scss';
-@import './main.scss';
-@import './fonts.scss';
-@import './colors.scss';
-@import './sizes.scss';
+@import './variables';
+@import './mixins';
+@import './fonts';

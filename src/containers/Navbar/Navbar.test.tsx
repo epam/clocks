@@ -8,22 +8,26 @@ const MockResetUrl = jest.fn();
 const MockCreateFormHandler = jest.fn();
 const MockSettingsModalHandler = jest.fn();
 
-const wrapper = children => (
+const wrapper = (children: any) => (
   <LocationsContext.Provider
     value={{
       actions: {
         ResetUrl: MockResetUrl,
         CreateFormHandler: MockCreateFormHandler
-      }
+      },
+      state: {}
     }}
   >
     {children}
   </LocationsContext.Provider>
 );
 
-const settingsWrapper = children => (
+const settingsWrapper = (children: any) => (
   <SettingsContext.Provider
-    value={{ actions: { SettingsModalHandler: MockSettingsModalHandler } }}
+    value={{
+      actions: { SettingsModalHandler: MockSettingsModalHandler },
+      state: {}
+    }}
   >
     {children}
   </SettingsContext.Provider>
