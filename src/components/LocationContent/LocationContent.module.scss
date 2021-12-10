@@ -1,4 +1,4 @@
-@import '../../assets/styles/constants/colors.scss';
+@import '../../assets/styles/variables/colors.scss';
 
 .time {
   color: $epam-black;
@@ -22,12 +22,15 @@
   .date-and-time {
     margin: 4px;
   }
-  .location-and-timezone {
+  .location {
     margin: 4px;
+  }
+  .timezone {
+    font-size: 0.75rem !important;
   }
 }
 
-@media screen and (min-width: 320px) and (max-width: 561px) {
+@media screen and (min-width: 360px) and (max-width: 561px) {
   .locationContent {
     display: flex;
     align-items: center;
@@ -36,7 +39,10 @@
   .date-and-time {
     margin: 12px;
   }
-  .location-and-timezone {
+  .location {
     margin: 12px;
+  }
+  .timezone {
+    font-size: 0.75rem !important;
   }
 }

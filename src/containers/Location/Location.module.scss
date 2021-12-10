@@ -1,9 +1,8 @@
 @import '../../assets/styles/variables/colors.scss';
 
 .card {
-  min-height: 350px;
+  min-height: 280px;
   padding: 3rem;
-  padding-bottom: 0.5rem;
   height: 100%;
   overflow: hidden;
   transition: all 0.25s ease-out;
@@ -17,8 +16,6 @@
   }
   .recycle-bin {
     position: absolute;
-    top: 12px;
-    right: 16px;
     opacity: 0;
     z-index: 2;
     transition: opacity 0.2s linear;
@@ -42,6 +39,7 @@
   display: flex;
   justify-content: center;
   margin-top: 20px;
+  margin-bottom: 0.5rem;
   width: 90%;
 }
 
@@ -57,6 +55,9 @@
 }
 
 @media screen and (max-width: 360px) {
+  .card {
+    padding: 2rem;
+  }
   .recycle-bin {
     top: 4px;
     right: 6px;
@@ -68,6 +69,9 @@
 }
 
 @media screen and (min-width: 360px) and (max-width: 600px) {
+  .card {
+    padding: 2.25rem;
+  }
   .recycle-bin {
     top: 6px;
     right: 8px;

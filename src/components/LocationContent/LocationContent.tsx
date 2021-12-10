@@ -87,13 +87,16 @@ const LocationContent: FC<IProps> = ({
           <Typography variant="h2">{time.format('mm')}</Typography>
         </span>
         <LocationOffsets hours={hours} minutes={minutes} host={host} />
-      </div>
-      <div className={styles['location-and-timezone']}>
         {hasTimezone && (
-          <Typography className={css.grey} variant="body2">
+          <Typography
+            className={`${css.grey} ${styles.timezone}`}
+            variant="body2"
+          >
             {timezone} GMT {gmtOffset}
           </Typography>
         )}
+      </div>
+      <div className={styles['location']}>
         <Typography className={`${css.mt15} ${css.cityCountry}`} variant="h5">
           {city}
         </Typography>

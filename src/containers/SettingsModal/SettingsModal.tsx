@@ -21,6 +21,7 @@ import { LocationsContext } from '../../context/locations';
 import { IAppLocation } from '../../types/location';
 import { getGmtOffset, getGreenwichMainTime } from '../../handlers';
 import { EyeButton } from '../../components/EyeButton';
+import styles from './SettingsModal.module.scss';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -32,8 +33,6 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     borderRadius: '4px',
     boxShadow: theme.shadows[5],
-    minWidth: '400px',
-    minHeight: '150px',
     outline: 'none',
     display: 'flex',
     flexDirection: 'column',
@@ -194,7 +193,7 @@ function SettingsModal() {
       }}
     >
       <Fade in={isSettingsModalOpen}>
-        <div className={classes.paper}>
+        <div className={`${classes.paper} ${styles.paper}`}>
           <div className={`content-center flex-column ${classes.textBlock}`}>
             <Typography
               paragraph
