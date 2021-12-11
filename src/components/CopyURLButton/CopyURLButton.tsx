@@ -1,12 +1,16 @@
 import { FC, useState, useContext } from 'react';
-import { Button } from '@material-ui/core';
+import { Button, IconButton } from '@material-ui/core';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { SnackbarContext } from '../../context/snackbar';
+import { ScreenSizesContext } from '../../context/screenSizes';
 
 const CopyURLButton: FC = () => {
   const {
     actions: { OpenSnackbar }
   } = useContext(SnackbarContext);
+  const {
+    state: { width }
+  } = useContext(ScreenSizesContext);
 
   const [isLoading, setLoading] = useState(false);
 
@@ -34,9 +38,22 @@ const CopyURLButton: FC = () => {
     }
   };
 
+  if (width && width <= 700) {
+    return (
+      <IconButton
+        aria-label="mobile copy to clipboard button"
+        disabled={isLoading}
+        onClick={handleCopy}
+        color="inherit"
+      >
+        <ContentCopyIcon />
+      </IconButton>
+    );
+  }
+
   return (
     <Button
-      aria-label="copy to clipboard button"
+      aria-label="desktop copy to clipboard button"
       disabled={isLoading}
       variant="outlined"
       onClick={handleCopy}
