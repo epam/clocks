@@ -14,6 +14,7 @@ import { EpamColors } from '../../constants';
 import { DashboardName } from '../../components/DashboardName';
 import { SettingsContext } from '../../context/settings';
 import CopyURLButton from '../../components/CopyURLButton';
+import { ScreenSizesContext } from '../../context/screenSizes';
 
 const useStyles = makeStyles(theme => ({
   appbar: {
@@ -49,6 +50,11 @@ const useStyles = makeStyles(theme => ({
   addCityButton: {
     marginLeft: '1rem',
     marginRight: '1rem'
+  },
+  flexCenter: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 }));
 
@@ -60,6 +66,9 @@ const Navbar: FC = () => {
   const {
     actions: { SettingsModalHandler }
   } = useContext(SettingsContext);
+  const {
+    state: { width }
+  } = useContext(ScreenSizesContext);
 
   const createFormHandler = () => {
     if (CreateFormHandler) {
@@ -76,11 +85,11 @@ const Navbar: FC = () => {
   return (
     <AppBar position="static" className={classes.appbar} color="transparent">
       <Toolbar className={classes.toolbar}>
-        <div className="content-center">
+        <div className={classes.flexCenter}>
           <Button onClick={ResetUrl}>
             <img className={classes.title} src={logo} alt="logo" />
           </Button>
-          <DashboardName />
+          {width && width <= 600 ? '' : <DashboardName />}
         </div>
         <div className={classes.buttons}>
           <IconButton
@@ -96,15 +105,24 @@ const Navbar: FC = () => {
             enterDelay={1000}
             leaveDelay={200}
           >
-            <Button
-              variant="outlined"
-              color="inherit"
-              onClick={createFormHandler}
-              className={classes.addCityButton}
-              endIcon={<Add />}
-            >
-              Add City
-            </Button>
+            {width && width <= 600 ? (
+              <IconButton
+                data-testid="settings-icon"
+                onClick={createFormHandler}
+              >
+                <Add sx={{ color: '#fff' }} />
+              </IconButton>
+            ) : (
+              <Button
+                variant="outlined"
+                color="inherit"
+                onClick={createFormHandler}
+                className={classes.addCityButton}
+                endIcon={<Add />}
+              >
+                Add City
+              </Button>
+            )}
           </Tooltip>
         </div>
       </Toolbar>

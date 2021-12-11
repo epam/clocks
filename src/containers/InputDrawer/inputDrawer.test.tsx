@@ -1,16 +1,18 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import InputDrawer from './InputDrawer';
 import { LocationsContext } from '../../context/locations';
 
-const MockComponent = ({ open, close, AddLocationMock }) => {
+const MockComponent = ({ open, close, AddLocationMock }: any) => {
   const GetLocationsFromUrl = () => [
     'Tashkent_UZ_41_69',
     'Seoul_KR_37_126',
     'Tokyo_JP_35_139'
   ];
-  const store = { actions: { AddLocationMock, GetLocationsFromUrl } };
+  const store = {
+    actions: { AddLocationMock, GetLocationsFromUrl },
+    state: {}
+  };
   return (
     <LocationsContext.Provider value={store}>
       <InputDrawer visibility={open} setVisibility={close} />

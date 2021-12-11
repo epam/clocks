@@ -12,13 +12,16 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { CLOCKS_FONT, CLOCKS_FONTS } from '../../constants';
 import Snackbar from '../../containers/Snackbar';
 
+import styles from './Dashboard.module.scss';
+
 const useStyles = makeStyles(theme => ({
   container: {
     maxWidth: '100%',
     margin: 0,
     display: 'grid',
     gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    background: theme.palette.background.default
+    background: theme.palette.background.default,
+    textAlign: 'center'
   }
 }));
 
@@ -52,7 +55,7 @@ const Dashboard = () => {
       tabIndex={0}
       role="button"
       onKeyPress={handleKeyDown}
-      className={`wrapper ${clocksFont}`}
+      className={`${styles.body} ${clocksFont}`}
     >
       <Navbar />
       <DeleteModal />

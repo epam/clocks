@@ -1,16 +1,16 @@
 import { FC } from 'react';
-import { Typography, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+
+import style from './LocationOffsets.module.scss';
 
 const useStyle = makeStyles(theme => ({
   host: {
-    padding: '1px 8px',
+    padding: '4px 8px',
     color: 'white',
     backgroundColor: theme.palette.primary.main,
     borderRadius: 20,
-    fontSize: '13px'
-  },
-  text: {
-    color: theme.palette.grey[300]
+    fontSize: '13px',
+    width: '100px'
   }
 }));
 
@@ -28,25 +28,20 @@ const LocationOffsets: FC<IProps> = ({ hours, minutes, host }) => {
       : '';
   const strMinute =
     minutes !== 0
-      ? `${Math.abs(minutes)} ${
-          Math.abs(minutes) <= 1 ? ' minute ' : ' minutes '
-        }`
+      ? `${Math.abs(minutes)} 
+      ${Math.abs(minutes) <= 1 ? ' minute ' : ' minutes '}`
       : '';
   const sign =
     hours < 0 || minutes < 0 ? '-' : hours === 0 && minutes === 0 ? '' : '+';
 
   if (host) {
-    return (
-      <Typography variant="subtitle2" className={css.host}>
-        You are here
-      </Typography>
-    );
+    return <div className={css.host}>You are here</div>;
   }
 
   return (
-    <Typography variant="subtitle2" className={css.text}>
+    <div className={style.text}>
       {!strHour ? 'Same Time' : `${sign} ${strHour} ${strMinute}`}
-    </Typography>
+    </div>
   );
 };
 

@@ -44,14 +44,6 @@ describe('test cases for useUrl hook', () => {
     expect(MockGetParam).toHaveBeenCalledTimes(1);
     expect(MockSetParam).toHaveBeenCalledTimes(1);
   });
-  it('delete location from url params error case', () => {
-    const {
-      result: { current }
-    } = renderHook(useUrl);
-    current.DeleteLocation();
-    expect(MockGetParam).toHaveBeenCalledTimes(0);
-    expect(MockSetParam).toHaveBeenCalledTimes(0);
-  });
   it('reset url for current user', async () => {
     const {
       result: { current }

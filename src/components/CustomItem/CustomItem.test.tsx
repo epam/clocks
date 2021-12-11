@@ -1,4 +1,3 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CustomItem from './CustomItem';
@@ -16,7 +15,8 @@ const target = {
   exactCity: 'Chicago',
   exactProvince: 'IL',
   state_ansi: 'IL',
-  timezone: 'America/Chicago'
+  timezone: 'America/Chicago',
+  names: ''
 };
 
 const select = jest.fn();
