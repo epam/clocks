@@ -1,13 +1,18 @@
 import { useContext, useMemo, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
-import { Button, Typography, Select, MenuItem } from '@material-ui/core';
-import { Brightness7, Brightness4 } from '@mui/icons-material';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import { Button, Typography, Select, MenuItem } from '@material-ui/core';
+import { Brightness7, Brightness4 } from '@mui/icons-material';
 import moment from 'moment-timezone';
+
+import { EyeButton } from '../../components/EyeButton';
 import { SettingsContext } from '../../context/settings';
 import { ThemeContext } from '../../context/theme';
+import { LocationsContext } from '../../context/locations';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { getGmtOffset, getGreenwichMainTime } from '../../handlers';
 import {
   CLOCKS_FONT,
   CLOCKS_FONTS,
@@ -16,11 +21,8 @@ import {
   HAS_DATE,
   HAS_TIMEZONE
 } from '../../constants';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { LocationsContext } from '../../context/locations';
 import { IAppLocation } from '../../types/location';
-import { getGmtOffset, getGreenwichMainTime } from '../../handlers';
-import { EyeButton } from '../../components/EyeButton';
+
 import styles from './SettingsModal.module.scss';
 
 const useStyles = makeStyles(theme => ({

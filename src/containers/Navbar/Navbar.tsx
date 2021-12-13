@@ -8,12 +8,13 @@ import {
   Tooltip
 } from '@material-ui/core';
 import { SettingsOutlined, Add } from '@mui/icons-material';
-import { LocationsContext } from '../../context/locations';
+
 import logo from '../../assets/images/logo.svg';
-import { EpamColors } from '../../constants';
 import { DashboardName } from '../../components/DashboardName';
+import { LocationsContext } from '../../context/locations';
 import { SettingsContext } from '../../context/settings';
 import { ScreenSizesContext } from '../../context/screenSizes';
+import { EpamColors } from '../../constants';
 
 const useStyles = makeStyles(theme => ({
   appbar: {
