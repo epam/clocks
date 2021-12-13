@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-export const useSnackbar = () => {
+import { ISnackbarContext } from './SnackbarContext.interface';
+
+export const useSnackbar = (): ISnackbarContext => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [message, setMessage] = useState('');
 

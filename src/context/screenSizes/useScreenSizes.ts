@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 
-export const useScreenSizes = () => {
+import { IScreenSizesContext } from './ScreenSizesContext.interface';
+
+export const useScreenSizes = (): IScreenSizesContext => {
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [height, setHeight] = useState<number>(window.innerHeight);
   const [showDrawerMobile, setShowDrawerMobile] = useState<boolean>(false);

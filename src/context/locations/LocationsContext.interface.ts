@@ -1,12 +1,12 @@
 import { IAppLocation, TLocationId } from '../../types/location';
 import { IContext } from '../../types/context';
 
-interface IState {
+interface ILocationsContextState {
   hasCreateForm: boolean;
   locations: IAppLocation[];
 }
 
-interface IActions {
+interface ILocationsContextActions {
   CreateFormHandler: (hasForm?: boolean) => void;
   ChangeUserCurrentLocation: (locationId: TLocationId) => void;
   AddLocation: (locationId: TLocationId, comment?: string) => void;
@@ -17,6 +17,7 @@ interface IActions {
   SetLocationsFromUrl: () => Promise<void>;
 }
 
-interface ILocationContext extends IContext<IState, IActions> {}
+interface ILocationContext
+  extends IContext<ILocationsContextState, ILocationsContextActions> {}
 
 export type { ILocationContext };

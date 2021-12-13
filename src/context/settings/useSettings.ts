@@ -1,6 +1,8 @@
 import { useState } from 'react';
 
-export const useSettings = () => {
+import { ISettingsContext } from './SettingsContext.interface';
+
+export const useSettings = (): ISettingsContext => {
   const [isSettingsModalOpen, setIsSettingsModalOpen] =
     useState<boolean>(false);
 

@@ -1,15 +1,16 @@
 import { IContext } from '../../types/context';
 
-interface IState {
+interface ISnackbarContextState {
   isSnackbarOpen: boolean;
   message: string;
 }
 
-interface IActions {
+interface ISnackbarContextActions {
   SnackbarHandler: (isOpen?: boolean) => void;
   OpenSnackbar: (message: string) => void;
 }
 
-interface ISnackbarContext extends IContext<IState, IActions> {}
+interface ISnackbarContext
+  extends IContext<ISnackbarContextState, ISnackbarContextActions> {}
 
 export type { ISnackbarContext };

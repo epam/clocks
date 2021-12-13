@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { CURRENT_USER_LOCATION_ID, PARAM_KEYWORD } from '../../constants';
+
 import { getCurrentUserLocation, convertData } from '../../handlers';
 import convertFromUrlLocations from '../../handlers/convertFromUrlLocations/convertFromUrlLocations';
 import { CheckForCityExistence } from '../../helpers/index';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import { useUrl } from '../../hooks/useUrl/useUrl';
+import { CURRENT_USER_LOCATION_ID, PARAM_KEYWORD } from '../../constants';
 import { IAppLocation, TLocationId } from '../../types/location';
-import { ILocationContext } from './LocationsContext.type';
+import { ILocationContext } from './LocationsContext.interface';
 
 export const useLocations = (): ILocationContext => {
   const [locations, setLocations] = useState<IAppLocation[]>([]);
