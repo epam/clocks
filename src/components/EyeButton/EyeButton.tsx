@@ -3,6 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { IconButton } from '@material-ui/core';
 import { VisibilityOutlined, VisibilityOffOutlined } from '@mui/icons-material';
 
+import { IEyeButtonProps } from './EyeButton.interface';
+
 const useStyles = makeStyles(theme => ({
   eye: {
     position: 'absolute',
@@ -15,12 +17,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-interface IProps {
-  isOpen: boolean;
-  eyeHandler: (isOpen: boolean) => void;
-}
-
-const EyeButton: FC<IProps> = ({ isOpen, eyeHandler }) => {
+const EyeButton: FC<IEyeButtonProps> = ({ isOpen, eyeHandler }) => {
   const classes = useStyles();
 
   const EyeHandler = () => {
