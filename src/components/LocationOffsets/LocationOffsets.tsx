@@ -1,6 +1,10 @@
 import { FC } from 'react';
 import { makeStyles, Typography } from '@material-ui/core';
 
+import { ILocationOffsetsProps } from './LocationOffsets.interface';
+
+import style from './LocationOffsets.module.scss';
+
 const useStyle = makeStyles(theme => ({
   host: {
     padding: '1px 8px',
@@ -17,13 +21,11 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-interface IProps {
-  hours: number;
-  minutes: number;
-  host: boolean;
-}
-
-const LocationOffsets: FC<IProps> = ({ hours, minutes, host }) => {
+const LocationOffsets: FC<ILocationOffsetsProps> = ({
+  hours,
+  minutes,
+  host
+}) => {
   const css = useStyle();
   const strHour =
     hours !== 0

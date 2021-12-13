@@ -1,7 +1,8 @@
 import { FC } from 'react';
 import { MenuItem, withStyles, makeStyles } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
-import { ICityData } from '../../types/timezones';
+
+import { ICustomItemProps } from './CustomItem.interface';
 
 const Item = withStyles(theme => ({
   root: {
@@ -53,12 +54,11 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-interface IProps {
-  target: ICityData;
-  onSelect: (target: ICityData) => void;
-  added: boolean;
-}
-const CustomItem: FC<IProps> = ({ target, onSelect, added = false }) => {
+const CustomItem: FC<ICustomItemProps> = ({
+  target,
+  onSelect,
+  added = false
+}) => {
   const css = useStyle();
 
   const Render = () => (

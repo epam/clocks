@@ -1,21 +1,14 @@
 import { useMemo, useState, useEffect, FC } from 'react';
 import { Typography } from '@material-ui/core';
-import moment from 'moment-timezone';
 import { makeStyles } from '@material-ui/core/styles';
+import moment from 'moment-timezone';
+
 import LocationOffsets from '../LocationOffsets';
-import { IAppLocation, TCity, TCountry, TTimezone } from '../../types/location';
 import { EpamColors } from '../../constants';
 import { getGmtOffset } from '../../handlers';
-import styles from './LocationContent.module.scss';
+import { ILocationContentProps } from './LocationContent.interface';
 
-interface IProps extends Partial<IAppLocation> {
-  city: TCity;
-  country: TCountry;
-  timezone: TTimezone;
-  hours: number;
-  minutes: number;
-  host: boolean;
-}
+import styles from './LocationContent.module.scss';
 
 const useStyle = makeStyles(theme => ({
   grey: {
@@ -50,7 +43,7 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-const LocationContent: FC<IProps> = ({
+const LocationContent: FC<ILocationContentProps> = ({
   city = '',
   country = '',
   timezone = '',

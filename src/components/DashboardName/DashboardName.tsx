@@ -1,9 +1,11 @@
 import { ChangeEvent, useEffect, useState, FormEvent } from 'react';
 import { Input, IconButton, Button } from '@material-ui/core';
 import { DeleteOutline, EditOutlined } from '@mui/icons-material';
+
 import { useQueryParams } from '../../hooks/useQueryParams';
-import classes from './DashboardName.module.scss';
 import { DASHBOARD_PARAM_KEYWORD } from '../../constants';
+
+import classes from './DashboardName.module.scss';
 
 export const DashboardName = () => {
   const [isBeingNamed, setIsBeingNamed] = useState<boolean>(false);
