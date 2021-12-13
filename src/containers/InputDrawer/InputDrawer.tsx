@@ -9,20 +9,18 @@ import {
   TextField
 } from '@material-ui/core';
 import { Close } from '@mui/icons-material';
-import { ICityData } from '../../types/timezones';
-import css from './InputDrawer.module.scss';
-import { lookupCityAscii, sortBestMatch } from '../../helpers';
-import { LocationsContext } from '../../context/locations';
+
 import CustomItem from '../../components/CustomItem';
+import { lookupCityAscii, sortBestMatch } from '../../helpers';
 import { generateIdFormat } from '../../handlers';
+import { LocationsContext } from '../../context/locations';
+import { ICityData } from '../../types/timezones';
 import { IMatchingLocation } from '../../types/location';
+import { IInputDrawerProps } from './InputDrawer.interface';
 
-interface IProps {
-  visibility: boolean;
-  setVisibility: (isVisible?: boolean) => void;
-}
+import css from './InputDrawer.module.scss';
 
-const InputDrawer: FC<IProps> = ({ visibility, setVisibility }) => {
+const InputDrawer: FC<IInputDrawerProps> = ({ visibility, setVisibility }) => {
   // @ts-ignore
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const {

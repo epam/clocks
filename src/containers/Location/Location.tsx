@@ -1,18 +1,19 @@
 import { useContext, useRef, useState, useEffect, FC } from 'react';
-
 import { IconButton, Button } from '@material-ui/core';
 import { EditOutlined, DeleteOutline, HomeOutlined } from '@mui/icons-material';
 import { makeStyles } from '@material-ui/core/styles';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser from 'react-html-parser';
+
+import LocationContent from '../../components/LocationContent';
 import { LocationsContext } from '../../context/locations';
 import { SnackbarContext } from '../../context/snackbar';
 import { ModalContext } from '../../context/modal';
-import LocationContent from '../../components/LocationContent';
-import css from './Location.module.scss';
-import { IAppLocation } from '../../types/location';
 import { editorConfig } from '../../constants';
+import { IAppLocation } from '../../types/location';
+
+import css from './Location.module.scss';
 
 const useStyles = makeStyles(theme => ({
   button: {

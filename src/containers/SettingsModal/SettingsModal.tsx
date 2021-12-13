@@ -13,8 +13,12 @@ import {
 } from '@material-ui/core';
 import { Brightness7, Brightness4 } from '@mui/icons-material';
 import moment from 'moment-timezone';
+
+import { EyeButton } from '../../components/EyeButton';
 import { SettingsContext } from '../../context/settings';
 import { ThemeContext } from '../../context/theme';
+import { LocationsContext } from '../../context/locations';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 import {
   AUTO_THEMING,
   CLOCKS_FONT,
@@ -26,8 +30,6 @@ import {
   THEME,
   THEMES
 } from '../../constants';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { LocationsContext } from '../../context/locations';
 import { IAppLocation } from '../../types/location';
 import {
   getGmtOffset,
@@ -35,7 +37,7 @@ import {
   checkComputerThemeSupport,
   getComputerTheme
 } from '../../handlers';
-import { EyeButton } from '../../components/EyeButton';
+
 import styles from './SettingsModal.module.scss';
 
 const useStyles = makeStyles(theme => ({

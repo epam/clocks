@@ -6,7 +6,9 @@ import {
   Instagram,
   GitHub
 } from '@mui/icons-material';
+
 import { EpamColors } from '../../constants';
+
 import styles from './Footer.module.scss';
 
 const useStyles = makeStyles(() => ({
