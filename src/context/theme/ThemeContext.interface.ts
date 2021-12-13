@@ -1,19 +1,21 @@
 import { Theme } from '@material-ui/core';
+
 import { IContext } from '../../types/context';
 
 type TTheme = 'light' | 'dark';
 
-interface IState {
+interface IThemeContextState {
   type: string;
   theme: Theme;
   autoTheming: boolean;
 }
 
-interface IActions {
+interface IThemeContextActions {
   ThemeHandler: (type?: TTheme) => void;
   AutoThemingHandler: (isAutoThemingOn?: boolean) => void;
 }
 
-interface IThemeContext extends IContext<IState, IActions> {}
+interface IThemeContext
+  extends IContext<IThemeContextState, IThemeContextActions> {}
 
 export type { IThemeContext, TTheme };

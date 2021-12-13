@@ -1,15 +1,16 @@
 import { IContext } from '../../types/context';
 import { TLocationId } from '../../types/location';
 
-interface IState {
+export interface IModalContextState {
   isModalOpen: boolean;
   locationId: TLocationId;
 }
 
-interface IActions {
+interface IModalContextActions {
   ModalHandler: (isModalOpen?: boolean) => void;
   OpenDeleteModal: (locationId: TLocationId) => void;
 }
-interface IModalContext extends IContext<IState, IActions> {}
+interface IModalContext
+  extends IContext<IModalContextState, IModalContextActions> {}
 
-export type { IModalContext, IState };
+export type { IModalContext };

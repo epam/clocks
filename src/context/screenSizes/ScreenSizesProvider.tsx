@@ -1,7 +1,8 @@
 import { FC } from 'react';
-import { IProviderProp } from '../../types/provider';
+
 import { ScreenSizesContext } from './ScreenSizesContext';
 import { useScreenSizes } from './useScreenSizes';
+import { IProviderProp } from '../../types/provider';
 
 export const ScreenSizesProvider: FC<IProviderProp> = ({ children }) => {
   const store = useScreenSizes();

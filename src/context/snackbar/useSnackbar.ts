@@ -1,15 +1,12 @@
 import { useState } from 'react';
 
-type Vertical = 'bottom' | 'top';
-type Horizontal = 'left' | 'right' | 'center';
-type Status = 'warning' | 'error' | 'info' | 'success';
+import {
+  ISnackbarContext,
+  Position,
+  Status
+} from './SnackbarContext.interface';
 
-interface Position {
-  vertical: Vertical;
-  horizontal: Horizontal;
-}
-
-export const useSnackbar = () => {
+export const useSnackbar = (): ISnackbarContext => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [position, setPosition] = useState<Position>({

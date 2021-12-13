@@ -1,7 +1,8 @@
 import { FC } from 'react';
-import { IProviderProp } from '../../types/provider';
+
 import { SnackbarContext } from './SnackbarContext';
 import { useSnackbar } from './useSnackbar';
+import { IProviderProp } from '../../types/provider';
 
 export const SnackbarProvider: FC<IProviderProp> = ({ children }) => {
   const store = useSnackbar();

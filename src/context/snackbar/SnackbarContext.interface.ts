@@ -9,20 +9,21 @@ interface Position {
   horizontal: Horizontal;
 }
 
-interface IState {
+interface ISnackbarContextState {
   isSnackbarOpen: boolean;
   message: string;
   position: Position;
   status: Status;
 }
 
-interface IActions {
+interface ISnackbarContextActions {
   SnackbarHandler: (isOpen?: boolean) => void;
   OpenSnackbar: (message: string, status?: Status, position?: Position) => void;
   SetSnackbarPosition: ({ vertical, horizontal }: Position) => void;
   SetSnackbarStatus: (status: Status) => void;
 }
 
-interface ISnackbarContext extends IContext<IState, IActions> {}
+interface ISnackbarContext
+  extends IContext<ISnackbarContextState, ISnackbarContextActions> {}
 
-export type { ISnackbarContext };
+export type { ISnackbarContext, Status, Position };

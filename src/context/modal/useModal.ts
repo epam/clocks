@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { TLocationId } from '../../types/location';
-import { IState } from './ModalContext.type';
 
-export const useModal = (defaultValues?: IState) => {
+import { TLocationId } from '../../types/location';
+import { IModalContextState } from './ModalContext.interface';
+
+export const useModal = (defaultValues?: IModalContextState) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(
     defaultValues?.isModalOpen || false
   );

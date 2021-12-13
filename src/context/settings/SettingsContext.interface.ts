@@ -1,13 +1,14 @@
 import { IContext } from '../../types/context';
 
-interface IState {
+interface ISettingsContextState {
   isSettingsModalOpen: boolean;
 }
 
-interface IActions {
+interface ISettingsContextActions {
   SettingsModalHandler: (isOpen?: boolean) => void;
 }
 
-interface ISettingsContext extends IContext<IState, IActions> {}
+interface ISettingsContext
+  extends IContext<ISettingsContextState, ISettingsContextActions> {}
 
 export type { ISettingsContext };

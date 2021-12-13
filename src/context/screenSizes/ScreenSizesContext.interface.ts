@@ -1,17 +1,18 @@
 import { IContext } from '../../types/context';
 
-interface IState {
+interface IScreenSizesContextState {
   width: number;
   height: number;
   showDrawerMobile: boolean;
 }
 
-interface IActions {
+interface IScreenSizesContextActions {
   WidthHandler: () => void;
   HeightHandler: () => void;
   HandleDrawerMobile: (nextState: boolean) => void;
 }
 
-interface IScreenSizesContext extends IContext<IState, IActions> {}
+interface IScreenSizesContext
+  extends IContext<IScreenSizesContextState, IScreenSizesContextActions> {}
 
 export type { IScreenSizesContext };

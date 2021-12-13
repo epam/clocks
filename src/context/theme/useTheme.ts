@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+
 import themes from '../../assets/themes/themes';
 import { AUTO_THEMING, THEME, THEMES } from '../../constants';
 import {
@@ -7,7 +8,7 @@ import {
   checkComputerThemeSupport
 } from '../../handlers';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { TTheme } from './ThemeContext.type';
+import { TTheme } from './ThemeContext.interface';
 
 export const useTheme = () => {
   const [type, setType] = useState<TTheme>('light');
