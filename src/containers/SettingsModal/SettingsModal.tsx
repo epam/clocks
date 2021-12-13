@@ -250,7 +250,6 @@ function SettingsModal() {
       aria-describedby="transition-modal-description"
       className={`${classes.modal} ${clocksFont}`}
       open={isSettingsModalOpen || false}
-      onClose={handleClose}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
@@ -307,6 +306,7 @@ function SettingsModal() {
               <Button
                 variant="outlined"
                 onClick={themeHandler}
+                disabled={autoTheming}
                 endIcon={type === 'light' ? <Brightness7 /> : <Brightness4 />}
                 className={classes.modeControlBtn}
               >
