@@ -14,7 +14,7 @@ jest.mock('../../hooks/useLocalStorage', () => ({
 }));
 
 const localStorageMock = {
-  getItem: itemKey => {
+  getItem: (itemKey: string) => {
     switch (itemKey) {
       case HAS_DATE:
         return 'false';
@@ -33,7 +33,7 @@ const localStorageMock = {
 
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
-const settingsWrapper = children => {
+const settingsWrapper = (children: any) => {
   return (
     <SettingsContext.Provider
       value={{
@@ -55,7 +55,7 @@ describe('test cases for settings modal', () => {
     expect(buttons.length).toBe(7);
 
     const headings = getAllByRole('heading');
-    expect(headings.length).toBe(4);
+    expect(headings.length).toBe(3);
 
     const openEyeIcons = getAllByTestId('open-eye-icon');
     const closedEyeIcons = getAllByTestId('closed-eye-icon');

@@ -21,6 +21,7 @@ import { LocationsContext } from '../../context/locations';
 import { IAppLocation } from '../../types/location';
 import { getGmtOffset, getGreenwichMainTime } from '../../handlers';
 import { EyeButton } from '../../components/EyeButton';
+import styles from './SettingsModal.module.scss';
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -32,8 +33,6 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.background.paper,
     borderRadius: '4px',
     boxShadow: theme.shadows[5],
-    minWidth: '400px',
-    minHeight: '150px',
     outline: 'none',
     display: 'flex',
     flexDirection: 'column',
@@ -41,7 +40,11 @@ const useStyles = makeStyles(theme => ({
   },
   textBlock: {
     flex: '1 1 50px',
-    padding: '2rem'
+    padding: '2rem',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   text: {
     fontSize: '1.3rem',
@@ -79,11 +82,14 @@ const useStyles = makeStyles(theme => ({
   },
   default: {
     color: theme.palette.text.primary,
-    textAlign: 'center'
+    textAlign: 'center',
+    margin: '0px',
+    position: 'relative'
   },
   time: {
     color: theme.palette.type === 'light' ? EpamColors.darkGray : 'white',
-    display: 'flex'
+    display: 'flex',
+    position: 'relative'
   },
   hour: {
     '&::after': {
@@ -94,10 +100,14 @@ const useStyles = makeStyles(theme => ({
     }
   },
   mb20: {
-    marginBottom: '20px'
+    marginBottom: '20px',
+    position: 'relative'
   },
   mb25: {
-    marginBottom: '25px'
+    marginBottom: '25px',
+    textTransform: 'uppercase',
+    textAlign: 'center',
+    position: 'relative'
   },
   bottomContainer: {
     display: 'flex',
@@ -194,24 +204,24 @@ function SettingsModal() {
       }}
     >
       <Fade in={isSettingsModalOpen}>
-        <div className={classes.paper}>
-          <div className={`content-center flex-column ${classes.textBlock}`}>
+        <div className={`${classes.paper} ${styles.paper}`}>
+          <div className={classes.textBlock}>
             <Typography
               paragraph
               variant="subtitle2"
-              className={`${classes.default} m-0 position-relative`}
+              className={`${classes.default}`}
             >
               {time.format('D MMM').toUpperCase()}{' '}
               <EyeButton isOpen={hasDate} eyeHandler={setHasDate} />
             </Typography>
-            <span className={`${classes.time} position-relative`}>
+            <span className={`${classes.time}`}>
               <Typography variant="h2" className={classes.hour}>
                 {time.format('HH')}
               </Typography>
               <Typography variant="h2">{time.format('mm')}</Typography>
             </span>
             <Typography
-              className={`${classes.grey} ${classes.mb20} position-relative`}
+              className={`${classes.grey} ${classes.mb20}`}
               variant="body2"
             >
               {timezone} GMT {gmtOffset}
@@ -220,13 +230,10 @@ function SettingsModal() {
             <Typography className={`${classes.default}`} variant="h5">
               {city}
             </Typography>
-            <Typography
-              variant="subtitle2"
-              className={`${classes.default} ${classes.mb25} text-uppercase text-center position-relative`}
-            >
+            <div className={`${classes.default} ${classes.mb25}`}>
               {country}
               <EyeButton isOpen={hasCountry} eyeHandler={setHasCountry} />
-            </Typography>
+            </div>
             <div className={classes.bottomContainer}>
               <Select
                 variant="outlined"

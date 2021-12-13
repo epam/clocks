@@ -1,5 +1,11 @@
+@import '../../assets/styles/index.scss';
+
 .sidebarPaper {
   width: 400px;
+
+  @include screenMax500 {
+    width: 100vw;
+  }
 }
 
 #toolbar {
@@ -26,13 +32,4 @@
 
 .textFieldSize {
   width: 100%;
-}
-
-@media screen and (max-width: 500px) {
-  .sidebarPaper {
-    width: 100vw !important;
-  }
-  #closeButton {
-    transform: translateY(0) !important;
-  }
 }

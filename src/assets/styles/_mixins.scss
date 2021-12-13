@@ -1,0 +1,7 @@
+// SCREEN SIZE
+
+@mixin screenMax500 {
+  @media (max-width: 500px) {
+    @content;
+  }
+}

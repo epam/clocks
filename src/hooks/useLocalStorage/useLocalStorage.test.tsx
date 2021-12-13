@@ -23,7 +23,7 @@ describe('test cases for useLocalStorage hook', () => {
     const {
       result: { current }
     } = renderHook(useLocalStorage);
-    current.setItem(CURRENT_USER_LOCATION_ID);
+    current.setItem(CURRENT_USER_LOCATION_ID, {});
     expect(localStorage.setItem).toHaveBeenCalledTimes(1);
   });
   it('calls localStorage removeItem', () => {

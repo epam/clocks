@@ -8,9 +8,10 @@ const MockDeleteLocation = jest.fn();
 const MockModalHandler = jest.fn();
 const locationId = 'Tashkent_UZ_41_69';
 
-const wrapper = children => {
+const wrapper = (children: any) => {
   const locationStore = {
-    actions: { DeleteLocation: MockDeleteLocation }
+    actions: { DeleteLocation: MockDeleteLocation },
+    state: {}
   };
   const modalStore = {
     state: { isModalOpen: true, locationId },

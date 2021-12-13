@@ -8,7 +8,10 @@ const useStyles = makeStyles(theme => ({
     position: 'absolute',
     right: '0',
     top: '10px',
-    transform: 'translate(110%, -50%)'
+    transform: 'translate(110%, -50%)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 }));
 
@@ -24,10 +27,7 @@ const EyeButton: FC<IProps> = ({ isOpen, eyeHandler }) => {
     eyeHandler(!isOpen);
   };
   return (
-    <IconButton
-      className={`${classes.eye} content-center`}
-      onClick={EyeHandler}
-    >
+    <IconButton className={classes.eye} onClick={EyeHandler}>
       {isOpen ? (
         <VisibilityOutlined data-testid="open-eye-icon" fontSize="small" />
       ) : (
