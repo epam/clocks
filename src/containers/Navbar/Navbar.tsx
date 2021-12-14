@@ -1,5 +1,4 @@
 import { FC, useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import {
   AppBar,
   Toolbar,
@@ -15,52 +14,10 @@ import { LocationsContext } from '../../context/locations';
 import { SettingsContext } from '../../context/settings';
 import CopyURLButton from '../../components/CopyURLButton';
 import { ScreenSizesContext } from '../../context/screenSizes';
-import { EpamColors } from '../../constants';
 
-const useStyles = makeStyles(theme => ({
-  appbar: {
-    boxShadow: 'none',
-    background: EpamColors.darkGray,
-    borderBottom: '2px solid rgba(0,0,0,.06)',
-    color: 'white'
-  },
-  toolbar: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  menuButton: {
-    marginRight: theme.spacing(2)
-  },
-  title: {
-    height: 28,
-    objectFit: 'cover',
-    cursor: 'pointer',
-    marginRight: 12
-  },
-  buttons: {
-    display: 'flex',
-    alignItems: 'center'
-  },
-  settingsBtn: {
-    marginRight: 5
-  },
-  modeIcon: {
-    color: theme.palette.background.paper
-  },
-  addCityButton: {
-    marginLeft: '1rem',
-    marginRight: '1rem'
-  },
-  flexCenter: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
-  }
-}));
+import styles from './Navbar.module.scss';
 
 const Navbar: FC = () => {
-  const classes = useStyles();
   const {
     actions: { CreateFormHandler, ResetUrl }
   } = useContext(LocationsContext);
@@ -84,17 +41,21 @@ const Navbar: FC = () => {
   };
 
   return (
-    <AppBar position="static" className={classes.appbar} color="transparent">
-      <Toolbar className={classes.toolbar}>
-        <div className={classes.flexCenter}>
+    <AppBar
+      position="static"
+      classes={{ root: styles['app-bar'] }}
+      color="transparent"
+    >
+      <Toolbar className={styles.toolbar}>
+        <div className={styles['flex-center']}>
           <Button onClick={ResetUrl}>
-            <img className={classes.title} src={logo} alt="logo" />
+            <img className={styles.title} src={logo} alt="logo" />
           </Button>
           {width && width <= 600 ? '' : <DashboardName />}
         </div>
-        <div className={classes.buttons}>
+        <div className={styles.buttons}>
           <IconButton
-            className={classes.settingsBtn}
+            className={styles['settings-btn']}
             data-testid="settings-icon"
             onClick={settingsModalHandler}
           >
@@ -118,7 +79,7 @@ const Navbar: FC = () => {
                 variant="outlined"
                 color="inherit"
                 onClick={createFormHandler}
-                className={classes.addCityButton}
+                className={styles['add-city-button']}
                 endIcon={<Add />}
               >
                 Add City
