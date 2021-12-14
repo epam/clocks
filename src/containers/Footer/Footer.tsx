@@ -1,4 +1,4 @@
-import { makeStyles } from '@material-ui/core';
+import { FC } from 'react';
 import {
   LinkedIn,
   Twitter,
@@ -7,45 +7,16 @@ import {
   GitHub
 } from '@mui/icons-material';
 
-import { EpamColors } from '../../constants';
-
 import styles from './Footer.module.scss';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    width: '100%',
-    height: 64,
-    padding: '0 24px',
-    background: EpamColors.darkGray,
-    color: 'white',
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  rights: {
-    color: 'inherit',
-    fontWeight: 300
-  },
-  icons: {
-    display: 'flex',
-    alignItems: 'center',
-    '& a': {
-      color: 'white',
-      textDecoration: 'none',
-      verticalAlign: 'middle'
-    }
-  }
-}));
-
-const Footer = () => {
-  const css = useStyles();
+const Footer: FC = () => {
   return (
-    <footer className={css.root}>
-      <div className={`${css.rights} ${styles.rights}`}>
+    <footer className={styles.root}>
+      <div className={`${styles.rights} ${styles.rights}`}>
         © {new Date().getFullYear()} EPAM Systems, Inc. <br />
         All Rights Reserved.
       </div>
-      <div className={`${css.icons} ${styles.icons}`}>
+      <div className={`${styles.icons} ${styles.icons}`}>
         <a
           href="https://github.com/epam"
           data-testid="GitHubIconLink"
