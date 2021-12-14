@@ -5,7 +5,7 @@ import { DeleteOutline, EditOutlined } from '@mui/icons-material';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import { DASHBOARD_PARAM_KEYWORD } from '../../constants';
 
-import classes from './DashboardName.module.scss';
+import styles from './DashboardName.module.scss';
 
 export const DashboardName = () => {
   const [isBeingNamed, setIsBeingNamed] = useState<boolean>(false);
@@ -47,11 +47,11 @@ export const DashboardName = () => {
     if (dashboardName && !isBeingNamed) {
       return (
         <>
-          <div className={classes['name-container']}>
+          <div className={styles['name-container']}>
             <Button color="inherit" onClick={BeingNamedHandler}>
-              <div className={classes.name}>{name}</div>
+              <div className={styles.name}>{name}</div>
             </Button>
-            <div className={classes['icons']}>
+            <div className={styles['icons']}>
               <IconButton data-testid="edit-icon" onClick={BeingNamedHandler}>
                 <EditOutlined sx={{ color: '#fff' }} />
               </IconButton>
@@ -72,7 +72,7 @@ export const DashboardName = () => {
           <Input
             autoFocus
             onBlur={() => EditDashboardName()}
-            className={classes['name-input']}
+            className={styles['name-input']}
             value={name}
             onChange={ChangeNameHandler}
           />
@@ -89,5 +89,5 @@ export const DashboardName = () => {
       </Button>
     );
   };
-  return <div className={classes.body}>{renderContent()}</div>;
+  return <div className={styles.body}>{renderContent()}</div>;
 };

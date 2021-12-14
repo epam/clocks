@@ -1,47 +1,14 @@
-import { useMemo, useState, useEffect, FC } from 'react';
+import { useMemo, useState, useEffect, FC, useContext } from 'react';
 import { Typography } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import moment from 'moment-timezone';
+import clsx from 'clsx';
 
+import { ThemeContext } from '../../context/theme';
 import LocationOffsets from '../LocationOffsets';
-import { EpamColors } from '../../constants';
 import { getGmtOffset } from '../../handlers';
 import { ILocationContentProps } from './LocationContent.interface';
 
 import styles from './LocationContent.module.scss';
-
-const useStyle = makeStyles(theme => ({
-  grey: {
-    color: theme.palette.grey[300]
-  },
-  mt15: {
-    marginTop: '15px'
-  },
-  default: {
-    color: theme.palette.text.primary,
-    textAlign: 'center'
-  },
-  time: {
-    color: theme.palette.type === 'light' ? EpamColors.darkGray : 'white',
-    display: 'flex'
-  },
-  hour: {
-    '&::after': {
-      content: '":"',
-      position: 'relative',
-      top: '-.1em',
-      margin: '0 6px'
-    }
-  },
-  cityCountry: {
-    color: theme.palette.type === 'light' ? EpamColors.darkGray : 'white',
-    textTransform: 'uppercase',
-    textAlign: 'center'
-  },
-  m0: {
-    margin: 0
-  }
-}));
 
 const LocationContent: FC<ILocationContentProps> = ({
   city = '',
@@ -54,9 +21,11 @@ const LocationContent: FC<ILocationContentProps> = ({
   hasDate = true,
   hasTimezone = true
 }) => {
-  const css = useStyle();
   const [time, setTime] = useState(moment.tz(timezone));
 
+  const {
+    state: { type }
+  } = useContext(ThemeContext);
   useEffect(() => {
     const id = setInterval(() => setTime(moment.tz(timezone)), 1000);
 
@@ -73,29 +42,42 @@ const LocationContent: FC<ILocationContentProps> = ({
             paragraph
             variant="subtitle2"
             data-testid="date"
-            className={`${css.default} ${css.m0}`}
+            className={clsx(styles['m0'], {
+              [styles.defaultLight]: type === 'light',
+              [styles.defaultDark]: type === 'dark'
+            })}
           >
             {time.format('D MMM').toUpperCase()}
           </Typography>
         )}
-        <span className={css.time}>
-          <Typography variant="h2" className={css.hour}>
+        <span
+          className={clsx({
+            [styles.timeLight]: type === 'light',
+            [styles.timeDark]: type === 'dark'
+          })}
+        >
+          <Typography variant="h2" className={styles.hour}>
             {time.format('HH')}
           </Typography>
           <Typography variant="h2">{time.format('mm')}</Typography>
         </span>
         <LocationOffsets hours={hours} minutes={minutes} host={host} />
         {hasTimezone && (
-          <div className={`${css.grey} ${styles.timezone}`}>
+          <div className={clsx(styles.gray, styles.timezone)}>
             {timezone} GMT {gmtOffset}
           </div>
         )}
       </div>
-      <div className={styles['location']}>
-        <Typography className={`${css.mt15} ${css.cityCountry}`} variant="h5">
+      <div
+        className={clsx(styles['location'], {
+          [styles.cityCountryLight]: type === 'light',
+          [styles.cityCountryDark]: type === 'dark'
+        })}
+      >
+        <Typography className={styles.mt15} variant="h5">
           {city}
         </Typography>
-        {hasCountry && <div className={css.cityCountry}>{country}</div>}
+        {hasCountry && <div>{country}</div>}
       </div>
     </div>
   );

@@ -1,17 +1,17 @@
 @import '../../assets/styles/index.scss';
 
-.time {
-  color: $epam-black;
-  display: flex;
-  .hour {
-    &:after {
-      content: ':';
-      position: relative;
-      top: -0.1em;
-      margin: 0 6px;
-    }
-  }
-}
+// .time {
+//   color: $epam-black;
+//   display: flex;
+//   .hour {
+//     &:after {
+//       content: ':';
+//       position: relative;
+//       top: -0.1em;
+//       margin: 0 6px;
+//     }
+//   }
+// }
 
 .timezone {
   font-size: 14px;
@@ -40,4 +40,55 @@
   @include screenMax500 {
     margin: 4px;
   }
+}
+
+.gray {
+  color: $gray;
+}
+
+.mt15 {
+  margin-top: 15px;
+}
+
+.defaultLight {
+  color: $epam-black;
+  text-align: center;
+}
+
+.defaultDark {
+  color: $white;
+  text-align: center;
+}
+
+.timeLight {
+  color: $epam-black;
+  display: flex;
+}
+.timeDark {
+  color: $white;
+  display: flex;
+}
+
+.hour {
+  &::after {
+    content: ':';
+    position: relative;
+    top: -0.1em;
+    margin: 0 6px;
+  }
+}
+
+.cityCountryLight {
+  color: $epam-black;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.cityCountryDark {
+  color: $white;
+  text-transform: uppercase;
+  text-align: center;
+}
+.m0 {
+  margin: 0;
 }

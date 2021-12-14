@@ -1,8 +1,12 @@
-import { FC } from 'react';
+import { FC, useContext } from 'react';
 import { MenuItem, withStyles, makeStyles } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
+import clsx from 'clsx';
 
+import { ThemeContext } from '../../context/theme';
 import { ICustomItemProps } from './CustomItem.interface';
+
+import styles from './CustomItem.module.scss';
 
 const Item = withStyles(theme => ({
   root: {
@@ -18,31 +22,6 @@ const Item = withStyles(theme => ({
 }))(MenuItem);
 
 const useStyle = makeStyles(theme => ({
-  text: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    width: '100%'
-  },
-  title: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    width: '100%'
-  },
-  city: {
-    fontSize: 16,
-    fontWeight: 600
-  },
-  country: {
-    fontSize: 14,
-    fontWeight: 400,
-    color: theme.palette.text.primary
-  },
-  disabled: {
-    backgroundColor: theme.palette.type === 'light' ? '#dcdcda' : '#000',
-    pointerEvents: 'none'
-  },
   badge: {
     display: 'block',
     '& span.MuiBadge-badge': {
@@ -60,17 +39,32 @@ const CustomItem: FC<ICustomItemProps> = ({
   added = false
 }) => {
   const css = useStyle();
+  const {
+    state: { type }
+  } = useContext(ThemeContext);
 
   const Render = () => (
     <Item
       onClick={() => onSelect(target)}
-      className={added ? css.disabled : ''}
+      className={
+        added
+          ? clsx(
+              { [styles.disabledLight]: type === 'light' },
+              { [styles.disabledDark]: type === 'dark' }
+            )
+          : ''
+      }
     >
-      <div className={css.text}>
-        <div className={css.title}>
-          <span className={css.city}>{target.city}</span>
+      <div className={styles.text}>
+        <div className={styles.title}>
+          <span className={styles.city}>{target.city}</span>
         </div>
-        <span className={css.country}>
+        <span
+          className={clsx(
+            { [styles.countryLight]: type === 'light' },
+            { [styles.countryDark]: type === 'dark' }
+          )}
+        >
           {target.country}
           {target.province ? `, ${target.province}` : ''}
         </span>
@@ -81,6 +75,10 @@ const CustomItem: FC<ICustomItemProps> = ({
   return added ? (
     <Badge
       data-testid="Badge"
+      // className={clsx(
+      //   { [styles.badgeLight]: type === 'light' },
+      //   { [styles.badgeDark]: type === 'dark' }
+      // )}
       className={css.badge}
       badgeContent="Added"
       color="primary"
