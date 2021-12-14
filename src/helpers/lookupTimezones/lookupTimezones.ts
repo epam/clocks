@@ -1,5 +1,5 @@
-import { ICityData } from '../../types/timezones';
 import { cityMapping } from '../../constants';
+import { ICityData } from '../../types/timezones';
 
 const lookupTimezones = (timezone: string): ICityData[] => {
   if (!timezone) return [];
