@@ -1,4 +1,3 @@
-import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 import { useUrl } from './useUrl';
 
@@ -19,12 +18,6 @@ jest.mock('react-router-dom', () => {
   };
 });
 
-React.useContext = () => {
-  return {
-    actions: { OpenSnackbar: MockOpenSnackbar }
-  };
-};
-
 describe('testing useUrl hook without mocks', () => {
   it('add comment to url params', () => {
     const expectedURI =
@@ -41,7 +34,7 @@ describe('testing useUrl hook without mocks', () => {
       result: { current }
     } = renderHook(useUrl);
     current.AddLocation('Tashkent_UZ_41_69');
-    expect(MockOpenSnackbar).toHaveBeenCalledTimes(1);
+    expect(MockOpenSnackbar).toHaveBeenCalledTimes(0);
   });
   it('return location ids from url params', () => {
     const expectedLocationIds = ['Tashkent_UZ_41_69', 'Namangan_UZ_41_71'];

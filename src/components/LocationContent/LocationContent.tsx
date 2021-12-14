@@ -6,6 +6,7 @@ import LocationOffsets from '../LocationOffsets';
 import { IAppLocation, TCity, TCountry, TTimezone } from '../../types/location';
 import { EpamColors } from '../../constants';
 import { getGmtOffset } from '../../handlers';
+import styles from './LocationContent.module.scss';
 
 interface IProps extends Partial<IAppLocation> {
   city: TCity;
@@ -40,7 +41,12 @@ const useStyle = makeStyles(theme => ({
     }
   },
   cityCountry: {
-    color: theme.palette.type === 'light' ? EpamColors.darkGray : 'white'
+    color: theme.palette.type === 'light' ? EpamColors.darkGray : 'white',
+    textTransform: 'uppercase',
+    textAlign: 'center'
+  },
+  m0: {
+    margin: 0
   }
 }));
 
@@ -67,41 +73,38 @@ const LocationContent: FC<IProps> = ({
   const gmtOffset = useMemo(() => getGmtOffset(timezone), [timezone]);
 
   return (
-    <>
-      {hasDate && (
-        <Typography
-          paragraph
-          variant="subtitle2"
-          data-testid="date"
-          className={`${css.default} m-0`}
-        >
-          {time.format('D MMM').toUpperCase()}
+    <div className={styles.locationContent}>
+      <div className={styles['date-and-time']}>
+        {hasDate && (
+          <Typography
+            paragraph
+            variant="subtitle2"
+            data-testid="date"
+            className={`${css.default} ${css.m0}`}
+          >
+            {time.format('D MMM').toUpperCase()}
+          </Typography>
+        )}
+        <span className={css.time}>
+          <Typography variant="h2" className={css.hour}>
+            {time.format('HH')}
+          </Typography>
+          <Typography variant="h2">{time.format('mm')}</Typography>
+        </span>
+        <LocationOffsets hours={hours} minutes={minutes} host={host} />
+        {hasTimezone && (
+          <div className={`${css.grey} ${styles.timezone}`}>
+            {timezone} GMT {gmtOffset}
+          </div>
+        )}
+      </div>
+      <div className={styles['location']}>
+        <Typography className={`${css.mt15} ${css.cityCountry}`} variant="h5">
+          {city}
         </Typography>
-      )}
-      <span className={css.time}>
-        <Typography variant="h2" className={css.hour}>
-          {time.format('HH')}
-        </Typography>
-        <Typography variant="h2">{time.format('mm')}</Typography>
-      </span>
-      <LocationOffsets hours={hours} minutes={minutes} host={host} />
-      {hasTimezone && (
-        <Typography className={css.grey} variant="body2">
-          {timezone} GMT {gmtOffset}
-        </Typography>
-      )}
-      <Typography className={`${css.mt15} ${css.cityCountry}`} variant="h5">
-        {city}
-      </Typography>
-      {hasCountry && (
-        <Typography
-          variant="subtitle2"
-          className={`${css.cityCountry} text-uppercase text-center`}
-        >
-          {country}
-        </Typography>
-      )}
-    </>
+        {hasCountry && <div className={css.cityCountry}>{country}</div>}
+      </div>
+    </div>
   );
 };
 

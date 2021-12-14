@@ -1,0 +1,10 @@
+@import '../../assets/styles/index.scss';
+
+.paper {
+  min-height: 150px;
+  margin: 10px;
+
+  @include screenMax500 {
+    width: 90vw;
+  }
+}

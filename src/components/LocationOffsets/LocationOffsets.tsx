@@ -1,13 +1,14 @@
 import { FC } from 'react';
-import { Typography, makeStyles } from '@material-ui/core';
+import { makeStyles, Typography } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
   host: {
-    padding: '1px 8px',
+    padding: '4px 8px',
     color: 'white',
     backgroundColor: theme.palette.primary.main,
     borderRadius: 20,
-    fontSize: '13px'
+    fontSize: '13px',
+    width: '100px'
   },
   text: {
     color: theme.palette.grey[300]
@@ -28,19 +29,14 @@ const LocationOffsets: FC<IProps> = ({ hours, minutes, host }) => {
       : '';
   const strMinute =
     minutes !== 0
-      ? `${Math.abs(minutes)} ${
-          Math.abs(minutes) <= 1 ? ' minute ' : ' minutes '
-        }`
+      ? `${Math.abs(minutes)} 
+      ${Math.abs(minutes) <= 1 ? ' minute ' : ' minutes '}`
       : '';
   const sign =
     hours < 0 || minutes < 0 ? '-' : hours === 0 && minutes === 0 ? '' : '+';
 
   if (host) {
-    return (
-      <Typography variant="subtitle2" className={css.host}>
-        You are here
-      </Typography>
-    );
+    return <div className={css.host}>You are here</div>;
   }
 
   return (

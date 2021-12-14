@@ -1,0 +1,15 @@
+@import '../../assets/styles/index.scss';
+
+.rights {
+  font-size: 12px;
+}
+
+.icons {
+  a {
+    margin: 0 10px;
+
+    @include screenMax500 {
+      margin: 0 5px;
+    }
+  }
+}

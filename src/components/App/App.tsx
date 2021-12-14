@@ -7,27 +7,28 @@ import { PlanningModeProvider } from '../../context/planningMode';
 import { ModalProvider } from '../../context/modal';
 import { ThemeProvider } from '../../context/theme';
 import { SettingsProvider } from '../../context/settings';
+import { ScreenSizesProvider } from '../../context/screenSizes';
 
 function App() {
   return (
     <ThemeProvider>
-      <SettingsProvider>
-        <SnackbarProvider>
-          <PlanningModeProvider>
-            <ModalProvider>
-              <LocationsProvider>
-                <div className="App">
+      <ScreenSizesProvider>
+        <SettingsProvider>
+          <SnackbarProvider>
+            <PlanningModeProvider>
+              <ModalProvider>
+                <LocationsProvider>
                   <Switch>
                     <Route>
                       <Dashboard />
                     </Route>
                   </Switch>
-                </div>
-              </LocationsProvider>
-            </ModalProvider>
-          </PlanningModeProvider>
-        </SnackbarProvider>
-      </SettingsProvider>
+                </LocationsProvider>
+              </ModalProvider>
+            </PlanningModeProvider>
+          </SnackbarProvider>
+        </SettingsProvider>
+      </ScreenSizesProvider>
     </ThemeProvider>
   );
 }

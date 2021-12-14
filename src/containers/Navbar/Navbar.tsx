@@ -13,6 +13,8 @@ import logo from '../../assets/images/logo.svg';
 import { EpamColors } from '../../constants';
 import { DashboardName } from '../../components/DashboardName';
 import { SettingsContext } from '../../context/settings';
+import CopyURLButton from '../../components/CopyURLButton';
+import { ScreenSizesContext } from '../../context/screenSizes';
 
 const useStyles = makeStyles(theme => ({
   appbar: {
@@ -39,11 +41,20 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center'
   },
+  settingsBtn: {
+    marginRight: 5
+  },
   modeIcon: {
     color: theme.palette.background.paper
   },
   addCityButton: {
-    marginLeft: '1rem'
+    marginLeft: '1rem',
+    marginRight: '1rem'
+  },
+  flexCenter: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 }));
 
@@ -55,6 +66,9 @@ const Navbar: FC = () => {
   const {
     actions: { SettingsModalHandler }
   } = useContext(SettingsContext);
+  const {
+    state: { width }
+  } = useContext(ScreenSizesContext);
 
   const createFormHandler = () => {
     if (CreateFormHandler) {
@@ -71,33 +85,44 @@ const Navbar: FC = () => {
   return (
     <AppBar position="static" className={classes.appbar} color="transparent">
       <Toolbar className={classes.toolbar}>
-        <div className="content-center">
+        <div className={classes.flexCenter}>
           <Button onClick={ResetUrl}>
             <img className={classes.title} src={logo} alt="logo" />
           </Button>
-          <DashboardName />
+          {width && width <= 600 ? '' : <DashboardName />}
         </div>
         <div className={classes.buttons}>
           <IconButton
+            className={classes.settingsBtn}
             data-testid="settings-icon"
             onClick={settingsModalHandler}
           >
             <SettingsOutlined sx={{ color: '#fff' }} />
           </IconButton>
+          <CopyURLButton />
           <Tooltip
             title="Toggle, + or = to toggle drawer"
             enterDelay={1000}
             leaveDelay={200}
           >
-            <Button
-              variant="outlined"
-              color="inherit"
-              onClick={createFormHandler}
-              className={classes.addCityButton}
-              endIcon={<Add />}
-            >
-              Add City
-            </Button>
+            {width && width <= 600 ? (
+              <IconButton
+                data-testid="settings-icon"
+                onClick={createFormHandler}
+              >
+                <Add sx={{ color: '#fff' }} />
+              </IconButton>
+            ) : (
+              <Button
+                variant="outlined"
+                color="inherit"
+                onClick={createFormHandler}
+                className={classes.addCityButton}
+                endIcon={<Add />}
+              >
+                Add City
+              </Button>
+            )}
           </Tooltip>
         </div>
       </Toolbar>
