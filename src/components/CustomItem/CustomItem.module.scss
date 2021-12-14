@@ -1,0 +1,63 @@
+@import '../../assets/styles/index.scss';
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.city {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.countryLight {
+  font-size: 14px;
+  font-weight: 400;
+  color: $epam-black;
+}
+
+.countryDark {
+  font-size: 14px;
+  font-weight: 400;
+  color: $white;
+}
+
+.disabledLight {
+  background-color: $light-gray;
+  pointer-events: none;
+}
+
+.disabledDark {
+  background-color: $white;
+  pointer-events: none;
+}
+
+.badgeLight {
+  display: block;
+
+  & span.MuiBadge-badge {
+    transform: translate(0, -50%);
+    padding: 1em;
+    background-color: $epam-blue;
+    color: white;
+  }
+}
+
+.badgeDark {
+  display: block;
+
+  & span.MuiBadge-badge {
+    transform: translate(0, -50%);
+    padding: 1em;
+    background-color: $dark-blue;
+    color: white;
+  }
+}
