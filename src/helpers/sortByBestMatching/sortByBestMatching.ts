@@ -1,5 +1,5 @@
-import { ICityData } from '../../types/timezones';
 import { IMatchingLocation, TTimezone } from '../../types/location';
+import { ICityData } from '../../types/timezones';
 
 function compareTwoStrings(first: string, second: string): number {
   const one = first.replace(/\s+/g, '');
