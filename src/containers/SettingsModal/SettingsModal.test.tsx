@@ -1,8 +1,9 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SettingsModal from './SettingsModal';
-import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../../constants';
+
 import { SettingsContext } from '../../context/settings';
+import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../../constants';
+import SettingsModal from './SettingsModal';
 
 const MockSettingsModalHandler = jest.fn();
 const MockSetItem = jest.fn();
