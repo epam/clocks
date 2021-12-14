@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+
 import LocationOffsets from './LocationOffsets';
 
 describe('LocationOffsets in different conditions', () => {

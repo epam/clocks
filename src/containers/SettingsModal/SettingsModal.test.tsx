@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import SettingsModal from './SettingsModal';
+
 import {
   AUTO_THEMING,
   HAS_COUNTRY,
@@ -11,6 +11,8 @@ import {
 } from '../../constants';
 import { SettingsContext } from '../../context/settings';
 import { ThemeContext, ThemeProvider } from '../../context/theme';
+
+import SettingsModal from './SettingsModal';
 
 const MockSettingsModalHandler = jest.fn();
 const MockSetItem = jest.fn();

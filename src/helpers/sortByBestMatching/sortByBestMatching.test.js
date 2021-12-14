@@ -1,5 +1,5 @@
-import sortBestMatch from './sortByBestMatching';
 import lookupTimezones from '../lookupTimezones/lookupTimezones';
+import sortBestMatch from './sortByBestMatching';
 
 // get sample array of object
 const data = lookupTimezones('Asia/Seoul');

@@ -1,6 +1,4 @@
-interface IColor {
-  [colorName: string]: string;
-}
+import { IColor } from './colors.interface';
 
 const EpamColors: IColor = {
   epamBlue: '#76CDD8',

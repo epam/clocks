@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import InputDrawer from './InputDrawer';
+
 import { LocationsContext } from '../../context/locations';
+import InputDrawer from './InputDrawer';
 
 const MockComponent = ({ open, close, AddLocationMock }: any) => {
   const GetLocationsFromUrl = () => [
