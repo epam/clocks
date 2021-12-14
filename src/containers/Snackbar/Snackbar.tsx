@@ -1,6 +1,6 @@
 import { FC, useContext, SyntheticEvent } from 'react';
 import { Snackbar as MuiSnackbar } from '@material-ui/core';
-import MuiAlert from '@material-ui/lab/Alert';
+import { Alert as MuiAlert } from '@material-ui/lab';
 import { SnackbarContext } from '../../context/snackbar';
 
 const Snackbar: FC = () => {
