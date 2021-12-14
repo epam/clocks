@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
+
 import { CURRENT_USER_LOCATION_ID } from '../../constants';
 import { useLocalStorage } from './useLocalStorage';
 

@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react-hooks';
+
 import { useUrl } from './useUrl';
 
 const MockFunction = jest.fn();

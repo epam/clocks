@@ -1,9 +1,10 @@
 import { useContext } from 'react';
-import { useQueryParams } from '../useQueryParams';
+
+import { SnackbarContext } from '../../context/snackbar';
 import { getCurrentUserLocation } from '../../handlers';
 import { CheckForCityExistence } from '../../helpers/index';
-import { SnackbarContext } from '../../context/snackbar';
 import { PARAM_KEYWORD } from '../../constants';
+import { useQueryParams } from '../useQueryParams';
 import { TLocationId } from '../../types/location';
 
 export const useUrl = () => {

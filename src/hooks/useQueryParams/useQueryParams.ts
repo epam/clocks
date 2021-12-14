@@ -1,4 +1,5 @@
 import { useHistory, useLocation } from 'react-router-dom';
+
 import { useBase64 } from '../useBase64';
 
 const useQueryParams = () => {

@@ -1,6 +1,7 @@
 import { renderHook } from '@testing-library/react-hooks';
-import { PARAM_KEYWORD } from '../../constants';
+
 import { getCurrentUserLocation } from '../../handlers';
+import { PARAM_KEYWORD } from '../../constants';
 import { useUrl } from './useUrl';
 
 const MockSetParam = jest.fn();
