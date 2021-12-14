@@ -115,7 +115,7 @@ const Location: FC<IAppLocation> = ({
           </div>
         ) : message ? (
           <div className={`${css.message} ${classes.grey}`}>
-            {ReactHtmlParser(message)}
+            <div className={css.messageText}>{ReactHtmlParser(message)}</div>
             <IconButton
               data-testid="pencil-icon"
               onClick={() => setMessageVisibility(true)}
