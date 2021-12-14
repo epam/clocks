@@ -1,13 +1,14 @@
 import { Switch, Route } from 'react-router-dom';
-import { LocationsProvider } from '../../context/locations';
-import Dashboard from '../../pages/Dashboard';
-import '../../assets/styles/index.scss';
+
+import { ThemeProvider } from '../../context/theme';
+import { ScreenSizesProvider } from '../../context/screenSizes';
+import { SettingsProvider } from '../../context/settings';
 import { SnackbarProvider } from '../../context/snackbar';
 import { PlanningModeProvider } from '../../context/planningMode';
 import { ModalProvider } from '../../context/modal';
-import { ThemeProvider } from '../../context/theme';
-import { SettingsProvider } from '../../context/settings';
-import { ScreenSizesProvider } from '../../context/screenSizes';
+import { LocationsProvider } from '../../context/locations';
+import Dashboard from '../../pages/Dashboard';
+import '../../assets/styles/index.scss';
 
 function App() {
   return (

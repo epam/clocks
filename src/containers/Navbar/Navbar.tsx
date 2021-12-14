@@ -13,6 +13,7 @@ import logo from '../../assets/images/logo.svg';
 import { DashboardName } from '../../components/DashboardName';
 import { LocationsContext } from '../../context/locations';
 import { SettingsContext } from '../../context/settings';
+import CopyURLButton from '../../components/CopyURLButton';
 import { ScreenSizesContext } from '../../context/screenSizes';
 import { EpamColors } from '../../constants';
 
@@ -41,11 +42,15 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     alignItems: 'center'
   },
+  settingsBtn: {
+    marginRight: 5
+  },
   modeIcon: {
     color: theme.palette.background.paper
   },
   addCityButton: {
-    marginLeft: '1rem'
+    marginLeft: '1rem',
+    marginRight: '1rem'
   },
   flexCenter: {
     display: 'flex',
@@ -89,11 +94,13 @@ const Navbar: FC = () => {
         </div>
         <div className={classes.buttons}>
           <IconButton
+            className={classes.settingsBtn}
             data-testid="settings-icon"
             onClick={settingsModalHandler}
           >
             <SettingsOutlined sx={{ color: '#fff' }} />
           </IconButton>
+          <CopyURLButton />
           <Tooltip
             title="Toggle, + or = to toggle drawer"
             enterDelay={1000}
