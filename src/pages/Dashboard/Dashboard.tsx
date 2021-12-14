@@ -1,10 +1,7 @@
 import { useContext, KeyboardEvent, useMemo } from 'react';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
 import { makeStyles } from '@material-ui/core';
 
 import { LocationsContext } from '../../context/locations';
-import { SnackbarContext } from '../../context/snackbar';
 import Location from '../../containers/Location';
 import Navbar from '../../containers/Navbar';
 import Footer from '../../containers/Footer';
@@ -13,6 +10,7 @@ import DeleteModal from '../../containers/DeleteModal';
 import SettingsModal from '../../containers/SettingsModal';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { CLOCKS_FONT, CLOCKS_FONTS } from '../../constants';
+import Snackbar from '../../containers/Snackbar';
 
 import styles from './Dashboard.module.scss';
 
@@ -34,10 +32,6 @@ const Dashboard = () => {
     state: { hasCreateForm, locations },
     actions: { CreateFormHandler }
   } = useContext(LocationsContext);
-  const {
-    state: { isSnackbarOpen, message },
-    actions: { SnackbarHandler }
-  } = useContext(SnackbarContext);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === '=' || event.key === '+') {
@@ -48,7 +42,6 @@ const Dashboard = () => {
     }
   };
 
-  const snackbarHandler = () => SnackbarHandler && SnackbarHandler(false);
   const createFormHandler = (isVisible?: boolean) =>
     CreateFormHandler && CreateFormHandler(isVisible);
 
@@ -79,25 +72,7 @@ const Dashboard = () => {
           setVisibility={createFormHandler}
         />
       </div>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'left'
-        }}
-        open={isSnackbarOpen}
-        autoHideDuration={3}
-        message={message || ''}
-        action={
-          <IconButton
-            size="small"
-            aria-label="close"
-            color="inherit"
-            onClick={snackbarHandler}
-          >
-            x
-          </IconButton>
-        }
-      />
+      <Snackbar />
       <Footer />
     </div>
   );
