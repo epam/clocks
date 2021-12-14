@@ -4,6 +4,9 @@ import generateIdFormat from './generateIdFormat/generateIdFormat';
 import getUserLocation from './getUserLocation/getUserLocation';
 import getGreenwichMainTime from './getGreenwichMainTime/getGreenwichMainTime';
 import getGmtOffset from './getGmtOffset/getGmtOffset';
+import getUserTheme from './getUserTheme/getUserTheme';
+import getComputerTheme from './getComputerTheme/getComputerTheme';
+import checkComputerThemeSupport from './checkComputerThemeSupport/checkComputerThemeSupport';
 
 export {
   convertData,
@@ -11,5 +14,8 @@ export {
   getCurrentUserLocation,
   getGreenwichMainTime,
   getUserLocation,
-  generateIdFormat
+  generateIdFormat,
+  getUserTheme,
+  getComputerTheme,
+  checkComputerThemeSupport
 };
