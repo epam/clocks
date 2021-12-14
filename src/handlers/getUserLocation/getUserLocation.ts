@@ -1,16 +1,11 @@
-import { ICityData } from '../../types/timezones';
-import { cityMapping } from '../../constants';
 import generateIdFormat from '../generateIdFormat/generateIdFormat';
-
-interface UserLocation {
-  error: boolean;
-  message: string;
-  id: string;
-}
+import { cityMapping } from '../../constants';
+import { ICityData } from '../../types/timezones';
+import { IUserLocation } from './getUserLocation.interface';
 
 const locations: ICityData[] = [...cityMapping];
 
-async function getUserLocation(): Promise<UserLocation> {
+async function getUserLocation(): Promise<IUserLocation> {
   let error = false;
   let message = '';
   let id = '';

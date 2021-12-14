@@ -1,10 +1,11 @@
 import moment from 'moment-timezone';
-import { ICityData } from '../../types/timezones';
+
 import generateIdFormat from '../generateIdFormat/generateIdFormat';
-import { CURRENT_USER_LOCATION_ID } from '../../constants';
-import { lookupTimezones, sortBestMatch } from '../../helpers';
 import getUserLocation from '../getUserLocation/getUserLocation';
-import { getGreenwichMainTime } from '..';
+import { lookupTimezones, sortBestMatch } from '../../helpers';
+import { CURRENT_USER_LOCATION_ID } from '../../constants';
+import { getGreenwichMainTime } from '../index';
+import { ICityData } from '../../types/timezones';
 
 const getCurrentUserLocation = async (): Promise<string> => {
   const currentUserLocationId = localStorage.getItem(CURRENT_USER_LOCATION_ID);

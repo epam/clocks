@@ -1,29 +1,20 @@
 import moment from 'moment-timezone';
-import { ICityData } from '../../types/timezones';
+
 import { generateIdFormat } from '../index';
-import {
-  IAppLocation,
-  IOffset,
-  IUrlLocation,
-  TCity,
-  TCountry,
-  TLocationId,
-  TTimezone
-} from '../../types/location';
 import {
   HAS_COUNTRY,
   HAS_DATE,
   HAS_TIMEZONE,
   cityMapping
 } from '../../constants';
-
-interface IConvertedObject {
-  id: TLocationId;
-  city: TCity;
-  country: TCountry;
-  timezone: TTimezone;
-  message: string;
-}
+import {
+  IAppLocation,
+  IOffset,
+  IUrlLocation,
+  TLocationId
+} from '../../types/location';
+import { ICityData } from '../../types/timezones';
+import { IConvertedObject } from './converdData.interface';
 
 const findOffset = (myTimezone?: string, otherTimezone?: string): IOffset => {
   if (!myTimezone || !otherTimezone) {

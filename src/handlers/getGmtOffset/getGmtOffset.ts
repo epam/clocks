@@ -1,4 +1,5 @@
 import moment from 'moment-timezone';
+
 import { TTimezone } from '../../types/location';
 
 const getGmtOffset = (timezone: TTimezone) => {
