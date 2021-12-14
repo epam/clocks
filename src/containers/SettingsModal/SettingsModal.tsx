@@ -185,16 +185,18 @@ function SettingsModal() {
     setHasTimezone(getStorageValue(HAS_TIMEZONE));
     handleClose();
     if (!ThemeHandler || !AutoThemingHandler) return;
-    const isAutoThemingOn = JSON.parse(getItem(AUTO_THEMING) || '');
-    // @ts-ignore
+    const isAutoThemingOn: boolean | undefined = JSON.parse(
+      getItem(AUTO_THEMING) || ''
+    );
     AutoThemingHandler(isAutoThemingOn);
     if (isAutoThemingOn) {
       const computerTheme = getComputerTheme();
       ThemeHandler(computerTheme);
     } else {
       const theme = getItem(THEME) || THEMES.light;
-      // @ts-ignore
-      ThemeHandler(theme);
+      if (theme === 'light' || theme === 'dark') {
+        ThemeHandler(theme);
+      }
     }
   };
 
