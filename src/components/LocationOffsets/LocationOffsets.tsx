@@ -1,7 +1,5 @@
 import { FC } from 'react';
-import { makeStyles } from '@material-ui/core';
-
-import style from './LocationOffsets.module.scss';
+import { makeStyles, Typography } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
   host: {
@@ -11,6 +9,9 @@ const useStyle = makeStyles(theme => ({
     borderRadius: 20,
     fontSize: '13px',
     width: '100px'
+  },
+  text: {
+    color: theme.palette.grey[300]
   }
 }));
 
@@ -39,9 +40,16 @@ const LocationOffsets: FC<IProps> = ({ hours, minutes, host }) => {
   }
 
   return (
-    <div className={style.text}>
-      {!strHour ? 'Same Time' : `${sign} ${strHour} ${strMinute}`}
-    </div>
+    <Typography variant="subtitle2" className={css.text}>
+      {!strHour ? (
+        'Same Time'
+      ) : (
+        <>
+          {sign}
+          {` ${strHour} ${strMinute}`}
+        </>
+      )}
+    </Typography>
   );
 };
 

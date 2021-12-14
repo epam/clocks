@@ -82,7 +82,7 @@ describe('test Location component', () => {
     const recycleBinIcon = getByTestId(/DeleteButton/i);
     const commentButton = getByTestId('commentButton');
     const city = getByRole('heading', { name: 'Tashkent' });
-    expect(headings.length).toBe(3);
+    expect(headings.length).toBe(4);
     expect(recycleBinIcon).toBeInTheDocument();
     expect(city).toBeInTheDocument();
     expect(commentButton).toBeInTheDocument();
