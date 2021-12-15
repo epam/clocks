@@ -1,7 +1,6 @@
 import { useContext, useRef, useState, useEffect, FC } from 'react';
 import { IconButton, Button } from '@material-ui/core';
 import { EditOutlined, DeleteOutline, HomeOutlined } from '@mui/icons-material';
-import { makeStyles } from '@material-ui/core/styles';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser from 'react-html-parser';
@@ -13,19 +12,7 @@ import { ModalContext } from '../../context/modal';
 import { editorConfig } from '../../constants';
 import { IAppLocation } from '../../types/location';
 
-import css from './Location.module.scss';
-
-const useStyles = makeStyles(theme => ({
-  button: {
-    background: theme.palette.background.default
-  },
-  grey: {
-    color: theme.palette.grey[300]
-  },
-  mt20: {
-    marginTop: '20px'
-  }
-}));
+import styles from './Location.module.scss';
 
 const Location: FC<IAppLocation> = ({
   offset,
@@ -34,7 +21,6 @@ const Location: FC<IAppLocation> = ({
   message,
   ...props
 }) => {
-  const classes = useStyles();
   const { hours, minutes } = offset;
   const {
     actions: { AddComment, ChangeUserCurrentLocation }
@@ -77,13 +63,13 @@ const Location: FC<IAppLocation> = ({
     ChangeUserCurrentLocation && ChangeUserCurrentLocation(id);
 
   return (
-    <div className={css.card}>
-      <div className={css['recycle-bin']}>
+    <div className={styles.card}>
+      <div className={styles['recycle-bin']}>
         {!host && (
           <IconButton
             data-testid="HomeIconButton"
             onClick={changeUserCurrentLocation}
-            className={classes.button}
+            className={styles.button}
           >
             <HomeOutlined />
           </IconButton>
@@ -91,12 +77,12 @@ const Location: FC<IAppLocation> = ({
         <IconButton
           data-testid="DeleteButton"
           onClick={openDeleteModal}
-          className={classes.button}
+          className={styles.button}
         >
           <DeleteOutline />
         </IconButton>
       </div>
-      <div className={css.content}>
+      <div className={styles.content}>
         <LocationContent
           hours={hours}
           minutes={minutes}
@@ -105,7 +91,7 @@ const Location: FC<IAppLocation> = ({
         />
 
         {messageVisibility ? (
-          <div className={css.ckEditorContainer}>
+          <div className={styles.ckEditorContainer}>
             <CKEditor
               editor={ClassicEditor}
               config={editorConfig}
@@ -115,18 +101,18 @@ const Location: FC<IAppLocation> = ({
             />
           </div>
         ) : message ? (
-          <div className={`${css.message} ${classes.grey}`}>
-            <div className={css.messageText}>{ReactHtmlParser(message)}</div>
+          <div className={`${styles.message} ${styles.grey}`}>
+            {ReactHtmlParser(message)}
             <IconButton
               data-testid="pencil-icon"
               onClick={() => setMessageVisibility(true)}
             >
-              <EditOutlined className={classes.grey} />
+              <EditOutlined className={styles.grey} />
             </IconButton>
           </div>
         ) : (
           <Button
-            className={`${css['comment-icon']} ${classes.button} ${classes.grey} ${classes.mt20}`}
+            className={`${styles['comment-icon']} ${styles.button} ${styles.grey} ${styles.mt20}`}
             data-testid="commentButton"
             onClick={() => setMessageVisibility(true)}
             variant="outlined"
