@@ -1,32 +1,19 @@
-import { FC } from 'react';
-import { makeStyles, Typography } from '@material-ui/core';
+import { FC, useContext } from 'react';
+import clsx from 'clsx';
 
+import { ThemeContext } from '../../context/theme';
 import { ILocationOffsetsProps } from './LocationOffsets.interface';
 
-import style from './LocationOffsets.module.scss';
-
-const useStyle = makeStyles(theme => ({
-  host: {
-    padding: '1px 8px',
-    marginBottom: '5px',
-    color: 'white',
-    backgroundColor: theme.palette.primary.main,
-    borderRadius: 20,
-    fontSize: '13px',
-    width: '100px'
-  },
-  text: {
-    color: theme.palette.grey[300],
-    fontSize: '14px'
-  }
-}));
+import styles from './LocationOffsets.module.scss';
 
 const LocationOffsets: FC<ILocationOffsetsProps> = ({
   hours,
   minutes,
   host
 }) => {
-  const css = useStyle();
+  const {
+    state: { type }
+  } = useContext(ThemeContext);
   const strHour =
     hours !== 0
       ? `${Math.abs(hours)} ${Math.abs(hours) <= 1 ? ' hour ' : ' hours '}`
@@ -40,20 +27,22 @@ const LocationOffsets: FC<ILocationOffsetsProps> = ({
     hours < 0 || minutes < 0 ? '-' : hours === 0 && minutes === 0 ? '' : '+';
 
   if (host) {
-    return <div className={css.host}>You are here</div>;
+    return (
+      <div
+        className={clsx(
+          { [styles.hostLight]: type === 'light' },
+          { [styles.hostDark]: type === 'dark' }
+        )}
+      >
+        You are here
+      </div>
+    );
   }
 
   return (
-    <Typography variant="subtitle2" className={css.text}>
-      {!strHour ? (
-        'Same Time'
-      ) : (
-        <>
-          {sign}
-          {` ${strHour} ${strMinute}`}
-        </>
-      )}
-    </Typography>
+    <div className={styles.text}>
+      {!strHour ? 'Same Time' : `${sign} ${strHour} ${strMinute}`}
+    </div>
   );
 };
 
