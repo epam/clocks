@@ -38,17 +38,15 @@ const LocationContent: FC<ILocationContentProps> = ({
     <div className={styles.locationContent}>
       <div className={styles['date-and-time']}>
         {hasDate && (
-          <Typography
-            paragraph
-            variant="subtitle2"
+          <div
             data-testid="date"
-            className={clsx(styles['m0'], {
+            className={clsx(styles.m0, {
               [styles.defaultLight]: type === 'light',
               [styles.defaultDark]: type === 'dark'
             })}
           >
             {time.format('D MMM').toUpperCase()}
-          </Typography>
+          </div>
         )}
         <span
           className={clsx({

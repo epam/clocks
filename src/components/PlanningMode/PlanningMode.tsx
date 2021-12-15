@@ -1,40 +1,18 @@
 import { useContext } from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Switch from '@material-ui/core/Switch';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Slider from '@material-ui/core/Slider';
+
 import { PlanningModeContext } from '../../context/planningMode';
 import { marks } from './marks';
 
-const useStyles = makeStyles(theme => ({
-  planningModeContainer: {
-    marginLeft: 'auto',
-    marginRight: '1em',
-    display: 'flex',
-    alignItems: 'center'
-  },
-  scrollbarContainer: {
-    opacity: 0,
-    color: 'white',
-    width: '500px',
-    display: 'flex',
-    paddingTop: '40px',
-    transition: 'all .3s ease-in-out'
-  },
-  open: {
-    opacity: 1
-  },
-  white: {
-    color: 'white!important'
-  }
-}));
+import styles from './PlanningMode.module.scss';
 
 function valuetext(value: number) {
   return `${value}PM`;
 }
 
 const PlanningMode = () => {
-  const classes = useStyles();
   const {
     state: { isPlanningModeOn },
     actions: { PlanningModeHandler }
@@ -47,10 +25,10 @@ const PlanningMode = () => {
   };
 
   return (
-    <div className={classes.planningModeContainer}>
+    <div className={styles.planningModeContainer}>
       <div
-        className={`${classes.scrollbarContainer} ${
-          isPlanningModeOn && classes.open
+        className={`${styles.scrollbarContainer} ${
+          isPlanningModeOn && styles.open
         }`}
       >
         <Slider
@@ -63,8 +41,8 @@ const PlanningMode = () => {
           valueLabelDisplay="auto"
           marks={marks}
           classes={{
-            root: classes.white,
-            markLabel: classes.white
+            root: styles.white,
+            markLabel: styles.white
           }}
         />
       </div>
