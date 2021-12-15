@@ -3,7 +3,8 @@ import { makeStyles, Typography } from '@material-ui/core';
 
 const useStyle = makeStyles(theme => ({
   host: {
-    padding: '4px 8px',
+    padding: '1px 8px',
+    marginBottom: '6px',
     color: 'white',
     backgroundColor: theme.palette.primary.main,
     borderRadius: 20,
