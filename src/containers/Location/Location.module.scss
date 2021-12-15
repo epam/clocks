@@ -62,11 +62,14 @@
 
 .message {
   display: flex;
-  align-items: flex-end;
   min-height: 42px;
   white-space: pre-wrap;
-  align-items: center;
+  align-items: flex-start;
   margin-top: 15px;
   position: relative;
   left: 20px;
+
+  .messageText {
+    margin-top: 16px;
+  }
 }
