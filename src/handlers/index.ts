@@ -7,6 +7,7 @@ import getGmtOffset from './getGmtOffset/getGmtOffset';
 import getUserTheme from './getUserTheme/getUserTheme';
 import getComputerTheme from './getComputerTheme/getComputerTheme';
 import checkComputerThemeSupport from './checkComputerThemeSupport/checkComputerThemeSupport';
+import getClockFieldStorageValue from './getClockFieldStorageValue/getClockFieldStorageValue';
 
 export {
   convertData,
@@ -17,5 +18,6 @@ export {
   generateIdFormat,
   getUserTheme,
   getComputerTheme,
-  checkComputerThemeSupport
+  checkComputerThemeSupport,
+  getClockFieldStorageValue
 };
