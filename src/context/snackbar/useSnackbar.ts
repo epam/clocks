@@ -2,18 +2,18 @@ import { useState } from 'react';
 
 import {
   ISnackbarContext,
-  Position,
-  Status
+  ISnackbarContextPosition,
+  TSnackbarContextStatus
 } from './SnackbarContext.interface';
 
 export const useSnackbar = (): ISnackbarContext => {
   const [isSnackbarOpen, setIsSnackbarOpen] = useState(false);
   const [message, setMessage] = useState('');
-  const [position, setPosition] = useState<Position>({
+  const [position, setPosition] = useState<ISnackbarContextPosition>({
     vertical: 'bottom',
     horizontal: 'center'
   });
-  const [status, setStatus] = useState<Status>('success');
+  const [status, setStatus] = useState<TSnackbarContextStatus>('success');
 
   const SnackbarHandler = (isOpen?: boolean) => {
     if (typeof isOpen === 'boolean') {
@@ -24,8 +24,8 @@ export const useSnackbar = (): ISnackbarContext => {
 
   const OpenSnackbar = (
     message: string,
-    status?: Status,
-    position?: Position
+    status?: TSnackbarContextStatus,
+    position?: ISnackbarContextPosition
   ) => {
     if (status) {
       setStatus(status);
@@ -39,11 +39,11 @@ export const useSnackbar = (): ISnackbarContext => {
   const SetSnackbarPosition = ({
     vertical = 'bottom',
     horizontal = 'center'
-  }: Position) => {
+  }: ISnackbarContextPosition) => {
     setPosition({ vertical, horizontal });
   };
 
-  const SetSnackbarStatus = (status: Status = 'success') => {
+  const SetSnackbarStatus = (status: TSnackbarContextStatus = 'success') => {
     setStatus(status);
   };
 

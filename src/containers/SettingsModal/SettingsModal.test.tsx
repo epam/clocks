@@ -1,6 +1,9 @@
+import { ReactNode } from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { ThemeContext, ThemeProvider } from '../../context/theme';
+import { SettingsContext } from '../../context/settings';
 import {
   AUTO_THEMING,
   HAS_COUNTRY,
@@ -9,8 +12,6 @@ import {
   THEME,
   THEMES
 } from '../../constants';
-import { SettingsContext } from '../../context/settings';
-import { ThemeContext, ThemeProvider } from '../../context/theme';
 
 import SettingsModal from './SettingsModal';
 
@@ -22,7 +23,7 @@ const MockAutoThemingHandler = jest.fn();
 jest.mock('../../hooks/useLocalStorage', () => ({
   useLocalStorage: () => ({
     setItem: MockSetItem,
-    getItem: key => {
+    getItem: (key: string) => {
       switch (key) {
         case 'THEME':
           return 'dark';
@@ -53,7 +54,7 @@ const localStorageMock = {
   clear: jest.fn()
 };
 
-const MockMatchMedia = query => {
+const MockMatchMedia = (query: string) => {
   switch (query) {
     case '(prefers-color-scheme)':
       return {
@@ -89,7 +90,7 @@ const settingsWrapper = (children: any) => {
   );
 };
 
-const mockThemeWrapper = children => {
+const mockThemeWrapper = (children: ReactNode) => {
   const store = {
     actions: {
       ThemeHandler: MockThemeHandler,

@@ -2,12 +2,13 @@ import { useState, useEffect } from 'react';
 
 import themes from '../../assets/themes/themes';
 import { AUTO_THEMING, THEME, THEMES } from '../../constants';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 import {
   getUserTheme,
   getComputerTheme,
   checkComputerThemeSupport
 } from '../../handlers';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
+
 import { TTheme } from './ThemeContext.interface';
 
 export const useTheme = () => {
