@@ -30,34 +30,36 @@
   color: $white;
 }
 
-.disabledLight {
-  background-color: $light-gray;
+.disabled {
   pointer-events: none;
 }
 
-.disabledDark {
-  background-color: $white;
-  pointer-events: none;
-}
+.badgeRoot {
+  display: block !important;
 
-.badgeLight {
-  display: block;
-
-  & span.MuiBadge-badge {
+  .badge {
     transform: translate(0, -50%);
     padding: 1em;
+    color: white;
+  }
+
+  .badgeLight {
+    @extend .badge;
     background-color: $epam-blue;
-    color: white;
+  }
+
+  .badgeDark {
+    @extend .badge;
+    background-color: $bright-blue;
   }
 }
 
-.badgeDark {
-  display: block;
+.itemLight {
+  background-color: #ffffff;
+  box-shadow: rgb(212, 217, 225) 0 1px 3px 0;
+}
 
-  & span.MuiBadge-badge {
-    transform: translate(0, -50%);
-    padding: 1em;
-    background-color: $dark-blue;
-    color: white;
-  }
+.itemDark {
+  background-color: #424242;
+  box-shadow: rgb(34, 34, 34) 0 1px 3px 0;
 }
