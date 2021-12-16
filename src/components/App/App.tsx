@@ -8,6 +8,7 @@ import { PlanningModeProvider } from '../../context/planningMode';
 import { ModalProvider } from '../../context/modal';
 import { LocationsProvider } from '../../context/locations';
 import Dashboard from '../../pages/Dashboard';
+
 import '../../assets/styles/index.scss';
 
 function App() {
