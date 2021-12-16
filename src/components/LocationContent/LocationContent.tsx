@@ -38,7 +38,7 @@ const LocationContent: FC<ILocationContentProps> = ({
     <div className={styles.locationContent}>
       <div className={styles['date-and-time']}>
         {hasDate && (
-          <div
+          <Typography
             data-testid="date"
             className={clsx(styles.m0, {
               [styles.defaultLight]: type === 'light',
@@ -46,7 +46,7 @@ const LocationContent: FC<ILocationContentProps> = ({
             })}
           >
             {time.format('D MMM').toUpperCase()}
-          </div>
+          </Typography>
         )}
         <span
           className={clsx({
@@ -72,7 +72,7 @@ const LocationContent: FC<ILocationContentProps> = ({
           [styles.cityCountryDark]: type === 'dark'
         })}
       >
-        <Typography className={styles.mt15} variant="h5">
+        <Typography classes={{ root: styles.mt15 }} variant="h5">
           {city}
         </Typography>
         {hasCountry && <div>{country}</div>}
