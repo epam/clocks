@@ -1,4 +1,3 @@
-import { EpamColors } from './colors';
 import { editorConfig } from './ckeditorConfig';
 import { InitialContext } from './initialContext';
 import { CLOCKS_FONTS } from './fonts';
@@ -19,7 +18,6 @@ export {
   PARAM_KEYWORD,
   HAS_COUNTRY,
   HAS_DATE,
-  EpamColors,
   CURRENT_USER_LOCATION_ID,
   InitialContext,
   DASHBOARD_PARAM_KEYWORD,
