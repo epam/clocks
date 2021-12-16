@@ -1,5 +1,5 @@
 import { AUTO_THEMING, THEME, THEMES } from '../../constants';
-import { TTheme } from '../../context/theme/ThemeContext.type';
+import { TTheme } from '../../context/theme/ThemeContext.interface';
 import getComputerTheme from '../getComputerTheme/getComputerTheme';
 import checkComputerThemeSupport from '../checkComputerThemeSupport/checkComputerThemeSupport';
 

@@ -1,4 +1,4 @@
-import { TTheme } from '../context/theme/ThemeContext.type';
+import { TTheme } from '../context/theme/ThemeContext.interface';
 
 interface IThemes {
   [name: string]: TTheme;

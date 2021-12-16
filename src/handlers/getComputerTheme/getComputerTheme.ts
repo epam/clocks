@@ -1,5 +1,5 @@
 import { THEMES } from '../../constants';
-import { TTheme } from '../../context/theme/ThemeContext.type';
+import { TTheme } from '../../context/theme/ThemeContext.interface';
 
 function getComputerTheme(): TTheme {
   const darkModeMediaQuery = window.matchMedia(
