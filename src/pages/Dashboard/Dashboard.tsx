@@ -1,5 +1,5 @@
 import { useContext, KeyboardEvent, useMemo } from 'react';
-import { makeStyles } from '@material-ui/core';
+import clsx from 'clsx';
 
 import { LocationsContext } from '../../context/locations';
 import Location from '../../containers/Location';
@@ -9,29 +9,21 @@ import InputDrawer from '../../containers/InputDrawer';
 import DeleteModal from '../../containers/DeleteModal';
 import SettingsModal from '../../containers/SettingsModal';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { CLOCKS_FONT, CLOCKS_FONTS } from '../../constants';
+import { CLOCKS_FONT, CLOCKS_FONTS, THEMES } from '../../constants';
 import Snackbar from '../../containers/Snackbar';
 
 import styles from './Dashboard.module.scss';
-
-const useStyles = makeStyles(theme => ({
-  container: {
-    maxWidth: '100%',
-    margin: 0,
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-    background: theme.palette.background.default,
-    textAlign: 'center'
-  }
-}));
+import { ThemeContext } from '../../context/theme';
 
 const Dashboard = () => {
-  const css = useStyles();
   const { getItem } = useLocalStorage();
   const {
     state: { hasCreateForm, locations },
     actions: { CreateFormHandler }
   } = useContext(LocationsContext);
+  const {
+    state: { type }
+  } = useContext(ThemeContext);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === '=' || event.key === '+') {
@@ -60,7 +52,12 @@ const Dashboard = () => {
       <Navbar />
       <DeleteModal />
       <SettingsModal />
-      <div className={css.container}>
+      <div
+        className={`${styles.container} ${clsx({
+          [styles['container-light']]: type === THEMES.light,
+          [styles['container-dark']]: type === THEMES.dark
+        })}`}
+      >
         {locations &&
           locations.map((props, index) => (
             <div key={index}>
