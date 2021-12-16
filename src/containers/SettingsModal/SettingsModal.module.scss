@@ -31,7 +31,7 @@
 
   .text-block {
     flex: 1 1 50px;
-    padding: 2rem;
+    padding: 32px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,7 +39,7 @@
   }
 
   .text {
-    font-size: 1.3rem;
+    font-size: 20px;
   }
 
   .text-dark {
@@ -109,7 +109,7 @@
     &::after {
       content: ':';
       position: relative;
-      top: -0.1em;
+      top: -2px;
       margin: 0 6px;
     }
   }
