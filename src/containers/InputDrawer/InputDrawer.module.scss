@@ -27,6 +27,12 @@
   padding: 0 16px;
   .drawerList {
     overflow-y: auto !important;
+
+    li {
+      padding: 8px;
+      border-radius: 4px;
+      margin: 10px 5px 0 5px
+    }
   }
 }
 
