@@ -4,7 +4,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Slider from '@material-ui/core/Slider';
 
 import { PlanningModeContext } from '../../context/planningMode';
-import { marks } from './marks';
+import { marks } from './PlanningMode.constants';
 
 import styles from './PlanningMode.module.scss';
 
