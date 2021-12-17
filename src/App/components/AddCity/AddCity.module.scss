@@ -1,0 +1,41 @@
+@import '../../styles/index.scss';
+
+.sidebarPaper {
+  width: 400px;
+
+  @include screenMax500 {
+    width: 100vw;
+  }
+}
+
+#toolbar {
+  font-family: 'Roboto';
+  padding-right: 20px !important;
+
+  #closeButton {
+    position: absolute;
+    right: 20px;
+    transform: translateY(-500px);
+    &:focus,
+    &:hover {
+      transform: translateY(0);
+    }
+  }
+}
+
+.drawerBody {
+  padding: 0 16px;
+  .drawerList {
+    overflow-y: auto !important;
+
+    li {
+      padding: 8px;
+      border-radius: 4px;
+      margin: 10px 5px 0 5px;
+    }
+  }
+}
+
+.textFieldSize {
+  width: 100%;
+}

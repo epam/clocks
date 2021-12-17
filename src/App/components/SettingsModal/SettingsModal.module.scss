@@ -1,0 +1,136 @@
+@import '../../styles/index.scss';
+
+.modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .paper {
+    min-height: 150px;
+    margin: 10px;
+    border-radius: 4px;
+    box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%),
+      0px 5px 8px 0px rgb(0 0 0 / 14%), 0px 1px 14px 0px rgb(0 0 0 / 12%);
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    @include screenMax500 {
+      width: 90vw;
+    }
+  }
+
+  .paper-light {
+    background-color: #fff;
+  }
+
+  .paper-dark {
+    background-color: $epam-black;
+  }
+
+  .text-block {
+    flex: 1 1 50px;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .text {
+    font-size: 20px;
+  }
+
+  .text-dark {
+    color: #000;
+  }
+
+  .text-light {
+    color: #fff;
+  }
+
+  .label {
+    font-family: Roboto;
+  }
+
+  .switch {
+    color: $epam-blue;
+  }
+
+  .select {
+    width: 200px;
+  }
+
+  .buttons-container {
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .button {
+    width: 50%;
+  }
+
+  .cancel-button {
+    margin: 0 5px 10px 10px;
+  }
+
+  .save-button {
+    opacity: 0.95;
+    margin: 0 10px 10px 5px;
+    color: white;
+    background-color: $epam-blue;
+    border-color: $epam-blue;
+
+    &:hover {
+      background-color: $epam-blue-dark;
+      border-color: $epam-blue-dark;
+    }
+  }
+
+  .grey {
+    color: $gray;
+  }
+
+  .default {
+    text-align: center;
+    margin: 0px;
+    position: relative;
+  }
+
+  .time {
+    display: flex;
+    position: relative;
+  }
+
+  .hour {
+    &::after {
+      content: ':';
+      position: relative;
+      top: -2px;
+      margin: 0 6px;
+    }
+  }
+
+  .mb20 {
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .mb25 {
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+  }
+
+  .bottom-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .mode-control-btn {
+    height: 56px;
+    margin-left: 10px;
+  }
+}

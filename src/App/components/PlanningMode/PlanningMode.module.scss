@@ -1,0 +1,23 @@
+.planningModeContainer {
+  margin-left: auto;
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+}
+
+.scrollbarContainer {
+  opacity: 0;
+  color: $white;
+  width: 500px;
+  display: flex;
+  padding-top: 40px;
+  transition: all 0.3s ease-in-out;
+}
+
+.open {
+  opacity: 1;
+}
+
+.white {
+  color: $white;
+}
