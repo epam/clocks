@@ -1,0 +1,40 @@
+@import '../../styles/index.scss';
+
+.app-bar {
+  box-shadow: none !important;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.06);
+  background-color: $epam-black !important;
+
+  .toolbar {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title {
+    height: 28px;
+    object-fit: cover;
+    cursor: pointer;
+    margin-right: 12px;
+  }
+
+  .buttons {
+    display: flex;
+    align-items: center;
+  }
+
+  .settings-btn {
+    margin-right: 5px;
+  }
+
+  .add-city-button {
+    margin-left: 16px;
+  }
+
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

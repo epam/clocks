@@ -1,0 +1,29 @@
+@import '../../../../styles/index.scss';
+
+.text {
+  font-size: 14px;
+  color: #bcb9b5;
+  margin-top: 4px;
+  margin-bottom: 3px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hostLight {
+  padding: 4px 8px;
+  color: $white;
+  background-color: $epam-blue;
+  border-radius: 20px;
+  font-size: 13px;
+  width: 100px;
+}
+
+.hostDark {
+  padding: 4px 8px;
+  color: $white;
+  background-color: $bright-blue;
+  border-radius: 20px;
+  font-size: 13px;
+  width: 100px;
+}

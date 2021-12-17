@@ -1,0 +1,23 @@
+@import '../../styles/index.scss';
+
+.body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  text-align: center;
+}
+
+.container-light {
+  background: $white;
+}
+
+.container-dark {
+  background: $graphite;
+}

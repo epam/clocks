@@ -1,0 +1,81 @@
+@import '../../../../styles/index.scss';
+
+.timezone {
+  font-size: 14px;
+}
+
+.locationContent {
+  @include screenMax500 {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .gray {
+    color: $gray;
+  }
+
+  .mt15 {
+    margin-top: 15px;
+  }
+
+  .defaultLight {
+    color: $epam-black;
+    text-align: center;
+  }
+
+  .defaultDark {
+    color: $white;
+    text-align: center;
+  }
+
+  .timeLight {
+    color: $epam-black;
+    display: flex;
+  }
+  .timeDark {
+    color: $white;
+    display: flex;
+  }
+
+  .hour {
+    &::after {
+      content: ':';
+      position: relative;
+      top: -2px;
+      margin: 0 6px;
+    }
+  }
+
+  .cityCountryLight {
+    color: $epam-black;
+    text-transform: uppercase;
+    text-align: center;
+  }
+
+  .cityCountryDark {
+    color: $white;
+    text-transform: uppercase;
+    text-align: center;
+  }
+  .m0 {
+    margin: 0;
+  }
+}
+
+.date-and-time {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  @include screenMax500 {
+    margin: 12px;
+  }
+}
+
+.location {
+  @include screenMax500 {
+    margin: 4px;
+  }
+}
