@@ -10,14 +10,14 @@ import {
 } from '@material-ui/core';
 import { Close } from '@mui/icons-material';
 
-import CustomItem from '../CustomItem';
+import CustomItem from '../../../Location/components/CustomItem';
 import {
   lookupCityAscii,
   sortBestMatch,
   generateIdFormat
-} from '../../handlers';
-import { LocationsContext } from '../../context/locations';
-import { ICityData, IMatchingLocation } from '../../lib/interfaces';
+} from '../../../../handlers';
+import { LocationsContext } from '../../../../context/locations';
+import { ICityData, IMatchingLocation } from '../../../../lib/interfaces';
 import { IInputDrawerProps } from './AddCity.interface';
 
 import css from './AddCity.module.scss';

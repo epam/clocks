@@ -9,10 +9,10 @@ import {
 import { SettingsOutlined, Add } from '@mui/icons-material';
 
 import logo from '../../images/logo.svg';
-import { DashboardName } from '../DashboardName';
+import { DashboardName } from './components/DashboardName';
 import { LocationsContext } from '../../context/locations';
 import { SettingsContext } from '../../context/settings';
-import CopyURLButton from '../CopyURLButton';
+import CopyURLButton from './components/CopyURLButton';
 import { ScreenSizesContext } from '../../context/screenSizes';
 
 import styles from './Navbar.module.scss';

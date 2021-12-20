@@ -3,7 +3,7 @@ import { MenuItem } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import clsx from 'clsx';
 
-import { ThemeContext } from '../../context/theme';
+import { ThemeContext } from '../../../../context/theme';
 import { ICustomItemProps } from './CustomItem.interface';
 
 import styles from './CustomItem.module.scss';

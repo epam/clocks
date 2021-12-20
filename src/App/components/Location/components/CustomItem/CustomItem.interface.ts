@@ -1,4 +1,4 @@
-import { ICityData } from '../../lib/interfaces';
+import { ICityData } from '../../../../lib/interfaces';
 
 export interface ICustomItemProps {
   target: ICityData;

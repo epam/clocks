@@ -2,8 +2,8 @@ import { ChangeEvent, useEffect, useState, FormEvent, FC } from 'react';
 import { Input, IconButton, Button } from '@material-ui/core';
 import { DeleteOutline, EditOutlined } from '@mui/icons-material';
 
-import { useQueryParams } from '../../hooks/useQueryParams';
-import { DASHBOARD_PARAM_KEYWORD } from '../../lib/constants';
+import { useQueryParams } from '../../../../hooks/useQueryParams';
+import { DASHBOARD_PARAM_KEYWORD } from '../../../../lib/constants';
 
 import styles from './DashboardName.module.scss';
 

@@ -14,7 +14,7 @@ import { Brightness7, Brightness4 } from '@mui/icons-material';
 import moment from 'moment-timezone';
 import clsx from 'clsx';
 
-import { EyeButton } from '../EyeButton';
+import { EyeButton } from './components/EyeButton';
 import { SettingsContext } from '../../context/settings';
 import { ThemeContext } from '../../context/theme';
 import { LocationsContext } from '../../context/locations';
