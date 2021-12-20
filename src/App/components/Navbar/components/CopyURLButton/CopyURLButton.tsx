@@ -2,8 +2,8 @@ import { FC, useState, useContext } from 'react';
 import { Button, IconButton } from '@material-ui/core';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
-import { SnackbarContext } from '../../context/snackbar';
-import { ScreenSizesContext } from '../../context/screenSizes';
+import { SnackbarContext } from '../../../../context/snackbar';
+import { ScreenSizesContext } from '../../../../context/screenSizes';
 
 const CopyURLButton: FC = () => {
   const {

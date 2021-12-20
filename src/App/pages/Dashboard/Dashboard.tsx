@@ -5,7 +5,7 @@ import { LocationsContext } from '../../context/locations';
 import Location from '../../components/Location';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import AddCity from '../../components/AddCity';
+import AddCity from '../../components/Navbar/components/AddCity';
 import DeleteModal from '../../components/DeleteModal';
 import SettingsModal from '../../components/SettingsModal';
 import { useLocalStorage } from '../../hooks/useLocalStorage';

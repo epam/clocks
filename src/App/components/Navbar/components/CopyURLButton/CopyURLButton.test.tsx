@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import CopyURLButton from './CopyURLButton';
-import { SnackbarContext } from '../../context/snackbar';
-import { ScreenSizesContext } from '../../context/screenSizes';
+import { SnackbarContext } from '../../../../context/snackbar';
+import { ScreenSizesContext } from '../../../../context/screenSizes';
 
 const MockComponent = ({ OpenSnackbar, width = 1980 }) => {
   const store = { actions: { OpenSnackbar }, state: {} };
