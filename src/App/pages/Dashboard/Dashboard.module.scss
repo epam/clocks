@@ -21,3 +21,24 @@
 .container-dark {
   background: $graphite;
 }
+
+.noCities {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $fs20;
+}
+
+.noCitiesLight {
+  color: $graphite;
+}
+
+.noCitiesDark {
+  color: $white;
+}
+
+@media screen and (max-width: 600px) {
+  .noCities {
+    font-size: $fs16;
+  }
+}
