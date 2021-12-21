@@ -13,10 +13,11 @@
   }
 
   .title {
-    height: 28px;
-    object-fit: cover;
-    cursor: pointer;
-    margin-right: 12px;
+    margin-right: $space-s;
+    img {
+      height: $space-xl;
+      object-fit: cover;
+    }
   }
 
   .buttons {
@@ -25,11 +26,11 @@
   }
 
   .settings-btn {
-    margin-right: 5px;
+    margin-right: $space-s;
   }
 
   .add-city-button {
-    margin-left: 16px;
+    margin-left: $space-s;
   }
 
   .flex-center {
