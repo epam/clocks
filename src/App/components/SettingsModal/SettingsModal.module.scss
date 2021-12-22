@@ -9,8 +9,8 @@
     min-height: 150px;
     margin: $space-s;
     border-radius: 4px;
-    box-shadow: 0 3px 5px -1px rgb(0, 0, 0, .2),
-      0 5px 8px 0px rgb(0, 0, 0, .14), 0 1px 14px 0 rgb(0, 0, 0, .12);
+    box-shadow: 0 3px 5px -1px rgb(0, 0, 0, 0.2),
+      0 5px 8px 0px rgb(0, 0, 0, 0.14), 0 1px 14px 0 rgb(0, 0, 0, 0.12);
     outline: none;
     display: flex;
     flex-direction: column;
@@ -56,10 +56,6 @@
 
   .switch {
     color: $epam-blue;
-  }
-
-  .select {
-    width: 200px;
   }
 
   .buttons-container {

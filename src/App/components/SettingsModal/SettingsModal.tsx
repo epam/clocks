@@ -2,8 +2,6 @@ import { FC, useContext, useMemo, useState } from 'react';
 import {
   Button,
   Typography,
-  Select,
-  MenuItem,
   Backdrop,
   Fade,
   FormControlLabel,
@@ -38,6 +36,7 @@ import {
 } from '../../lib/constants';
 import { IAppLocation } from '../../lib/interfaces';
 
+import { FontSelector } from './components/FontSelector';
 import styles from './SettingsModal.module.scss';
 
 const SettingsModal: FC = () => {
@@ -226,18 +225,7 @@ const SettingsModal: FC = () => {
               </Button>
             </div>
             <div className={styles['bottom-container']}>
-              <Select
-                variant="outlined"
-                className={styles.select}
-                onChange={(e: any) => setClocksFont(e.target.value)}
-                value={clocksFont}
-              >
-                {Object.values(CLOCKS_FONTS).map((font, index) => (
-                  <MenuItem value={font.value} key={`FONT${index}`}>
-                    {font.label}
-                  </MenuItem>
-                ))}
-              </Select>
+              <FontSelector font={clocksFont} changeHandler={setClocksFont} />
             </div>
           </div>
           <div className={styles['buttons-container']}>
