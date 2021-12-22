@@ -3,7 +3,6 @@ import { Button, Typography, Backdrop, Fade, Modal } from '@material-ui/core';
 import moment from 'moment-timezone';
 import clsx from 'clsx';
 
-import { EyeButton } from './components/EyeButton';
 import { SettingsContext } from '../../context/settings';
 import { ThemeContext } from '../../context/theme';
 import { LocationsContext } from '../../context/locations';
@@ -29,6 +28,7 @@ import { IAppLocation } from '../../lib/interfaces';
 import { FontSelector } from './components/FontSelector';
 import styles from './SettingsModal.module.scss';
 import { Theming } from './components/Theming';
+import { Heading } from './components/Heading';
 
 const SettingsModal: FC = () => {
   const [hasCountry, setHasCountry] = useState<boolean>(
@@ -149,40 +149,37 @@ const SettingsModal: FC = () => {
             [styles['paper-dark']]: type === THEMES.dark
           })}`}
         >
-          <div
-            className={`${styles['text-block']} ${clsx({
-              [styles['text-dark']]: type === THEMES.light,
-              [styles['text-light']]: type === THEMES.dark
-            })}`}
-          >
-            <Typography
-              paragraph
-              variant="subtitle2"
-              className={`${styles.default}`}
+          <div className={styles['text-block']}>
+            <Heading
+              className={styles.default}
+              eyeIsOpen={hasDate}
+              eyeHandler={setHasDate}
             >
               {time.format('D MMM').toUpperCase()}{' '}
-              <EyeButton isOpen={hasDate} eyeHandler={setHasDate} />
-            </Typography>
+            </Heading>
             <span className={`${styles.time}`}>
               <Typography variant="h2" className={styles.hour}>
                 {time.format('HH')}
               </Typography>
               <Typography variant="h2">{time.format('mm')}</Typography>
             </span>
-            <Typography
+            <Heading
+              eyeIsOpen={hasTimezone}
+              eyeHandler={setHasTimezone}
               className={`${styles.grey} ${styles.mb20}`}
-              variant="body2"
             >
               {timezone} GMT {gmtOffset}
-              <EyeButton isOpen={hasTimezone} eyeHandler={setHasTimezone} />
-            </Typography>
+            </Heading>
             <Typography className={`${styles.default}`} variant="h5">
               {city}
             </Typography>
-            <div className={`${styles.default} ${styles.mb25}`}>
+            <Heading
+              eyeIsOpen={hasCountry}
+              eyeHandler={setHasCountry}
+              className={`${styles.default} ${styles.mb25}`}
+            >
               {country}
-              <EyeButton isOpen={hasCountry} eyeHandler={setHasCountry} />
-            </div>
+            </Heading>
             <div className={`${styles.mb25}`}>
               <Theming
                 autoTheming={autoTheming}

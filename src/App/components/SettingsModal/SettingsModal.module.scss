@@ -23,10 +23,12 @@
 
   .paper-light {
     background-color: #fff;
+    color: #000;
   }
 
   .paper-dark {
     background-color: $epam-black;
+    color: #fff;
   }
 
   .text-block {
@@ -40,14 +42,6 @@
 
   .text {
     font-size: 20px;
-  }
-
-  .text-dark {
-    color: #000;
-  }
-
-  .text-light {
-    color: #fff;
   }
 
   .label {
