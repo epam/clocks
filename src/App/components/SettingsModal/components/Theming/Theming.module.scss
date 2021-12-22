@@ -1,0 +1,20 @@
+@import '../../../../styles/index.scss';
+
+.default {
+  text-align: center;
+  margin: 0;
+  position: relative;
+}
+
+.switch {
+  color: $epam-blue;
+}
+
+.margin-block {
+  height: 100%;
+  width: $space-s;
+}
+
+.mode-control-btn {
+  height: 56px;
+}

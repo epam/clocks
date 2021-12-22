@@ -1,14 +1,5 @@
 import { FC, useContext, useMemo, useState } from 'react';
-import {
-  Button,
-  Typography,
-  Backdrop,
-  Fade,
-  FormControlLabel,
-  Switch,
-  Modal
-} from '@material-ui/core';
-import { Brightness7, Brightness4 } from '@mui/icons-material';
+import { Button, Typography, Backdrop, Fade, Modal } from '@material-ui/core';
 import moment from 'moment-timezone';
 import clsx from 'clsx';
 
@@ -20,7 +11,6 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 import {
   getGmtOffset,
   getGreenwichMainTime,
-  checkComputerThemeSupport,
   getComputerTheme,
   getClockFieldStorageValue
 } from '../../handlers';
@@ -38,6 +28,7 @@ import { IAppLocation } from '../../lib/interfaces';
 
 import { FontSelector } from './components/FontSelector';
 import styles from './SettingsModal.module.scss';
+import { Theming } from './components/Theming';
 
 const SettingsModal: FC = () => {
   const [hasCountry, setHasCountry] = useState<boolean>(
@@ -65,11 +56,6 @@ const SettingsModal: FC = () => {
     actions: { ThemeHandler, AutoThemingHandler },
     state: { type, autoTheming }
   } = useContext(ThemeContext);
-
-  const doesComputerSupportTheming = useMemo(
-    () => checkComputerThemeSupport(),
-    []
-  );
 
   const handleClose = () => {
     if (SettingsModalHandler) {
@@ -198,31 +184,12 @@ const SettingsModal: FC = () => {
               <EyeButton isOpen={hasCountry} eyeHandler={setHasCountry} />
             </div>
             <div className={`${styles.mb25}`}>
-              {doesComputerSupportTheming && (
-                <FormControlLabel
-                  classes={{ root: `${styles.default}` }}
-                  control={
-                    <Switch
-                      checked={autoTheming}
-                      onChange={autoThemingHandler}
-                      name="checkedB"
-                      color="primary"
-                      className={styles.switch}
-                    />
-                  }
-                  label="Auto theming"
-                  labelPlacement="start"
-                />
-              )}
-              <Button
-                variant="outlined"
-                onClick={themeHandler}
-                disabled={autoTheming}
-                endIcon={type === 'light' ? <Brightness7 /> : <Brightness4 />}
-                className={styles['mode-control-btn']}
-              >
-                {type === 'light' ? 'LIGHT' : 'DARK'}
-              </Button>
+              <Theming
+                autoTheming={autoTheming}
+                autoThemingHandler={autoThemingHandler}
+                theme={type}
+                themeHandler={themeHandler}
+              />
             </div>
             <div className={styles['bottom-container']}>
               <FontSelector font={clocksFont} changeHandler={setClocksFont} />
