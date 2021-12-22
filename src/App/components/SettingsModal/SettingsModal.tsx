@@ -29,6 +29,7 @@ import { FontSelector } from './components/FontSelector';
 import styles from './SettingsModal.module.scss';
 import { Theming } from './components/Theming';
 import { Heading } from './components/Heading';
+import { Time } from './components/Time';
 
 const SettingsModal: FC = () => {
   const [hasCountry, setHasCountry] = useState<boolean>(
@@ -157,12 +158,7 @@ const SettingsModal: FC = () => {
             >
               {time.format('D MMM').toUpperCase()}{' '}
             </Heading>
-            <span className={`${styles.time}`}>
-              <Typography variant="h2" className={styles.hour}>
-                {time.format('HH')}
-              </Typography>
-              <Typography variant="h2">{time.format('mm')}</Typography>
-            </span>
+            <Time time={time} />
             <Heading
               eyeIsOpen={hasTimezone}
               eyeHandler={setHasTimezone}

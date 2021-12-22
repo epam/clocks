@@ -84,20 +84,6 @@
     position: relative;
   }
 
-  .time {
-    display: flex;
-    position: relative;
-  }
-
-  .hour {
-    &::after {
-      content: ':';
-      position: relative;
-      top: -2px;
-      margin: 0 $space-xs;
-    }
-  }
-
   .mb20 {
     margin-bottom: $space-l;
     position: relative;

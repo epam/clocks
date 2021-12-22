@@ -1,0 +1,15 @@
+@import '../../../../styles/index.scss';
+
+.time {
+  display: flex;
+  position: relative;
+}
+
+.hour {
+  &::after {
+    content: ':';
+    position: relative;
+    top: -2px;
+    margin: 0 $space-xs;
+  }
+}
