@@ -58,12 +58,22 @@ const Dashboard = () => {
           [styles['container-dark']]: type === THEMES.dark
         })}`}
       >
-        {locations &&
+        {locations && locations?.length > 0 ? (
           locations.map((props, index) => (
             <div key={index}>
               <Location {...props} />
             </div>
-          ))}
+          ))
+        ) : (
+          <div
+            className={clsx(styles.noCities, {
+              [styles.noCitiesLight]: type === THEMES.light,
+              [styles.noCitiesDark]: type === THEMES.dark
+            })}
+          >
+            No active cities
+          </div>
+        )}
         <AddCity
           visibility={hasCreateForm || false}
           setVisibility={createFormHandler}
