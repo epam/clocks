@@ -26,10 +26,10 @@ import {
 import { IAppLocation } from '../../lib/interfaces';
 
 import { FontSelector } from './components/FontSelector';
-import styles from './SettingsModal.module.scss';
 import { Theming } from './components/Theming';
 import { Heading } from './components/Heading';
 import { Time } from './components/Time';
+import styles from './SettingsModal.module.scss';
 
 const SettingsModal: FC = () => {
   const [hasCountry, setHasCountry] = useState<boolean>(
@@ -64,7 +64,7 @@ const SettingsModal: FC = () => {
     }
   };
 
-  const cancel = () => {
+  const handleCancel = () => {
     setHasCountry(getClockFieldStorageValue(HAS_COUNTRY));
     setHasDate(getClockFieldStorageValue(HAS_DATE));
     setHasTimezone(getClockFieldStorageValue(HAS_TIMEZONE));
@@ -192,7 +192,7 @@ const SettingsModal: FC = () => {
             <Button
               variant="outlined"
               className={`${styles.button} ${styles['cancel-button']}`}
-              onClick={cancel}
+              onClick={handleCancel}
             >
               Cancel
             </Button>
