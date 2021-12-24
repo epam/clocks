@@ -1,4 +1,5 @@
 import { useContext, useRef, useState, useEffect, FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { IconButton, Button } from '@material-ui/core';
 import { EditOutlined, DeleteOutline, HomeOutlined } from '@mui/icons-material';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
@@ -21,6 +22,7 @@ const Location: FC<IAppLocation> = ({
   message,
   ...props
 }) => {
+  const { t } = useTranslation('location');
   const { hours, minutes } = offset;
   const {
     actions: { AddComment, ChangeUserCurrentLocation }
@@ -45,9 +47,7 @@ const Location: FC<IAppLocation> = ({
   const onBlurHandler = (event: any, editor: { getData: () => string }) => {
     const comment = editor.getData();
     if (comment.length > 100 && OpenSnackbar) {
-      return OpenSnackbar(
-        'Comment message must not be longer than 100 characters'
-      );
+      return OpenSnackbar(t('warning'));
     }
     if (isSnackbarOpen && SnackbarHandler) {
       SnackbarHandler(false);
@@ -117,7 +117,7 @@ const Location: FC<IAppLocation> = ({
             onClick={() => setMessageVisibility(true)}
             variant="outlined"
           >
-            Add comment
+            {t('addComment')}
           </Button>
         )}
       </div>

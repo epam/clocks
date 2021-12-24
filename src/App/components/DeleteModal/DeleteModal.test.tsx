@@ -1,9 +1,11 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { I18nextProvider } from 'react-i18next';
 import { ModalContext } from '../../context/modal';
 import { LocationsContext } from '../../context/locations';
 import DeleteModal from './DeleteModal';
+import i18n from '../../dictionary';
 
 const MockDeleteLocation = jest.fn();
 const MockModalHandler = jest.fn();
@@ -19,11 +21,13 @@ const wrapper = (children: any) => {
     actions: { ModalHandler: MockModalHandler }
   };
   return (
-    <LocationsContext.Provider value={locationStore}>
-      <ModalContext.Provider value={modalStore}>
-        {children}
-      </ModalContext.Provider>
-    </LocationsContext.Provider>
+    <I18nextProvider i18n={i18n}>
+      <LocationsContext.Provider value={locationStore}>
+        <ModalContext.Provider value={modalStore}>
+          {children}
+        </ModalContext.Provider>
+      </LocationsContext.Provider>
+    </I18nextProvider>
   );
 };
 

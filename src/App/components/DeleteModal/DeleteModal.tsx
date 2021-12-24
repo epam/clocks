@@ -1,4 +1,5 @@
 import { FC, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Typography, Modal, Backdrop, Fade } from '@material-ui/core';
 import clsx from 'clsx';
 
@@ -10,6 +11,7 @@ import { THEMES } from '../../lib/constants';
 import styles from './DeleteModal.module.scss';
 
 const DeleteModal: FC = () => {
+  const { t } = useTranslation('deleteModal');
   const {
     state: { isModalOpen, locationId },
     actions: { ModalHandler }
@@ -63,7 +65,7 @@ const DeleteModal: FC = () => {
                 [styles['text-light']]: type === THEMES.dark
               })}`}
             >
-              Are you sure you want to delete?
+              {t('confirm')}
             </Typography>
           </div>
           <div className={styles['buttons-container']}>
@@ -72,14 +74,14 @@ const DeleteModal: FC = () => {
               className={`${styles.button} ${styles['cancel-button']}`}
               onClick={handleClose}
             >
-              Cancel
+              {t('cancel', { ns: 'common' })}
             </Button>
             <Button
               variant="outlined"
               className={`${styles.button} ${styles['delete-button']}`}
               onClick={deleteLocation}
             >
-              Delete
+              {t('delete')}
             </Button>
           </div>
         </div>

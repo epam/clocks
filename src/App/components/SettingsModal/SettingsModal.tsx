@@ -1,4 +1,5 @@
 import { FC, useContext, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Button,
   Typography,
@@ -41,6 +42,7 @@ import { IAppLocation } from '../../lib/interfaces';
 import styles from './SettingsModal.module.scss';
 
 const SettingsModal: FC = () => {
+  const { t } = useTranslation('settingsModal');
   const [hasCountry, setHasCountry] = useState<boolean>(
     getClockFieldStorageValue(HAS_COUNTRY)
   );
@@ -211,7 +213,7 @@ const SettingsModal: FC = () => {
                       className={styles.switch}
                     />
                   }
-                  label="Auto theming"
+                  label={t('autoTheming')}
                   labelPlacement="start"
                 />
               )}
@@ -222,7 +224,7 @@ const SettingsModal: FC = () => {
                 endIcon={type === 'light' ? <Brightness7 /> : <Brightness4 />}
                 className={styles['mode-control-btn']}
               >
-                {type === 'light' ? 'LIGHT' : 'DARK'}
+                {type === 'light' ? t('light') : t('dark')}
               </Button>
             </div>
             <div className={styles['bottom-container']}>
@@ -246,14 +248,14 @@ const SettingsModal: FC = () => {
               className={`${styles.button} ${styles['cancel-button']}`}
               onClick={cancel}
             >
-              Cancel
+              {t('cancel', { ns: 'common' })}
             </Button>
             <Button
               variant="outlined"
               onClick={SubmitHandler}
               className={`${styles.button} ${styles['save-button']}`}
             >
-              Save
+              {t('save')}
             </Button>
           </div>
         </div>

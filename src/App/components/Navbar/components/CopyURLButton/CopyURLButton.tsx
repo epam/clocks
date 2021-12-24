@@ -1,4 +1,5 @@
 import { FC, useState, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, IconButton } from '@material-ui/core';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
@@ -6,6 +7,7 @@ import { SnackbarContext } from '../../../../context/snackbar';
 import { ScreenSizesContext } from '../../../../context/screenSizes';
 
 const CopyURLButton: FC = () => {
+  const { t } = useTranslation('navbar');
   const {
     actions: { OpenSnackbar }
   } = useContext(SnackbarContext);
@@ -61,7 +63,7 @@ const CopyURLButton: FC = () => {
       endIcon={<ContentCopyIcon />}
       color="inherit"
     >
-      COPY URL
+      {t('copyURL')}
     </Button>
   );
 };
