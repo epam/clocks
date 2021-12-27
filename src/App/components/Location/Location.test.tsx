@@ -2,7 +2,6 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { LocationsContext } from '../../context/locations';
-import { ModalContext } from '../../context/modal';
 import { SnackbarContext } from '../../context/snackbar';
 import Location from './Location';
 
@@ -21,7 +20,6 @@ const mockLocation = {
 
 const MockChangeUserCurrentLocation = jest.fn();
 const MockAddComment = jest.fn();
-const MockOpenDeleteModal = jest.fn();
 const MockOpenSnackbar = jest.fn();
 const MockSnackbarHandler = jest.fn();
 
@@ -65,13 +63,6 @@ const snackbarProvider = (children: any) => (
   </SnackbarContext.Provider>
 );
 
-const deleteModalWrapper = (children: any) => (
-  <ModalContext.Provider
-    value={{ actions: { OpenDeleteModal: MockOpenDeleteModal }, state: {} }}
-  >
-    {children}
-  </ModalContext.Provider>
-);
 const commentMessageText = 'This is test comment message';
 
 describe('test Location component', () => {
@@ -112,12 +103,11 @@ describe('test Location component', () => {
     );
   });
   it('open delete modal by clicking delete icon button', () => {
-    const { getByTestId } = render(
-      deleteModalWrapper(<Location {...mockLocation} />)
-    );
+    const { getByTestId, getByRole } = render(<Location {...mockLocation} />);
     const deleteButton = getByTestId(/DeleteButton/i);
     userEvent.click(deleteButton);
-    expect(MockOpenDeleteModal).toHaveBeenCalledWith('Tashkent_UZ_41_69');
+    const deleteModal = getByRole('presentation');
+    expect(deleteModal).toBeInTheDocument();
   });
   it('not render home icon if location is host', () => {
     mockLocation.host = true;

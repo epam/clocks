@@ -7,7 +7,6 @@ import { ScreenSizesProvider } from '../../context/screenSizes';
 import { SettingsProvider } from '../../context/settings';
 import { SnackbarProvider } from '../../context/snackbar';
 import { PlanningModeProvider } from '../../context/planningMode';
-import { ModalProvider } from '../../context/modal';
 
 import '../../styles/index.scss';
 
@@ -18,15 +17,13 @@ function App() {
         <SettingsProvider>
           <SnackbarProvider>
             <PlanningModeProvider>
-              <ModalProvider>
-                <LocationsProvider>
-                  <Switch>
-                    <Route>
-                      <Dashboard />
-                    </Route>
-                  </Switch>
-                </LocationsProvider>
-              </ModalProvider>
+              <LocationsProvider>
+                <Switch>
+                  <Route>
+                    <Dashboard />
+                  </Route>
+                </Switch>
+              </LocationsProvider>
             </PlanningModeProvider>
           </SnackbarProvider>
         </SettingsProvider>

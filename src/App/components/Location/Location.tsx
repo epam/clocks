@@ -5,13 +5,13 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser from 'react-html-parser';
 
-import LocationContent from './components/LocationContent';
 import { LocationsContext } from '../../context/locations';
 import { SnackbarContext } from '../../context/snackbar';
-import { ModalContext } from '../../context/modal';
 import { editorConfig } from '../../lib/constants';
 import { IAppLocation } from '../../lib/interfaces';
+import DeleteModal from '../DeleteModal';
 
+import LocationContent from './components/LocationContent';
 import styles from './Location.module.scss';
 
 const Location: FC<IAppLocation> = ({
@@ -23,11 +23,8 @@ const Location: FC<IAppLocation> = ({
 }) => {
   const { hours, minutes } = offset;
   const {
-    actions: { AddComment, ChangeUserCurrentLocation }
+    actions: { AddComment, ChangeUserCurrentLocation, DeleteLocation }
   } = useContext(LocationsContext);
-  const {
-    actions: { OpenDeleteModal }
-  } = useContext(ModalContext);
   const {
     actions: { OpenSnackbar, SnackbarHandler },
     state: { isSnackbarOpen }
@@ -35,6 +32,7 @@ const Location: FC<IAppLocation> = ({
   const CKEditorRef = useRef<any>(null);
 
   const [messageVisibility, setMessageVisibility] = useState<boolean>(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<boolean>(false);
 
   useEffect(() => {
     if (messageVisibility && CKEditorRef.current) {
@@ -58,12 +56,22 @@ const Location: FC<IAppLocation> = ({
     setMessageVisibility(false);
   };
 
-  const openDeleteModal = () => OpenDeleteModal && OpenDeleteModal(id);
+  const DeleteModalHandler = () => {
+    setIsDeleteModalOpen(prev => !prev);
+  };
+
+  const deleteLocation = () => DeleteLocation && DeleteLocation(id);
+
   const changeUserCurrentLocation = () =>
     ChangeUserCurrentLocation && ChangeUserCurrentLocation(id);
 
   return (
     <div className={styles.card}>
+      <DeleteModal
+        isOpen={isDeleteModalOpen}
+        modalHandler={DeleteModalHandler}
+        deleteLocation={deleteLocation}
+      />
       <div className={styles['recycle-bin']}>
         {!host && (
           <IconButton
@@ -76,7 +84,7 @@ const Location: FC<IAppLocation> = ({
         )}
         <IconButton
           data-testid="DeleteButton"
-          onClick={openDeleteModal}
+          onClick={DeleteModalHandler}
           className={styles.button}
         >
           <DeleteOutline />

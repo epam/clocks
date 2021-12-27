@@ -6,14 +6,13 @@ import Location from '../../components/Location';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import AddCity from '../../components/Navbar/components/AddCity';
-import DeleteModal from '../../components/DeleteModal';
 import SettingsModal from '../../components/SettingsModal';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { CLOCKS_FONT, CLOCKS_FONTS, THEMES } from '../../lib/constants';
 import Snackbar from '../../components/Snackbar';
+import { ThemeContext } from '../../context/theme';
 
 import styles from './Dashboard.module.scss';
-import { ThemeContext } from '../../context/theme';
 
 const Dashboard = () => {
   const { getItem } = useLocalStorage();
@@ -50,7 +49,6 @@ const Dashboard = () => {
       className={`${styles.body} ${clocksFont}`}
     >
       <Navbar />
-      <DeleteModal />
       <SettingsModal />
       <div
         className={`${styles.container} ${clsx({

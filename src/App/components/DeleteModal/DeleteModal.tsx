@@ -2,36 +2,24 @@ import { FC, useContext } from 'react';
 import { Button, Typography, Modal, Backdrop, Fade } from '@material-ui/core';
 import clsx from 'clsx';
 
-import { ModalContext } from '../../context/modal';
-import { LocationsContext } from '../../context/locations';
 import { ThemeContext } from '../../context/theme';
 import { THEMES } from '../../lib/constants';
 
 import styles from './DeleteModal.module.scss';
+import { IDeleteModalProps } from './DeleteModal.interface';
 
-const DeleteModal: FC = () => {
-  const {
-    state: { isModalOpen, locationId },
-    actions: { ModalHandler }
-  } = useContext(ModalContext);
-  const {
-    actions: { DeleteLocation }
-  } = useContext(LocationsContext);
+const DeleteModal: FC<IDeleteModalProps> = ({
+  isOpen = false,
+  modalHandler,
+  deleteLocation
+}) => {
   const {
     state: { type }
   } = useContext(ThemeContext);
 
-  const handleClose = () => {
-    if (ModalHandler) {
-      ModalHandler(false);
-    }
-  };
-
-  const deleteLocation = () => {
-    if (DeleteLocation && ModalHandler && locationId) {
-      DeleteLocation(locationId);
-      ModalHandler(false);
-    }
+  const deleteHandler = () => {
+    deleteLocation();
+    modalHandler();
   };
 
   return (
@@ -39,15 +27,15 @@ const DeleteModal: FC = () => {
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       className={styles.modal}
-      open={isModalOpen || false}
-      onClose={handleClose}
+      open={isOpen}
+      onClose={modalHandler}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
         timeout: 500
       }}
     >
-      <Fade in={isModalOpen}>
+      <Fade in={isOpen}>
         <div
           className={`${styles.paper} ${clsx({
             [styles['paper-light']]: type === THEMES.light,
@@ -70,14 +58,14 @@ const DeleteModal: FC = () => {
             <Button
               variant="outlined"
               className={`${styles.button} ${styles['cancel-button']}`}
-              onClick={handleClose}
+              onClick={modalHandler}
             >
               Cancel
             </Button>
             <Button
               variant="outlined"
               className={`${styles.button} ${styles['delete-button']}`}
-              onClick={deleteLocation}
+              onClick={deleteHandler}
             >
               Delete
             </Button>
