@@ -14,18 +14,18 @@
 }
 
 .city {
-  font-size: 16px;
+  font-size: $fs16;
   font-weight: 600;
 }
 
 .countryLight {
-  font-size: 14px;
+  font-size: $fs14;
   font-weight: 400;
   color: $epam-black;
 }
 
 .countryDark {
-  font-size: 14px;
+  font-size: $fs14;
   font-weight: 400;
   color: $white;
 }
@@ -39,7 +39,7 @@
 
   .badge {
     transform: translate(0, -50%);
-    padding: 10px;
+    padding: $space-s;
     color: white;
   }
 

@@ -50,8 +50,8 @@ const Navbar: FC = () => {
     >
       <Toolbar className={styles.toolbar}>
         <div className={styles['flex-center']}>
-          <Button onClick={ResetUrl}>
-            <img className={styles.title} src={logo} alt="logo" />
+          <Button className={styles.title} onClick={ResetUrl}>
+            <img src={logo} alt="logo" />
           </Button>
           {width && width <= 600 ? '' : <DashboardName />}
         </div>
