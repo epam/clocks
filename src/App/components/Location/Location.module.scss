@@ -2,7 +2,7 @@
 
 .card {
   min-height: 280px;
-  padding: 3rem;
+  padding: $space-xxl;
   height: 100%;
   overflow: hidden;
   transition: all 0.25s ease-out;
@@ -17,7 +17,7 @@
   }
 
   @include screenMax500 {
-    padding: 32px;
+    padding: $space-xl;
   }
 
   .recycle-bin {
@@ -26,15 +26,15 @@
     z-index: 2;
     transition: opacity 0.2s linear;
     cursor: pointer;
-    top: 12px;
-    right: 16px;
+    top: $space-s;
+    right: $space-m;
 
     @include screenMax500 {
-      top: 6px;
-      right: 8px;
+      top: $space-xxs;
+      right: $space-xs;
 
       button {
-        padding: 4px;
+        padding: $space-xxs;
       }
     }
   }
@@ -52,7 +52,7 @@
   }
 
   .mt20 {
-    margin-top: 20px;
+    margin-top: $space-l;
   }
 
   .button-light {
@@ -83,7 +83,7 @@
 .ckEditorContainer {
   display: flex;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: $space-l;
   margin-bottom: 0.5rem;
   width: 90%;
 }
@@ -93,11 +93,11 @@
   min-height: 42px;
   white-space: pre-wrap;
   align-items: flex-start;
-  margin-top: 15px;
+  margin-top: $space-l;
   position: relative;
-  left: 20px;
+  left: $space-l;
 
   .messageText {
-    margin-top: 16px;
+    margin-top: $space-m;
   }
 }
