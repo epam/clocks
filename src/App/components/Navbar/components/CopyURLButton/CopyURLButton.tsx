@@ -7,7 +7,7 @@ import { SnackbarContext } from '../../../../context/snackbar';
 import { ScreenSizesContext } from '../../../../context/screenSizes';
 
 const CopyURLButton: FC = () => {
-  const { t } = useTranslation('navbar');
+  const { t } = useTranslation();
   const {
     actions: { OpenSnackbar }
   } = useContext(SnackbarContext);
@@ -63,7 +63,7 @@ const CopyURLButton: FC = () => {
       endIcon={<ContentCopyIcon />}
       color="inherit"
     >
-      {t('copyURL')}
+      {t('navbar.copyURL')}
     </Button>
   );
 };

@@ -22,7 +22,7 @@ const Location: FC<IAppLocation> = ({
   message,
   ...props
 }) => {
-  const { t } = useTranslation('location');
+  const { t } = useTranslation();
   const { hours, minutes } = offset;
   const {
     actions: { AddComment, ChangeUserCurrentLocation }
@@ -47,7 +47,7 @@ const Location: FC<IAppLocation> = ({
   const onBlurHandler = (event: any, editor: { getData: () => string }) => {
     const comment = editor.getData();
     if (comment.length > 100 && OpenSnackbar) {
-      return OpenSnackbar(t('warning'));
+      return OpenSnackbar(t('location.warning'));
     }
     if (isSnackbarOpen && SnackbarHandler) {
       SnackbarHandler(false);
@@ -117,7 +117,7 @@ const Location: FC<IAppLocation> = ({
             onClick={() => setMessageVisibility(true)}
             variant="outlined"
           >
-            {t('addComment')}
+            {t('location.addComment')}
           </Button>
         )}
       </div>

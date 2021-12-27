@@ -11,13 +11,13 @@ import {
 import styles from './Footer.module.scss';
 
 const Footer: FC = () => {
-  const { t } = useTranslation('footer');
+  const { t } = useTranslation();
   return (
     <footer className={styles.root}>
       <div className={`${styles.rights} ${styles.rights}`}>
         <Trans
           t={t}
-          i18nKey="rights"
+          i18nKey="footer.rights"
           values={{ date: new Date().getFullYear() }}
           components={{ br: <br /> }}
         />

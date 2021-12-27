@@ -19,7 +19,7 @@ import { ScreenSizesContext } from '../../context/screenSizes';
 import styles from './Navbar.module.scss';
 
 const Navbar: FC = () => {
-  const { t } = useTranslation('navbar');
+  const { t } = useTranslation();
   const {
     actions: { CreateFormHandler, ResetUrl }
   } = useContext(LocationsContext);
@@ -64,7 +64,11 @@ const Navbar: FC = () => {
             <SettingsOutlined sx={{ color: '#fff' }} />
           </IconButton>
           <CopyURLButton />
-          <Tooltip title={t('toggle') || ''} enterDelay={1000} leaveDelay={200}>
+          <Tooltip
+            title={t('navbar.toggle') || ''}
+            enterDelay={1000}
+            leaveDelay={200}
+          >
             {width && width <= 600 ? (
               <IconButton
                 data-testid="settings-icon"
@@ -80,7 +84,7 @@ const Navbar: FC = () => {
                 className={styles['add-city-button']}
                 endIcon={<Add />}
               >
-                {t('addCity')}
+                {t('navbar.addCity')}
               </Button>
             )}
           </Tooltip>

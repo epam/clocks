@@ -33,7 +33,7 @@ import { Time } from './components/Time';
 import styles from './SettingsModal.module.scss';
 
 const SettingsModal: FC = () => {
-  const { t } = useTranslation('settingsModal');
+  const { t } = useTranslation();
   const [hasCountry, setHasCountry] = useState<boolean>(
     getClockFieldStorageValue(HAS_COUNTRY)
   );
@@ -196,14 +196,14 @@ const SettingsModal: FC = () => {
               className={`${styles.button} ${styles['cancel-button']}`}
               onClick={handleCancel}
             >
-              {t('cancel', { ns: 'common' })}
+              {t('settingsModal.cancel', { ns: 'common' })}
             </Button>
             <Button
               variant="outlined"
               onClick={SubmitHandler}
               className={`${styles.button} ${styles['save-button']}`}
             >
-              {t('save')}
+              {t('settingsModal.save')}
             </Button>
           </div>
         </div>

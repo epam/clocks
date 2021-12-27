@@ -11,7 +11,7 @@
 }
 
 .hostLight {
-  padding: $space-xxs $space-xs;
+  padding: $space-xxxxs $space-xs;
   color: $white;
   background-color: $epam-blue;
   border-radius: 20px;
@@ -20,10 +20,11 @@
 }
 
 .hostDark {
-  padding: $space-xxs $space-xs;
+  padding: $space-xxxxs $space-xs;
   color: $white;
   background-color: $bright-blue;
   border-radius: 20px;
   font-size: $fs12;
   width: 100px;
+  margin: $space-xxs 0;
 }

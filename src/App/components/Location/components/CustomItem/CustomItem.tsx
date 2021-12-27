@@ -14,7 +14,7 @@ const CustomItem: FC<ICustomItemProps> = ({
   onSelect,
   added = false
 }) => {
-  const { t } = useTranslation('location');
+  const { t } = useTranslation();
   const {
     state: { type }
   } = useContext(ThemeContext);
@@ -57,7 +57,7 @@ const CustomItem: FC<ICustomItemProps> = ({
           { [styles.badgeDark]: type === 'dark' }
         )
       }}
-      badgeContent={t('added')}
+      badgeContent={t('location.locationadded')}
       color="primary"
     >
       <Render />

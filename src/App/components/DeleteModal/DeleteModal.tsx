@@ -11,7 +11,7 @@ import { THEMES } from '../../lib/constants';
 import styles from './DeleteModal.module.scss';
 
 const DeleteModal: FC = () => {
-  const { t } = useTranslation('deleteModal');
+  const { t } = useTranslation();
   const {
     state: { isModalOpen, locationId },
     actions: { ModalHandler }
@@ -65,7 +65,7 @@ const DeleteModal: FC = () => {
                 [styles['text-light']]: type === THEMES.dark
               })}`}
             >
-              {t('confirm')}
+              {t('deleteModal.confirm')}
             </Typography>
           </div>
           <div className={styles['buttons-container']}>
@@ -74,14 +74,14 @@ const DeleteModal: FC = () => {
               className={`${styles.button} ${styles['cancel-button']}`}
               onClick={handleClose}
             >
-              {t('cancel', { ns: 'common' })}
+              {t('deleteModal.cancel', { ns: 'common' })}
             </Button>
             <Button
               variant="outlined"
               className={`${styles.button} ${styles['delete-button']}`}
               onClick={deleteLocation}
             >
-              {t('delete')}
+              {t('deleteModal.delete')}
             </Button>
           </div>
         </div>

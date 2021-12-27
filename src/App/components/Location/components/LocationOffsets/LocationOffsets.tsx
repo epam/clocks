@@ -12,7 +12,7 @@ const LocationOffsets: FC<ILocationOffsetsProps> = ({
   minutes,
   host
 }) => {
-  const { t } = useTranslation('location');
+  const { t } = useTranslation();
   const {
     state: { type }
   } = useContext(ThemeContext);
@@ -36,14 +36,14 @@ const LocationOffsets: FC<ILocationOffsetsProps> = ({
           { [styles.hostDark]: type === 'dark' }
         )}
       >
-        {t('here')}
+        {t('location.here')}
       </div>
     );
   }
 
   return (
     <div className={styles.text}>
-      {!strHour ? t('sameTime') : `${sign} ${strHour} ${strMinute}`}
+      {!strHour ? t('location.sameTime') : `${sign} ${strHour} ${strMinute}`}
     </div>
   );
 };

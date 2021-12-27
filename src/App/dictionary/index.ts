@@ -14,7 +14,9 @@ i18n.use(initReactI18next).init({
     useSuspense: false
   },
   resources: {
-    en
+    en: {
+      translation: en
+    }
   }
 });
 

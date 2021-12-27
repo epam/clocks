@@ -9,7 +9,7 @@ import { DASHBOARD_PARAM_KEYWORD } from '../../../../lib/constants';
 import styles from './DashboardName.module.scss';
 
 export const DashboardName: FC = () => {
-  const { t } = useTranslation('navbar');
+  const { t } = useTranslation();
   const [isBeingNamed, setIsBeingNamed] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   const { SetParam, GetParam, DeleteParam } = useQueryParams();
@@ -87,7 +87,7 @@ export const DashboardName: FC = () => {
         color="inherit"
         onClick={() => setIsBeingNamed(true)}
       >
-        {t('dashboardName')}
+        {t('navbar.dashboardName')}
       </Button>
     );
   };

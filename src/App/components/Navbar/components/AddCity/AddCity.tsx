@@ -29,7 +29,7 @@ const AddCity: FC<IInputDrawerProps> = ({ visibility, setVisibility }) => {
   const {
     actions: { GetLocationsFromUrl, AddLocation }
   } = useContext(LocationsContext);
-  const { t } = useTranslation('navbar');
+  const { t } = useTranslation();
 
   const [cities, setCities] = useState<IMatchingLocation[]>([]);
   const [value, setValue] = useState<string>('');
@@ -102,7 +102,7 @@ const AddCity: FC<IInputDrawerProps> = ({ visibility, setVisibility }) => {
     >
       <Toolbar id={css.toolbar}>
         <Grid container alignItems="center" justifyContent="space-between">
-          <Typography variant="button">{t('addNewCity')}</Typography>
+          <Typography variant="button">{t('navbar.addNewCity')}</Typography>
           <IconButton
             aria-label="Close Drawer Button"
             onClick={() => setVisibility(false)}
@@ -116,7 +116,7 @@ const AddCity: FC<IInputDrawerProps> = ({ visibility, setVisibility }) => {
         <TextField
           onChange={(e: any) => setValue(e?.target?.value)}
           value={value}
-          label={t('searchCities')}
+          label={t('navbar.searchCities')}
           variant="outlined"
           className={css.textFieldSize}
           inputProps={{ 'data-testid': 'search-input' }}
