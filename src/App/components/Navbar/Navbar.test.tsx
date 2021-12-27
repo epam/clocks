@@ -1,37 +1,43 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { I18nextProvider } from 'react-i18next';
 import { LocationsContext } from '../../context/locations';
 import { SettingsContext } from '../../context/settings';
 import Navbar from './Navbar';
+import i18n from '../../dictionary';
 
 const MockResetUrl = jest.fn();
 const MockCreateFormHandler = jest.fn();
 const MockSettingsModalHandler = jest.fn();
 
 const wrapper = (children: any) => (
-  <LocationsContext.Provider
-    value={{
-      actions: {
-        ResetUrl: MockResetUrl,
-        CreateFormHandler: MockCreateFormHandler
-      },
-      state: {}
-    }}
-  >
-    {children}
-  </LocationsContext.Provider>
+  <I18nextProvider i18n={i18n}>
+    <LocationsContext.Provider
+      value={{
+        actions: {
+          ResetUrl: MockResetUrl,
+          CreateFormHandler: MockCreateFormHandler
+        },
+        state: {}
+      }}
+    >
+      {children}
+    </LocationsContext.Provider>
+  </I18nextProvider>
 );
 
 const settingsWrapper = (children: any) => (
-  <SettingsContext.Provider
-    value={{
-      actions: { SettingsModalHandler: MockSettingsModalHandler },
-      state: {}
-    }}
-  >
-    {children}
-  </SettingsContext.Provider>
+  <I18nextProvider i18n={i18n}>
+    <SettingsContext.Provider
+      value={{
+        actions: { SettingsModalHandler: MockSettingsModalHandler },
+        state: {}
+      }}
+    >
+      {children}
+    </SettingsContext.Provider>
+  </I18nextProvider>
 );
 
 jest.mock('../../hooks/useQueryParams', () => {
@@ -49,11 +55,15 @@ jest.mock('../../hooks/useQueryParams', () => {
 
 describe('test Navbar component', () => {
   it('renders Navbar component', () => {
-    const { getByRole, getByText, getByTestId } = render(<Navbar />);
+    const { getByRole, getByText, getByTestId } = render(
+      <I18nextProvider i18n={i18n}>
+        <Navbar />
+      </I18nextProvider>
+    );
     const navbar = getByRole('banner');
     const logoButton = getByRole('button', { name: 'logo' });
     const logoImg = getByRole('img', { name: 'logo' });
-    const addCityButton = getByText('Add City');
+    const addCityButton = getByText('ADD CITY');
     const settingsIcon = getByTestId(/settings-icon/i);
     expect(navbar).toBeInTheDocument();
     expect(logoButton).toBeInTheDocument();
@@ -69,7 +79,7 @@ describe('test Navbar component', () => {
   });
   it('open sidebar by clicking the Add City Button', () => {
     const { getByText } = render(wrapper(<Navbar />));
-    const addCityButton = getByText('Add City');
+    const addCityButton = getByText('ADD CITY');
     userEvent.click(addCityButton);
     expect(MockCreateFormHandler).toHaveBeenCalledTimes(1);
     expect(MockCreateFormHandler).toHaveBeenCalledWith(true);

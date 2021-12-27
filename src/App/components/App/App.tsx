@@ -9,6 +9,7 @@ import { SnackbarProvider } from '../../context/snackbar';
 import { PlanningModeProvider } from '../../context/planningMode';
 import { ModalProvider } from '../../context/modal';
 
+import '../../dictionary/index';
 import '../../styles/index.scss';
 
 function App() {

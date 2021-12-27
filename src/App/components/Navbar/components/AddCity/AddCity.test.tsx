@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { I18nextProvider } from 'react-i18next';
 import { LocationsContext } from '../../../../context/locations';
 import InputDrawer from './AddCity';
+import i18n from '../../../../dictionary';
 
 const MockComponent = ({ open, close, AddLocationMock }: any) => {
   const GetLocationsFromUrl = () => [
@@ -15,9 +17,11 @@ const MockComponent = ({ open, close, AddLocationMock }: any) => {
     state: {}
   };
   return (
-    <LocationsContext.Provider value={store}>
-      <InputDrawer visibility={open} setVisibility={close} />
-    </LocationsContext.Provider>
+    <I18nextProvider i18n={i18n}>
+      <LocationsContext.Provider value={store}>
+        <InputDrawer visibility={open} setVisibility={close} />
+      </LocationsContext.Provider>
+    </I18nextProvider>
   );
 };
 

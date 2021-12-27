@@ -1,4 +1,5 @@
 import { ChangeEvent, useEffect, useState, FormEvent, FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Input, IconButton, Button } from '@material-ui/core';
 import { DeleteOutline, EditOutlined } from '@mui/icons-material';
 
@@ -8,6 +9,7 @@ import { DASHBOARD_PARAM_KEYWORD } from '../../../../lib/constants';
 import styles from './DashboardName.module.scss';
 
 export const DashboardName: FC = () => {
+  const { t } = useTranslation('navbar');
   const [isBeingNamed, setIsBeingNamed] = useState<boolean>(false);
   const [name, setName] = useState<string>('');
   const { SetParam, GetParam, DeleteParam } = useQueryParams();
@@ -85,7 +87,7 @@ export const DashboardName: FC = () => {
         color="inherit"
         onClick={() => setIsBeingNamed(true)}
       >
-        Dashboard Name
+        {t('dashboardName')}
       </Button>
     );
   };

@@ -1,4 +1,5 @@
 import { FC, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import { MenuItem } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import clsx from 'clsx';
@@ -13,6 +14,7 @@ const CustomItem: FC<ICustomItemProps> = ({
   onSelect,
   added = false
 }) => {
+  const { t } = useTranslation('location');
   const {
     state: { type }
   } = useContext(ThemeContext);
@@ -55,7 +57,7 @@ const CustomItem: FC<ICustomItemProps> = ({
           { [styles.badgeDark]: type === 'dark' }
         )
       }}
-      badgeContent="Added"
+      badgeContent={t('added')}
       color="primary"
     >
       <Render />
