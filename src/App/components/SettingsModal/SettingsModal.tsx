@@ -1,4 +1,5 @@
 import { FC, useContext, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button, Typography, Backdrop, Fade, Modal } from '@material-ui/core';
 import moment from 'moment-timezone';
 import clsx from 'clsx';
@@ -32,6 +33,7 @@ import { Time } from './components/Time';
 import styles from './SettingsModal.module.scss';
 
 const SettingsModal: FC = () => {
+  const { t } = useTranslation();
   const [hasCountry, setHasCountry] = useState<boolean>(
     getClockFieldStorageValue(HAS_COUNTRY)
   );
@@ -194,14 +196,14 @@ const SettingsModal: FC = () => {
               className={`${styles.button} ${styles['cancel-button']}`}
               onClick={handleCancel}
             >
-              Cancel
+              {t('cancel', { ns: 'common' })}
             </Button>
             <Button
               variant="outlined"
               onClick={SubmitHandler}
               className={`${styles.button} ${styles['save-button']}`}
             >
-              Save
+              {t('settingsModal.save')}
             </Button>
           </div>
         </div>

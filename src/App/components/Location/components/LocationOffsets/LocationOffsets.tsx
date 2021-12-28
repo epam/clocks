@@ -1,4 +1,5 @@
 import { FC, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import { ThemeContext } from '../../../../context/theme';
@@ -11,6 +12,7 @@ const LocationOffsets: FC<ILocationOffsetsProps> = ({
   minutes,
   host
 }) => {
+  const { t } = useTranslation();
   const {
     state: { type }
   } = useContext(ThemeContext);
@@ -34,14 +36,14 @@ const LocationOffsets: FC<ILocationOffsetsProps> = ({
           { [styles.hostDark]: type === 'dark' }
         )}
       >
-        You are here
+        {t('location.here')}
       </div>
     );
   }
 
   return (
     <div className={styles.text}>
-      {!strHour ? 'Same Time' : `${sign} ${strHour} ${strMinute}`}
+      {!strHour ? t('location.sameTime') : `${sign} ${strHour} ${strMinute}`}
     </div>
   );
 };

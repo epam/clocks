@@ -1,19 +1,27 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { I18nextProvider } from 'react-i18next';
 import DeleteModal from './DeleteModal';
+import i18n from '../../dictionary';
 
 const MockDeleteLocation = jest.fn();
 const MockModalHandler = jest.fn();
 
+const wrapper = (children: any) => {
+  return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>;
+};
+
 describe('test for DeleteModal component', () => {
   it('renders delete text', () => {
-    const { getByRole, getByText } = render(
-      <DeleteModal
-        isOpen
-        modalHandler={MockModalHandler}
-        deleteLocation={MockDeleteLocation}
-      />
+    const { getByText, getByRole } = render(
+      wrapper(
+        <DeleteModal
+          isOpen
+          modalHandler={MockModalHandler}
+          deleteLocation={MockDeleteLocation}
+        />
+      )
     );
     const deleteText = getByText(/Are you sure you want to delete?/);
     const deleteButton = getByRole('button', { name: /delete/i });

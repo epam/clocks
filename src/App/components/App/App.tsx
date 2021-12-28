@@ -8,6 +8,7 @@ import { SettingsProvider } from '../../context/settings';
 import { SnackbarProvider } from '../../context/snackbar';
 import { PlanningModeProvider } from '../../context/planningMode';
 
+import '../../dictionary/index';
 import '../../styles/index.scss';
 
 function App() {

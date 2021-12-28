@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useTranslation, Trans } from 'react-i18next';
 import {
   LinkedIn,
   Twitter,
@@ -10,11 +11,16 @@ import {
 import styles from './Footer.module.scss';
 
 const Footer: FC = () => {
+  const { t } = useTranslation();
   return (
     <footer className={styles.root}>
       <div className={`${styles.rights} ${styles.rights}`}>
-        © {new Date().getFullYear()} EPAM Systems, Inc. <br />
-        All Rights Reserved.
+        <Trans
+          t={t}
+          i18nKey="footer.rights"
+          values={{ date: new Date().getFullYear() }}
+          components={{ br: <br /> }}
+        />
       </div>
       <div className={`${styles.icons} ${styles.icons}`}>
         <a
