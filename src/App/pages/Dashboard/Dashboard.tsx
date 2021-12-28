@@ -1,4 +1,4 @@
-import { useContext, KeyboardEvent, useMemo } from 'react';
+import { useContext, KeyboardEvent, useMemo, FC } from 'react';
 import clsx from 'clsx';
 
 import { LocationsContext } from '../../context/locations';
@@ -15,7 +15,7 @@ import Snackbar from '../../components/Snackbar';
 import styles from './Dashboard.module.scss';
 import { ThemeContext } from '../../context/theme';
 
-const Dashboard = () => {
+const Dashboard: FC = () => {
   const { getItem } = useLocalStorage();
   const {
     state: { hasCreateForm, locations },

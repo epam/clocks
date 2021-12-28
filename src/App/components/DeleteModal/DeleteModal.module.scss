@@ -8,8 +8,8 @@
 
   .paper {
     border-radius: 4px;
-    box-shadow: 0 3px 5px -1px rgb(0, 0, 0, .20),
-      0 5px 8px 0 rgb(0, 0, 0, .14), 0 1px 14px 0 rgb(0, 0,0, .12);
+    box-shadow: 0 3px 5px -1px rgb(0, 0, 0, 0.2), 0 5px 8px 0 rgb(0, 0, 0, 0.14),
+      0 1px 14px 0 rgb(0, 0, 0, 0.12);
     outline: none;
     display: flex;
     flex-direction: column;
@@ -35,7 +35,7 @@
   }
 
   .text {
-    font-size: 20px;
+    font-size: $fs20;
     margin: 0;
     display: flex;
     justify-content: center;

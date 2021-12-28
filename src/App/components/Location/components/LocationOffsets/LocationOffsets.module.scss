@@ -1,7 +1,7 @@
 @import '../../../../styles/index.scss';
 
 .text {
-  font-size: 14px;
+  font-size: $fs14;
   color: #bcb9b5;
   margin-top: $space-xxs;
   margin-bottom: $space-xxs;
@@ -11,19 +11,20 @@
 }
 
 .hostLight {
-  padding: $space-xxs $space-xs;
+  padding: $space-xxxxs $space-xs;
   color: $white;
   background-color: $epam-blue;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: $fs12;
   width: 100px;
 }
 
 .hostDark {
-  padding: $space-xxs $space-xs;
+  padding: $space-xxxxs $space-xs;
   color: $white;
   background-color: $bright-blue;
   border-radius: 20px;
-  font-size: 13px;
+  font-size: $fs12;
   width: 100px;
+  margin: $space-xxs 0;
 }
