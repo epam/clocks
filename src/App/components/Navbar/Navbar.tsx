@@ -1,4 +1,5 @@
 import { FC, useContext } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   AppBar,
   Toolbar,
@@ -18,6 +19,7 @@ import { ScreenSizesContext } from '../../context/screenSizes';
 import styles from './Navbar.module.scss';
 
 const Navbar: FC = () => {
+  const { t } = useTranslation();
   const {
     actions: { CreateFormHandler, ResetUrl }
   } = useContext(LocationsContext);
@@ -63,7 +65,7 @@ const Navbar: FC = () => {
           </IconButton>
           <CopyURLButton />
           <Tooltip
-            title="Toggle, + or = to toggle drawer"
+            title={t('navbar.toggle') || ''}
             enterDelay={1000}
             leaveDelay={200}
           >
@@ -82,7 +84,7 @@ const Navbar: FC = () => {
                 className={styles['add-city-button']}
                 endIcon={<Add />}
               >
-                Add City
+                {t('navbar.addCity')}
               </Button>
             )}
           </Tooltip>
