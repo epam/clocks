@@ -23,7 +23,7 @@ import { IInputDrawerProps } from './AddCity.interface';
 
 import css from './AddCity.module.scss';
 
-const AddCity: FC<IInputDrawerProps> = ({ visibility, setVisibility }) => {
+const AddCity: FC<IInputDrawerProps> = ({ visibility, visibilityHandler }) => {
   // @ts-ignore
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const {
@@ -78,7 +78,7 @@ const AddCity: FC<IInputDrawerProps> = ({ visibility, setVisibility }) => {
       AddLocation(locationId);
     }
     setValue('');
-    setVisibility(false);
+    visibilityHandler();
   };
   const handleMatch = (item: ICityData): boolean => {
     const { city_ascii: cityAscii, iso2, lat, lng } = item;
@@ -96,8 +96,8 @@ const AddCity: FC<IInputDrawerProps> = ({ visibility, setVisibility }) => {
       disableBackdropTransition={!iOS}
       disableDiscovery={iOS}
       open={visibility}
-      onClose={() => setVisibility(false)}
-      onOpen={() => setVisibility(true)}
+      onClose={visibilityHandler}
+      onOpen={visibilityHandler}
       ModalProps={{ keepMounted: true }}
     >
       <Toolbar id={css.toolbar}>
@@ -105,7 +105,7 @@ const AddCity: FC<IInputDrawerProps> = ({ visibility, setVisibility }) => {
           <Typography variant="button">{t('navbar.addNewCity')}</Typography>
           <IconButton
             aria-label="Close Drawer Button"
-            onClick={() => setVisibility(false)}
+            onClick={visibilityHandler}
           >
             <Close />
           </IconButton>

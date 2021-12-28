@@ -17,7 +17,6 @@ import { ILocationContext } from './LocationsContext.interface';
 
 export const useLocations = (): ILocationContext => {
   const [locations, setLocations] = useState<IAppLocation[]>([]);
-  const [hasCreateForm, setHasCreateForm] = useState(false);
   const { setItem } = useLocalStorage();
 
   const location = useLocation();
@@ -30,14 +29,6 @@ export const useLocations = (): ILocationContext => {
     ResetUrl,
     GetLocationsFromUrl
   } = useUrl();
-
-  const CreateFormHandler = (hasForm?: boolean) => {
-    if (hasForm && typeof hasForm === 'boolean') {
-      setHasCreateForm(hasForm);
-    } else {
-      setHasCreateForm(prevState => !prevState);
-    }
-  };
 
   const ChangeUserCurrentLocation = (locationId: TLocationId) => {
     if (!locationId) {
@@ -90,9 +81,8 @@ export const useLocations = (): ILocationContext => {
   }, [location.search]);
 
   return {
-    state: { hasCreateForm, locations },
+    state: { locations },
     actions: {
-      CreateFormHandler,
       ChangeUserCurrentLocation,
       AddLocation,
       DeleteLocation,
