@@ -9,6 +9,7 @@ import {
   TextField
 } from '@material-ui/core';
 import { Close } from '@mui/icons-material';
+import { styled } from '@mui/material/styles';
 
 import CustomItem from '../../../Location/components/CustomItem';
 import {
@@ -21,6 +22,24 @@ import { ICityData, IMatchingLocation } from '../../../../lib/interfaces';
 import { IInputDrawerProps } from './AddCity.interface';
 
 import css from './AddCity.module.scss';
+
+// Temporary styled TextField , to be deleted when moving to EPAM UI
+const EPAMBlueTextField = styled(TextField)({
+  '& label.Mui-focused': {
+    color: '#39c2d7'
+  },
+  '& .MuiInput-underline:after': {
+    borderBottomColor: '#39c2d7'
+  },
+  '& .MuiOutlinedInput-root': {
+    '&:hover fieldset': {
+      borderColor: '#39c2d7'
+    },
+    '&.Mui-focused fieldset': {
+      borderColor: '#39c2d7'
+    }
+  }
+});
 
 const AddCity: FC<IInputDrawerProps> = ({ visibility, setVisibility }) => {
   // @ts-ignore
@@ -111,7 +130,7 @@ const AddCity: FC<IInputDrawerProps> = ({ visibility, setVisibility }) => {
       </Toolbar>
 
       <div className={css.drawerBody}>
-        <TextField
+        <EPAMBlueTextField
           onChange={(e: any) => setValue(e?.target?.value)}
           value={value}
           label="Search cities"

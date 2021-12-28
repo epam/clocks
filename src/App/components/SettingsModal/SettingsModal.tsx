@@ -11,6 +11,7 @@ import {
   Modal
 } from '@material-ui/core';
 import { Brightness7, Brightness4 } from '@mui/icons-material';
+import { alpha, styled } from '@mui/material/styles';
 import moment from 'moment-timezone';
 import clsx from 'clsx';
 
@@ -39,6 +40,19 @@ import {
 import { IAppLocation } from '../../lib/interfaces';
 
 import styles from './SettingsModal.module.scss';
+
+// Temporary styled Switch , to be deleted when moving to EPAM UI
+const EPAMBlueSwitch = styled(Switch)(({ theme }) => ({
+  '& .MuiSwitch-switchBase.Mui-checked': {
+    color: '#39c2d7',
+    '&:hover': {
+      backgroundColor: alpha('#39c2d7', theme.palette.action.hoverOpacity)
+    }
+  },
+  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+    backgroundColor: '#39c2d7'
+  }
+}));
 
 const SettingsModal: FC = () => {
   const [hasCountry, setHasCountry] = useState<boolean>(
@@ -203,12 +217,10 @@ const SettingsModal: FC = () => {
                 <FormControlLabel
                   classes={{ root: `${styles.default}` }}
                   control={
-                    <Switch
+                    <EPAMBlueSwitch
                       checked={autoTheming}
                       onChange={autoThemingHandler}
                       name="checkedB"
-                      color="primary"
-                      className={styles.switch}
                     />
                   }
                   label="Auto theming"
