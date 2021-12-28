@@ -1,0 +1,33 @@
+{
+  "common": {
+    "cancel": "Cancel"
+  },
+  "navbar": {
+    "addCity": "ADD CITY",
+    "toggle": "Toggle, + or = to toggle drawer",
+    "searchCities": "Search cities",
+    "addNewCity": "Add New City",
+    "copyURL": "COPY URL",
+    "dashboardName": "Dashboard Name"
+  },
+  "footer": {
+    "rights": "© {{date}} EPAM Systems, Inc. <br /> All Rights Reserved."
+  },
+  "settingsModal": {
+    "light": "LIGHT",
+    "dark": "DARK",
+    "autoTheming": "Auto theming",
+    "save": "Save"
+  },
+  "deleteModal": {
+    "confirm": "Are you sure you want to delete?",
+    "delete": "Delete"
+  },
+  "location": {
+    "addComment": "Add Comment",
+    "warning": "Comment message must not be longer than 100 characters",
+    "added": "Added",
+    "here": "You are here",
+    "sameTime": "Same Time"
+  }
+}

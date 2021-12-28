@@ -1,21 +1,9 @@
 import { FC, useContext, useMemo, useState } from 'react';
-import {
-  Button,
-  Typography,
-  Select,
-  MenuItem,
-  Backdrop,
-  Fade,
-  FormControlLabel,
-  Switch,
-  Modal
-} from '@material-ui/core';
-import { Brightness7, Brightness4 } from '@mui/icons-material';
-import { alpha, styled } from '@mui/material/styles';
+import { useTranslation } from 'react-i18next';
+import { Button, Typography, Backdrop, Fade, Modal } from '@material-ui/core';
 import moment from 'moment-timezone';
 import clsx from 'clsx';
 
-import { EyeButton } from './components/EyeButton';
 import { SettingsContext } from '../../context/settings';
 import { ThemeContext } from '../../context/theme';
 import { LocationsContext } from '../../context/locations';
@@ -23,7 +11,6 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 import {
   getGmtOffset,
   getGreenwichMainTime,
-  checkComputerThemeSupport,
   getComputerTheme,
   getClockFieldStorageValue
 } from '../../handlers';
@@ -39,22 +26,14 @@ import {
 } from '../../lib/constants';
 import { IAppLocation } from '../../lib/interfaces';
 
+import { FontSelector } from './components/FontSelector';
+import { Theming } from './components/Theming';
+import { Heading } from './components/Heading';
+import { Time } from './components/Time';
 import styles from './SettingsModal.module.scss';
 
-// Temporary styled Switch , to be deleted when moving to EPAM UI
-const EPAMBlueSwitch = styled(Switch)(({ theme }) => ({
-  '& .MuiSwitch-switchBase.Mui-checked': {
-    color: '#39c2d7',
-    '&:hover': {
-      backgroundColor: alpha('#39c2d7', theme.palette.action.hoverOpacity)
-    }
-  },
-  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
-    backgroundColor: '#39c2d7'
-  }
-}));
-
 const SettingsModal: FC = () => {
+  const { t } = useTranslation();
   const [hasCountry, setHasCountry] = useState<boolean>(
     getClockFieldStorageValue(HAS_COUNTRY)
   );
@@ -81,18 +60,13 @@ const SettingsModal: FC = () => {
     state: { type, autoTheming }
   } = useContext(ThemeContext);
 
-  const doesComputerSupportTheming = useMemo(
-    () => checkComputerThemeSupport(),
-    []
-  );
-
   const handleClose = () => {
     if (SettingsModalHandler) {
       SettingsModalHandler(false);
     }
   };
 
-  const cancel = () => {
+  const handleCancel = () => {
     setHasCountry(getClockFieldStorageValue(HAS_COUNTRY));
     setHasDate(getClockFieldStorageValue(HAS_DATE));
     setHasTimezone(getClockFieldStorageValue(HAS_TIMEZONE));
@@ -178,94 +152,58 @@ const SettingsModal: FC = () => {
             [styles['paper-dark']]: type === THEMES.dark
           })}`}
         >
-          <div
-            className={`${styles['text-block']} ${clsx({
-              [styles['text-dark']]: type === THEMES.light,
-              [styles['text-light']]: type === THEMES.dark
-            })}`}
-          >
-            <Typography
-              paragraph
-              variant="subtitle2"
-              className={`${styles.default}`}
+          <div className={styles['text-block']}>
+            <Heading
+              className={styles.default}
+              eyeIsOpen={hasDate}
+              eyeHandler={setHasDate}
             >
               {time.format('D MMM').toUpperCase()}{' '}
-              <EyeButton isOpen={hasDate} eyeHandler={setHasDate} />
-            </Typography>
-            <span className={`${styles.time}`}>
-              <Typography variant="h2" className={styles.hour}>
-                {time.format('HH')}
-              </Typography>
-              <Typography variant="h2">{time.format('mm')}</Typography>
-            </span>
-            <Typography
+            </Heading>
+            <Time time={time} />
+            <Heading
+              eyeIsOpen={hasTimezone}
+              eyeHandler={setHasTimezone}
               className={`${styles.grey} ${styles.mb20}`}
-              variant="body2"
             >
               {timezone} GMT {gmtOffset}
-              <EyeButton isOpen={hasTimezone} eyeHandler={setHasTimezone} />
-            </Typography>
+            </Heading>
             <Typography className={`${styles.default}`} variant="h5">
               {city}
             </Typography>
-            <div className={`${styles.default} ${styles.mb25}`}>
+            <Heading
+              eyeIsOpen={hasCountry}
+              eyeHandler={setHasCountry}
+              className={`${styles.default} ${styles.mb25}`}
+            >
               {country}
-              <EyeButton isOpen={hasCountry} eyeHandler={setHasCountry} />
-            </div>
+            </Heading>
             <div className={`${styles.mb25}`}>
-              {doesComputerSupportTheming && (
-                <FormControlLabel
-                  classes={{ root: `${styles.default}` }}
-                  control={
-                    <EPAMBlueSwitch
-                      checked={autoTheming}
-                      onChange={autoThemingHandler}
-                      name="checkedB"
-                    />
-                  }
-                  label="Auto theming"
-                  labelPlacement="start"
-                />
-              )}
-              <Button
-                variant="outlined"
-                onClick={themeHandler}
-                disabled={autoTheming}
-                endIcon={type === 'light' ? <Brightness7 /> : <Brightness4 />}
-                className={styles['mode-control-btn']}
-              >
-                {type === 'light' ? 'LIGHT' : 'DARK'}
-              </Button>
+              <Theming
+                autoTheming={autoTheming}
+                autoThemingHandler={autoThemingHandler}
+                theme={type}
+                themeHandler={themeHandler}
+              />
             </div>
             <div className={styles['bottom-container']}>
-              <Select
-                variant="outlined"
-                className={styles.select}
-                onChange={(e: any) => setClocksFont(e.target.value)}
-                value={clocksFont}
-              >
-                {Object.values(CLOCKS_FONTS).map((font, index) => (
-                  <MenuItem value={font.value} key={`FONT${index}`}>
-                    {font.label}
-                  </MenuItem>
-                ))}
-              </Select>
+              <FontSelector font={clocksFont} changeHandler={setClocksFont} />
             </div>
           </div>
           <div className={styles['buttons-container']}>
             <Button
               variant="outlined"
               className={`${styles.button} ${styles['cancel-button']}`}
-              onClick={cancel}
+              onClick={handleCancel}
             >
-              Cancel
+              {t('settingsModal.cancel', { ns: 'common' })}
             </Button>
             <Button
               variant="outlined"
               onClick={SubmitHandler}
               className={`${styles.button} ${styles['save-button']}`}
             >
-              Save
+              {t('settingsModal.save')}
             </Button>
           </div>
         </div>

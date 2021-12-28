@@ -1,4 +1,4 @@
-import { useContext, KeyboardEvent, useMemo } from 'react';
+import { useContext, KeyboardEvent, useMemo, FC } from 'react';
 import clsx from 'clsx';
 
 import { LocationsContext } from '../../context/locations';
@@ -15,7 +15,7 @@ import Snackbar from '../../components/Snackbar';
 import styles from './Dashboard.module.scss';
 import { ThemeContext } from '../../context/theme';
 
-const Dashboard = () => {
+const Dashboard: FC = () => {
   const { getItem } = useLocalStorage();
   const {
     state: { hasCreateForm, locations },
@@ -58,12 +58,22 @@ const Dashboard = () => {
           [styles['container-dark']]: type === THEMES.dark
         })}`}
       >
-        {locations &&
+        {locations && locations?.length > 0 ? (
           locations.map((props, index) => (
             <div key={index}>
               <Location {...props} />
             </div>
-          ))}
+          ))
+        ) : (
+          <div
+            className={clsx(styles.noCities, {
+              [styles.noCitiesLight]: type === THEMES.light,
+              [styles.noCitiesDark]: type === THEMES.dark
+            })}
+          >
+            No active cities
+          </div>
+        )}
         <AddCity
           visibility={hasCreateForm || false}
           setVisibility={createFormHandler}

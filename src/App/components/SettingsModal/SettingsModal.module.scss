@@ -7,10 +7,10 @@
 
   .paper {
     min-height: 150px;
-    margin: 10px;
+    margin: $space-s;
     border-radius: 4px;
-    box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%),
-      0px 5px 8px 0px rgb(0 0 0 / 14%), 0px 1px 14px 0px rgb(0 0 0 / 12%);
+    box-shadow: 0 3px 5px -1px rgb(0, 0, 0, 0.2),
+      0 5px 8px 0px rgb(0, 0, 0, 0.14), 0 1px 14px 0 rgb(0, 0, 0, 0.12);
     outline: none;
     display: flex;
     flex-direction: column;
@@ -23,15 +23,17 @@
 
   .paper-light {
     background-color: #fff;
+    color: #000;
   }
 
   .paper-dark {
     background-color: $epam-black;
+    color: #fff;
   }
 
   .text-block {
     flex: 1 1 50px;
-    padding: 32px;
+    padding: $space-xl;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -39,27 +41,11 @@
   }
 
   .text {
-    font-size: 20px;
-  }
-
-  .text-dark {
-    color: #000;
-  }
-
-  .text-light {
-    color: #fff;
+    font-size: $fs20;
   }
 
   .label {
-    font-family: Roboto;
-  }
-
-  .switch {
-    color: $epam-blue;
-  }
-
-  .select {
-    width: 200px;
+    font-family: Roboto, sans-serif;
   }
 
   .buttons-container {
@@ -72,12 +58,12 @@
   }
 
   .cancel-button {
-    margin: 0 5px 10px 10px;
+    margin: 0 $space-xxs $space-s $space-s;
   }
 
   .save-button {
     opacity: 0.95;
-    margin: 0 10px 10px 5px;
+    margin: 0 $space-s $space-s $space-xxs;
     color: white;
     background-color: $epam-blue;
     border-color: $epam-blue;
@@ -94,31 +80,17 @@
 
   .default {
     text-align: center;
-    margin: 0px;
+    margin: 0;
     position: relative;
-  }
-
-  .time {
-    display: flex;
-    position: relative;
-  }
-
-  .hour {
-    &::after {
-      content: ':';
-      position: relative;
-      top: -2px;
-      margin: 0 6px;
-    }
   }
 
   .mb20 {
-    margin-bottom: 20px;
+    margin-bottom: $space-l;
     position: relative;
   }
 
   .mb25 {
-    margin-bottom: 25px;
+    margin-bottom: $space-l;
     text-transform: uppercase;
     text-align: center;
     position: relative;
@@ -127,10 +99,5 @@
   .bottom-container {
     display: flex;
     align-items: center;
-  }
-
-  .mode-control-btn {
-    height: 56px;
-    margin-left: 10px;
   }
 }
