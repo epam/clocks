@@ -1,4 +1,4 @@
-import { useContext, KeyboardEvent, useMemo, FC } from 'react';
+import { useContext, KeyboardEvent, useMemo, FC, useState } from 'react';
 import clsx from 'clsx';
 
 import { LocationsContext } from '../../context/locations';
@@ -14,26 +14,26 @@ import { ThemeContext } from '../../context/theme';
 import styles from './Dashboard.module.scss';
 
 const Dashboard: FC = () => {
+  const [isAddCitySidebarOpen, setIsAddCitySidebarOpen] =
+    useState<boolean>(false);
   const { getItem } = useLocalStorage();
   const {
-    state: { hasCreateForm, locations },
-    actions: { CreateFormHandler }
+    state: { locations }
   } = useContext(LocationsContext);
   const {
     state: { type }
   } = useContext(ThemeContext);
 
+  const addCitySidebarHandler = () => {
+    setIsAddCitySidebarOpen(prev => !prev);
+  };
+
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === '=' || event.key === '+') {
-      if (CreateFormHandler) {
-        CreateFormHandler();
-      }
+      addCitySidebarHandler();
       event.preventDefault();
     }
   };
-
-  const createFormHandler = (isVisible?: boolean) =>
-    CreateFormHandler && CreateFormHandler(isVisible);
 
   const clocksFont = useMemo<string>(
     () => getItem(CLOCKS_FONT) || CLOCKS_FONTS.ROBOTO.value,
@@ -47,7 +47,7 @@ const Dashboard: FC = () => {
       onKeyPress={handleKeyDown}
       className={`${styles.body} ${clocksFont}`}
     >
-      <Navbar />
+      <Navbar addCitySidebarHandler={addCitySidebarHandler} />
       <div
         className={`${styles.container} ${clsx({
           [styles['container-light']]: type === THEMES.light,
@@ -70,11 +70,11 @@ const Dashboard: FC = () => {
             No active cities
           </div>
         )}
-        <AddCity
-          visibility={hasCreateForm || false}
-          setVisibility={createFormHandler}
-        />
       </div>
+      <AddCity
+        visibility={isAddCitySidebarOpen}
+        visibilityHandler={addCitySidebarHandler}
+      />
       <Snackbar />
       <Footer />
     </div>

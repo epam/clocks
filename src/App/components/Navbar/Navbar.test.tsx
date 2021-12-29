@@ -7,15 +7,14 @@ import Navbar from './Navbar';
 import i18n from '../../dictionary';
 
 const MockResetUrl = jest.fn();
-const MockCreateFormHandler = jest.fn();
+const MockAddCitySidebarHandler = jest.fn();
 
 const wrapper = (children: any) => (
   <I18nextProvider i18n={i18n}>
     <LocationsContext.Provider
       value={{
         actions: {
-          ResetUrl: MockResetUrl,
-          CreateFormHandler: MockCreateFormHandler
+          ResetUrl: MockResetUrl
         },
         state: {}
       }}
@@ -23,10 +22,6 @@ const wrapper = (children: any) => (
       {children}
     </LocationsContext.Provider>
   </I18nextProvider>
-);
-
-const settingsWrapper = (children: any) => (
-  <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
 );
 
 jest.mock('../../hooks/useQueryParams', () => {
@@ -46,7 +41,7 @@ describe('test Navbar component', () => {
   it('renders Navbar component', () => {
     const { getByRole, getByText, getByTestId } = render(
       <I18nextProvider i18n={i18n}>
-        <Navbar />
+        <Navbar addCitySidebarHandler={MockAddCitySidebarHandler} />
       </I18nextProvider>
     );
     const navbar = getByRole('banner');
@@ -61,16 +56,19 @@ describe('test Navbar component', () => {
     expect(settingsIcon).toBeInTheDocument();
   });
   it('reset url by clocking the logo', () => {
-    const { getByRole } = render(wrapper(<Navbar />));
+    const { getByRole } = render(
+      wrapper(<Navbar addCitySidebarHandler={MockAddCitySidebarHandler} />)
+    );
     const logoButton = getByRole('button', { name: 'logo' });
     userEvent.click(logoButton);
     expect(MockResetUrl).toHaveBeenCalledTimes(1);
   });
   it('open sidebar by clicking the Add City Button', () => {
-    const { getByText } = render(wrapper(<Navbar />));
+    const { getByText } = render(
+      wrapper(<Navbar addCitySidebarHandler={MockAddCitySidebarHandler} />)
+    );
     const addCityButton = getByText('ADD CITY');
     userEvent.click(addCityButton);
-    expect(MockCreateFormHandler).toHaveBeenCalledTimes(1);
-    expect(MockCreateFormHandler).toHaveBeenCalledWith(true);
+    expect(MockAddCitySidebarHandler).toHaveBeenCalledTimes(1);
   });
 });

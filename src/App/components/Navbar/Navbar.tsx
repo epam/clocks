@@ -17,21 +17,16 @@ import { ScreenSizesContext } from '../../context/screenSizes';
 
 import styles from './Navbar.module.scss';
 import SettingsModal from '../SettingsModal';
+import { INavbarProps } from './Navbar.interface';
 
-const Navbar: FC = () => {
+const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler }) => {
   const { t } = useTranslation();
   const {
-    actions: { CreateFormHandler, ResetUrl }
+    actions: { ResetUrl }
   } = useContext(LocationsContext);
   const {
     state: { width }
   } = useContext(ScreenSizesContext);
-
-  const createFormHandler = () => {
-    if (CreateFormHandler) {
-      CreateFormHandler(true);
-    }
-  };
 
   const [settingsVisibility, setSettingsVisibility] = useState<boolean>(false);
 
@@ -65,7 +60,7 @@ const Navbar: FC = () => {
             {width && width <= 600 ? (
               <IconButton
                 data-testid="settings-icon"
-                onClick={createFormHandler}
+                onClick={addCitySidebarHandler}
               >
                 <Add sx={{ color: '#fff' }} />
               </IconButton>
@@ -73,7 +68,7 @@ const Navbar: FC = () => {
               <Button
                 variant="outlined"
                 color="inherit"
-                onClick={createFormHandler}
+                onClick={addCitySidebarHandler}
                 className={styles['add-city-button']}
                 endIcon={<Add />}
               >

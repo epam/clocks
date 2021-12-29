@@ -57,7 +57,7 @@ const CustomItem: FC<ICustomItemProps> = ({
           { [styles.badgeDark]: type === 'dark' }
         )
       }}
-      badgeContent={t('location.locationadded')}
+      badgeContent={t('location.added')}
       color="primary"
     >
       <Render />

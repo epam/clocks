@@ -1,1 +1,5 @@
-export interface ILocationsInitialState {}
+import { IAppLocation } from '../../lib/interfaces';
+
+export interface ILocationsInitialState {
+  locations: IAppLocation[];
+}
