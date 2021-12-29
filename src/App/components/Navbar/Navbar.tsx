@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC, useContext, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   AppBar,
@@ -12,20 +12,17 @@ import { SettingsOutlined, Add } from '@mui/icons-material';
 import logo from '../../images/logo.svg';
 import { DashboardName } from './components/DashboardName';
 import { LocationsContext } from '../../context/locations';
-import { SettingsContext } from '../../context/settings';
 import CopyURLButton from './components/CopyURLButton';
 import { ScreenSizesContext } from '../../context/screenSizes';
 
 import styles from './Navbar.module.scss';
+import SettingsModal from '../SettingsModal';
 
 const Navbar: FC = () => {
   const { t } = useTranslation();
   const {
     actions: { CreateFormHandler, ResetUrl }
   } = useContext(LocationsContext);
-  const {
-    actions: { SettingsModalHandler }
-  } = useContext(SettingsContext);
   const {
     state: { width }
   } = useContext(ScreenSizesContext);
@@ -36,11 +33,7 @@ const Navbar: FC = () => {
     }
   };
 
-  const settingsModalHandler = () => {
-    if (SettingsModalHandler) {
-      SettingsModalHandler();
-    }
-  };
+  const [settingsVisibility, setSettingsVisibility] = useState<boolean>(false);
 
   return (
     <AppBar
@@ -59,7 +52,7 @@ const Navbar: FC = () => {
           <IconButton
             className={styles['settings-btn']}
             data-testid="settings-icon"
-            onClick={settingsModalHandler}
+            onClick={() => setSettingsVisibility(true)}
           >
             <SettingsOutlined sx={{ color: '#fff' }} />
           </IconButton>
@@ -90,6 +83,10 @@ const Navbar: FC = () => {
           </Tooltip>
         </div>
       </Toolbar>
+      <SettingsModal
+        visibility={settingsVisibility}
+        setVisibility={setSettingsVisibility}
+      />
     </AppBar>
   );
 };

@@ -3,13 +3,11 @@ import userEvent from '@testing-library/user-event';
 
 import { I18nextProvider } from 'react-i18next';
 import { LocationsContext } from '../../context/locations';
-import { SettingsContext } from '../../context/settings';
 import Navbar from './Navbar';
 import i18n from '../../dictionary';
 
 const MockResetUrl = jest.fn();
 const MockCreateFormHandler = jest.fn();
-const MockSettingsModalHandler = jest.fn();
 
 const wrapper = (children: any) => (
   <I18nextProvider i18n={i18n}>
@@ -28,16 +26,7 @@ const wrapper = (children: any) => (
 );
 
 const settingsWrapper = (children: any) => (
-  <I18nextProvider i18n={i18n}>
-    <SettingsContext.Provider
-      value={{
-        actions: { SettingsModalHandler: MockSettingsModalHandler },
-        state: {}
-      }}
-    >
-      {children}
-    </SettingsContext.Provider>
-  </I18nextProvider>
+  <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
 );
 
 jest.mock('../../hooks/useQueryParams', () => {
@@ -83,11 +72,5 @@ describe('test Navbar component', () => {
     userEvent.click(addCityButton);
     expect(MockCreateFormHandler).toHaveBeenCalledTimes(1);
     expect(MockCreateFormHandler).toHaveBeenCalledWith(true);
-  });
-  it('open settings modal', () => {
-    const { getByTestId } = render(settingsWrapper(<Navbar />));
-    const settingsIconButton = getByTestId(/settings-icon/i);
-    userEvent.click(settingsIconButton);
-    expect(MockSettingsModalHandler).toHaveBeenCalledTimes(1);
   });
 });
