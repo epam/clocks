@@ -17,11 +17,13 @@
     "light": "LIGHT",
     "dark": "DARK",
     "autoTheming": "Auto theming",
-    "save": "Save"
+    "save": "Save",
+    "cancel": "Cancel"
   },
   "deleteModal": {
     "confirm": "Are you sure you want to delete?",
-    "delete": "Delete"
+    "delete": "Delete",
+    "cancel": "Cancel"
   },
   "location": {
     "addComment": "Add Comment",

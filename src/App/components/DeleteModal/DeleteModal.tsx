@@ -74,7 +74,7 @@ const DeleteModal: FC = () => {
               className={`${styles.button} ${styles['cancel-button']}`}
               onClick={handleClose}
             >
-              {t('deleteModal.cancel', { ns: 'common' })}
+              {t('deleteModal.cancel')}
             </Button>
             <Button
               variant="outlined"
