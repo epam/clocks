@@ -4,16 +4,14 @@ import { Button, IconButton } from '@material-ui/core';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
 import { SnackbarContext } from '../../../../context/snackbar';
-import { ScreenSizesContext } from '../../../../context/screenSizes';
+
+import styles from './CopyURLButton.module.scss';
 
 const CopyURLButton: FC = () => {
   const { t } = useTranslation();
   const {
     actions: { OpenSnackbar }
   } = useContext(SnackbarContext);
-  const {
-    state: { width }
-  } = useContext(ScreenSizesContext);
 
   const [isLoading, setLoading] = useState(false);
 
@@ -41,30 +39,31 @@ const CopyURLButton: FC = () => {
     }
   };
 
-  if (width && width <= 700) {
-    return (
-      <IconButton
-        aria-label="mobile copy to clipboard button"
-        disabled={isLoading}
-        onClick={handleCopy}
-        color="inherit"
-      >
-        <ContentCopyIcon />
-      </IconButton>
-    );
-  }
-
   return (
-    <Button
-      aria-label="desktop copy to clipboard button"
-      disabled={isLoading}
-      variant="outlined"
-      onClick={handleCopy}
-      endIcon={<ContentCopyIcon />}
-      color="inherit"
-    >
-      {t('navbar.copyURL')}
-    </Button>
+    <>
+      <div className={styles['copy-icon-button']}>
+        <IconButton
+          aria-label="mobile copy to clipboard button"
+          disabled={isLoading}
+          onClick={handleCopy}
+          color="inherit"
+        >
+          <ContentCopyIcon />
+        </IconButton>
+      </div>
+      <div className={styles['copy-button']}>
+        <Button
+          aria-label="desktop copy to clipboard button"
+          disabled={isLoading}
+          variant="outlined"
+          onClick={handleCopy}
+          endIcon={<ContentCopyIcon />}
+          color="inherit"
+        >
+          {t('navbar.copyURL')}
+        </Button>
+      </div>
+    </>
   );
 };
 

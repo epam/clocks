@@ -14,7 +14,6 @@ import { DashboardName } from './components/DashboardName';
 import { LocationsContext } from '../../context/locations';
 import { SettingsContext } from '../../context/settings';
 import CopyURLButton from './components/CopyURLButton';
-import { ScreenSizesContext } from '../../context/screenSizes';
 
 import styles from './Navbar.module.scss';
 import { INavbarProps } from './Navbar.interface';
@@ -27,9 +26,6 @@ const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler }) => {
   const {
     actions: { SettingsModalHandler }
   } = useContext(SettingsContext);
-  const {
-    state: { width }
-  } = useContext(ScreenSizesContext);
 
   const settingsModalHandler = () => {
     if (SettingsModalHandler) {
@@ -48,7 +44,7 @@ const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler }) => {
           <Button className={styles.title} onClick={ResetUrl}>
             <img src={logo} alt="logo" />
           </Button>
-          {width && width <= 600 ? '' : <DashboardName />}
+          <DashboardName />
         </div>
         <div className={styles.buttons}>
           <IconButton
@@ -59,30 +55,36 @@ const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler }) => {
             <SettingsOutlined sx={{ color: '#fff' }} />
           </IconButton>
           <CopyURLButton />
-          <Tooltip
-            title={t('navbar.toggle') || ''}
-            enterDelay={1000}
-            leaveDelay={200}
-          >
-            {width && width <= 600 ? (
+          <div className={styles['add-city-icon-button']}>
+            <Tooltip
+              title={t('navbar.toggle') || ''}
+              enterDelay={1000}
+              leaveDelay={200}
+            >
               <IconButton
-                data-testid="settings-icon"
+                data-testid="add-city-icon"
                 onClick={addCitySidebarHandler}
               >
                 <Add sx={{ color: '#fff' }} />
               </IconButton>
-            ) : (
+            </Tooltip>
+          </div>
+          <div className={styles['add-city-button']}>
+            <Tooltip
+              title={t('navbar.toggle') || ''}
+              enterDelay={1000}
+              leaveDelay={200}
+            >
               <Button
                 variant="outlined"
                 color="inherit"
                 onClick={addCitySidebarHandler}
-                className={styles['add-city-button']}
                 endIcon={<Add />}
               >
                 {t('navbar.addCity')}
               </Button>
-            )}
-          </Tooltip>
+            </Tooltip>
+          </div>
         </div>
       </Toolbar>
     </AppBar>

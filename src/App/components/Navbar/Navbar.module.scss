@@ -39,3 +39,21 @@
     justify-content: center;
   }
 }
+
+@media screen and (max-width: 600px) {
+  .add-city-button {
+    display: none;
+  }
+  .add-city-icon-button {
+    display: block;
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .add-city-icon-button {
+    display: none;
+  }
+  .add-city-button {
+    display: block;
+  }
+}
