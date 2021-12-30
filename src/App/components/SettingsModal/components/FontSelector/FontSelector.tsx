@@ -1,14 +1,24 @@
 import { FC } from 'react';
 import { MenuItem, Select } from '@material-ui/core';
+import { styled } from '@mui/material/styles';
 
 import { CLOCKS_FONTS } from '../../../../lib/constants';
 
 import { IFontSelectorProps } from './FontSelector.interface';
 import styles from './FontSelector.module.scss';
 
+// Temporary styled Select , to be deleted when moving to EPAM UI
+const EPAMBlueSelect = styled(Select)(({ theme }) => ({
+  '&.Mui-focused': {
+    '& .MuiOutlinedInput-notchedOutline': {
+      borderColor: '#39c2d7'
+    }
+  }
+}));
+
 const FontSelector: FC<IFontSelectorProps> = ({ font, changeHandler }) => {
   return (
-    <Select
+    <EPAMBlueSelect
       variant="outlined"
       className={styles.select}
       onChange={(e: any) => changeHandler(e.target.value)}
@@ -19,7 +29,7 @@ const FontSelector: FC<IFontSelectorProps> = ({ font, changeHandler }) => {
           {font.label}
         </MenuItem>
       ))}
-    </Select>
+    </EPAMBlueSelect>
   );
 };
 
