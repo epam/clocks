@@ -6,7 +6,6 @@ import Location from '../../components/Location';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import AddCity from '../../components/Navbar/components/AddCity';
-import SettingsModal from '../../components/SettingsModal';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { CLOCKS_FONT, CLOCKS_FONTS, THEMES } from '../../lib/constants';
 import Snackbar from '../../components/Snackbar';
@@ -49,7 +48,6 @@ const Dashboard: FC = () => {
       className={`${styles.body} ${clocksFont}`}
     >
       <Navbar addCitySidebarHandler={addCitySidebarHandler} />
-      <SettingsModal />
       <div
         className={`${styles.container} ${clsx({
           [styles['container-light']]: type === THEMES.light,

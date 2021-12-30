@@ -3,12 +3,10 @@ import userEvent from '@testing-library/user-event';
 
 import { I18nextProvider } from 'react-i18next';
 import { LocationsContext } from '../../context/locations';
-import { SettingsContext } from '../../context/settings';
 import Navbar from './Navbar';
 import i18n from '../../dictionary';
 
 const MockResetUrl = jest.fn();
-const MockSettingsModalHandler = jest.fn();
 const MockAddCitySidebarHandler = jest.fn();
 
 const wrapper = (children: any) => (
@@ -23,19 +21,6 @@ const wrapper = (children: any) => (
     >
       {children}
     </LocationsContext.Provider>
-  </I18nextProvider>
-);
-
-const settingsWrapper = (children: any) => (
-  <I18nextProvider i18n={i18n}>
-    <SettingsContext.Provider
-      value={{
-        actions: { SettingsModalHandler: MockSettingsModalHandler },
-        state: {}
-      }}
-    >
-      {children}
-    </SettingsContext.Provider>
   </I18nextProvider>
 );
 
@@ -85,15 +70,5 @@ describe('test Navbar component', () => {
     const addCityButton = getByText('ADD CITY');
     userEvent.click(addCityButton);
     expect(MockAddCitySidebarHandler).toHaveBeenCalledTimes(1);
-  });
-  it('open settings modal', () => {
-    const { getByTestId } = render(
-      settingsWrapper(
-        <Navbar addCitySidebarHandler={MockAddCitySidebarHandler} />
-      )
-    );
-    const settingsIconButton = getByTestId(/settings-icon/i);
-    userEvent.click(settingsIconButton);
-    expect(MockSettingsModalHandler).toHaveBeenCalledTimes(1);
   });
 });
