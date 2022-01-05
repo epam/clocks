@@ -21,6 +21,7 @@ function App() {
                 <Dashboard />
               </Route>
             </Switch>
+            <Footer />
           </LocationsProvider>
         </PlanningModeProvider>
       </SnackbarProvider>
