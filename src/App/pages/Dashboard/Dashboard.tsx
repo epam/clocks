@@ -12,7 +12,6 @@ import clsx from 'clsx';
 import Location from '../../components/Location';
 import Navbar from '../../components/Navbar';
 import AddCity from '../../components/Navbar/components/AddCity';
-import SettingsModal from '../../components/SettingsModal';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import {
   CLOCKS_FONT,
@@ -113,7 +112,6 @@ const Dashboard: FC<IDashboardProps> = ({
       className={`${styles.body} ${clocksFont}`}
     >
       <Navbar addCitySidebarHandler={addCitySidebarHandler} />
-      <SettingsModal locations={locations} />
       <div
         className={`${styles.container} ${clsx({
           [styles['container-light']]: type === THEMES.light,

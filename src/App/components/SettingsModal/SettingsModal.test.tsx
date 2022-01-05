@@ -1,10 +1,9 @@
-import { ReactNode } from 'react';
+import { ReactNode, FC } from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { I18nextProvider } from 'react-i18next';
 import { ThemeContext, ThemeProvider } from '../../context/theme';
-import { SettingsContext } from '../../context/settings';
 import {
   AUTO_THEMING,
   HAS_COUNTRY,
@@ -17,7 +16,7 @@ import {
 import SettingsModal from './SettingsModal';
 import i18n from '../../dictionary';
 
-const MockSettingsModalHandler = jest.fn();
+const MockSettingsModalVisibility = jest.fn();
 const MockSetItem = jest.fn();
 const MockThemeHandler = jest.fn();
 const MockAutoThemingHandler = jest.fn();
@@ -79,22 +78,11 @@ const MockMatchMedia = (query: string) => {
 Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 Object.defineProperty(window, 'matchMedia', { value: MockMatchMedia });
 
-const settingsWrapper = (children: any) => {
-  return (
-    <I18nextProvider i18n={i18n}>
-      <SettingsContext.Provider
-        value={{
-          state: { isSettingsModalOpen: true },
-          actions: { SettingsModalHandler: MockSettingsModalHandler }
-        }}
-      >
-        {children}
-      </SettingsContext.Provider>
-    </I18nextProvider>
-  );
+const SettingsWrapper: FC = ({ children }) => {
+  return <I18nextProvider i18n={i18n}>{children}</I18nextProvider>;
 };
 
-const mockThemeWrapper = (children: ReactNode) => {
+const MockThemeWrapper: FC = ({ children }) => {
   const store = {
     actions: {
       ThemeHandler: MockThemeHandler,
@@ -103,14 +91,22 @@ const mockThemeWrapper = (children: ReactNode) => {
     state: { type: 'dark', autoTheming: false }
   };
   return (
-    <ThemeContext.Provider value={store}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={store}>
+      <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
+    </ThemeContext.Provider>
   );
 };
 
 describe('test cases for settings modal', () => {
   it('render settings modal', () => {
     const { getByRole, getAllByRole, getAllByTestId } = render(
-      settingsWrapper(<SettingsModal locations={[]} />)
+      <SettingsWrapper>
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
+      </SettingsWrapper>
     );
 
     const buttons = getAllByRole('button');
@@ -129,17 +125,31 @@ describe('test cases for settings modal', () => {
     expect(cancelButton).toBeInTheDocument();
     expect(saveButton).toBeInTheDocument();
   });
+
   it('close modal by clicking Cancel button', () => {
     const { getByRole } = render(
-      settingsWrapper(<SettingsModal locations={[]} />)
+      <SettingsWrapper>
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
+      </SettingsWrapper>
     );
     const cancelButton = getByRole('button', { name: /Save/i });
     userEvent.click(cancelButton);
-    expect(MockSettingsModalHandler).toHaveBeenCalledTimes(1);
+    expect(MockSettingsModalVisibility).toHaveBeenCalledTimes(1);
   });
+
   it('save changes and close modal by clicking Save button', () => {
     const { getByRole, getAllByTestId } = render(
-      settingsWrapper(<SettingsModal locations={[]} />)
+      <SettingsWrapper>
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
+      </SettingsWrapper>
     );
     const eyeIcon = getAllByTestId('open-eye-icon')[0];
     userEvent.click(eyeIcon);
@@ -147,15 +157,22 @@ describe('test cases for settings modal', () => {
     const saveButton = getByRole('button', { name: /Save/i });
     userEvent.click(saveButton);
 
-    expect(MockSettingsModalHandler).toHaveReturnedTimes(1);
+    expect(MockSettingsModalVisibility).toHaveReturnedTimes(1);
     expect(MockSetItem).toHaveBeenCalledTimes(6);
     expect(MockSetItem).toHaveBeenCalledWith(HAS_DATE, false);
     expect(MockSetItem).toHaveBeenCalledWith(HAS_COUNTRY, true);
     expect(MockSetItem).toHaveBeenCalledWith(HAS_TIMEZONE, false);
   });
+
   it('switching icons', () => {
     const { getAllByTestId } = render(
-      settingsWrapper(<SettingsModal locations={[]} />)
+      <SettingsWrapper>
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
+      </SettingsWrapper>
     );
     const eyeIcon = getAllByTestId('open-eye-icon')[0];
     userEvent.click(eyeIcon);
@@ -164,29 +181,46 @@ describe('test cases for settings modal', () => {
     expect(closedEyeIcon).toBeInTheDocument();
     expect(eyeIcons.length).toBe(1);
   });
+
   it('switch auto theming', () => {
     const { getByRole } = render(
-      mockThemeWrapper(settingsWrapper(<SettingsModal locations={[]} />))
+      <MockThemeWrapper>
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
+      </MockThemeWrapper>
     );
     const autoThemeSwitcher = getByRole('checkbox', { name: /Auto Theming/i });
     userEvent.click(autoThemeSwitcher);
     expect(MockAutoThemingHandler).toHaveBeenCalledTimes(1);
   });
+
   it('change theme by clicking theme button', () => {
     const { getByRole } = render(
-      mockThemeWrapper(settingsWrapper(<SettingsModal locations={[]} />))
+      <MockThemeWrapper>
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
+      </MockThemeWrapper>
     );
     const themeButton = getByRole('button', { name: /dark/i });
     userEvent.click(themeButton);
     expect(MockThemeHandler).toHaveBeenCalledTimes(1);
   });
+
   it('save theme changes into localStorage', () => {
     const { getByRole } = render(
-      settingsWrapper(
-        <ThemeProvider>
-          <SettingsModal locations={[]} />
-        </ThemeProvider>
-      )
+      <MockThemeWrapper>
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
+      </MockThemeWrapper>
     );
     const autoThemeSwitcher = getByRole('checkbox', { name: /Auto Theming/i });
     userEvent.click(autoThemeSwitcher);
@@ -196,11 +230,18 @@ describe('test cases for settings modal', () => {
     const saveButton = getByRole('button', { name: /save/i });
     userEvent.click(saveButton);
     expect(MockSetItem).toHaveBeenCalledWith(AUTO_THEMING, false);
-    expect(MockSetItem).toHaveBeenLastCalledWith(THEME, THEMES.light);
+    expect(MockSetItem).toHaveBeenLastCalledWith(THEME, THEMES.dark);
   });
+
   it('reverting all by clicking Cancel button', () => {
     const { getByRole } = render(
-      mockThemeWrapper(settingsWrapper(<SettingsModal locations={[]} />))
+      <MockThemeWrapper>
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
+      </MockThemeWrapper>
     );
     const cancelButton = getByRole('button', { name: /cancel/i });
     userEvent.click(cancelButton);

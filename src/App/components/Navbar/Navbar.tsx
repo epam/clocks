@@ -1,4 +1,4 @@
-import { FC, useContext } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   AppBar,
@@ -11,29 +11,18 @@ import { SettingsOutlined, Add } from '@mui/icons-material';
 
 import logo from '../../images/logo.svg';
 import { DashboardName } from './components/DashboardName';
-import { SettingsContext } from '../../context/settings';
 import CopyURLButton from './components/CopyURLButton';
-import { ScreenSizesContext } from '../../context/screenSizes';
 
 import styles from './Navbar.module.scss';
+import SettingsModal from '../SettingsModal';
 import { INavbarProps } from './Navbar.interface';
 import { useUrl } from '../../hooks/useUrl';
 
 const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler }) => {
   const { t } = useTranslation();
   const { ResetUrl } = useUrl();
-  const {
-    actions: { SettingsModalHandler }
-  } = useContext(SettingsContext);
-  const {
-    state: { width }
-  } = useContext(ScreenSizesContext);
 
-  const settingsModalHandler = () => {
-    if (SettingsModalHandler) {
-      SettingsModalHandler();
-    }
-  };
+  const [settingsVisibility, setSettingsVisibility] = useState<boolean>(false);
 
   return (
     <AppBar
@@ -46,43 +35,54 @@ const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler }) => {
           <Button className={styles.title} onClick={ResetUrl}>
             <img src={logo} alt="logo" />
           </Button>
-          {width && width <= 600 ? '' : <DashboardName />}
+          <DashboardName />
         </div>
         <div className={styles.buttons}>
           <IconButton
             className={styles['settings-btn']}
             data-testid="settings-icon"
-            onClick={settingsModalHandler}
+            onClick={() => setSettingsVisibility(true)}
           >
             <SettingsOutlined sx={{ color: '#fff' }} />
           </IconButton>
           <CopyURLButton />
-          <Tooltip
-            title={t('navbar.toggle') || ''}
-            enterDelay={1000}
-            leaveDelay={200}
-          >
-            {width && width <= 600 ? (
+          <div className={styles['add-city-icon-button']}>
+            <Tooltip
+              title={t('navbar.toggle') || ''}
+              enterDelay={1000}
+              leaveDelay={200}
+            >
               <IconButton
-                data-testid="settings-icon"
+                data-testid="add-city-icon"
                 onClick={addCitySidebarHandler}
               >
                 <Add sx={{ color: '#fff' }} />
               </IconButton>
-            ) : (
+            </Tooltip>
+          </div>
+          <div className={styles['add-city-button']}>
+            <Tooltip
+              title={t('navbar.toggle') || ''}
+              enterDelay={1000}
+              leaveDelay={200}
+            >
               <Button
                 variant="outlined"
                 color="inherit"
                 onClick={addCitySidebarHandler}
-                className={styles['add-city-button']}
                 endIcon={<Add />}
               >
                 {t('navbar.addCity')}
               </Button>
-            )}
-          </Tooltip>
+            </Tooltip>
+          </div>
         </div>
       </Toolbar>
+      <SettingsModal
+        locations={[]}
+        visibility={settingsVisibility}
+        setVisibility={setSettingsVisibility}
+      />
     </AppBar>
   );
 };

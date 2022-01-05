@@ -4,7 +4,6 @@ import { Button, Typography, Backdrop, Fade, Modal } from '@material-ui/core';
 import moment from 'moment-timezone';
 import clsx from 'clsx';
 
-import { SettingsContext } from '../../context/settings';
 import { ThemeContext } from '../../context/theme';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import {
@@ -32,7 +31,11 @@ import { Time } from './components/Time';
 import styles from './SettingsModal.module.scss';
 import { ISettingsModalProps } from './SettingsModal.interface';
 
-const SettingsModal: FC<ISettingsModalProps> = ({ locations }) => {
+const SettingsModal: FC<ISettingsModalProps> = ({
+  locations,
+  visibility,
+  setVisibility
+}) => {
   const { t } = useTranslation();
   const [hasCountry, setHasCountry] = useState<boolean>(
     getClockFieldStorageValue(HAS_COUNTRY)
@@ -47,26 +50,17 @@ const SettingsModal: FC<ISettingsModalProps> = ({ locations }) => {
     localStorage.getItem(CLOCKS_FONT) || CLOCKS_FONTS.ROBOTO.value
   );
   const { setItem, getItem } = useLocalStorage();
-  const {
-    state: { isSettingsModalOpen },
-    actions: { SettingsModalHandler }
-  } = useContext(SettingsContext);
+
   const {
     actions: { ThemeHandler, AutoThemingHandler },
     state: { type, autoTheming }
   } = useContext(ThemeContext);
 
-  const handleClose = () => {
-    if (SettingsModalHandler) {
-      SettingsModalHandler(false);
-    }
-  };
-
   const handleCancel = () => {
     setHasCountry(getClockFieldStorageValue(HAS_COUNTRY));
     setHasDate(getClockFieldStorageValue(HAS_DATE));
     setHasTimezone(getClockFieldStorageValue(HAS_TIMEZONE));
-    handleClose();
+    setVisibility(false);
     if (!ThemeHandler || !AutoThemingHandler) return;
     const isAutoThemingOn: boolean | undefined = JSON.parse(
       getItem(AUTO_THEMING) || ''
@@ -98,7 +92,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({ locations }) => {
     if (!autoTheming) {
       setItem(THEME, type);
     }
-    handleClose();
+    setVisibility(false);
   };
 
   const themeHandler = () => {
@@ -131,14 +125,14 @@ const SettingsModal: FC<ISettingsModalProps> = ({ locations }) => {
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       className={`${styles.modal} ${clocksFont}`}
-      open={isSettingsModalOpen || false}
+      open={visibility}
       closeAfterTransition
       BackdropComponent={Backdrop}
       BackdropProps={{
         timeout: 500
       }}
     >
-      <Fade in={isSettingsModalOpen}>
+      <Fade in={visibility}>
         <div
           className={`${styles.paper} ${clsx({
             [styles['paper-light']]: type === THEMES.light,
