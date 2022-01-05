@@ -6,7 +6,6 @@ import clsx from 'clsx';
 
 import { SettingsContext } from '../../context/settings';
 import { ThemeContext } from '../../context/theme';
-import { LocationsContext } from '../../context/locations';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import {
   getGmtOffset,
@@ -31,8 +30,9 @@ import { Theming } from './components/Theming';
 import { Heading } from './components/Heading';
 import { Time } from './components/Time';
 import styles from './SettingsModal.module.scss';
+import { ISettingsModalProps } from './SettingsModal.interface';
 
-const SettingsModal: FC = () => {
+const SettingsModal: FC<ISettingsModalProps> = ({ locations }) => {
   const { t } = useTranslation();
   const [hasCountry, setHasCountry] = useState<boolean>(
     getClockFieldStorageValue(HAS_COUNTRY)
@@ -51,10 +51,6 @@ const SettingsModal: FC = () => {
     state: { isSettingsModalOpen },
     actions: { SettingsModalHandler }
   } = useContext(SettingsContext);
-  const {
-    state: { locations },
-    actions: { SetLocationsFromUrl }
-  } = useContext(LocationsContext);
   const {
     actions: { ThemeHandler, AutoThemingHandler },
     state: { type, autoTheming }
@@ -101,9 +97,6 @@ const SettingsModal: FC = () => {
     setItem(AUTO_THEMING, autoTheming);
     if (!autoTheming) {
       setItem(THEME, type);
-    }
-    if (SetLocationsFromUrl) {
-      SetLocationsFromUrl();
     }
     handleClose();
   };

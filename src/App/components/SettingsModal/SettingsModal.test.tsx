@@ -110,7 +110,7 @@ const mockThemeWrapper = (children: ReactNode) => {
 describe('test cases for settings modal', () => {
   it('render settings modal', () => {
     const { getByRole, getAllByRole, getAllByTestId } = render(
-      settingsWrapper(<SettingsModal />)
+      settingsWrapper(<SettingsModal locations={[]} />)
     );
 
     const buttons = getAllByRole('button');
@@ -130,14 +130,16 @@ describe('test cases for settings modal', () => {
     expect(saveButton).toBeInTheDocument();
   });
   it('close modal by clicking Cancel button', () => {
-    const { getByRole } = render(settingsWrapper(<SettingsModal />));
+    const { getByRole } = render(
+      settingsWrapper(<SettingsModal locations={[]} />)
+    );
     const cancelButton = getByRole('button', { name: /Save/i });
     userEvent.click(cancelButton);
     expect(MockSettingsModalHandler).toHaveBeenCalledTimes(1);
   });
   it('save changes and close modal by clicking Save button', () => {
     const { getByRole, getAllByTestId } = render(
-      settingsWrapper(<SettingsModal />)
+      settingsWrapper(<SettingsModal locations={[]} />)
     );
     const eyeIcon = getAllByTestId('open-eye-icon')[0];
     userEvent.click(eyeIcon);
@@ -152,7 +154,9 @@ describe('test cases for settings modal', () => {
     expect(MockSetItem).toHaveBeenCalledWith(HAS_TIMEZONE, false);
   });
   it('switching icons', () => {
-    const { getAllByTestId } = render(settingsWrapper(<SettingsModal />));
+    const { getAllByTestId } = render(
+      settingsWrapper(<SettingsModal locations={[]} />)
+    );
     const eyeIcon = getAllByTestId('open-eye-icon')[0];
     userEvent.click(eyeIcon);
     const closedEyeIcon = getAllByTestId('closed-eye-icon')[0];
@@ -162,7 +166,7 @@ describe('test cases for settings modal', () => {
   });
   it('switch auto theming', () => {
     const { getByRole } = render(
-      mockThemeWrapper(settingsWrapper(<SettingsModal />))
+      mockThemeWrapper(settingsWrapper(<SettingsModal locations={[]} />))
     );
     const autoThemeSwitcher = getByRole('checkbox', { name: /Auto Theming/i });
     userEvent.click(autoThemeSwitcher);
@@ -170,7 +174,7 @@ describe('test cases for settings modal', () => {
   });
   it('change theme by clicking theme button', () => {
     const { getByRole } = render(
-      mockThemeWrapper(settingsWrapper(<SettingsModal />))
+      mockThemeWrapper(settingsWrapper(<SettingsModal locations={[]} />))
     );
     const themeButton = getByRole('button', { name: /dark/i });
     userEvent.click(themeButton);
@@ -180,7 +184,7 @@ describe('test cases for settings modal', () => {
     const { getByRole } = render(
       settingsWrapper(
         <ThemeProvider>
-          <SettingsModal />
+          <SettingsModal locations={[]} />
         </ThemeProvider>
       )
     );
@@ -196,7 +200,7 @@ describe('test cases for settings modal', () => {
   });
   it('reverting all by clicking Cancel button', () => {
     const { getByRole } = render(
-      mockThemeWrapper(settingsWrapper(<SettingsModal />))
+      mockThemeWrapper(settingsWrapper(<SettingsModal locations={[]} />))
     );
     const cancelButton = getByRole('button', { name: /cancel/i });
     userEvent.click(cancelButton);

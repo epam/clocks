@@ -1,6 +1,7 @@
 import { Switch, Route } from 'react-router-dom';
 import { LocationsProvider } from '../../context/locations';
 import Dashboard from '../../pages/Dashboard';
+import Footer from '../Footer';
 
 import { ThemeProvider } from '../../context/theme';
 import { ScreenSizesProvider } from '../../context/screenSizes';
@@ -20,10 +21,9 @@ function App() {
             <PlanningModeProvider>
               <LocationsProvider>
                 <Switch>
-                  <Route>
-                    <Dashboard />
-                  </Route>
+                  <Route path="/" exact component={Dashboard} />
                 </Switch>
+                <Footer />
               </LocationsProvider>
             </PlanningModeProvider>
           </SnackbarProvider>

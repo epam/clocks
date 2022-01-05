@@ -1,4 +1,4 @@
-import { FC, useContext, useRef, useMemo, useState, useEffect } from 'react';
+import { FC, useRef, useMemo, useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Grid,
@@ -17,19 +17,17 @@ import {
   sortBestMatch,
   generateIdFormat
 } from '../../../../handlers';
-import { LocationsContext } from '../../../../context/locations';
 import { ICityData, IMatchingLocation } from '../../../../lib/interfaces';
 import { IInputDrawerProps } from './AddCity.interface';
 
 import css from './AddCity.module.scss';
+import { useUrl } from '../../../../hooks/useUrl';
 
 const AddCity: FC<IInputDrawerProps> = ({ visibility, visibilityHandler }) => {
   // @ts-ignore
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-  const {
-    actions: { GetLocationsFromUrl, AddLocation }
-  } = useContext(LocationsContext);
   const { t } = useTranslation();
+  const { GetLocationsFromUrl, AddLocation } = useUrl();
 
   const [cities, setCities] = useState<IMatchingLocation[]>([]);
   const [value, setValue] = useState<string>('');

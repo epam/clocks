@@ -11,19 +11,17 @@ import { SettingsOutlined, Add } from '@mui/icons-material';
 
 import logo from '../../images/logo.svg';
 import { DashboardName } from './components/DashboardName';
-import { LocationsContext } from '../../context/locations';
 import { SettingsContext } from '../../context/settings';
 import CopyURLButton from './components/CopyURLButton';
 import { ScreenSizesContext } from '../../context/screenSizes';
 
 import styles from './Navbar.module.scss';
 import { INavbarProps } from './Navbar.interface';
+import { useUrl } from '../../hooks/useUrl';
 
 const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler }) => {
   const { t } = useTranslation();
-  const {
-    actions: { ResetUrl }
-  } = useContext(LocationsContext);
+  const { ResetUrl } = useUrl();
   const {
     actions: { SettingsModalHandler }
   } = useContext(SettingsContext);
