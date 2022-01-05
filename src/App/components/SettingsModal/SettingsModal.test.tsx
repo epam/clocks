@@ -1,9 +1,9 @@
-import { ReactNode, FC } from 'react';
+import { FC } from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { I18nextProvider } from 'react-i18next';
-import { ThemeContext, ThemeProvider } from '../../context/theme';
+import { ThemeContext } from '../../context/theme';
 import {
   AUTO_THEMING,
   HAS_COUNTRY,
@@ -101,7 +101,11 @@ describe('test cases for settings modal', () => {
   it('render settings modal', () => {
     const { getByRole, getAllByRole, getAllByTestId } = render(
       <SettingsWrapper>
-        <SettingsModal visibility setVisibility={MockSettingsModalVisibility} />
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
       </SettingsWrapper>
     );
 
@@ -125,7 +129,11 @@ describe('test cases for settings modal', () => {
   it('close modal by clicking Cancel button', () => {
     const { getByRole } = render(
       <SettingsWrapper>
-        <SettingsModal visibility setVisibility={MockSettingsModalVisibility} />
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
       </SettingsWrapper>
     );
     const cancelButton = getByRole('button', { name: /Save/i });
@@ -136,7 +144,11 @@ describe('test cases for settings modal', () => {
   it('save changes and close modal by clicking Save button', () => {
     const { getByRole, getAllByTestId } = render(
       <SettingsWrapper>
-        <SettingsModal visibility setVisibility={MockSettingsModalVisibility} />
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
       </SettingsWrapper>
     );
     const eyeIcon = getAllByTestId('open-eye-icon')[0];
@@ -155,7 +167,11 @@ describe('test cases for settings modal', () => {
   it('switching icons', () => {
     const { getAllByTestId } = render(
       <SettingsWrapper>
-        <SettingsModal visibility setVisibility={MockSettingsModalVisibility} />
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
       </SettingsWrapper>
     );
     const eyeIcon = getAllByTestId('open-eye-icon')[0];
@@ -169,7 +185,11 @@ describe('test cases for settings modal', () => {
   it('switch auto theming', () => {
     const { getByRole } = render(
       <MockThemeWrapper>
-        <SettingsModal visibility setVisibility={MockSettingsModalVisibility} />
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
       </MockThemeWrapper>
     );
     const autoThemeSwitcher = getByRole('checkbox', { name: /Auto Theming/i });
@@ -180,7 +200,11 @@ describe('test cases for settings modal', () => {
   it('change theme by clicking theme button', () => {
     const { getByRole } = render(
       <MockThemeWrapper>
-        <SettingsModal visibility setVisibility={MockSettingsModalVisibility} />
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
       </MockThemeWrapper>
     );
     const themeButton = getByRole('button', { name: /dark/i });
@@ -191,7 +215,11 @@ describe('test cases for settings modal', () => {
   it('save theme changes into localStorage', () => {
     const { getByRole } = render(
       <MockThemeWrapper>
-        <SettingsModal visibility setVisibility={MockSettingsModalVisibility} />
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
       </MockThemeWrapper>
     );
     const autoThemeSwitcher = getByRole('checkbox', { name: /Auto Theming/i });
@@ -208,7 +236,11 @@ describe('test cases for settings modal', () => {
   it('reverting all by clicking Cancel button', () => {
     const { getByRole } = render(
       <MockThemeWrapper>
-        <SettingsModal visibility setVisibility={MockSettingsModalVisibility} />
+        <SettingsModal
+          locations={[]}
+          visibility
+          setVisibility={MockSettingsModalVisibility}
+        />
       </MockThemeWrapper>
     );
     const cancelButton = getByRole('button', { name: /cancel/i });

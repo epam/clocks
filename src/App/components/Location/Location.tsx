@@ -6,27 +6,26 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser from 'react-html-parser';
 
-import { LocationsContext } from '../../context/locations';
 import { SnackbarContext } from '../../context/snackbar';
 import { editorConfig } from '../../lib/constants';
-import { IAppLocation } from '../../lib/interfaces';
+import { useUrl } from '../../hooks/useUrl';
 import DeleteModal from '../DeleteModal';
 
 import LocationContent from './components/LocationContent';
 import styles from './Location.module.scss';
+import { ILocationProps } from './Location.interface';
 
-const Location: FC<IAppLocation> = ({
+const Location: FC<ILocationProps> = ({
   offset,
   host,
   id,
   message,
+  changeUserCurrentLocation,
   ...props
 }) => {
   const { t } = useTranslation();
+  const { AddComment, DeleteLocation } = useUrl();
   const { hours, minutes } = offset;
-  const {
-    actions: { AddComment, ChangeUserCurrentLocation, DeleteLocation }
-  } = useContext(LocationsContext);
   const {
     actions: { OpenSnackbar, SnackbarHandler },
     state: { isSnackbarOpen }
@@ -62,8 +61,9 @@ const Location: FC<IAppLocation> = ({
 
   const deleteLocation = () => DeleteLocation && DeleteLocation(id);
 
-  const changeUserCurrentLocation = () =>
-    ChangeUserCurrentLocation && ChangeUserCurrentLocation(id);
+  const ChangeUserCurrentLocation = () => {
+    changeUserCurrentLocation(id);
+  };
 
   return (
     <div className={styles.card}>
@@ -76,7 +76,7 @@ const Location: FC<IAppLocation> = ({
         {!host && (
           <IconButton
             data-testid="HomeIconButton"
-            onClick={changeUserCurrentLocation}
+            onClick={ChangeUserCurrentLocation}
             className={styles.button}
           >
             <HomeOutlined />

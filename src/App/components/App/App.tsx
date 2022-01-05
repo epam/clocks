@@ -1,6 +1,6 @@
 import { Switch, Route } from 'react-router-dom';
-import { LocationsProvider } from '../../context/locations';
 import Dashboard from '../../pages/Dashboard';
+import Footer from '../Footer';
 
 import { ThemeProvider } from '../../context/theme';
 import { SnackbarProvider } from '../../context/snackbar';
@@ -14,13 +14,12 @@ function App() {
     <ThemeProvider>
       <SnackbarProvider>
         <PlanningModeProvider>
-          <LocationsProvider>
-            <Switch>
-              <Route>
-                <Dashboard />
-              </Route>
-            </Switch>
-          </LocationsProvider>
+          <Switch>
+            <Route>
+              <Dashboard />
+            </Route>
+          </Switch>
+          <Footer />
         </PlanningModeProvider>
       </SnackbarProvider>
     </ThemeProvider>

@@ -5,7 +5,6 @@ import moment from 'moment-timezone';
 import clsx from 'clsx';
 
 import { ThemeContext } from '../../context/theme';
-import { LocationsContext } from '../../context/locations';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import {
   getGmtOffset,
@@ -30,9 +29,10 @@ import { Theming } from './components/Theming';
 import { Heading } from './components/Heading';
 import { Time } from './components/Time';
 import styles from './SettingsModal.module.scss';
-import { SettingsModalInterface } from './SettingsModal.interface';
+import { ISettingsModalProps } from './SettingsModal.interface';
 
-const SettingsModal: FC<SettingsModalInterface> = ({
+const SettingsModal: FC<ISettingsModalProps> = ({
+  locations,
   visibility,
   setVisibility
 }) => {
@@ -50,10 +50,7 @@ const SettingsModal: FC<SettingsModalInterface> = ({
     localStorage.getItem(CLOCKS_FONT) || CLOCKS_FONTS.ROBOTO.value
   );
   const { setItem, getItem } = useLocalStorage();
-  const {
-    state: { locations },
-    actions: { SetLocationsFromUrl }
-  } = useContext(LocationsContext);
+
   const {
     actions: { ThemeHandler, AutoThemingHandler },
     state: { type, autoTheming }
@@ -94,9 +91,6 @@ const SettingsModal: FC<SettingsModalInterface> = ({
     setItem(AUTO_THEMING, autoTheming);
     if (!autoTheming) {
       setItem(THEME, type);
-    }
-    if (SetLocationsFromUrl) {
-      SetLocationsFromUrl();
     }
     setVisibility(false);
   };

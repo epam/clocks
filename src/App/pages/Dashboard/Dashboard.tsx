@@ -1,25 +1,50 @@
-import { useContext, KeyboardEvent, useMemo, FC, useState } from 'react';
+import {
+  useContext,
+  KeyboardEvent,
+  useMemo,
+  FC,
+  useState,
+  useEffect
+} from 'react';
+import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 
-import { LocationsContext } from '../../context/locations';
 import Location from '../../components/Location';
 import Navbar from '../../components/Navbar';
-import Footer from '../../components/Footer';
 import AddCity from '../../components/Navbar/components/AddCity';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { CLOCKS_FONT, CLOCKS_FONTS, THEMES } from '../../lib/constants';
+import {
+  CLOCKS_FONT,
+  CLOCKS_FONTS,
+  PARAM_KEYWORD,
+  THEMES
+} from '../../lib/constants';
 import Snackbar from '../../components/Snackbar';
 import { ThemeContext } from '../../context/theme';
 
 import styles from './Dashboard.module.scss';
+import { IDashboardProps } from './Dashboard.interface';
+import {
+  CheckForCityExistence,
+  convertData,
+  getCurrentUserLocation
+} from '../../handlers';
+import { useUrl } from '../../hooks/useUrl';
+import { useQueryParams } from '../../hooks/useQueryParams';
+import convertFromUrlLocations from '../../handlers/convertFromUrlLocations/convertFromUrlLocations';
 
-const Dashboard: FC = () => {
+const Dashboard: FC<IDashboardProps> = ({
+  currentTheme,
+  locations,
+  ChangeUserCurrentLocation,
+  SetLocations
+}) => {
   const [isAddCitySidebarOpen, setIsAddCitySidebarOpen] =
     useState<boolean>(false);
+  const location = useLocation();
   const { getItem } = useLocalStorage();
-  const {
-    state: { locations }
-  } = useContext(LocationsContext);
+  const { AddLocation } = useUrl();
+  const { GetParam, SetParam } = useQueryParams();
   const {
     state: { type }
   } = useContext(ThemeContext);
@@ -35,10 +60,49 @@ const Dashboard: FC = () => {
     }
   };
 
+  const addCurrentUserLocationInInitialLoad = async () => {
+    let locations: string[] = GetParam<string[]>(PARAM_KEYWORD) || [];
+    const locationId = await getCurrentUserLocation();
+    if (!locations || !locations.length) {
+      locations = [locationId];
+      return SetParam(PARAM_KEYWORD, locations);
+    }
+    if (!Array.isArray(locations)) {
+      return console.error('Locations are not valid');
+    }
+    const currentUserExists = CheckForCityExistence(locations, locationId);
+    if (!currentUserExists) {
+      AddLocation(locationId);
+    }
+  };
+
+  const setLocationsFromUrl = async () => {
+    const locationsFromUlrParams: string[] =
+      GetParam<string[]>(PARAM_KEYWORD) || [];
+    if (!Array.isArray(locationsFromUlrParams)) {
+      return console.error('Locations from url must be array');
+    }
+    const currentUserLocationId: string = await getCurrentUserLocation();
+    const locationObjects = convertFromUrlLocations(locationsFromUlrParams);
+    const convertedLocations = convertData(
+      locationObjects,
+      currentUserLocationId
+    );
+    SetLocations(convertedLocations);
+  };
+
   const clocksFont = useMemo<string>(
     () => getItem(CLOCKS_FONT) || CLOCKS_FONTS.ROBOTO.value,
     [locations]
   );
+
+  useEffect(() => {
+    addCurrentUserLocationInInitialLoad();
+  }, []);
+
+  useEffect(() => {
+    setLocationsFromUrl();
+  }, [location.search]);
 
   return (
     <div
@@ -57,7 +121,10 @@ const Dashboard: FC = () => {
         {locations && locations?.length > 0 ? (
           locations.map((props, index) => (
             <div key={index}>
-              <Location {...props} />
+              <Location
+                changeUserCurrentLocation={ChangeUserCurrentLocation}
+                {...props}
+              />
             </div>
           ))
         ) : (
@@ -76,7 +143,6 @@ const Dashboard: FC = () => {
         visibilityHandler={addCitySidebarHandler}
       />
       <Snackbar />
-      <Footer />
     </div>
   );
 };

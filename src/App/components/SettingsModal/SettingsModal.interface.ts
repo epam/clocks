@@ -1,4 +1,8 @@
-export interface SettingsModalInterface {
+import { Dispatch, SetStateAction } from 'react';
+import { IAppLocation } from '../../lib/interfaces';
+
+export interface ISettingsModalProps {
+  locations: IAppLocation[];
   visibility: boolean;
-  setVisibility: (visibility: boolean) => void;
+  setVisibility: Dispatch<SetStateAction<boolean>>;
 }

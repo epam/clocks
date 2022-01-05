@@ -1,13 +1,18 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-
 import { I18nextProvider } from 'react-i18next';
-import { LocationsContext } from '../../context/locations';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+
 import { SnackbarContext } from '../../context/snackbar';
+import { locationsActions } from '../../redux/locationsRedux/locationsSlice';
+import { IAppLocation } from '../../lib/interfaces';
 import i18n from '../../dictionary';
+import rootReducer from '../../redux/rootReducer';
+
 import Location from './Location';
 
-const mockLocation = {
+const mockLocation: IAppLocation = {
   timezone: 'Asia/Tashkent',
   city: 'Tashkent',
   country: 'Uzbekistan',
@@ -19,9 +24,14 @@ const mockLocation = {
   hasCountry: false,
   hasTimezone: false
 };
+const commentMessageText = 'This is test comment message';
+const { ChangeUserCurrentLocation } = locationsActions;
+const store = createStore(rootReducer);
 
-const MockChangeUserCurrentLocation = jest.fn();
+const MockChangeUserCurrentLocation =
+  jest.fn() as unknown as jest.MockedFunction<typeof ChangeUserCurrentLocation>;
 const MockAddComment = jest.fn();
+const MockDeleteLocation = jest.fn();
 const MockOpenSnackbar = jest.fn();
 const MockSnackbarHandler = jest.fn();
 
@@ -37,42 +47,38 @@ jest.mock('@ckeditor/ckeditor5-react', () => ({
   }
 }));
 
-const locationsProvider = (children: any) => (
-  <LocationsContext.Provider
-    value={{
-      actions: {
-        AddComment: MockAddComment,
-        ChangeUserCurrentLocation: MockChangeUserCurrentLocation
-      },
-      state: {}
-    }}
-  >
-    {children}
-  </LocationsContext.Provider>
-);
+jest.mock('../../hooks/useUrl', () => ({
+  useUrl: () => ({
+    AddComment: MockAddComment,
+    DeleteLocation: MockDeleteLocation
+  })
+}));
 
-const snackbarProvider = (children: any) => (
+const wrapper = (children: any) => (
   <I18nextProvider i18n={i18n}>
-    <SnackbarContext.Provider
-      value={{
-        actions: {
-          OpenSnackbar: MockOpenSnackbar,
-          SnackbarHandler: MockSnackbarHandler
-        },
-        state: { isSnackbarOpen: false }
-      }}
-    >
-      {children}
-    </SnackbarContext.Provider>
+    <Provider store={store}>
+      <SnackbarContext.Provider
+        value={{
+          actions: {
+            OpenSnackbar: MockOpenSnackbar,
+            SnackbarHandler: MockSnackbarHandler
+          },
+          state: { isSnackbarOpen: false }
+        }}
+      >
+        {children}
+      </SnackbarContext.Provider>
+    </Provider>
   </I18nextProvider>
 );
-
-const commentMessageText = 'This is test comment message';
 
 describe('test Location component', () => {
   it('renders Location component', () => {
     const { getAllByRole, getByTestId, getByRole } = render(
-      <Location {...mockLocation} />
+      <Location
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
+        {...mockLocation}
+      />
     );
     const headings = getAllByRole('heading');
     const recycleBinIcon = getByTestId(/DeleteButton/i);
@@ -84,7 +90,12 @@ describe('test Location component', () => {
     expect(commentButton).toBeInTheDocument();
   });
   it('renders textarea for adding comment', () => {
-    const { getByTestId, getByRole } = render(<Location {...mockLocation} />);
+    const { getByTestId, getByRole } = render(
+      <Location
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
+        {...mockLocation}
+      />
+    );
     const commentButton = getByTestId('commentButton');
     userEvent.click(commentButton);
     const textarea = getByRole('textbox');
@@ -92,22 +103,35 @@ describe('test Location component', () => {
   });
   it('renders Location component with comment message', () => {
     mockLocation.message = commentMessageText;
-    const { getByText } = render(<Location {...mockLocation} />);
+    const { getByText } = render(
+      <Location
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
+        {...mockLocation}
+      />
+    );
     const commentMessage = getByText(commentMessageText);
     expect(commentMessage).toBeInTheDocument();
   });
   it('set current user location id by clicking home icon button', () => {
     const { getByTestId } = render(
-      locationsProvider(<Location {...mockLocation} />)
+      wrapper(
+        <Location
+          changeUserCurrentLocation={MockChangeUserCurrentLocation}
+          {...mockLocation}
+        />
+      )
     );
     const homeButton = getByTestId(/HomeIconButton/i);
     userEvent.click(homeButton);
-    expect(MockChangeUserCurrentLocation).toHaveBeenCalledWith(
-      'Tashkent_UZ_41_69'
-    );
+    expect(MockChangeUserCurrentLocation).toHaveBeenCalledTimes(1);
   });
   it('open delete modal by clicking delete icon button', () => {
-    const { getByTestId, getByRole } = render(<Location {...mockLocation} />);
+    const { getByTestId, getByRole } = render(
+      <Location
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
+        {...mockLocation}
+      />
+    );
     const deleteButton = getByTestId(/DeleteButton/i);
     userEvent.click(deleteButton);
     const deleteModal = getByRole('presentation');
@@ -116,14 +140,22 @@ describe('test Location component', () => {
   it('not render home icon if location is host', () => {
     mockLocation.host = true;
     const { queryByRole } = render(
-      locationsProvider(<Location {...mockLocation} />)
+      <Location
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
+        {...mockLocation}
+      />
     );
     const homeButton = queryByRole('button', { name: 'home' });
     expect(homeButton).toBe(null);
   });
   it('opens textarea for adding comment by clicking pencil icon', () => {
     mockLocation.message = commentMessageText;
-    const { getByTestId, queryByRole } = render(<Location {...mockLocation} />);
+    const { getByTestId, queryByRole } = render(
+      <Location
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
+        {...mockLocation}
+      />
+    );
     const pencilIcon = getByTestId(/pencil-icon/i);
     const textarea = queryByRole('textbox');
     expect(textarea).toBe(null);
@@ -134,7 +166,10 @@ describe('test Location component', () => {
   it('add comment by blurring from the textarea', () => {
     mockLocation.message = commentMessageText;
     const { getByRole, getByTestId } = render(
-      locationsProvider(<Location {...mockLocation} />)
+      <Location
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
+        {...mockLocation}
+      />
     );
     const pencilIcon = getByTestId(/pencil-icon/i);
     userEvent.click(pencilIcon);
@@ -148,7 +183,10 @@ describe('test Location component', () => {
   });
   it('hides date, timezone and country name', () => {
     const { queryByText, queryByTestId } = render(
-      <Location {...mockLocation} />
+      <Location
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
+        {...mockLocation}
+      />
     );
     const date = queryByTestId('date');
     const country = queryByText(mockLocation.country);
@@ -159,7 +197,12 @@ describe('test Location component', () => {
   });
   it('check for adding comment with length more than 100 characters', () => {
     const { getByTestId, getByRole } = render(
-      snackbarProvider(<Location {...mockLocation} />)
+      wrapper(
+        <Location
+          changeUserCurrentLocation={ChangeUserCurrentLocation}
+          {...mockLocation}
+        />
+      )
     );
     const pencilIcon = getByTestId(/pencil-icon/i);
     const heading = getByRole('heading', { name: 'Tashkent' });

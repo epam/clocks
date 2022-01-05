@@ -1,6 +1,6 @@
-import { IThemeInitialState } from './theme.interface';
+import { IThemeInitialState, IThemes } from './theme.interface';
 
-export const THEME = {
+export const THEME: IThemes = {
   light: 'light',
   dark: 'dark'
 };

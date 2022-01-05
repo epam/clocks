@@ -1,4 +1,4 @@
-import { FC, useContext, useState } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   AppBar,
@@ -11,18 +11,16 @@ import { SettingsOutlined, Add } from '@mui/icons-material';
 
 import logo from '../../images/logo.svg';
 import { DashboardName } from './components/DashboardName';
-import { LocationsContext } from '../../context/locations';
 import CopyURLButton from './components/CopyURLButton';
 
 import styles from './Navbar.module.scss';
 import SettingsModal from '../SettingsModal';
 import { INavbarProps } from './Navbar.interface';
+import { useUrl } from '../../hooks/useUrl';
 
 const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler }) => {
   const { t } = useTranslation();
-  const {
-    actions: { ResetUrl }
-  } = useContext(LocationsContext);
+  const { ResetUrl } = useUrl();
 
   const [settingsVisibility, setSettingsVisibility] = useState<boolean>(false);
 
@@ -81,6 +79,7 @@ const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler }) => {
         </div>
       </Toolbar>
       <SettingsModal
+        locations={[]}
         visibility={settingsVisibility}
         setVisibility={setSettingsVisibility}
       />
