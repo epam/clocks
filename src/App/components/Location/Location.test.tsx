@@ -1,11 +1,14 @@
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { I18nextProvider } from 'react-i18next';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
 
 import { SnackbarContext } from '../../context/snackbar';
 import { locationsActions } from '../../redux/locationsRedux/locationsSlice';
 import { IAppLocation } from '../../lib/interfaces';
 import i18n from '../../dictionary';
+import rootReducer from '../../redux/rootReducer';
 
 import Location from './Location';
 
@@ -21,13 +24,12 @@ const mockLocation: IAppLocation = {
   hasCountry: false,
   hasTimezone: false
 };
-
+const commentMessageText = 'This is test comment message';
 const { ChangeUserCurrentLocation } = locationsActions;
+const store = createStore(rootReducer);
 
 const MockChangeUserCurrentLocation =
-  ChangeUserCurrentLocation as jest.MockedFunction<
-    typeof ChangeUserCurrentLocation
-  >;
+  jest.fn() as unknown as jest.MockedFunction<typeof ChangeUserCurrentLocation>;
 const MockAddComment = jest.fn();
 const MockDeleteLocation = jest.fn();
 const MockOpenSnackbar = jest.fn();
@@ -54,21 +56,21 @@ jest.mock('../../hooks/useUrl', () => ({
 
 const wrapper = (children: any) => (
   <I18nextProvider i18n={i18n}>
-    <SnackbarContext.Provider
-      value={{
-        actions: {
-          OpenSnackbar: MockOpenSnackbar,
-          SnackbarHandler: MockSnackbarHandler
-        },
-        state: { isSnackbarOpen: false }
-      }}
-    >
-      {children}
-    </SnackbarContext.Provider>
+    <Provider store={store}>
+      <SnackbarContext.Provider
+        value={{
+          actions: {
+            OpenSnackbar: MockOpenSnackbar,
+            SnackbarHandler: MockSnackbarHandler
+          },
+          state: { isSnackbarOpen: false }
+        }}
+      >
+        {children}
+      </SnackbarContext.Provider>
+    </Provider>
   </I18nextProvider>
 );
-
-const commentMessageText = 'This is test comment message';
 
 describe('test Location component', () => {
   it('renders Location component', () => {
@@ -90,7 +92,7 @@ describe('test Location component', () => {
   it('renders textarea for adding comment', () => {
     const { getByTestId, getByRole } = render(
       <Location
-        changeUserCurrentLocation={MockChangeUserCurrentLocation}
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
         {...mockLocation}
       />
     );
@@ -103,7 +105,7 @@ describe('test Location component', () => {
     mockLocation.message = commentMessageText;
     const { getByText } = render(
       <Location
-        changeUserCurrentLocation={MockChangeUserCurrentLocation}
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
         {...mockLocation}
       />
     );
@@ -111,21 +113,22 @@ describe('test Location component', () => {
     expect(commentMessage).toBeInTheDocument();
   });
   it('set current user location id by clicking home icon button', () => {
-    const spy = jest.spyOn(locationsActions, 'ChangeUserCurrentLocation');
     const { getByTestId } = render(
-      <Location
-        changeUserCurrentLocation={MockChangeUserCurrentLocation}
-        {...mockLocation}
-      />
+      wrapper(
+        <Location
+          changeUserCurrentLocation={MockChangeUserCurrentLocation}
+          {...mockLocation}
+        />
+      )
     );
     const homeButton = getByTestId(/HomeIconButton/i);
     userEvent.click(homeButton);
-    // expect(spy).toHaveBeenCalledTimes(1);
+    expect(MockChangeUserCurrentLocation).toHaveBeenCalledTimes(1);
   });
   it('open delete modal by clicking delete icon button', () => {
     const { getByTestId, getByRole } = render(
       <Location
-        changeUserCurrentLocation={MockChangeUserCurrentLocation}
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
         {...mockLocation}
       />
     );
@@ -138,7 +141,7 @@ describe('test Location component', () => {
     mockLocation.host = true;
     const { queryByRole } = render(
       <Location
-        changeUserCurrentLocation={MockChangeUserCurrentLocation}
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
         {...mockLocation}
       />
     );
@@ -149,7 +152,7 @@ describe('test Location component', () => {
     mockLocation.message = commentMessageText;
     const { getByTestId, queryByRole } = render(
       <Location
-        changeUserCurrentLocation={MockChangeUserCurrentLocation}
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
         {...mockLocation}
       />
     );
@@ -164,7 +167,7 @@ describe('test Location component', () => {
     mockLocation.message = commentMessageText;
     const { getByRole, getByTestId } = render(
       <Location
-        changeUserCurrentLocation={MockChangeUserCurrentLocation}
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
         {...mockLocation}
       />
     );
@@ -176,12 +179,12 @@ describe('test Location component', () => {
     const newComment = 'New comment';
     userEvent.type(textarea, newComment);
     userEvent.click(heading);
-    // expect(MockAddComment).toHaveBeenCalledWith(mockLocation.id, newComment);
+    expect(MockAddComment).toHaveBeenCalledWith(mockLocation.id, newComment);
   });
   it('hides date, timezone and country name', () => {
     const { queryByText, queryByTestId } = render(
       <Location
-        changeUserCurrentLocation={MockChangeUserCurrentLocation}
+        changeUserCurrentLocation={ChangeUserCurrentLocation}
         {...mockLocation}
       />
     );
@@ -196,7 +199,7 @@ describe('test Location component', () => {
     const { getByTestId, getByRole } = render(
       wrapper(
         <Location
-          changeUserCurrentLocation={MockChangeUserCurrentLocation}
+          changeUserCurrentLocation={ChangeUserCurrentLocation}
           {...mockLocation}
         />
       )
