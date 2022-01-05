@@ -1,9 +1,9 @@
-import { ReactNode, FC } from 'react';
+import { FC } from 'react';
 import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { I18nextProvider } from 'react-i18next';
-import { ThemeContext, ThemeProvider } from '../../context/theme';
+import { ThemeContext } from '../../context/theme';
 import {
   AUTO_THEMING,
   HAS_COUNTRY,

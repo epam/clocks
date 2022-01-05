@@ -29,6 +29,7 @@ const MockChangeUserCurrentLocation =
     typeof ChangeUserCurrentLocation
   >;
 const MockAddComment = jest.fn();
+const MockDeleteLocation = jest.fn();
 const MockOpenSnackbar = jest.fn();
 const MockSnackbarHandler = jest.fn();
 
@@ -46,8 +47,8 @@ jest.mock('@ckeditor/ckeditor5-react', () => ({
 
 jest.mock('../../hooks/useUrl', () => ({
   useUrl: () => ({
-    AddComment: jest.fn(),
-    DeleteLocation: jest.fn()
+    AddComment: MockAddComment,
+    DeleteLocation: MockDeleteLocation
   })
 }));
 
@@ -110,6 +111,7 @@ describe('test Location component', () => {
     expect(commentMessage).toBeInTheDocument();
   });
   it('set current user location id by clicking home icon button', () => {
+    const spy = jest.spyOn(locationsActions, 'ChangeUserCurrentLocation');
     const { getByTestId } = render(
       <Location
         changeUserCurrentLocation={MockChangeUserCurrentLocation}
@@ -118,7 +120,7 @@ describe('test Location component', () => {
     );
     const homeButton = getByTestId(/HomeIconButton/i);
     userEvent.click(homeButton);
-    // expect(MockChangeUserCurrentLocation).to();
+    // expect(spy).toHaveBeenCalledTimes(1);
   });
   it('open delete modal by clicking delete icon button', () => {
     const { getByTestId, getByRole } = render(

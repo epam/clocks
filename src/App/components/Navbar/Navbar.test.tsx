@@ -2,26 +2,13 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { I18nextProvider } from 'react-i18next';
-import { LocationsContext } from '../../context/locations';
 import Navbar from './Navbar';
 import i18n from '../../dictionary';
 
-const MockResetUrl = jest.fn();
 const MockAddCitySidebarHandler = jest.fn();
 
 const wrapper = (children: any) => (
-  <I18nextProvider i18n={i18n}>
-    <LocationsContext.Provider
-      value={{
-        actions: {
-          ResetUrl: MockResetUrl
-        },
-        state: {}
-      }}
-    >
-      {children}
-    </LocationsContext.Provider>
-  </I18nextProvider>
+  <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
 );
 
 jest.mock('../../hooks/useQueryParams', () => {
