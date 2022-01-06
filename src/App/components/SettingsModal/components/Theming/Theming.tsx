@@ -1,5 +1,6 @@
 import { Button, FormControlLabel, Switch } from '@material-ui/core';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
+import { alpha, styled } from '@mui/material/styles';
 import { FC, useMemo } from 'react';
 
 import { checkComputerThemeSupport } from '../../../../handlers';
@@ -7,6 +8,19 @@ import { THEMES } from '../../../../lib/constants';
 import { IThemingProps } from './Theming.interface';
 
 import styles from './Theming.module.scss';
+
+// Temporary styled Switch , to be deleted when moving to EPAM UI
+const EPAMBlueSwitch = styled(Switch)(({ theme }) => ({
+  '& .MuiSwitch-switchBase.Mui-checked': {
+    color: '#39c2d7',
+    '&:hover': {
+      backgroundColor: alpha('#39c2d7', theme.palette.action.hoverOpacity)
+    }
+  },
+  '& .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track': {
+    backgroundColor: '#39c2d7'
+  }
+}));
 
 const Theming: FC<IThemingProps> = ({
   autoTheming = false,
@@ -24,7 +38,7 @@ const Theming: FC<IThemingProps> = ({
         <FormControlLabel
           classes={{ root: `${styles.default}` }}
           control={
-            <Switch
+            <EPAMBlueSwitch
               checked={autoTheming}
               onChange={autoThemingHandler}
               name="checkedB"
