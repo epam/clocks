@@ -31,29 +31,27 @@
 
   .add-city-button {
     margin-left: $space-s;
+
+    @include screenMax600 {
+      display: none;
+    }
+    @include screenMin600 {
+      display: block;
+    }
+  }
+
+  .add-city-icon-button {
+    @include screenMax600 {
+      display: block;
+    }
+    @include screenMin600 {
+      display: none;
+    }
   }
 
   .flex-center {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .add-city-button {
-    display: none;
-  }
-  .add-city-icon-button {
-    display: block;
-  }
-}
-
-@media screen and (min-width: 600px) {
-  .add-city-icon-button {
-    display: none;
-  }
-  .add-city-button {
-    display: block;
   }
 }
