@@ -34,7 +34,6 @@ import { useQueryParams } from '../../hooks/useQueryParams';
 import convertFromUrlLocations from '../../handlers/convertFromUrlLocations/convertFromUrlLocations';
 
 const Dashboard: FC<IDashboardProps> = ({
-  currentTheme,
   locations,
   ChangeUserCurrentLocation,
   SetLocations
@@ -111,7 +110,10 @@ const Dashboard: FC<IDashboardProps> = ({
       onKeyPress={handleKeyDown}
       className={`${styles.body} ${clocksFont}`}
     >
-      <Navbar addCitySidebarHandler={addCitySidebarHandler} />
+      <Navbar
+        locations={locations}
+        addCitySidebarHandler={addCitySidebarHandler}
+      />
       <div
         className={`${styles.container} ${clsx({
           [styles['container-light']]: type === THEMES.light,
