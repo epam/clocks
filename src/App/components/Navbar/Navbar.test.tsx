@@ -9,6 +9,7 @@ import i18n from '../../dictionary';
 import rootReducer from '../../redux/rootReducer';
 
 const MockAddCitySidebarHandler = jest.fn();
+const MockResetUrl = jest.fn();
 
 const state = createStore(rootReducer);
 
@@ -18,23 +19,29 @@ const wrapper = (children: any) => (
   </Provider>
 );
 
-jest.mock('../../hooks/useQueryParams', () => {
-  const originalModule = jest.requireActual('../../hooks/useQueryParams');
-  return {
-    __esModule: true,
-    ...originalModule,
-    useQueryParams: () => ({
-      SetParam: jest.fn(),
-      GetParam: jest.fn(),
-      DeleteParam: jest.fn()
-    })
-  };
-});
+jest.mock('../../hooks/useQueryParams', () => ({
+  useQueryParams: () => ({
+    SetParam: jest.fn(),
+    GetParam: jest.fn(),
+    DeleteParam: jest.fn()
+  })
+}));
+
+jest.mock('../../hooks/useUrl', () => ({
+  useUrl: () => ({
+    ResetUrl: MockResetUrl
+  })
+}));
 
 describe('test Navbar component', () => {
   it('renders Navbar component', () => {
     const { getByRole, getByText, getByTestId } = render(
-      wrapper(<Navbar addCitySidebarHandler={MockAddCitySidebarHandler} />)
+      wrapper(
+        <Navbar
+          locations={[]}
+          addCitySidebarHandler={MockAddCitySidebarHandler}
+        />
+      )
     );
     const navbar = getByRole('banner');
     const logoButton = getByRole('button', { name: 'logo' });
@@ -49,15 +56,25 @@ describe('test Navbar component', () => {
   });
   it('reset url by clocking the logo', () => {
     const { getByRole } = render(
-      wrapper(<Navbar addCitySidebarHandler={MockAddCitySidebarHandler} />)
+      wrapper(
+        <Navbar
+          locations={[]}
+          addCitySidebarHandler={MockAddCitySidebarHandler}
+        />
+      )
     );
     const logoButton = getByRole('button', { name: 'logo' });
     userEvent.click(logoButton);
-    // expect(MockResetUrl).toHaveBeenCalledTimes(1);
+    expect(MockResetUrl).toHaveBeenCalledTimes(1);
   });
   it('open sidebar by clicking the Add City Button', () => {
     const { getByText } = render(
-      wrapper(<Navbar addCitySidebarHandler={MockAddCitySidebarHandler} />)
+      wrapper(
+        <Navbar
+          locations={[]}
+          addCitySidebarHandler={MockAddCitySidebarHandler}
+        />
+      )
     );
     const addCityButton = getByText('ADD CITY');
     userEvent.click(addCityButton);

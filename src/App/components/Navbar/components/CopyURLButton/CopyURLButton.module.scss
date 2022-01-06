@@ -1,19 +1,20 @@
-@media screen and (max-width: 600px) {
-  .copy-button {
+@import '../../../../styles/index.scss';
+
+.copy-button {
+  @include screenMax600 {
     display: none;
   }
-
-  .copy-icon-button {
+  @include screenMin600 {
     display: block;
   }
 }
 
-@media screen and (min-width: 600px) {
-  .copy-icon-button {
-    display: none;
-  }
-
-  .copy-button {
+.copy-icon-button {
+  display: block;
+  @include screenMax600 {
     display: block;
+  }
+  @include screenMin600 {
+    display: none;
   }
 }

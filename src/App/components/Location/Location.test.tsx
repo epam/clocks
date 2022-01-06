@@ -11,7 +11,6 @@ import rootReducer from '../../redux/rootReducer';
 
 import Location from './LocationContainer';
 
-const store = createStore(rootReducer);
 const mockLocation: IAppLocation = {
   timezone: 'Asia/Tashkent',
   city: 'Tashkent',
@@ -24,13 +23,12 @@ const mockLocation: IAppLocation = {
   hasCountry: false,
   hasTimezone: false
 };
-
+const commentMessageText = 'This is test comment message';
 const { ChangeUserCurrentLocation } = locationsActions;
+const store = createStore(rootReducer);
 
-// const MockChangeUserCurrentLocation =
-//   ChangeUserCurrentLocation as jest.MockedFunction<
-//     typeof ChangeUserCurrentLocation
-//   >;
+const MockChangeUserCurrentLocation =
+  jest.fn() as unknown as jest.MockedFunction<typeof ChangeUserCurrentLocation>;
 const MockAddComment = jest.fn();
 const MockDeleteLocation = jest.fn();
 
@@ -60,8 +58,6 @@ const wrapper = (children: any) => (
     <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
   </Redux>
 );
-
-const commentMessageText = 'This is test comment message';
 
 describe('test Location component', () => {
   it('renders Location component', () => {
@@ -110,18 +106,17 @@ describe('test Location component', () => {
     expect(commentMessage).toBeInTheDocument();
   });
   it('set current user location id by clicking home icon button', () => {
-    const spy = jest.spyOn(locationsActions, 'ChangeUserCurrentLocation');
     const { getByTestId } = render(
       wrapper(
         <Location
-          changeUserCurrentLocation={ChangeUserCurrentLocation}
+          changeUserCurrentLocation={MockChangeUserCurrentLocation}
           {...mockLocation}
         />
       )
     );
     const homeButton = getByTestId(/HomeIconButton/i);
     userEvent.click(homeButton);
-    // expect(spy).toHaveBeenCalledTimes(1);
+    expect(MockChangeUserCurrentLocation).toHaveBeenCalledTimes(1);
   });
   it('open delete modal by clicking delete icon button', () => {
     const { getByTestId, getByRole } = render(
@@ -185,7 +180,7 @@ describe('test Location component', () => {
     const newComment = 'New comment';
     userEvent.type(textarea, newComment);
     userEvent.click(heading);
-    // expect(MockAddComment).toHaveBeenCalledWith(mockLocation.id, newComment);
+    expect(MockAddComment).toHaveBeenCalledWith(mockLocation.id, newComment);
   });
   it('hides date, timezone and country name', () => {
     const { queryByText, queryByTestId } = render(
@@ -207,7 +202,7 @@ describe('test Location component', () => {
     const { getByTestId, getByRole } = render(
       wrapper(
         <Location
-          changeUserCurrentLocation={MockChangeUserCurrentLocation}
+          changeUserCurrentLocation={ChangeUserCurrentLocation}
           {...mockLocation}
         />
       )

@@ -18,7 +18,7 @@ import SettingsModal from '../SettingsModal';
 import { INavbarProps } from './Navbar.interface';
 import { useUrl } from '../../hooks/useUrl';
 
-const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler }) => {
+const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler, locations }) => {
   const { t } = useTranslation();
   const { ResetUrl } = useUrl();
 
@@ -79,7 +79,7 @@ const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler }) => {
         </div>
       </Toolbar>
       <SettingsModal
-        locations={[]}
+        locations={locations}
         visibility={settingsVisibility}
         setVisibility={setSettingsVisibility}
       />
