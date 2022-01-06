@@ -1,16 +1,14 @@
-import { useContext } from 'react';
-
-import { SnackbarContext } from '../../context/snackbar';
+import { useDispatch } from 'react-redux';
 import { getCurrentUserLocation, CheckForCityExistence } from '../../handlers';
 import { PARAM_KEYWORD } from '../../lib/constants';
 import { useQueryParams } from '../useQueryParams';
 import { TLocationId } from '../../lib/types';
+import { snackbarActions } from '../../redux/snackbarRedux/snackbarSlice';
 
 export const useUrl = () => {
   const { SetParam, GetParam } = useQueryParams();
-  const {
-    actions: { OpenSnackbar }
-  } = useContext(SnackbarContext);
+  const dispatch = useDispatch();
+  const { snackbar } = snackbarActions;
 
   const AddLocation = (locationId: TLocationId, message: string = '') => {
     const locationsFromUrl = GetParam(PARAM_KEYWORD) || [];
@@ -22,9 +20,12 @@ export const useUrl = () => {
       locationId
     );
     if (isCityAlreadyAdded) {
-      if (OpenSnackbar) {
-        OpenSnackbar('This city has already been added!');
-      }
+      dispatch(
+        snackbar({
+          visibility: true,
+          message: 'This city has already been added!'
+        })
+      );
       return;
     }
     locationsFromUrl.push(`${locationId}${message && `__${message}`}`);

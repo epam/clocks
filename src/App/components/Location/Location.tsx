@@ -1,4 +1,4 @@
-import { useContext, useRef, useState, useEffect, FC } from 'react';
+import { useRef, useState, useEffect, FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { IconButton, Button } from '@material-ui/core';
 import { EditOutlined, DeleteOutline, HomeOutlined } from '@mui/icons-material';
@@ -6,7 +6,6 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser from 'react-html-parser';
 
-import { SnackbarContext } from '../../context/snackbar';
 import { editorConfig } from '../../lib/constants';
 import { useUrl } from '../../hooks/useUrl';
 import DeleteModal from '../DeleteModal';
@@ -20,16 +19,15 @@ const Location: FC<ILocationProps> = ({
   host,
   id,
   message,
+  visibility,
+  snackbar,
   changeUserCurrentLocation,
   ...props
 }) => {
   const { t } = useTranslation();
   const { AddComment, DeleteLocation } = useUrl();
   const { hours, minutes } = offset;
-  const {
-    actions: { OpenSnackbar, SnackbarHandler },
-    state: { isSnackbarOpen }
-  } = useContext(SnackbarContext);
+
   const CKEditorRef = useRef<any>(null);
 
   const [messageVisibility, setMessageVisibility] = useState<boolean>(false);
@@ -43,11 +41,14 @@ const Location: FC<ILocationProps> = ({
 
   const onBlurHandler = (event: any, editor: { getData: () => string }) => {
     const comment = editor.getData();
-    if (comment.length > 100 && OpenSnackbar) {
-      return OpenSnackbar(t('location.warning'));
+    if (comment.length > 100) {
+      return snackbar({
+        visibility: true,
+        message: t('location.warning')
+      });
     }
-    if (isSnackbarOpen && SnackbarHandler) {
-      SnackbarHandler(false);
+    if (visibility) {
+      snackbar({ visibility: false });
     }
     if (AddComment) {
       AddComment(id, comment);

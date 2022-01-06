@@ -1,23 +1,40 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import CopyURLButton from './CopyURLButton';
-import { SnackbarContext } from '../../../../context/snackbar';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import { I18nextProvider } from 'react-i18next';
+import CopyURLButton from './CopyURLButtonContainer';
+import rootReducer from '../../../../redux/rootReducer';
+import i18n from '../../../../dictionary';
+import {
+  snackbarActions,
+  snackbarReducer
+} from '../../../../redux/snackbarRedux/snackbarSlice';
 
-const MockComponent = ({ OpenSnackbar, width = 1980 }) => {
-  const store = { actions: { OpenSnackbar }, state: {} };
+const state = createStore(rootReducer);
+const { snackbar } = snackbarActions;
 
-  return (
-    <SnackbarContext.Provider value={store}>
-      <CopyURLButton />
-    </SnackbarContext.Provider>
-  );
+const reduxInitialState = {
+  visibility: false,
+  message: '',
+  type: 'success'
 };
 
-describe('Snackbar Component on desktop: ', () => {
-  const OpenSnackbarMock = jest.fn();
+const ReduxProvider = ({ children }) => (
+  <Provider store={state}>{children}</Provider>
+);
 
+const MockComponent = () => (
+  <ReduxProvider>
+    <I18nextProvider i18n={i18n}>
+      <CopyURLButton />
+    </I18nextProvider>
+  </ReduxProvider>
+);
+
+describe('Snackbar Component on desktop: ', () => {
   it('Renders properly', () => {
-    render(<MockComponent OpenSnackbar={OpenSnackbarMock} />);
+    render(<MockComponent />);
     expect(
       screen.getByLabelText('desktop copy to clipboard button')
     ).toBeInTheDocument();
@@ -28,32 +45,21 @@ describe('Snackbar Component on desktop: ', () => {
   });
 
   it('On click adds url to clipboard', () => {
-    render(<MockComponent OpenSnackbar={OpenSnackbarMock} />);
+    render(<MockComponent />);
     const button = screen.getByLabelText('desktop copy to clipboard button');
+    expect(snackbarReducer(undefined, reduxInitialState)).toEqual(
+      reduxInitialState
+    );
     userEvent.click(button);
-    expect(OpenSnackbarMock).toHaveBeenCalled();
-    expect(OpenSnackbarMock).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('Snackbar Component on mobile: ', () => {
-  const OpenSnackbarMock = jest.fn();
-
-  it('Renders properly', () => {
-    render(<MockComponent OpenSnackbar={OpenSnackbarMock} width={600} />);
     expect(
-      screen.getByLabelText('mobile copy to clipboard button')
-    ).toBeInTheDocument();
-    expect(
-      screen.getByLabelText('mobile copy to clipboard button')
-    ).not.toHaveAttribute('disabled');
-  });
-
-  it('On click adds url to clipboard', () => {
-    render(<MockComponent OpenSnackbar={OpenSnackbarMock} width={600} />);
-    const button = screen.getByLabelText('mobile copy to clipboard button');
-    userEvent.click(button);
-    expect(OpenSnackbarMock).toHaveBeenCalled();
-    expect(OpenSnackbarMock).toHaveBeenCalledTimes(1);
+      snackbarReducer(
+        undefined,
+        snackbar({ visibility: true, message: 'success' })
+      )
+    ).toEqual({
+      visibility: true,
+      message: 'success',
+      type: 'success'
+    });
   });
 });

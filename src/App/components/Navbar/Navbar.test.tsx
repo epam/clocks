@@ -2,13 +2,20 @@ import { render } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import { I18nextProvider } from 'react-i18next';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import Navbar from './Navbar';
 import i18n from '../../dictionary';
+import rootReducer from '../../redux/rootReducer';
 
 const MockAddCitySidebarHandler = jest.fn();
 
+const state = createStore(rootReducer);
+
 const wrapper = (children: any) => (
-  <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
+  <Provider store={state}>
+    <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
+  </Provider>
 );
 
 jest.mock('../../hooks/useQueryParams', () => {
@@ -27,9 +34,7 @@ jest.mock('../../hooks/useQueryParams', () => {
 describe('test Navbar component', () => {
   it('renders Navbar component', () => {
     const { getByRole, getByText, getByTestId } = render(
-      <I18nextProvider i18n={i18n}>
-        <Navbar addCitySidebarHandler={MockAddCitySidebarHandler} />
-      </I18nextProvider>
+      wrapper(<Navbar addCitySidebarHandler={MockAddCitySidebarHandler} />)
     );
     const navbar = getByRole('banner');
     const logoButton = getByRole('button', { name: 'logo' });

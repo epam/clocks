@@ -1,19 +1,29 @@
-import { FC, useState, useContext } from 'react';
+import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, IconButton } from '@material-ui/core';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 
-import { SnackbarContext } from '../../../../context/snackbar';
-
 import styles from './CopyURLButton.module.scss';
+import { IProps } from './CopyURLButton.interface';
 
-const CopyURLButton: FC = () => {
+const CopyURLButton: FC<IProps> = ({ snackbar }) => {
   const { t } = useTranslation();
-  const {
-    actions: { OpenSnackbar }
-  } = useContext(SnackbarContext);
 
   const [isLoading, setLoading] = useState(false);
+
+  const successful = (message: string) =>
+    ({
+      visibility: true,
+      message,
+      type: 'success'
+    } as const);
+
+  const fail = (message: string) =>
+    ({
+      visibility: true,
+      message,
+      type: 'error'
+    } as const);
 
   const handleCopy = (): void => {
     const text = window?.location?.href;
@@ -24,18 +34,14 @@ const CopyURLButton: FC = () => {
         .writeText(text)
         .then(() => {
           setLoading(false);
-          if (OpenSnackbar) {
-            OpenSnackbar('Successfully copied to clipboard', 'success');
-          }
+          snackbar(successful('Successfully copied to clipboard'));
         })
         .catch(() => {
           setLoading(false);
-          if (OpenSnackbar) {
-            OpenSnackbar('Failed', 'error');
-          }
+          snackbar(fail('Failed'));
         });
-    } else if (OpenSnackbar) {
-      OpenSnackbar('Failed', 'error');
+    } else {
+      snackbar(fail('Failed'));
     }
   };
 
