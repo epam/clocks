@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { IAppLocation } from '../../lib/interfaces';
+import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
 
 export interface ISettingsModalProps {
   locations: IAppLocation[];

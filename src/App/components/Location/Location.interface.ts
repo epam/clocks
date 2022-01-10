@@ -1,5 +1,5 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-import { IAppLocation } from '../../lib/interfaces';
+import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
 
 export interface ILocationProps extends IAppLocation {
   visibility: boolean;

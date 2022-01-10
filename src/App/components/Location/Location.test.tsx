@@ -5,9 +5,9 @@ import { I18nextProvider } from 'react-i18next';
 
 import { Provider } from 'react-redux';
 import { locationsActions } from '../../redux/locationsRedux/locationsSlice';
-import { IAppLocation } from '../../lib/interfaces';
 import i18n from '../../dictionary';
 import rootReducer from '../../redux/rootReducer';
+import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
 
 import Location from './LocationContainer';
 

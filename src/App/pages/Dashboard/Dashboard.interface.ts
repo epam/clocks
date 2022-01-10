@@ -1,6 +1,6 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 import { TTheme } from '../../context/theme/ThemeContext.interface';
-import { IAppLocation } from '../../lib/interfaces';
+import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
 
 export interface IDashboardProps {
   currentTheme: TTheme;
