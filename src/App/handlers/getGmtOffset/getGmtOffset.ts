@@ -1,6 +1,5 @@
 import moment from 'moment-timezone';
-
-import { TTimezone } from '../../lib/types';
+import { TTimezone } from '../../redux/locationsRedux/locations.interface';
 
 const getGmtOffset = (timezone: TTimezone) => {
   const offset = moment.tz(moment.utc(), timezone).utcOffset();

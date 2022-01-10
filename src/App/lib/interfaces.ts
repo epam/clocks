@@ -1,21 +1,9 @@
 /* eslint-disable camelcase */
 import { ReactNode } from 'react';
 
-import { TLocationId } from './types';
-
 export interface IContext<State, Actions> {
   state: Partial<State>;
   actions: Partial<Actions>;
-}
-
-export interface IOffset {
-  hours: number;
-  minutes: number;
-}
-
-export interface IUrlLocation {
-  id: TLocationId;
-  message: string;
 }
 
 export interface IProviderProp {

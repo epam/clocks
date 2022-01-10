@@ -3,14 +3,15 @@ import moment from 'moment-timezone';
 import { generateIdFormat } from '../index';
 import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../../lib/constants';
 import cityMapping from '../../lib/city-timezones.json';
+import { ICityData } from '../../lib/interfaces';
 import {
   IAppLocation,
   IOffset,
   IUrlLocation,
-  ICityData
-} from '../../lib/interfaces';
-import { TLocationId } from '../../lib/types';
-import { IConvertedObject } from './converdData.interface';
+  TLocationId
+} from '../../redux/locationsRedux/locations.interface';
+
+import { IConvertedObject } from './convertData.interface';
 
 const findOffset = (myTimezone?: string, otherTimezone?: string): IOffset => {
   if (!myTimezone || !otherTimezone) {

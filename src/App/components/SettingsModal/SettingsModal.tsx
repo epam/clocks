@@ -22,7 +22,6 @@ import {
   THEME,
   THEMES
 } from '../../lib/constants';
-import { IAppLocation } from '../../lib/interfaces';
 
 import { FontSelector } from './components/FontSelector';
 import { Theming } from './components/Theming';
@@ -30,6 +29,7 @@ import { Heading } from './components/Heading';
 import { Time } from './components/Time';
 import styles from './SettingsModal.module.scss';
 import { ISettingsModalProps } from './SettingsModal.interface';
+import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
 
 const SettingsModal: FC<ISettingsModalProps> = ({
   locations,

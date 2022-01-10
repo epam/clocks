@@ -1,5 +1,5 @@
-import { TTimezone } from '../../lib/types';
 import { ICityData, IMatchingLocation } from '../../lib/interfaces';
+import { TTimezone } from '../../redux/locationsRedux/locations.interface';
 
 function compareTwoStrings(first: string, second: string): number {
   const one = first.replace(/\s+/g, '');
