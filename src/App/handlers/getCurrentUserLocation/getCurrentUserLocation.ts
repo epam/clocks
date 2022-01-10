@@ -3,8 +3,8 @@ import moment from 'moment-timezone';
 import generateIdFormat from '../generateIdFormat/generateIdFormat';
 import getUserLocation from '../getUserLocation/getUserLocation';
 import { lookupTimezones, sortBestMatch, getGreenwichMainTime } from '..';
-import { CURRENT_USER_LOCATION_ID } from '../../lib/constants';
 import { ICityData } from '../../lib/interfaces';
+import { CURRENT_USER_LOCATION_ID } from '../../redux/locationsRedux/locations.constants';
 
 const getCurrentUserLocation = async (): Promise<string> => {
   const currentUserLocationId = localStorage.getItem(CURRENT_USER_LOCATION_ID);

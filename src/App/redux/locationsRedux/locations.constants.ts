@@ -28,3 +28,6 @@ export const INITIAL_STATE: ILocationsInitialState = {
     }
   ]
 };
+
+export const PARAM_KEYWORD = 'locations';
+export const CURRENT_USER_LOCATION_ID = 'CURRENT_USER_LOCATION_ID';

@@ -1,4 +1,5 @@
-import { CURRENT_USER_LOCATION_ID } from '../../lib/constants';
+import { CURRENT_USER_LOCATION_ID } from '../../redux/locationsRedux/locations.constants';
+
 import getCurrentUserLocation from './getCurrentUserLocation';
 
 describe('getting current user location function', () => {

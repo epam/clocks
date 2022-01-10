@@ -4,8 +4,8 @@ import { Input, IconButton, Button } from '@material-ui/core';
 import { DeleteOutline, EditOutlined } from '@mui/icons-material';
 
 import { useQueryParams } from '../../../../hooks/useQueryParams';
-import { DASHBOARD_PARAM_KEYWORD } from '../../../../lib/constants';
 
+import { DASHBOARD_PARAM_KEYWORD } from './DashboardName.constants';
 import styles from './DashboardName.module.scss';
 
 export const DashboardName: FC = () => {

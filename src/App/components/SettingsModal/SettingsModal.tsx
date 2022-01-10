@@ -13,14 +13,11 @@ import {
   getClockFieldStorageValue
 } from '../../handlers';
 import {
-  AUTO_THEMING,
   CLOCKS_FONT,
   CLOCKS_FONTS,
   HAS_COUNTRY,
   HAS_DATE,
-  HAS_TIMEZONE,
-  THEME,
-  THEMES
+  HAS_TIMEZONE
 } from '../../lib/constants';
 
 import { FontSelector } from './components/FontSelector';
@@ -30,6 +27,11 @@ import { Time } from './components/Time';
 import styles from './SettingsModal.module.scss';
 import { ISettingsModalProps } from './SettingsModal.interface';
 import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
+import {
+  AUTO_THEMING,
+  THEME,
+  THEMES
+} from '../../redux/themeRedux/theme.constants';
 
 const SettingsModal: FC<ISettingsModalProps> = ({
   locations,

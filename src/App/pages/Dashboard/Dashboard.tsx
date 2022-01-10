@@ -13,17 +13,9 @@ import Location from '../../components/Location';
 import Navbar from '../../components/Navbar';
 import AddCity from '../../components/Navbar/components/AddCity';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import {
-  CLOCKS_FONT,
-  CLOCKS_FONTS,
-  PARAM_KEYWORD,
-  THEMES
-} from '../../lib/constants';
+import { CLOCKS_FONT, CLOCKS_FONTS } from '../../lib/constants';
 import Snackbar from '../../components/Snackbar';
 import { ThemeContext } from '../../context/theme';
-
-import styles from './Dashboard.module.scss';
-import { IDashboardProps } from './Dashboard.interface';
 import {
   CheckForCityExistence,
   convertData,
@@ -32,6 +24,11 @@ import {
 import { useUrl } from '../../hooks/useUrl';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import convertFromUrlLocations from '../../handlers/convertFromUrlLocations/convertFromUrlLocations';
+import { PARAM_KEYWORD } from '../../redux/locationsRedux/locations.constants';
+import { THEMES } from '../../redux/themeRedux/theme.constants';
+
+import styles from './Dashboard.module.scss';
+import { IDashboardProps } from './Dashboard.interface';
 
 const Dashboard: FC<IDashboardProps> = ({
   locations,

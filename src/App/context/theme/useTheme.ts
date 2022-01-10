@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { createTheme, Theme } from '@material-ui/core';
 
-import { AUTO_THEMING, THEME, THEMES } from '../../lib/constants';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import {
   getUserTheme,
@@ -10,6 +9,11 @@ import {
 } from '../../handlers';
 
 import { TTheme } from './ThemeContext.interface';
+import {
+  AUTO_THEMING,
+  THEME,
+  THEMES
+} from '../../redux/themeRedux/theme.constants';
 
 export const useTheme = () => {
   const [type, setType] = useState<TTheme>('light');

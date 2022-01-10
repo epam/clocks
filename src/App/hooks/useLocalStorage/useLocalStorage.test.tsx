@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
+import { CURRENT_USER_LOCATION_ID } from '../../redux/locationsRedux/locations.constants';
 
-import { CURRENT_USER_LOCATION_ID } from '../../lib/constants';
 import { useLocalStorage } from './useLocalStorage';
 
 const localStorageMock = {
