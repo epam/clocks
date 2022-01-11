@@ -6,13 +6,13 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser from 'react-html-parser';
 
-import { editorConfig } from '../../lib/constants';
 import { useUrl } from '../../hooks/useUrl';
 import DeleteModal from '../DeleteModal';
 
 import LocationContent from './components/LocationContent';
 import styles from './Location.module.scss';
 import { ILocationProps } from './Location.interface';
+import { editorConfig } from './Location.constants';
 
 const Location: FC<ILocationProps> = ({
   offset,

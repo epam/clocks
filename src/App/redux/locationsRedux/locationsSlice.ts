@@ -1,8 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { convertData } from '../../handlers';
-import { CURRENT_USER_LOCATION_ID } from '../../lib/constants';
 
-import { INITIAL_STATE } from './locations.constants';
+import { CURRENT_USER_LOCATION_ID, INITIAL_STATE } from './locations.constants';
 
 const createLocationsSlice = (name: string) =>
   createSlice({

@@ -1,4 +1,4 @@
-import { IUrlLocation } from '../../lib/interfaces';
+import { IUrlLocation } from '../../redux/locationsRedux/locations.interface';
 
 const convertFromUrlLocations = (locations: string[] = []): IUrlLocation[] => {
   if (!Array.isArray(locations)) {

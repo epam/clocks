@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-import { IAppLocation } from '../../lib/interfaces';
 import { TTheme } from '../../redux/themeRedux/theme.interface';
+import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
 
 export interface ISettingsModalProps {
   autoTheming: boolean;

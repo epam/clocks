@@ -4,9 +4,9 @@ import { alpha, styled } from '@mui/material/styles';
 import { FC, useMemo } from 'react';
 
 import { checkComputerThemeSupport } from '../../../../handlers';
-import { THEMES } from '../../../../lib/constants';
-import { IThemingProps } from './Theming.interface';
+import { THEMES } from '../../../../redux/themeRedux/theme.constants';
 
+import { IThemingProps } from './Theming.interface';
 import styles from './Theming.module.scss';
 
 // Temporary styled Switch , to be deleted when moving to EPAM UI

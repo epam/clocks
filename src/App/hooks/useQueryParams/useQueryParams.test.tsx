@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
+import { PARAM_KEYWORD } from '../../redux/locationsRedux/locations.constants';
 
-import { PARAM_KEYWORD } from '../../lib/constants';
 import { useQueryParams } from './useQueryParams';
 
 jest.mock('react-router-dom', () => ({

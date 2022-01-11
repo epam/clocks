@@ -1,22 +1,18 @@
-import { FC } from 'react';
+import React from 'react';
 
 test('mock test', () => {});
-// import { render } from '@testing-library/react';
-// import userEvent from '@testing-library/user-event';
-//
+
 // import { I18nextProvider } from 'react-i18next';
 // import { ThemeContext } from '../../context/theme';
-// import {
-//   AUTO_THEMING,
-//   HAS_COUNTRY,
-//   HAS_DATE,
-//   HAS_TIMEZONE,
-//   THEME,
-//   THEMES
-// } from '../../lib/constants';
+// import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../../lib/constants';
 //
 // import SettingsModal from './SettingsModal';
 // import i18n from '../../dictionary';
+// import {
+//   AUTO_THEMING,
+//   THEME,
+//   THEMES
+// } from '../../redux/themeRedux/theme.constants';
 //
 // const MockSettingsModalVisibility = jest.fn();
 // const MockSetItem = jest.fn();

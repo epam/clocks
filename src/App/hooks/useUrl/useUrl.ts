@@ -1,9 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { getCurrentUserLocation, CheckForCityExistence } from '../../handlers';
-import { PARAM_KEYWORD } from '../../lib/constants';
 import { useQueryParams } from '../useQueryParams';
-import { TLocationId } from '../../lib/types';
 import { snackbarActions } from '../../redux/snackbarRedux/snackbarSlice';
+import { TLocationId } from '../../redux/locationsRedux/locations.interface';
+import { PARAM_KEYWORD } from '../../redux/locationsRedux/locations.constants';
 
 export const useUrl = () => {
   const { SetParam, GetParam } = useQueryParams();

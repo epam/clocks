@@ -1,4 +1,10 @@
-import { TCityAscii, TIso2, TLat, TLng, TLocationId } from '../../lib/types';
+import {
+  TCityAscii,
+  TIso2,
+  TLat,
+  TLng,
+  TLocationId
+} from '../../redux/locationsRedux/locations.interface';
 
 const generateIdFormat = (
   cityAscii: TCityAscii,

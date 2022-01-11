@@ -1,10 +1,9 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { INITIAL_STATE } from './theme.constants';
+import { INITIAL_STATE, THEME } from './theme.constants';
 import { TTheme } from './theme.interface';
 import { checkComputerThemeSupport, getComputerTheme } from '../../handlers';
-import { THEME } from '../../lib/constants';
 
 const createThemeSlice = (name: string) =>
   createSlice({

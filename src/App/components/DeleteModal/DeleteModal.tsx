@@ -2,11 +2,9 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Typography, Modal, Backdrop, Fade } from '@material-ui/core';
 import clsx from 'clsx';
-
-import { THEMES } from '../../lib/constants';
-
 import styles from './DeleteModal.module.scss';
 import { IDeleteModalProps } from './DeleteModal.interface';
+import { THEMES } from '../../redux/themeRedux/theme.constants';
 
 const DeleteModal: FC<IDeleteModalProps> = ({
   isOpen = false,

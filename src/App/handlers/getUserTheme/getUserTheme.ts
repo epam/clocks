@@ -1,6 +1,10 @@
-import { AUTO_THEMING, THEME, THEMES } from '../../lib/constants';
 import getComputerTheme from '../getComputerTheme/getComputerTheme';
 import checkComputerThemeSupport from '../checkComputerThemeSupport/checkComputerThemeSupport';
+import {
+  AUTO_THEMING,
+  THEME,
+  THEMES
+} from '../../redux/themeRedux/theme.constants';
 import { TTheme } from '../../redux/themeRedux/theme.interface';
 
 function getUserTheme(): TTheme {
@@ -20,8 +24,7 @@ function getUserTheme(): TTheme {
     }
   }
 
-  //  @ts-ignore
-  return localStorage.getItem(THEME) || THEMES.light;
+  return (localStorage.getItem(THEME) as TTheme) || THEMES.light;
 }
 
 export default getUserTheme;

@@ -1,34 +1,9 @@
 /* eslint-disable camelcase */
 import { ReactNode } from 'react';
 
-import { TLocationId, TTimezone, TCity, TCountry } from './types';
-
 export interface IContext<State, Actions> {
   state: Partial<State>;
   actions: Partial<Actions>;
-}
-
-export interface IOffset {
-  hours: number;
-  minutes: number;
-}
-
-export interface IAppLocation {
-  id: TLocationId;
-  offset: IOffset;
-  timezone: TTimezone;
-  city: TCity;
-  country: TCountry;
-  host: boolean;
-  message: string;
-  hasDate?: boolean;
-  hasCountry?: boolean;
-  hasTimezone?: boolean;
-}
-
-export interface IUrlLocation {
-  id: TLocationId;
-  message: string;
 }
 
 export interface IProviderProp {

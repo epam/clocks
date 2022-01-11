@@ -1,6 +1,10 @@
-import { TCity, TCountry, TTimezone } from '../../../../lib/types';
-import { IAppLocation } from '../../../../lib/interfaces';
 import { TTheme } from '../../../../redux/themeRedux/theme.interface';
+import {
+  IAppLocation,
+  TCity,
+  TCountry,
+  TTimezone
+} from '../../../../redux/locationsRedux/locations.interface';
 
 export interface ILocationContentProps extends Partial<IAppLocation> {
   type: TTheme;

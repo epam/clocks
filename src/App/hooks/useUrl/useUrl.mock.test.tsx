@@ -3,9 +3,9 @@ import { renderHook } from '@testing-library/react-hooks';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import { getCurrentUserLocation } from '../../handlers';
-import { PARAM_KEYWORD } from '../../lib/constants';
 import { useUrl } from './useUrl';
 import rootReducer from '../../redux/rootReducer';
+import { PARAM_KEYWORD } from '../../redux/locationsRedux/locations.constants';
 
 const MockSetParam = jest.fn();
 const MockGetParam = jest.fn();
