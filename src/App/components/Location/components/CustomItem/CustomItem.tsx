@@ -1,23 +1,20 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MenuItem } from '@material-ui/core';
 import Badge from '@material-ui/core/Badge';
 import clsx from 'clsx';
 
-import { ThemeContext } from '../../../../context/theme';
 import { ICustomItemProps } from './CustomItem.interface';
 
 import styles from './CustomItem.module.scss';
 
 const CustomItem: FC<ICustomItemProps> = ({
+  type,
   target,
   onSelect,
   added = false
 }) => {
   const { t } = useTranslation();
-  const {
-    state: { type }
-  } = useContext(ThemeContext);
 
   const Render = () => (
     <MenuItem

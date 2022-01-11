@@ -1,5 +1,5 @@
 import { IContext } from './interfaces';
-import { IThemes } from '../context/theme/ThemeContext.interface';
+import { IThemes } from '../redux/themeRedux/theme.interface';
 
 export const editorConfig = {
   toolbar: {

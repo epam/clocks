@@ -1,1 +1,1 @@
-export { default } from './CopyURLButtonContainer';
+export { default } from './CopyURLButton';

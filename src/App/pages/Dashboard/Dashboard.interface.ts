@@ -1,10 +1,4 @@
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-import { TTheme } from '../../context/theme/ThemeContext.interface';
-import { IAppLocation } from '../../lib/interfaces';
+import { ConnectedProps } from 'react-redux';
+import { connector } from './DashboardContainer';
 
-export interface IDashboardProps {
-  currentTheme: TTheme;
-  locations: IAppLocation[];
-  ChangeUserCurrentLocation: ActionCreatorWithPayload<any, string>;
-  SetLocations: ActionCreatorWithPayload<any, string>;
-}
+export interface IDashboardProps extends ConnectedProps<typeof connector> {}

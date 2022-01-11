@@ -1,9 +1,8 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Typography, Modal, Backdrop, Fade } from '@material-ui/core';
 import clsx from 'clsx';
 
-import { ThemeContext } from '../../context/theme';
 import { THEMES } from '../../lib/constants';
 
 import styles from './DeleteModal.module.scss';
@@ -12,12 +11,10 @@ import { IDeleteModalProps } from './DeleteModal.interface';
 const DeleteModal: FC<IDeleteModalProps> = ({
   isOpen = false,
   modalHandler,
-  deleteLocation
+  deleteLocation,
+  type
 }) => {
   const { t } = useTranslation();
-  const {
-    state: { type }
-  } = useContext(ThemeContext);
 
   const deleteHandler = () => {
     deleteLocation();

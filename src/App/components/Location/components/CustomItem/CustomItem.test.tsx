@@ -1,7 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
+import { I18nextProvider } from 'react-i18next';
 import CustomItem from './CustomItem';
+import i18n from '../../../../dictionary';
 
 const target = {
   city: 'Chicago',
@@ -22,21 +24,47 @@ const target = {
 
 const select = jest.fn();
 
+const Wrapper = ({ children }) => (
+  <I18nextProvider i18n={i18n}>{children}</I18nextProvider>
+);
+
 describe('CustomItem component', () => {
   it('renders properly without badge', () => {
-    render(<CustomItem target={target} onSelect={select} added={false} />);
+    render(
+      <Wrapper>
+        <CustomItem
+          type="light"
+          target={target}
+          onSelect={select}
+          added={false}
+        />
+      </Wrapper>
+    );
     expect(screen.getByRole('menuitem')).toBeInTheDocument();
     expect(screen.getByText(/Chicago/i)).toBeInTheDocument();
     expect(screen.getByText(/United States of America/i)).toBeInTheDocument();
     expect(screen.getByText(/Illinois/i)).toBeInTheDocument();
   });
   it('renders properly with badge', () => {
-    render(<CustomItem target={target} onSelect={select} added />);
+    render(
+      <Wrapper>
+        <CustomItem type="light" target={target} onSelect={select} added />
+      </Wrapper>
+    );
     expect(screen.getByText(/Added/i)).toBeInTheDocument();
     expect(screen.getByTestId('Badge')).toBeInTheDocument();
   });
   it('clickable', () => {
-    render(<CustomItem target={target} onSelect={select} added={false} />);
+    render(
+      <Wrapper>
+        <CustomItem
+          type="light"
+          target={target}
+          onSelect={select}
+          added={false}
+        />
+      </Wrapper>
+    );
     userEvent.click(screen.getByRole('menuitem'));
     expect(select).toHaveBeenCalledTimes(1);
     expect(select).toHaveBeenLastCalledWith(target);

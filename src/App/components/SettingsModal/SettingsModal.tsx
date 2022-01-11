@@ -1,10 +1,9 @@
-import { FC, useContext, useMemo, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Typography, Backdrop, Fade, Modal } from '@material-ui/core';
 import moment from 'moment-timezone';
 import clsx from 'clsx';
 
-import { ThemeContext } from '../../context/theme';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import {
   getGmtOffset,
@@ -34,7 +33,11 @@ import { ISettingsModalProps } from './SettingsModal.interface';
 const SettingsModal: FC<ISettingsModalProps> = ({
   locations,
   visibility,
-  setVisibility
+  setVisibility,
+  type,
+  autoTheming,
+  setTheme,
+  toggleAutoTheming
 }) => {
   const { t } = useTranslation();
   const [hasCountry, setHasCountry] = useState<boolean>(
@@ -51,36 +54,28 @@ const SettingsModal: FC<ISettingsModalProps> = ({
   );
   const { setItem, getItem } = useLocalStorage();
 
-  const {
-    actions: { ThemeHandler, AutoThemingHandler },
-    state: { type, autoTheming }
-  } = useContext(ThemeContext);
-
   const handleCancel = () => {
     setHasCountry(getClockFieldStorageValue(HAS_COUNTRY));
     setHasDate(getClockFieldStorageValue(HAS_DATE));
     setHasTimezone(getClockFieldStorageValue(HAS_TIMEZONE));
     setVisibility(false);
-    if (!ThemeHandler || !AutoThemingHandler) return;
-    const isAutoThemingOn: boolean | undefined = JSON.parse(
-      getItem(AUTO_THEMING) || ''
-    );
-    AutoThemingHandler(isAutoThemingOn);
+
+    const isAutoThemingOn = JSON.parse(getItem(AUTO_THEMING) || '') || false;
+
+    toggleAutoTheming(isAutoThemingOn);
     if (isAutoThemingOn) {
       const computerTheme = getComputerTheme();
-      ThemeHandler(computerTheme);
+      setTheme(computerTheme);
     } else {
       const theme = getItem(THEME) || THEMES.light;
       if (theme === 'light' || theme === 'dark') {
-        ThemeHandler(theme);
+        setTheme(theme);
       }
     }
   };
 
   const autoThemingHandler = () => {
-    if (AutoThemingHandler) {
-      AutoThemingHandler();
-    }
+    toggleAutoTheming(!autoTheming);
   };
 
   const SubmitHandler = () => {
@@ -96,9 +91,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
   };
 
   const themeHandler = () => {
-    if (ThemeHandler) {
-      ThemeHandler();
-    }
+    setTheme(type === 'light' ? 'dark' : 'light');
   };
 
   const { time, city, country, timezone, gmtOffset } = useMemo(() => {

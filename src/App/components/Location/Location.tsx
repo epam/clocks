@@ -21,6 +21,7 @@ const Location: FC<ILocationProps> = ({
   message,
   visibility,
   snackbar,
+  type,
   changeUserCurrentLocation,
   ...props
 }) => {
@@ -69,6 +70,7 @@ const Location: FC<ILocationProps> = ({
   return (
     <div className={styles.card}>
       <DeleteModal
+        type={type}
         isOpen={isDeleteModalOpen}
         modalHandler={DeleteModalHandler}
         deleteLocation={deleteLocation}
@@ -93,6 +95,7 @@ const Location: FC<ILocationProps> = ({
       </div>
       <div className={styles.content}>
         <LocationContent
+          type={type}
           hours={hours}
           minutes={minutes}
           host={host}

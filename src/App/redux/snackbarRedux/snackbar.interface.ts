@@ -6,7 +6,7 @@ export interface ISnackbarInitialState {
   type: TSnackbarType;
 }
 
-export interface ISnackbarVisibility {
+export interface ISnackbar {
   visibility: boolean;
   message?: string;
   type?: TSnackbarType;

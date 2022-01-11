@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ISnackbarVisibility } from './snackbar.interface';
+import { ISnackbar } from './snackbar.interface';
 import { INITIAL_STATE } from './snackbar.constants';
 
 const createSnackbarSlice = (name: string) =>
@@ -8,7 +8,7 @@ const createSnackbarSlice = (name: string) =>
     name,
     initialState: INITIAL_STATE,
     reducers: {
-      snackbar(state, action: PayloadAction<ISnackbarVisibility>) {
+      snackbar(state, action: PayloadAction<ISnackbar>) {
         state.visibility = action.payload.visibility;
         if (action.payload.message) state.message = action.payload.message;
         if (action.payload.type) state.type = action.payload.type;

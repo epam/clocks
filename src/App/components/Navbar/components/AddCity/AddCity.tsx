@@ -42,7 +42,11 @@ const EPAMBlueTextField = styled(TextField)({
   }
 });
 
-const AddCity: FC<IInputDrawerProps> = ({ visibility, visibilityHandler }) => {
+const AddCity: FC<IInputDrawerProps> = ({
+  type,
+  visibility,
+  visibilityHandler
+}) => {
   // @ts-ignore
   const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   const { t } = useTranslation();
@@ -142,6 +146,7 @@ const AddCity: FC<IInputDrawerProps> = ({ visibility, visibilityHandler }) => {
           <MenuList variant="selectedMenu" autoFocus>
             {cities.map(({ target }, index) => (
               <CustomItem
+                type={type}
                 key={index}
                 target={target}
                 added={handleMatch(target)}

@@ -1,1 +1,1 @@
-export { default } from './SnackbarContainer';
+export { default } from './Snackbar';

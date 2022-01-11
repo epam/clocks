@@ -1,9 +1,8 @@
-import { useMemo, useState, useEffect, FC, useContext } from 'react';
+import { useMemo, useState, useEffect, FC } from 'react';
 import { Typography } from '@material-ui/core';
 import moment from 'moment-timezone';
 import clsx from 'clsx';
 
-import { ThemeContext } from '../../../../context/theme';
 import LocationOffsets from '../LocationOffsets';
 import { getGmtOffset } from '../../../../handlers';
 import { ILocationContentProps } from './LocationContent.interface';
@@ -11,6 +10,7 @@ import { ILocationContentProps } from './LocationContent.interface';
 import styles from './LocationContent.module.scss';
 
 const LocationContent: FC<ILocationContentProps> = ({
+  type,
   city = '',
   country = '',
   timezone = '',
@@ -23,9 +23,6 @@ const LocationContent: FC<ILocationContentProps> = ({
 }) => {
   const [time, setTime] = useState(moment.tz(timezone));
 
-  const {
-    state: { type }
-  } = useContext(ThemeContext);
   useEffect(() => {
     const id = setInterval(() => setTime(moment.tz(timezone)), 1000);
 
@@ -59,7 +56,12 @@ const LocationContent: FC<ILocationContentProps> = ({
           </Typography>
           <Typography variant="h2">{time.format('mm')}</Typography>
         </span>
-        <LocationOffsets hours={hours} minutes={minutes} host={host} />
+        <LocationOffsets
+          type={type}
+          hours={hours}
+          minutes={minutes}
+          host={host}
+        />
         {hasTimezone && (
           <div className={clsx(styles.gray, styles.timezone)}>
             {timezone} GMT {gmtOffset}

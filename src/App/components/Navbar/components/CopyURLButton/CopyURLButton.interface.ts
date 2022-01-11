@@ -1,4 +1,6 @@
-import { ConnectedProps } from 'react-redux';
-import { connector } from './CopyURLButtonContainer';
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+import { ISnackbar } from '../../../../redux/snackbarRedux/snackbar.interface';
 
-export interface IProps extends ConnectedProps<typeof connector> {}
+export interface IProps {
+  snackbar: ActionCreatorWithPayload<ISnackbar, string>;
+}

@@ -1,6 +1,8 @@
 function checkComputerThemeSupport(): boolean {
-  if (window.matchMedia('(prefers-color-scheme)').media !== 'not all') {
-    return true;
+  if (window.matchMedia) {
+    if (window.matchMedia('(prefers-color-scheme)')?.media !== 'not all') {
+      return true;
+    }
   }
   return false;
 }

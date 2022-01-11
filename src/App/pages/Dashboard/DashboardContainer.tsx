@@ -1,27 +1,52 @@
 import { connect } from 'react-redux';
 import { getLocations } from '../../redux/locationsRedux/locationsSelectors';
 import { locationsActions } from '../../redux/locationsRedux/locationsSlice';
+import { snackbarActions } from '../../redux/snackbarRedux/snackbarSlice';
+import { themeActions } from '../../redux/themeRedux/themeSlice';
+import {
+  getSnackbarVisibility,
+  getSnackbarMessage,
+  getSnackbarType
+} from '../../redux/snackbarRedux/snackbarSelectors';
 
 import { RootState } from '../../redux/rootReducer';
-import { getCurrentTheme } from '../../redux/themeRedux/themeSelectors';
+import {
+  getCurrentTheme,
+  getAutoStatus
+} from '../../redux/themeRedux/themeSelectors';
 
 import Dashboard from './Dashboard';
 
 const { ChangeUserCurrentLocation, SetLocations } = locationsActions;
+const { toggleAutoTheming, setTheme } = themeActions;
+const { snackbar } = snackbarActions;
 
 const mapStateToProps = (state: RootState) => {
-  const currentTheme = getCurrentTheme(state);
+  const type = getCurrentTheme(state);
+  const autoTheming = getAutoStatus(state);
   const locations = getLocations(state);
+  const visibility = getSnackbarVisibility(state);
+  const message = getSnackbarMessage(state);
+  const snackbarType = getSnackbarType(state);
 
   return {
-    currentTheme,
-    locations
+    type,
+    autoTheming,
+    locations,
+    visibility,
+    message,
+    snackbarType
   };
 };
 
 const mapDispatchToProps = {
+  toggleAutoTheming,
+  setTheme,
   ChangeUserCurrentLocation,
-  SetLocations
+  SetLocations,
+  snackbar
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
+export const connector = connect(mapStateToProps, mapDispatchToProps);
+
+export default connector(Dashboard);

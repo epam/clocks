@@ -1,21 +1,19 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
-import { ThemeContext } from '../../../../context/theme';
 import { ILocationOffsetsProps } from './LocationOffsets.interface';
 
 import styles from './LocationOffsets.module.scss';
 
 const LocationOffsets: FC<ILocationOffsetsProps> = ({
+  type,
   hours,
   minutes,
   host
 }) => {
   const { t } = useTranslation();
-  const {
-    state: { type }
-  } = useContext(ThemeContext);
+
   const strHour =
     hours !== 0
       ? `${Math.abs(hours)} ${Math.abs(hours) <= 1 ? ' hour ' : ' hours '}`

@@ -18,7 +18,15 @@ import SettingsModal from '../SettingsModal';
 import { INavbarProps } from './Navbar.interface';
 import { useUrl } from '../../hooks/useUrl';
 
-const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler, locations }) => {
+const Navbar: FC<INavbarProps> = ({
+  autoTheming,
+  type,
+  setTheme,
+  toggleAutoTheming,
+  snackbar,
+  addCitySidebarHandler,
+  locations
+}) => {
   const { t } = useTranslation();
   const { ResetUrl } = useUrl();
 
@@ -45,7 +53,7 @@ const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler, locations }) => {
           >
             <SettingsOutlined sx={{ color: '#fff' }} />
           </IconButton>
-          <CopyURLButton />
+          <CopyURLButton snackbar={snackbar} />
           <div className={styles['add-city-icon-button']}>
             <Tooltip
               title={t('navbar.toggle') || ''}
@@ -79,6 +87,10 @@ const Navbar: FC<INavbarProps> = ({ addCitySidebarHandler, locations }) => {
         </div>
       </Toolbar>
       <SettingsModal
+        autoTheming={autoTheming}
+        type={type}
+        setTheme={setTheme}
+        toggleAutoTheming={toggleAutoTheming}
         locations={locations}
         visibility={settingsVisibility}
         setVisibility={setSettingsVisibility}

@@ -1,11 +1,4 @@
-import {
-  useContext,
-  KeyboardEvent,
-  useMemo,
-  FC,
-  useState,
-  useEffect
-} from 'react';
+import { KeyboardEvent, useMemo, FC, useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 
@@ -20,7 +13,6 @@ import {
   THEMES
 } from '../../lib/constants';
 import Snackbar from '../../components/Snackbar';
-import { ThemeContext } from '../../context/theme';
 
 import styles from './Dashboard.module.scss';
 import { IDashboardProps } from './Dashboard.interface';
@@ -34,9 +26,17 @@ import { useQueryParams } from '../../hooks/useQueryParams';
 import convertFromUrlLocations from '../../handlers/convertFromUrlLocations/convertFromUrlLocations';
 
 const Dashboard: FC<IDashboardProps> = ({
+  type,
+  autoTheming,
+  setTheme,
+  toggleAutoTheming,
   locations,
   ChangeUserCurrentLocation,
-  SetLocations
+  SetLocations,
+  snackbar,
+  visibility,
+  message,
+  snackbarType
 }) => {
   const [isAddCitySidebarOpen, setIsAddCitySidebarOpen] =
     useState<boolean>(false);
@@ -44,9 +44,6 @@ const Dashboard: FC<IDashboardProps> = ({
   const { getItem } = useLocalStorage();
   const { AddLocation } = useUrl();
   const { GetParam, SetParam } = useQueryParams();
-  const {
-    state: { type }
-  } = useContext(ThemeContext);
 
   const addCitySidebarHandler = () => {
     setIsAddCitySidebarOpen(prev => !prev);
@@ -111,6 +108,11 @@ const Dashboard: FC<IDashboardProps> = ({
       className={`${styles.body} ${clocksFont}`}
     >
       <Navbar
+        type={type}
+        autoTheming={autoTheming}
+        setTheme={setTheme}
+        toggleAutoTheming={toggleAutoTheming}
+        snackbar={snackbar}
         locations={locations}
         addCitySidebarHandler={addCitySidebarHandler}
       />
@@ -124,6 +126,9 @@ const Dashboard: FC<IDashboardProps> = ({
           locations.map((props, index) => (
             <div key={index}>
               <Location
+                visibility={visibility}
+                type={type}
+                snackbar={snackbar}
                 changeUserCurrentLocation={ChangeUserCurrentLocation}
                 {...props}
               />
@@ -141,10 +146,16 @@ const Dashboard: FC<IDashboardProps> = ({
         )}
       </div>
       <AddCity
+        type={type}
         visibility={isAddCitySidebarOpen}
         visibilityHandler={addCitySidebarHandler}
       />
-      <Snackbar />
+      <Snackbar
+        visibility={visibility}
+        type={snackbarType}
+        message={message}
+        snackbar={snackbar}
+      />
     </div>
   );
 };

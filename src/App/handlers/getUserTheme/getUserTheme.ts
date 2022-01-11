@@ -1,7 +1,7 @@
 import { AUTO_THEMING, THEME, THEMES } from '../../lib/constants';
-import { TTheme } from '../../context/theme/ThemeContext.interface';
 import getComputerTheme from '../getComputerTheme/getComputerTheme';
 import checkComputerThemeSupport from '../checkComputerThemeSupport/checkComputerThemeSupport';
+import { TTheme } from '../../redux/themeRedux/theme.interface';
 
 function getUserTheme(): TTheme {
   const autoTheming = localStorage.getItem(AUTO_THEMING);

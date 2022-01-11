@@ -1,4 +1,4 @@
-import { TTheme } from '../../context/theme/ThemeContext.interface';
+type TTheme = 'light' | 'dark';
 
 interface IThemes {
   [name: string]: TTheme;
@@ -8,4 +8,4 @@ interface IThemeInitialState {
   theme: TTheme;
 }
 
-export type { IThemeInitialState, IThemes };
+export type { IThemeInitialState, IThemes, TTheme };

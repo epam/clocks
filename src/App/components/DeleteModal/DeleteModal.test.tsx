@@ -17,6 +17,7 @@ describe('test for DeleteModal component', () => {
     const { getByText, getByRole } = render(
       wrapper(
         <DeleteModal
+          type="light"
           isOpen
           modalHandler={MockModalHandler}
           deleteLocation={MockDeleteLocation}
@@ -33,6 +34,7 @@ describe('test for DeleteModal component', () => {
   it('call delete function by clicking Delete button', () => {
     const { getByRole } = render(
       <DeleteModal
+        type="light"
         isOpen
         modalHandler={MockModalHandler}
         deleteLocation={MockDeleteLocation}
@@ -46,6 +48,7 @@ describe('test for DeleteModal component', () => {
   it('call ModalHandler function in order to close modal by clicking Cancel button', () => {
     const { getByRole } = render(
       <DeleteModal
+        type="light"
         isOpen
         modalHandler={MockModalHandler}
         deleteLocation={MockDeleteLocation}
