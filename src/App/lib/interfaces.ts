@@ -1,14 +1,4 @@
 /* eslint-disable camelcase */
-import { ReactNode } from 'react';
-
-export interface IContext<State, Actions> {
-  state: Partial<State>;
-  actions: Partial<Actions>;
-}
-
-export interface IProviderProp {
-  children: ReactNode;
-}
 
 export interface ICityData {
   readonly city: string;

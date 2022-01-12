@@ -1,5 +1,3 @@
-import { IContext } from './interfaces';
-
 export const CLOCKS_FONTS: {
   [fontName: string]: {
     value: string;
@@ -34,11 +32,6 @@ export const CLOCKS_FONTS: {
     value: 'estonia',
     label: 'Estonia'
   }
-};
-
-export const InitialContext: IContext<{}, {}> = {
-  state: {},
-  actions: {}
 };
 
 export const HAS_COUNTRY = 'HAS_COUNTRY';
