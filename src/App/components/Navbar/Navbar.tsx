@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   AppBar,
@@ -17,6 +17,8 @@ import styles from './Navbar.module.scss';
 import SettingsModal from '../SettingsModal';
 import { INavbarProps } from './Navbar.interface';
 import { useUrl } from '../../hooks/useUrl';
+import { AUTO_THEMING } from '../../redux/themeRedux/theme.constants';
+import { getUserTheme } from '../../handlers';
 
 const Navbar: FC<INavbarProps> = ({
   autoTheming,
@@ -31,6 +33,16 @@ const Navbar: FC<INavbarProps> = ({
   const { ResetUrl } = useUrl();
 
   const [settingsVisibility, setSettingsVisibility] = useState<boolean>(false);
+
+  useEffect(() => {
+    const autoTheming = localStorage.getItem(AUTO_THEMING);
+    if (autoTheming && autoTheming === 'true') {
+      toggleAutoTheming(true);
+    } else {
+      toggleAutoTheming(false);
+    }
+    setTheme(getUserTheme());
+  }, []);
 
   return (
     <AppBar

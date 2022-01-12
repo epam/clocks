@@ -45,7 +45,8 @@ const Location: FC<ILocationProps> = ({
     if (comment.length > 100) {
       return snackbar({
         visibility: true,
-        message: t('location.warning')
+        message: t('location.warning'),
+        type: 'error'
       });
     }
     if (visibility) {
