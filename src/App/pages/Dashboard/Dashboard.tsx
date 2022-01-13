@@ -29,7 +29,10 @@ const Dashboard: FC<IDashboardProps> = ({
   snackbarHandler,
   visibility,
   message,
-  snackbarType
+  snackbarType,
+  hasCountry,
+  hasDate,
+  hasTimezone
 }) => {
   const location = useLocation();
   const { getItem } = useLocalStorage();
@@ -95,6 +98,9 @@ const Dashboard: FC<IDashboardProps> = ({
               type={type}
               snackbar={snackbarHandler}
               changeUserCurrentLocation={ChangeUserCurrentLocation}
+              hasCountry={hasCountry}
+              hasDate={hasDate}
+              hasTimezone={hasTimezone}
               {...props}
             />
           </div>

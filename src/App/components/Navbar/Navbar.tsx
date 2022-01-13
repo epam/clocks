@@ -18,8 +18,9 @@ import SettingsModal from '../SettingsModal';
 import { INavbarProps } from './Navbar.interface';
 import { useUrl } from '../../hooks/useUrl';
 import { AUTO_THEMING } from '../../redux/themeRedux/theme.constants';
-import { getUserTheme } from '../../handlers';
+import { getClockFieldStorageValue, getUserTheme } from '../../handlers';
 import AddCity from './components/AddCity';
+import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../../lib/constants';
 
 const Navbar: FC<INavbarProps> = ({
   autoTheming,
@@ -27,7 +28,13 @@ const Navbar: FC<INavbarProps> = ({
   setTheme,
   toggleAutoTheming,
   snackbarHandler,
-  locations
+  locations,
+  HasCountryHandler,
+  HasDateHandler,
+  HasTimezoneHandler,
+  hasDate,
+  hasCountry,
+  hasTimezone
 }) => {
   const { t } = useTranslation();
   const { ResetUrl } = useUrl();
@@ -52,6 +59,12 @@ const Navbar: FC<INavbarProps> = ({
     } else {
       toggleAutoTheming(false);
     }
+    const hasCountry = getClockFieldStorageValue(HAS_COUNTRY);
+    const hasDate = getClockFieldStorageValue(HAS_DATE);
+    const hasTimezone = getClockFieldStorageValue(HAS_TIMEZONE);
+    HasCountryHandler(hasCountry);
+    HasDateHandler(hasDate);
+    HasTimezoneHandler(hasTimezone);
     setTheme(getUserTheme());
   }, []);
 
@@ -114,12 +127,18 @@ const Navbar: FC<INavbarProps> = ({
       </Toolbar>
       <SettingsModal
         autoTheming={autoTheming}
+        hasCountry={hasCountry}
+        hasDate={hasDate}
+        hasTimezone={hasTimezone}
         type={type}
         setTheme={setTheme}
         toggleAutoTheming={toggleAutoTheming}
         locations={locations}
         visibility={settingsVisibility}
         setVisibility={setSettingsVisibility}
+        hasCountryHandler={HasCountryHandler}
+        hasDateHandler={HasDateHandler}
+        hasTimezoneHandler={HasTimezoneHandler}
       />
       <AddCity
         type={type}

@@ -13,25 +13,25 @@ const createNavbarSlice = (name: string) =>
           dashboardFont: newFont
         };
       },
-      ToggleHasCountry(state, action) {
-        const { hasCountry } = state;
+      HasCountryHandler(state, action) {
+        const hasCountry = action.payload;
         return {
           ...state,
-          hasCountry: !hasCountry
+          hasCountry
         };
       },
-      ToggleHasDate(state, action) {
-        const { hasDate } = state;
+      HasDateHandler(state, action) {
+        const hasDate = action.payload;
         return {
           ...state,
-          hasDate: !hasDate
+          hasDate
         };
       },
-      ToggleHasTimezone(state, action) {
-        const { hasTimezone } = state;
+      HasTimezoneHandler(state, action) {
+        const hasTimezone = action.payload;
         return {
           ...state,
-          hasTimezone: !hasTimezone
+          hasTimezone
         };
       }
     }

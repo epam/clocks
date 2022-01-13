@@ -16,6 +16,11 @@ import {
 } from '../../redux/themeRedux/themeSelectors';
 
 import Dashboard from './Dashboard';
+import {
+  getHasCountry,
+  getHasDate,
+  getHasTimezone
+} from '../../redux/navbarRedux/navbarSelectors';
 
 const { ChangeUserCurrentLocation, SetLocations } = locationsActions;
 const { toggleAutoTheming, setTheme } = themeActions;
@@ -28,6 +33,9 @@ const mapStateToProps = (state: RootState) => {
   const visibility = getSnackbarVisibility(state);
   const message = getSnackbarMessage(state);
   const snackbarType = getSnackbarType(state);
+  const hasCountry = getHasCountry(state);
+  const hasDate = getHasDate(state);
+  const hasTimezone = getHasTimezone(state);
 
   return {
     type,
@@ -35,7 +43,10 @@ const mapStateToProps = (state: RootState) => {
     locations,
     visibility,
     message,
-    snackbarType
+    snackbarType,
+    hasCountry,
+    hasDate,
+    hasTimezone
   };
 };
 

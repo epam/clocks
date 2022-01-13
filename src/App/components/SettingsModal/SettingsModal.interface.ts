@@ -11,4 +11,10 @@ export interface ISettingsModalProps {
   locations: IAppLocation[];
   visibility: boolean;
   setVisibility: Dispatch<SetStateAction<boolean>>;
+  hasCountry: boolean;
+  hasDate: boolean;
+  hasTimezone: boolean;
+  hasCountryHandler: ActionCreatorWithPayload<any, string>;
+  hasDateHandler: ActionCreatorWithPayload<any, string>;
+  hasTimezoneHandler: ActionCreatorWithPayload<any, string>;
 }

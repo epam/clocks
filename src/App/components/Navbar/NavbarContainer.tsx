@@ -20,9 +20,9 @@ import { getLocations } from '../../redux/locationsRedux/locationsSelectors';
 const { toggleAutoTheming, setTheme } = themeActions;
 const { snackbarHandler } = snackbarActions;
 const {
-  ToggleHasCountry,
-  ToggleHasDate,
-  ToggleHasTimezone,
+  HasCountryHandler,
+  HasDateHandler,
+  HasTimezoneHandler,
   ChangeDashboardFont
 } = navbarActions;
 
@@ -48,9 +48,9 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = {
   toggleAutoTheming,
-  ToggleHasCountry,
-  ToggleHasDate,
-  ToggleHasTimezone,
+  HasCountryHandler,
+  HasDateHandler,
+  HasTimezoneHandler,
   setTheme,
   ChangeDashboardFont,
   snackbarHandler
