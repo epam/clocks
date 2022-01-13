@@ -12,11 +12,13 @@ import {
 } from '../../redux/themeRedux/themeSelectors';
 import { navbarActions } from '../../redux/navbarRedux/navbarSlice';
 import { themeActions } from '../../redux/themeRedux/themeSlice';
+import { snackbarActions } from '../../redux/snackbarRedux/snackbarSlice';
 
 import Navbar from './Navbar';
 import { getLocations } from '../../redux/locationsRedux/locationsSelectors';
 
-const { toggleAutoTheming } = themeActions;
+const { toggleAutoTheming, setTheme } = themeActions;
+const { snackbarHandler } = snackbarActions;
 const {
   ToggleHasCountry,
   ToggleHasDate,
@@ -30,13 +32,13 @@ const mapStateToProps = (state: RootState) => {
   const hasDate = getHasDate(state);
   const hasTimezone = getHasTimezone(state);
   const autoTheming = getAutoStatus(state);
-  const theme = getCurrentTheme(state);
+  const type = getCurrentTheme(state);
   const locations = getLocations(state);
 
   return {
     locations,
     autoTheming,
-    theme,
+    type,
     dashboardFont,
     hasCountry,
     hasDate,
@@ -49,7 +51,9 @@ const mapDispatchToProps = {
   ToggleHasCountry,
   ToggleHasDate,
   ToggleHasTimezone,
-  ChangeDashboardFont
+  setTheme,
+  ChangeDashboardFont,
+  snackbarHandler
 };
 
 export const connector = connect(mapStateToProps, mapDispatchToProps);

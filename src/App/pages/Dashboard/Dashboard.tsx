@@ -1,10 +1,8 @@
-import { KeyboardEvent, useMemo, FC, useState, useEffect } from 'react';
+import { useMemo, FC, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 
 import Location from '../../components/Location';
-import Navbar from '../../components/Navbar';
-import AddCity from '../../components/Navbar/components/AddCity';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { CLOCKS_FONT, CLOCKS_FONTS } from '../../lib/constants';
 import Snackbar from '../../components/Snackbar';
@@ -24,9 +22,7 @@ import { IDashboardProps } from './Dashboard.interface';
 
 const Dashboard: FC<IDashboardProps> = ({
   type,
-  autoTheming,
-  setTheme,
-  toggleAutoTheming,
+  className,
   locations,
   ChangeUserCurrentLocation,
   SetLocations,
@@ -35,23 +31,10 @@ const Dashboard: FC<IDashboardProps> = ({
   message,
   snackbarType
 }) => {
-  const [isAddCitySidebarOpen, setIsAddCitySidebarOpen] =
-    useState<boolean>(false);
   const location = useLocation();
   const { getItem } = useLocalStorage();
   const { AddLocation } = useUrl();
   const { GetParam, SetParam } = useQueryParams();
-
-  const addCitySidebarHandler = () => {
-    setIsAddCitySidebarOpen(prev => !prev);
-  };
-
-  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === '=' || event.key === '+') {
-      addCitySidebarHandler();
-      event.preventDefault();
-    }
-  };
 
   const addCurrentUserLocationInInitialLoad = async () => {
     let locations: string[] = GetParam<string[]>(PARAM_KEYWORD) || [];
@@ -99,54 +82,33 @@ const Dashboard: FC<IDashboardProps> = ({
 
   return (
     <div
-      tabIndex={0}
-      role="button"
-      onKeyPress={handleKeyDown}
-      className={`${styles.body} ${clocksFont}`}
+      className={`${clocksFont} ${className} ${styles.container} ${clsx({
+        [styles['container-light']]: type === THEMES.light,
+        [styles['container-dark']]: type === THEMES.dark
+      })}`}
     >
-      <Navbar
-        type={type}
-        autoTheming={autoTheming}
-        setTheme={setTheme}
-        toggleAutoTheming={toggleAutoTheming}
-        snackbarHandler={snackbarHandler}
-        locations={locations}
-        addCitySidebarHandler={addCitySidebarHandler}
-      />
-      <div
-        className={`${styles.container} ${clsx({
-          [styles['container-light']]: type === THEMES.light,
-          [styles['container-dark']]: type === THEMES.dark
-        })}`}
-      >
-        {locations && locations?.length > 0 ? (
-          locations.map((props, index) => (
-            <div key={index}>
-              <Location
-                visibility={visibility}
-                type={type}
-                snackbar={snackbarHandler}
-                changeUserCurrentLocation={ChangeUserCurrentLocation}
-                {...props}
-              />
-            </div>
-          ))
-        ) : (
-          <div
-            className={clsx(styles.noCities, {
-              [styles.noCitiesLight]: type === THEMES.light,
-              [styles.noCitiesDark]: type === THEMES.dark
-            })}
-          >
-            No active cities
+      {locations && locations?.length > 0 ? (
+        locations.map((props, index) => (
+          <div key={index}>
+            <Location
+              visibility={visibility}
+              type={type}
+              snackbar={snackbarHandler}
+              changeUserCurrentLocation={ChangeUserCurrentLocation}
+              {...props}
+            />
           </div>
-        )}
-      </div>
-      <AddCity
-        type={type}
-        visibility={isAddCitySidebarOpen}
-        visibilityHandler={addCitySidebarHandler}
-      />
+        ))
+      ) : (
+        <div
+          className={clsx(styles.noCities, {
+            [styles.noCitiesLight]: type === THEMES.light,
+            [styles.noCitiesDark]: type === THEMES.dark
+          })}
+        >
+          No active cities
+        </div>
+      )}
       <Snackbar
         visibility={visibility}
         type={snackbarType}

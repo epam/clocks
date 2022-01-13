@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, KeyboardEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   AppBar,
@@ -19,6 +19,7 @@ import { INavbarProps } from './Navbar.interface';
 import { useUrl } from '../../hooks/useUrl';
 import { AUTO_THEMING } from '../../redux/themeRedux/theme.constants';
 import { getUserTheme } from '../../handlers';
+import AddCity from './components/AddCity';
 
 const Navbar: FC<INavbarProps> = ({
   autoTheming,
@@ -26,13 +27,23 @@ const Navbar: FC<INavbarProps> = ({
   setTheme,
   toggleAutoTheming,
   snackbarHandler,
-  addCitySidebarHandler,
   locations
 }) => {
   const { t } = useTranslation();
   const { ResetUrl } = useUrl();
 
   const [settingsVisibility, setSettingsVisibility] = useState<boolean>(false);
+  const [isAddCitySidebarOpen, setIsAddCitySidebarOpen] =
+    useState<boolean>(false);
+
+  const addCitySidebarHandler = () => setIsAddCitySidebarOpen(prev => !prev);
+
+  const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === '=' || event.key === '+') {
+      addCitySidebarHandler();
+      event.preventDefault();
+    }
+  };
 
   useEffect(() => {
     const autoTheming = localStorage.getItem(AUTO_THEMING);
@@ -46,6 +57,9 @@ const Navbar: FC<INavbarProps> = ({
 
   return (
     <AppBar
+      tabIndex={0}
+      role="button"
+      onKeyPress={handleKeyDown}
       position="static"
       classes={{ root: styles['app-bar'] }}
       color="transparent"
@@ -106,6 +120,11 @@ const Navbar: FC<INavbarProps> = ({
         locations={locations}
         visibility={settingsVisibility}
         setVisibility={setSettingsVisibility}
+      />
+      <AddCity
+        type={type}
+        visibility={isAddCitySidebarOpen}
+        visibilityHandler={addCitySidebarHandler}
       />
     </AppBar>
   );

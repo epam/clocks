@@ -2,23 +2,24 @@ import { FC } from 'react';
 import { Switch, Route } from 'react-router-dom';
 
 import Dashboard from '../../pages/Dashboard';
-
 import Footer from '../Footer';
+import Navbar from '../Navbar';
 import '../../dictionary/index';
 import '../../styles/index.scss';
-import Navbar from '../Navbar/NavbarContainer';
+
+import classNames from './App.module.scss';
 
 const App: FC = () => {
   return (
-    <>
-      {/* <Navbar /> */}
+    <div className={classNames.body}>
+      <Navbar />
       <Switch>
         <Route>
-          <Dashboard />
+          <Dashboard className={classNames.dashboard} />
         </Route>
       </Switch>
       <Footer />
-    </>
+    </div>
   );
 };
 

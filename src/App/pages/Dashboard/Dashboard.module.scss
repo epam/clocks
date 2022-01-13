@@ -1,11 +1,5 @@
 @import '../../styles/index.scss';
 
-.body {
-  min-height: calc(100vh - 64px);
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-}
-
 .container {
   max-width: 100%;
   margin: 0;
