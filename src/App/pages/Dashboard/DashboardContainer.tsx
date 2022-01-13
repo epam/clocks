@@ -19,7 +19,7 @@ import Dashboard from './Dashboard';
 
 const { ChangeUserCurrentLocation, SetLocations } = locationsActions;
 const { toggleAutoTheming, setTheme } = themeActions;
-const { snackbar } = snackbarActions;
+const { snackbarHandler } = snackbarActions;
 
 const mapStateToProps = (state: RootState) => {
   const type = getCurrentTheme(state);
@@ -44,7 +44,7 @@ const mapDispatchToProps = {
   setTheme,
   ChangeUserCurrentLocation,
   SetLocations,
-  snackbar
+  snackbarHandler
 };
 
 export const connector = connect(mapStateToProps, mapDispatchToProps);

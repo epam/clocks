@@ -8,7 +8,7 @@ import { PARAM_KEYWORD } from '../../redux/locationsRedux/locations.constants';
 export const useUrl = () => {
   const { SetParam, GetParam } = useQueryParams();
   const dispatch = useDispatch();
-  const { snackbar } = snackbarActions;
+  const { snackbarHandler } = snackbarActions;
 
   const AddLocation = (locationId: TLocationId, message: string = '') => {
     const locationsFromUrl = GetParam(PARAM_KEYWORD) || [];
@@ -21,7 +21,7 @@ export const useUrl = () => {
     );
     if (isCityAlreadyAdded) {
       dispatch(
-        snackbar({
+        snackbarHandler({
           visibility: true,
           message: 'This city has already been added!'
         })

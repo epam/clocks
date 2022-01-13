@@ -30,7 +30,7 @@ const Dashboard: FC<IDashboardProps> = ({
   locations,
   ChangeUserCurrentLocation,
   SetLocations,
-  snackbar,
+  snackbarHandler,
   visibility,
   message,
   snackbarType
@@ -109,7 +109,7 @@ const Dashboard: FC<IDashboardProps> = ({
         autoTheming={autoTheming}
         setTheme={setTheme}
         toggleAutoTheming={toggleAutoTheming}
-        snackbar={snackbar}
+        snackbarHandler={snackbarHandler}
         locations={locations}
         addCitySidebarHandler={addCitySidebarHandler}
       />
@@ -125,7 +125,7 @@ const Dashboard: FC<IDashboardProps> = ({
               <Location
                 visibility={visibility}
                 type={type}
-                snackbar={snackbar}
+                snackbar={snackbarHandler}
                 changeUserCurrentLocation={ChangeUserCurrentLocation}
                 {...props}
               />
@@ -151,7 +151,7 @@ const Dashboard: FC<IDashboardProps> = ({
         visibility={visibility}
         type={snackbarType}
         message={message}
-        snackbar={snackbar}
+        snackbar={snackbarHandler}
       />
     </div>
   );

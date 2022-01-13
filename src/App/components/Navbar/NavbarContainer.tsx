@@ -14,6 +14,7 @@ import { navbarActions } from '../../redux/navbarRedux/navbarSlice';
 import { themeActions } from '../../redux/themeRedux/themeSlice';
 
 import Navbar from './Navbar';
+import { getLocations } from '../../redux/locationsRedux/locationsSelectors';
 
 const { toggleAutoTheming } = themeActions;
 const {
@@ -30,8 +31,10 @@ const mapStateToProps = (state: RootState) => {
   const hasTimezone = getHasTimezone(state);
   const autoTheming = getAutoStatus(state);
   const theme = getCurrentTheme(state);
+  const locations = getLocations(state);
 
   return {
+    locations,
     autoTheming,
     theme,
     dashboardFont,

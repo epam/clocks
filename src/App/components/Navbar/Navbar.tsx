@@ -25,7 +25,7 @@ const Navbar: FC<INavbarProps> = ({
   type,
   setTheme,
   toggleAutoTheming,
-  snackbar,
+  snackbarHandler,
   addCitySidebarHandler,
   locations
 }) => {
@@ -65,7 +65,7 @@ const Navbar: FC<INavbarProps> = ({
           >
             <SettingsOutlined sx={{ color: '#fff' }} />
           </IconButton>
-          <CopyURLButton snackbar={snackbar} />
+          <CopyURLButton snackbar={snackbarHandler} />
           <div className={styles['add-city-icon-button']}>
             <Tooltip
               title={t('navbar.toggle') || ''}

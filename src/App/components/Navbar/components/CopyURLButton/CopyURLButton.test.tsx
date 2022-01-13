@@ -12,7 +12,7 @@ import {
 } from '../../../../redux/snackbarRedux/snackbarSlice';
 
 const state = createStore(rootReducer);
-const { snackbar } = snackbarActions;
+const { snackbarHandler } = snackbarActions;
 
 const reduxInitialState = {
   visibility: false,

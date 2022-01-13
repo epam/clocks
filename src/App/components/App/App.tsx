@@ -6,7 +6,7 @@ import Dashboard from '../../pages/Dashboard';
 import Footer from '../Footer';
 import '../../dictionary/index';
 import '../../styles/index.scss';
-import Navbar from '../Navbar';
+import Navbar from '../Navbar/NavbarContainer';
 
 const App: FC = () => {
   return (

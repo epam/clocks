@@ -14,7 +14,7 @@ export interface INavbarProps {
   toggleAutoTheming: ActionCreatorWithPayload<boolean, string>;
   addCitySidebarHandler: () => void;
   locations: IAppLocation[];
-  snackbar: ActionCreatorWithPayload<ISnackbar, string>;
+  snackbarHandler: ActionCreatorWithPayload<ISnackbar, string>;
 }
 
 export interface INavbarPropsR extends ConnectedProps<typeof connector> {}

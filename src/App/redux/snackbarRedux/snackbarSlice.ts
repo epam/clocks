@@ -8,7 +8,7 @@ const createSnackbarSlice = (name: string) =>
     name,
     initialState: INITIAL_STATE,
     reducers: {
-      snackbar(state, action: PayloadAction<ISnackbar>) {
+      snackbarHandler(state, action: PayloadAction<ISnackbar>) {
         state.visibility = action.payload.visibility;
         if (action.payload.message) state.message = action.payload.message;
         if (action.payload.type) state.type = action.payload.type;
