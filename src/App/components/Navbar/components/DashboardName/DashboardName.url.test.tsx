@@ -69,7 +69,7 @@ describe('test case for DashboardName component', () => {
     expect(MockHistoryPush).toHaveBeenCalledWith(urlWithoutNameParam);
   });
   it('open input and set dashboard name by clicking edit icon', () => {
-    const { getByTestId, getByRole, getByText } = render(<I18nWrapper/>);
+    const { getByTestId, getByRole, getByText } = render(<I18nWrapper />);
 
     const editIcon = getByTestId(/edit-icon/i);
     userEvent.click(editIcon);
