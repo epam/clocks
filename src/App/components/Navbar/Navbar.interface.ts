@@ -1,7 +1,11 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+import { ConnectedProps } from 'react-redux';
+
 import { ISnackbar } from '../../redux/snackbarRedux/snackbar.interface';
 import { TTheme } from '../../redux/themeRedux/theme.interface';
 import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
+
+import { connector } from './NavbarContainer';
 
 export interface INavbarProps {
   autoTheming: boolean;
@@ -12,3 +16,5 @@ export interface INavbarProps {
   locations: IAppLocation[];
   snackbar: ActionCreatorWithPayload<ISnackbar, string>;
 }
+
+export interface INavbarPropsR extends ConnectedProps<typeof connector> {}
