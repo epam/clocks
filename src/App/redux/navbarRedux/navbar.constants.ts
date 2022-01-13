@@ -34,5 +34,8 @@ export const CLOCKS_FONTS: {
 };
 
 export const INITIAL_STATE: INavbarInitialState = {
-  dashboardFont: CLOCKS_FONTS.ROBOTO
+  dashboardFont: CLOCKS_FONTS.ROBOTO,
+  hasCountry: true,
+  hasDate: true,
+  hasTimezone: true
 };

@@ -5,4 +5,7 @@ export interface IFont {
 
 export interface INavbarInitialState {
   dashboardFont: IFont;
+  hasCountry: boolean;
+  hasDate: boolean;
+  hasTimezone: boolean;
 }
