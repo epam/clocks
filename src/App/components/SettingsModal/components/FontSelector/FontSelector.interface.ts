@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
+import { IFont } from '../../../../redux/navbarRedux/locations.interface';
 
 export interface IFontSelectorProps {
-  font: string;
+  font: IFont;
   changeHandler: Dispatch<SetStateAction<string>>;
 }

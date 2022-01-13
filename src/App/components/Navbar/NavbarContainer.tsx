@@ -23,7 +23,7 @@ const {
   HasCountryHandler,
   HasDateHandler,
   HasTimezoneHandler,
-  ChangeDashboardFont
+  DashboardFontHandler
 } = navbarActions;
 
 const mapStateToProps = (state: RootState) => {
@@ -52,7 +52,7 @@ const mapDispatchToProps = {
   HasDateHandler,
   HasTimezoneHandler,
   setTheme,
-  ChangeDashboardFont,
+  DashboardFontHandler,
   snackbarHandler
 };
 

@@ -6,7 +6,7 @@ const createNavbarSlice = (name: string) =>
     name,
     initialState: INITIAL_STATE,
     reducers: {
-      ChangeDashboardFont(state, action) {
+      DashboardFontHandler(state, action) {
         const newFont = action.payload;
         return {
           ...state,

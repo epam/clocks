@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from 'react';
+import { FC, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Typography, Backdrop, Fade, Modal } from '@material-ui/core';
 import moment from 'moment-timezone';
@@ -13,7 +13,6 @@ import {
 } from '../../handlers';
 import {
   CLOCKS_FONT,
-  CLOCKS_FONTS,
   HAS_COUNTRY,
   HAS_DATE,
   HAS_TIMEZONE
@@ -45,12 +44,11 @@ const SettingsModal: FC<ISettingsModalProps> = ({
   hasTimezone,
   hasCountryHandler,
   hasDateHandler,
-  hasTimezoneHandler
+  hasTimezoneHandler,
+  dashboardFont,
+  fontHandler
 }) => {
   const { t } = useTranslation();
-  const [clocksFont, setClocksFont] = useState<string>(
-    localStorage.getItem(CLOCKS_FONT) || CLOCKS_FONTS.ROBOTO.value
-  );
   const { setItem, getItem } = useLocalStorage();
 
   const handleCancel = () => {
@@ -81,7 +79,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
     setItem(HAS_TIMEZONE, hasTimezone);
     setItem(HAS_DATE, hasDate);
     setItem(HAS_COUNTRY, hasCountry);
-    setItem(CLOCKS_FONT, clocksFont);
+    setItem(CLOCKS_FONT, dashboardFont);
     setItem(AUTO_THEMING, autoTheming);
     if (!autoTheming) {
       setItem(THEME, type);
@@ -116,7 +114,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
     <Modal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
-      className={`${styles.modal} ${clocksFont}`}
+      className={`${styles.modal} ${dashboardFont}`}
       open={visibility}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -166,7 +164,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
               />
             </div>
             <div className={styles['bottom-container']}>
-              <FontSelector font={clocksFont} changeHandler={setClocksFont} />
+              <FontSelector font={dashboardFont} changeHandler={fontHandler} />
             </div>
           </div>
           <div className={styles['buttons-container']}>

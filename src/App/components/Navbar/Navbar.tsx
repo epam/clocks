@@ -26,6 +26,8 @@ const Navbar: FC<INavbarProps> = ({
   autoTheming,
   type,
   setTheme,
+  dashboardFont,
+  DashboardFontHandler,
   toggleAutoTheming,
   snackbarHandler,
   locations,
@@ -139,6 +141,8 @@ const Navbar: FC<INavbarProps> = ({
         hasCountryHandler={HasCountryHandler}
         hasDateHandler={HasDateHandler}
         hasTimezoneHandler={HasTimezoneHandler}
+        dashboardFont={dashboardFont}
+        fontHandler={DashboardFontHandler}
       />
       <AddCity
         type={type}
