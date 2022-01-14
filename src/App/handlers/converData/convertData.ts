@@ -1,7 +1,6 @@
 import moment from 'moment-timezone';
 
 import { generateIdFormat } from '../index';
-import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../../lib/constants';
 import cityMapping from '../../lib/city-timezones.json';
 import { ICityData } from '../../lib/interfaces';
 import {
@@ -46,14 +45,6 @@ const convertIdToObject = (id: string, message = ''): IConvertedObject => {
   };
 };
 
-const getStorageValue = (key: string) => {
-  const storageValue = localStorage.getItem(key);
-  if (!storageValue && storageValue !== 'false') {
-    return true;
-  }
-  return JSON.parse(storageValue);
-};
-
 const convertData = (
   urlDataList: IUrlLocation[] = [],
   locationId: TLocationId
@@ -66,27 +57,18 @@ const convertData = (
   const list = urlDataList.map(urlData =>
     convertIdToObject(urlData['id'], urlData['message'])
   );
-  const hasDate = getStorageValue(HAS_DATE);
-  const hasCountry = getStorageValue(HAS_COUNTRY);
-  const hasTimezone = getStorageValue(HAS_TIMEZONE);
   result = list.map(location => {
     if (locationId === (location as IAppLocation)['id']) {
       return {
         ...location,
         host: true,
-        offset: { hours: 0, minutes: 0 },
-        hasDate,
-        hasCountry,
-        hasTimezone
+        offset: { hours: 0, minutes: 0 }
       };
     }
     return {
       ...location,
       host: false,
-      offset: findOffset(myLocation?.timezone, location?.timezone),
-      hasDate,
-      hasCountry,
-      hasTimezone
+      offset: findOffset(myLocation?.timezone, location?.timezone)
     };
   });
 

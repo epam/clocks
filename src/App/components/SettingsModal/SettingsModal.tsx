@@ -55,6 +55,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
     hasCountryHandler(getClockFieldStorageValue(HAS_COUNTRY));
     hasDateHandler(getClockFieldStorageValue(HAS_DATE));
     hasTimezoneHandler(getClockFieldStorageValue(HAS_TIMEZONE));
+    fontHandler(getItem(CLOCKS_FONT));
     setVisibility(false);
 
     const isAutoThemingOn = JSON.parse(getItem(AUTO_THEMING) || '') || false;

@@ -127,23 +127,25 @@ const Navbar: FC<INavbarProps> = ({
           </div>
         </div>
       </Toolbar>
-      <SettingsModal
-        autoTheming={autoTheming}
-        hasCountry={hasCountry}
-        hasDate={hasDate}
-        hasTimezone={hasTimezone}
-        type={type}
-        setTheme={setTheme}
-        toggleAutoTheming={toggleAutoTheming}
-        locations={locations}
-        visibility={settingsVisibility}
-        setVisibility={setSettingsVisibility}
-        hasCountryHandler={HasCountryHandler}
-        hasDateHandler={HasDateHandler}
-        hasTimezoneHandler={HasTimezoneHandler}
-        dashboardFont={dashboardFont}
-        fontHandler={DashboardFontHandler}
-      />
+      {settingsVisibility && (
+        <SettingsModal
+          autoTheming={autoTheming}
+          hasCountry={hasCountry}
+          hasDate={hasDate}
+          hasTimezone={hasTimezone}
+          type={type}
+          setTheme={setTheme}
+          toggleAutoTheming={toggleAutoTheming}
+          locations={locations}
+          visibility={settingsVisibility}
+          setVisibility={setSettingsVisibility}
+          hasCountryHandler={HasCountryHandler}
+          hasDateHandler={HasDateHandler}
+          hasTimezoneHandler={HasTimezoneHandler}
+          dashboardFont={dashboardFont}
+          fontHandler={DashboardFontHandler}
+        />
+      )}
       <AddCity
         type={type}
         visibility={isAddCitySidebarOpen}

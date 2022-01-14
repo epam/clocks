@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 import { INITIAL_STATE } from './navbar.constants';
 
@@ -8,31 +9,35 @@ const createNavbarSlice = (name: string) =>
     reducers: {
       DashboardFontHandler(state, action) {
         const newFont = action.payload;
-        return {
-          ...state,
-          dashboardFont: newFont
-        };
+        state.dashboardFont = newFont;
+        // return {
+        //   ...state,
+        //   dashboardFont: newFont
+        // };
       },
       HasCountryHandler(state, action) {
         const hasCountry = action.payload;
-        return {
-          ...state,
-          hasCountry
-        };
+        state.hasCountry = hasCountry;
+        // return {
+        //   ...state,
+        //   hasCountry
+        // };
       },
       HasDateHandler(state, action) {
         const hasDate = action.payload;
-        return {
-          ...state,
-          hasDate
-        };
+        state.hasDate = hasDate;
+        // return {
+        //   ...state,
+        //   hasDate
+        // };
       },
       HasTimezoneHandler(state, action) {
         const hasTimezone = action.payload;
-        return {
-          ...state,
-          hasTimezone
-        };
+        state.hasTimezone = hasTimezone;
+        // return {
+        //   ...state,
+        //   hasTimezone
+        // };
       }
     }
   });

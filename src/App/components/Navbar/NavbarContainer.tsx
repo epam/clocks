@@ -13,9 +13,9 @@ import {
 import { navbarActions } from '../../redux/navbarRedux/navbarSlice';
 import { themeActions } from '../../redux/themeRedux/themeSlice';
 import { snackbarActions } from '../../redux/snackbarRedux/snackbarSlice';
+import { getLocations } from '../../redux/locationsRedux/locationsSelectors';
 
 import Navbar from './Navbar';
-import { getLocations } from '../../redux/locationsRedux/locationsSelectors';
 
 const { toggleAutoTheming, setTheme } = themeActions;
 const { snackbarHandler } = snackbarActions;

@@ -14,13 +14,13 @@ import {
   getCurrentTheme,
   getAutoStatus
 } from '../../redux/themeRedux/themeSelectors';
-
-import Dashboard from './Dashboard';
 import {
   getHasCountry,
   getHasDate,
   getHasTimezone
 } from '../../redux/navbarRedux/navbarSelectors';
+
+import Dashboard from './Dashboard';
 
 const { ChangeUserCurrentLocation, SetLocations } = locationsActions;
 const { toggleAutoTheming, setTheme } = themeActions;
