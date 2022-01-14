@@ -1,5 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { INITIAL_STATE } from './navbar.constants';
+/* eslint-disable no-param-reassign */
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { INITIAL_STATE, THEME } from './navbar.constants';
+import { checkComputerThemeSupport, getComputerTheme } from '../../handlers';
+import { TTheme } from './navbar.interface';
 
 const createNavbarSlice = (name: string) =>
   createSlice({
@@ -33,6 +36,23 @@ const createNavbarSlice = (name: string) =>
           ...state,
           hasTimezone: !hasTimezone
         };
+      },
+      setTheme(state, action: PayloadAction<TTheme>) {
+        state.theme = action.payload;
+      },
+      toggleAutoTheming(state, action: PayloadAction<boolean>) {
+        const doesComputerSupport = checkComputerThemeSupport();
+        if (!doesComputerSupport) return state;
+
+        if (action.payload) {
+          state.theme = getComputerTheme();
+        } else {
+          const theme = localStorage.getItem(THEME) as TTheme;
+          if (theme) {
+            state.theme = theme;
+          }
+        }
+        state.auto = action.payload;
       }
     }
   });

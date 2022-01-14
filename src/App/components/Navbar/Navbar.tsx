@@ -17,7 +17,7 @@ import styles from './Navbar.module.scss';
 import SettingsModal from '../SettingsModal';
 import { INavbarProps } from './Navbar.interface';
 import { useUrl } from '../../hooks/useUrl';
-import { AUTO_THEMING } from '../../redux/themeRedux/theme.constants';
+import { AUTO_THEMING } from '../../redux/navbarRedux/navbar.constants';
 import { getUserTheme } from '../../handlers';
 import AddCity from './components/AddCity';
 

@@ -1,5 +1,5 @@
 import { ICityData } from '../../../../lib/interfaces';
-import { TTheme } from '../../../../redux/themeRedux/theme.interface';
+import { TTheme } from '../../../../redux/navbarRedux/navbar.interface';
 
 export interface ICustomItemProps {
   type: TTheme;

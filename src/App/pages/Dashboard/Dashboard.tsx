@@ -15,10 +15,10 @@ import { useUrl } from '../../hooks/useUrl';
 import { useQueryParams } from '../../hooks/useQueryParams';
 import convertFromUrlLocations from '../../handlers/convertFromUrlLocations/convertFromUrlLocations';
 import { PARAM_KEYWORD } from '../../redux/locationsRedux/locations.constants';
-import { THEMES } from '../../redux/themeRedux/theme.constants';
 
 import styles from './Dashboard.module.scss';
 import { IDashboardProps } from './Dashboard.interface';
+import { THEMES } from '../../redux/navbarRedux/navbar.constants';
 
 const Dashboard: FC<IDashboardProps> = ({
   type,

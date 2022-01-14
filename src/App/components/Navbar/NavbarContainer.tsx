@@ -3,27 +3,25 @@ import {
   getDashboardFont,
   getHasCountry,
   getHasDate,
-  getHasTimezone
+  getHasTimezone,
+  getCurrentTheme,
+  getAutoStatus
 } from '../../redux/navbarRedux/navbarSelectors';
 import { RootState } from '../../redux/rootReducer';
-import {
-  getAutoStatus,
-  getCurrentTheme
-} from '../../redux/themeRedux/themeSelectors';
 import { navbarActions } from '../../redux/navbarRedux/navbarSlice';
-import { themeActions } from '../../redux/themeRedux/themeSlice';
 import { snackbarActions } from '../../redux/snackbarRedux/snackbarSlice';
 
 import Navbar from './Navbar';
 import { getLocations } from '../../redux/locationsRedux/locationsSelectors';
 
-const { toggleAutoTheming, setTheme } = themeActions;
 const { snackbarHandler } = snackbarActions;
 const {
   ToggleHasCountry,
   ToggleHasDate,
   ToggleHasTimezone,
-  ChangeDashboardFont
+  ChangeDashboardFont,
+  toggleAutoTheming,
+  setTheme
 } = navbarActions;
 
 const mapStateToProps = (state: RootState) => {

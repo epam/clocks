@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-import { TTheme } from '../../redux/themeRedux/theme.interface';
+import { TTheme } from '../../redux/navbarRedux/navbar.interface';
 import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
 
 export interface ISettingsModalProps {

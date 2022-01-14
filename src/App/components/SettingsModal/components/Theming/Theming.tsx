@@ -4,7 +4,7 @@ import { alpha, styled } from '@mui/material/styles';
 import { FC, useMemo } from 'react';
 
 import { checkComputerThemeSupport } from '../../../../handlers';
-import { THEMES } from '../../../../redux/themeRedux/theme.constants';
+import { THEMES } from '../../../../redux/navbarRedux/navbar.constants';
 
 import { IThemingProps } from './Theming.interface';
 import styles from './Theming.module.scss';

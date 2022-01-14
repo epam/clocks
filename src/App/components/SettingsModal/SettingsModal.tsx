@@ -30,7 +30,7 @@ import {
   AUTO_THEMING,
   THEME,
   THEMES
-} from '../../redux/themeRedux/theme.constants';
+} from '../../redux/navbarRedux/navbar.constants';
 
 const SettingsModal: FC<ISettingsModalProps> = ({
   locations,
