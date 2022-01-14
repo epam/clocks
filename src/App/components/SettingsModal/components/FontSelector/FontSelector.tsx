@@ -22,7 +22,7 @@ const FontSelector: FC<IFontSelectorProps> = ({ font, changeHandler }) => {
       variant="outlined"
       className={styles.select}
       onChange={(e: any) => changeHandler(e.target.value)}
-      value={font}
+      value={font.value}
     >
       {Object.values(CLOCKS_FONTS).map((font, index) => (
         <MenuItem value={font.value} key={`FONT${index}`}>

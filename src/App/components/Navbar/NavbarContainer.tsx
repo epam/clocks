@@ -10,18 +10,18 @@ import {
 import { RootState } from '../../redux/rootReducer';
 import { navbarActions } from '../../redux/navbarRedux/navbarSlice';
 import { snackbarActions } from '../../redux/snackbarRedux/snackbarSlice';
+import { getLocations } from '../../redux/locationsRedux/locationsSelectors';
 
 import Navbar from './Navbar';
-import { getLocations } from '../../redux/locationsRedux/locationsSelectors';
 
 const { snackbarHandler } = snackbarActions;
 const {
-  ToggleHasCountry,
-  ToggleHasDate,
-  ToggleHasTimezone,
-  ChangeDashboardFont,
   toggleAutoTheming,
-  setTheme
+  setTheme,
+  HasCountryHandler,
+  HasDateHandler,
+  HasTimezoneHandler,
+  DashboardFontHandler
 } = navbarActions;
 
 const mapStateToProps = (state: RootState) => {
@@ -46,11 +46,11 @@ const mapStateToProps = (state: RootState) => {
 
 const mapDispatchToProps = {
   toggleAutoTheming,
-  ToggleHasCountry,
-  ToggleHasDate,
-  ToggleHasTimezone,
+  HasCountryHandler,
+  HasDateHandler,
+  HasTimezoneHandler,
   setTheme,
-  ChangeDashboardFont,
+  DashboardFontHandler,
   snackbarHandler
 };
 

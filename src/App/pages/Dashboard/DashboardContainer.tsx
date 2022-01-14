@@ -9,12 +9,16 @@ import {
 } from '../../redux/snackbarRedux/snackbarSelectors';
 
 import { RootState } from '../../redux/rootReducer';
-
-import Dashboard from './Dashboard';
 import {
+  getHasCountry,
+  getHasDate,
+  getHasTimezone,
+  getDashboardFont,
   getAutoStatus,
   getCurrentTheme
 } from '../../redux/navbarRedux/navbarSelectors';
+
+import Dashboard from './Dashboard';
 
 const { ChangeUserCurrentLocation, SetLocations } = locationsActions;
 const { snackbarHandler } = snackbarActions;
@@ -26,6 +30,10 @@ const mapStateToProps = (state: RootState) => {
   const visibility = getSnackbarVisibility(state);
   const message = getSnackbarMessage(state);
   const snackbarType = getSnackbarType(state);
+  const hasCountry = getHasCountry(state);
+  const hasDate = getHasDate(state);
+  const hasTimezone = getHasTimezone(state);
+  const dashboardFont = getDashboardFont(state);
 
   return {
     type,
@@ -33,7 +41,11 @@ const mapStateToProps = (state: RootState) => {
     locations,
     visibility,
     message,
-    snackbarType
+    snackbarType,
+    hasCountry,
+    hasDate,
+    hasTimezone,
+    dashboardFont
   };
 };
 
