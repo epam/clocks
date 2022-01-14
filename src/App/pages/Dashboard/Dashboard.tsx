@@ -1,10 +1,8 @@
-import { useMemo, FC, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 
 import Location from '../../components/Location';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { CLOCKS_FONT, CLOCKS_FONTS } from '../../lib/constants';
 import Snackbar from '../../components/Snackbar';
 import {
   CheckForCityExistence,
@@ -30,12 +28,12 @@ const Dashboard: FC<IDashboardProps> = ({
   visibility,
   message,
   snackbarType,
+  dashboardFont,
   hasCountry,
   hasDate,
   hasTimezone
 }) => {
   const location = useLocation();
-  const { getItem } = useLocalStorage();
   const { AddLocation } = useUrl();
   const { GetParam, SetParam } = useQueryParams();
 
@@ -70,11 +68,6 @@ const Dashboard: FC<IDashboardProps> = ({
     SetLocations(convertedLocations);
   };
 
-  const clocksFont = useMemo<string>(
-    () => getItem(CLOCKS_FONT) || CLOCKS_FONTS.ROBOTO.value,
-    [locations]
-  );
-
   useEffect(() => {
     addCurrentUserLocationInInitialLoad();
   }, []);
@@ -85,7 +78,7 @@ const Dashboard: FC<IDashboardProps> = ({
 
   return (
     <div
-      className={`${clocksFont} ${className} ${styles.container} ${clsx({
+      className={`${dashboardFont} ${className} ${styles.container} ${clsx({
         [styles['container-light']]: type === THEMES.light,
         [styles['container-dark']]: type === THEMES.dark
       })}`}

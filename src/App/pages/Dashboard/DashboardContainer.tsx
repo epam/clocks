@@ -17,7 +17,8 @@ import {
 import {
   getHasCountry,
   getHasDate,
-  getHasTimezone
+  getHasTimezone,
+  getDashboardFont
 } from '../../redux/navbarRedux/navbarSelectors';
 
 import Dashboard from './Dashboard';
@@ -36,6 +37,7 @@ const mapStateToProps = (state: RootState) => {
   const hasCountry = getHasCountry(state);
   const hasDate = getHasDate(state);
   const hasTimezone = getHasTimezone(state);
+  const dashboardFont = getDashboardFont(state);
 
   return {
     type,
@@ -46,7 +48,8 @@ const mapStateToProps = (state: RootState) => {
     snackbarType,
     hasCountry,
     hasDate,
-    hasTimezone
+    hasTimezone,
+    dashboardFont
   };
 };
 
