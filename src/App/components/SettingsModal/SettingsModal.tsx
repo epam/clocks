@@ -37,16 +37,17 @@ const SettingsModal: FC<ISettingsModalProps> = ({
   autoTheming,
   setTheme,
   toggleAutoTheming,
-  hasCountry,
-  hasDate,
-  hasTimezone,
   hasCountryHandler,
   hasDateHandler,
   hasTimezoneHandler,
   dashboardFont,
-  fontHandler
+  fontHandler,
+  ...props
 }) => {
   const [font, setFont] = useState<string>(dashboardFont);
+  const [hasCountry, setHasCountry] = useState<boolean>(props.hasCountry);
+  const [hasDate, setHasDate] = useState<boolean>(props.hasDate);
+  const [hasTimezone, setHasTimezone] = useState<boolean>(props.hasTimezone);
   const { t } = useTranslation();
   const { setItem, getItem } = useLocalStorage();
 
@@ -82,6 +83,9 @@ const SettingsModal: FC<ISettingsModalProps> = ({
     setItem(CLOCKS_FONT, font);
     setItem(AUTO_THEMING, autoTheming);
     fontHandler(font);
+    hasCountryHandler(hasCountry);
+    hasDateHandler(hasDate);
+    hasTimezoneHandler(hasTimezone);
     if (!autoTheming) {
       setItem(THEME, type);
     }
@@ -134,14 +138,14 @@ const SettingsModal: FC<ISettingsModalProps> = ({
             <Heading
               className={styles.default}
               eyeIsOpen={hasDate}
-              eyeHandler={hasDateHandler}
+              eyeHandler={setHasDate}
             >
               {time.format('D MMM').toUpperCase()}{' '}
             </Heading>
             <Time time={time} />
             <Heading
               eyeIsOpen={hasTimezone}
-              eyeHandler={hasTimezoneHandler}
+              eyeHandler={setHasTimezone}
               className={`${styles.grey} ${styles.mb20}`}
             >
               {timezone} GMT {gmtOffset}
@@ -151,7 +155,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
             </Typography>
             <Heading
               eyeIsOpen={hasCountry}
-              eyeHandler={hasCountryHandler}
+              eyeHandler={setHasCountry}
               className={`${styles.default} ${styles.mb25}`}
             >
               {country}
