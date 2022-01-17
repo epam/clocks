@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Typography, Backdrop, Fade, Modal } from '@material-ui/core';
 import moment from 'moment-timezone';
@@ -11,12 +11,16 @@ import {
   getComputerTheme,
   getClockFieldStorageValue
 } from '../../handlers';
+import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
 import {
+  AUTO_THEMING,
+  THEME,
+  THEMES,
   CLOCKS_FONT,
   HAS_COUNTRY,
   HAS_DATE,
   HAS_TIMEZONE
-} from '../../lib/constants';
+} from '../../redux/navbarRedux/navbar.constants';
 
 import { FontSelector } from './components/FontSelector';
 import { Theming } from './components/Theming';
@@ -24,12 +28,6 @@ import { Heading } from './components/Heading';
 import { Time } from './components/Time';
 import styles from './SettingsModal.module.scss';
 import { ISettingsModalProps } from './SettingsModal.interface';
-import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
-import {
-  AUTO_THEMING,
-  THEME,
-  THEMES
-} from '../../redux/navbarRedux/navbar.constants';
 
 const SettingsModal: FC<ISettingsModalProps> = ({
   locations,
@@ -48,6 +46,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
   dashboardFont,
   fontHandler
 }) => {
+  const [font, setFont] = useState<string>(dashboardFont);
   const { t } = useTranslation();
   const { setItem, getItem } = useLocalStorage();
 
@@ -80,8 +79,9 @@ const SettingsModal: FC<ISettingsModalProps> = ({
     setItem(HAS_TIMEZONE, hasTimezone);
     setItem(HAS_DATE, hasDate);
     setItem(HAS_COUNTRY, hasCountry);
-    setItem(CLOCKS_FONT, dashboardFont);
+    setItem(CLOCKS_FONT, font);
     setItem(AUTO_THEMING, autoTheming);
+    fontHandler(font);
     if (!autoTheming) {
       setItem(THEME, type);
     }
@@ -115,7 +115,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
     <Modal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
-      className={`${styles.modal} ${dashboardFont}`}
+      className={`${styles.modal} ${font}`}
       open={visibility}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -165,7 +165,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
               />
             </div>
             <div className={styles['bottom-container']}>
-              <FontSelector font={dashboardFont} changeHandler={fontHandler} />
+              <FontSelector font={font} changeHandler={setFont} />
             </div>
           </div>
           <div className={styles['buttons-container']}>

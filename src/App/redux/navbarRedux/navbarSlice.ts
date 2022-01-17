@@ -9,36 +9,21 @@ const createNavbarSlice = (name: string) =>
     name,
     initialState: INITIAL_STATE,
     reducers: {
-      DashboardFontHandler(state, action) {
+      DashboardFontHandler(state, action: PayloadAction<string>) {
         const newFont = action.payload;
         state.dashboardFont = newFont;
-        // return {
-        //   ...state,
-        //   dashboardFont: newFont
-        // };
       },
-      HasCountryHandler(state, action) {
+      HasCountryHandler(state, action: PayloadAction<boolean>) {
         const hasCountry = action.payload;
         state.hasCountry = hasCountry;
-        // return {
-        //   ...state,
-        //   hasCountry
-        // };
       },
-      HasDateHandler(state, action) {
+      HasDateHandler(state, action: PayloadAction<boolean>) {
         const hasDate = action.payload;
         state.hasDate = hasDate;
-        // return {
-        //   ...state,
-        //   hasDate
-        // };
       },
-      ToggleHasTimezone(state, action) {
+      ToggleHasTimezone(state, action: PayloadAction<boolean>) {
         const { hasTimezone } = state;
-        return {
-          ...state,
-          hasTimezone: !hasTimezone
-        };
+        state.hasTimezone = !hasTimezone;
       },
       setTheme(state, action: PayloadAction<TTheme>) {
         state.theme = action.payload;
@@ -60,10 +45,6 @@ const createNavbarSlice = (name: string) =>
       HasTimezoneHandler(state, action) {
         const hasTimezone = action.payload;
         state.hasTimezone = hasTimezone;
-        // return {
-        //   ...state,
-        //   hasTimezone
-        // };
       }
     }
   });

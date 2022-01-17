@@ -10,7 +10,7 @@ export interface IThemes {
 }
 
 export interface INavbarInitialState {
-  dashboardFont: IFont;
+  dashboardFont: string;
   hasCountry: boolean;
   hasDate: boolean;
   hasTimezone: boolean;

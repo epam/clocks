@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react';
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
-import { IFont, TTheme } from '../../redux/navbarRedux/navbar.interface';
+import { TTheme } from '../../redux/navbarRedux/navbar.interface';
 import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
 
 export interface ISettingsModalProps {
@@ -18,5 +18,5 @@ export interface ISettingsModalProps {
   hasDateHandler: ActionCreatorWithPayload<any, string>;
   hasTimezoneHandler: ActionCreatorWithPayload<any, string>;
   fontHandler: ActionCreatorWithPayload<any, string>;
-  dashboardFont: IFont;
+  dashboardFont: string;
 }

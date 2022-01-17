@@ -10,17 +10,21 @@ import {
 import { SettingsOutlined, Add } from '@mui/icons-material';
 
 import logo from '../../images/logo.svg';
-import { DashboardName } from './components/DashboardName';
-import CopyURLButton from './components/CopyURLButton';
-
-import styles from './Navbar.module.scss';
 import SettingsModal from '../SettingsModal';
 import { INavbarProps } from './Navbar.interface';
 import { useUrl } from '../../hooks/useUrl';
-import { AUTO_THEMING } from '../../redux/navbarRedux/navbar.constants';
 import { getClockFieldStorageValue, getUserTheme } from '../../handlers';
+import {
+  HAS_COUNTRY,
+  HAS_DATE,
+  HAS_TIMEZONE,
+  AUTO_THEMING
+} from '../../redux/navbarRedux/navbar.constants';
+
 import AddCity from './components/AddCity';
-import { HAS_COUNTRY, HAS_DATE, HAS_TIMEZONE } from '../../lib/constants';
+import styles from './Navbar.module.scss';
+import { DashboardName } from './components/DashboardName';
+import CopyURLButton from './components/CopyURLButton';
 
 const Navbar: FC<INavbarProps> = ({
   autoTheming,
