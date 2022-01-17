@@ -1,5 +1,5 @@
-import { TTheme } from '../../redux/themeRedux/theme.interface';
-import { THEMES } from '../../redux/themeRedux/theme.constants';
+import { TTheme } from '../../redux/navbarRedux/navbar.interface';
+import { THEMES } from '../../redux/navbarRedux/navbar.constants';
 
 function getComputerTheme(): TTheme {
   const darkModeMediaQuery = window.matchMedia(

@@ -1,4 +1,4 @@
-import { FC, useMemo } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button, Typography, Backdrop, Fade, Modal } from '@material-ui/core';
 import moment from 'moment-timezone';
@@ -11,12 +11,16 @@ import {
   getComputerTheme,
   getClockFieldStorageValue
 } from '../../handlers';
+import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
 import {
+  AUTO_THEMING,
+  THEME,
+  THEMES,
   CLOCKS_FONT,
   HAS_COUNTRY,
   HAS_DATE,
   HAS_TIMEZONE
-} from '../../lib/constants';
+} from '../../redux/navbarRedux/navbar.constants';
 
 import { FontSelector } from './components/FontSelector';
 import { Theming } from './components/Theming';
@@ -24,12 +28,6 @@ import { Heading } from './components/Heading';
 import { Time } from './components/Time';
 import styles from './SettingsModal.module.scss';
 import { ISettingsModalProps } from './SettingsModal.interface';
-import { IAppLocation } from '../../redux/locationsRedux/locations.interface';
-import {
-  AUTO_THEMING,
-  THEME,
-  THEMES
-} from '../../redux/themeRedux/theme.constants';
 
 const SettingsModal: FC<ISettingsModalProps> = ({
   locations,
@@ -39,15 +37,17 @@ const SettingsModal: FC<ISettingsModalProps> = ({
   autoTheming,
   setTheme,
   toggleAutoTheming,
-  hasCountry,
-  hasDate,
-  hasTimezone,
   hasCountryHandler,
   hasDateHandler,
   hasTimezoneHandler,
   dashboardFont,
-  fontHandler
+  fontHandler,
+  ...props
 }) => {
+  const [font, setFont] = useState<string>(dashboardFont);
+  const [hasCountry, setHasCountry] = useState<boolean>(props.hasCountry);
+  const [hasDate, setHasDate] = useState<boolean>(props.hasDate);
+  const [hasTimezone, setHasTimezone] = useState<boolean>(props.hasTimezone);
   const { t } = useTranslation();
   const { setItem, getItem } = useLocalStorage();
 
@@ -55,6 +55,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
     hasCountryHandler(getClockFieldStorageValue(HAS_COUNTRY));
     hasDateHandler(getClockFieldStorageValue(HAS_DATE));
     hasTimezoneHandler(getClockFieldStorageValue(HAS_TIMEZONE));
+    fontHandler(getItem(CLOCKS_FONT));
     setVisibility(false);
 
     const isAutoThemingOn = JSON.parse(getItem(AUTO_THEMING) || '') || false;
@@ -79,8 +80,12 @@ const SettingsModal: FC<ISettingsModalProps> = ({
     setItem(HAS_TIMEZONE, hasTimezone);
     setItem(HAS_DATE, hasDate);
     setItem(HAS_COUNTRY, hasCountry);
-    setItem(CLOCKS_FONT, dashboardFont);
+    setItem(CLOCKS_FONT, font);
     setItem(AUTO_THEMING, autoTheming);
+    fontHandler(font);
+    hasCountryHandler(hasCountry);
+    hasDateHandler(hasDate);
+    hasTimezoneHandler(hasTimezone);
     if (!autoTheming) {
       setItem(THEME, type);
     }
@@ -114,7 +119,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
     <Modal
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
-      className={`${styles.modal} ${dashboardFont}`}
+      className={`${styles.modal} ${font}`}
       open={visibility}
       closeAfterTransition
       BackdropComponent={Backdrop}
@@ -132,7 +137,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
           <div className={styles['text-block']}>
             <Heading
               eyeIsOpen={hasDate}
-              eyeHandler={hasDateHandler}
+              eyeHandler={setHasDate}
               className={clsx(styles.default, {
                 [styles.eyeDark]: type === THEMES.dark
               })}
@@ -142,7 +147,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
             <Time time={time} />
             <Heading
               eyeIsOpen={hasTimezone}
-              eyeHandler={hasTimezoneHandler}
+              eyeHandler={setHasTimezone}
               className={clsx(styles.grey, styles.mb20, {
                 [styles.eyeDark]: type === THEMES.dark
               })}
@@ -154,7 +159,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
             </Typography>
             <Heading
               eyeIsOpen={hasCountry}
-              eyeHandler={hasCountryHandler}
+              eyeHandler={setHasCountry}
               className={clsx(styles.default, styles.mb25, {
                 [styles.eyeDark]: type === THEMES.dark
               })}
@@ -171,7 +176,7 @@ const SettingsModal: FC<ISettingsModalProps> = ({
             </div>
             <FontSelector
               font={dashboardFont}
-              changeHandler={fontHandler}
+              changeHandler={setFont}
               className={clsx(styles['bottom-container'], {
                 [styles['bottom-container-dark']]: type === THEMES.dark
               })}

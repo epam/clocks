@@ -4,8 +4,8 @@ import {
   AUTO_THEMING,
   THEME,
   THEMES
-} from '../../redux/themeRedux/theme.constants';
-import { TTheme } from '../../redux/themeRedux/theme.interface';
+} from '../../redux/navbarRedux/navbar.constants';
+import { TTheme } from '../../redux/navbarRedux/navbar.interface';
 
 function getUserTheme(): TTheme {
   const autoTheming = localStorage.getItem(AUTO_THEMING);

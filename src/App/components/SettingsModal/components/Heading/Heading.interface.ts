@@ -1,7 +1,7 @@
-import { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+import { Dispatch, SetStateAction } from 'react';
 
 export interface IHeadingProps {
   eyeIsOpen: boolean;
-  eyeHandler: ActionCreatorWithPayload<any, string>;
+  eyeHandler: Dispatch<SetStateAction<boolean>>;
   className?: string;
 }

@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { getLocations } from '../../redux/locationsRedux/locationsSelectors';
 import { locationsActions } from '../../redux/locationsRedux/locationsSlice';
 import { snackbarActions } from '../../redux/snackbarRedux/snackbarSlice';
-import { themeActions } from '../../redux/themeRedux/themeSlice';
 import {
   getSnackbarVisibility,
   getSnackbarMessage,
@@ -11,19 +10,17 @@ import {
 
 import { RootState } from '../../redux/rootReducer';
 import {
-  getCurrentTheme,
-  getAutoStatus
-} from '../../redux/themeRedux/themeSelectors';
-
-import Dashboard from './Dashboard';
-import {
   getHasCountry,
   getHasDate,
-  getHasTimezone
+  getHasTimezone,
+  getDashboardFont,
+  getAutoStatus,
+  getCurrentTheme
 } from '../../redux/navbarRedux/navbarSelectors';
 
+import Dashboard from './Dashboard';
+
 const { ChangeUserCurrentLocation, SetLocations } = locationsActions;
-const { toggleAutoTheming, setTheme } = themeActions;
 const { snackbarHandler } = snackbarActions;
 
 const mapStateToProps = (state: RootState) => {
@@ -36,6 +33,7 @@ const mapStateToProps = (state: RootState) => {
   const hasCountry = getHasCountry(state);
   const hasDate = getHasDate(state);
   const hasTimezone = getHasTimezone(state);
+  const dashboardFont = getDashboardFont(state);
 
   return {
     type,
@@ -46,13 +44,12 @@ const mapStateToProps = (state: RootState) => {
     snackbarType,
     hasCountry,
     hasDate,
-    hasTimezone
+    hasTimezone,
+    dashboardFont
   };
 };
 
 const mapDispatchToProps = {
-  toggleAutoTheming,
-  setTheme,
   ChangeUserCurrentLocation,
   SetLocations,
   snackbarHandler

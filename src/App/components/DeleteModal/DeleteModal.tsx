@@ -4,7 +4,7 @@ import { Button, Typography, Modal, Backdrop, Fade } from '@material-ui/core';
 import clsx from 'clsx';
 import styles from './DeleteModal.module.scss';
 import { IDeleteModalProps } from './DeleteModal.interface';
-import { THEMES } from '../../redux/themeRedux/theme.constants';
+import { THEMES } from '../../redux/navbarRedux/navbar.constants';
 
 const DeleteModal: FC<IDeleteModalProps> = ({
   isOpen = false,

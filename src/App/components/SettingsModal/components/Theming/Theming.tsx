@@ -5,7 +5,7 @@ import { FC, useMemo } from 'react';
 import clsx from 'clsx';
 
 import { checkComputerThemeSupport } from '../../../../handlers';
-import { THEMES } from '../../../../redux/themeRedux/theme.constants';
+import { THEMES } from '../../../../redux/navbarRedux/navbar.constants';
 
 import { IThemingProps } from './Theming.interface';
 import styles from './Theming.module.scss';
