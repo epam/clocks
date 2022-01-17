@@ -61,6 +61,11 @@
     margin: 0 $space-xxs $space-s $space-s;
   }
 
+  .cancel-button-dark {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+
   .save-button {
     opacity: 0.95;
     margin: 0 $space-s $space-s $space-xxs;
@@ -99,5 +104,29 @@
   .bottom-container {
     display: flex;
     align-items: center;
+  }
+
+  .bottom-container-dark {
+    color: white !important;
+
+    &:hover {
+      & fieldset {
+        border-color: $epam-blue;
+      }
+    }
+
+    & fieldset {
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    & svg {
+      color: white;
+    }
+  }
+
+  .eyeDark {
+    & div button {
+      color: white;
+    }
   }
 }
