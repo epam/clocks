@@ -29,7 +29,15 @@ const CustomItem: FC<ICustomItemProps> = ({
     >
       <div className={styles.text}>
         <div className={styles.title}>
-          <span className={styles.city}>{target.city}</span>
+          <span
+            className={clsx(
+              styles.city,
+              { [styles.countryLight]: type === 'light' },
+              { [styles.countryDark]: type === 'dark' }
+            )}
+          >
+            {target.city}
+          </span>
         </div>
         <span
           className={clsx(
