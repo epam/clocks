@@ -9,11 +9,12 @@ import {
 } from '@mui/icons-material';
 
 import styles from './Footer.module.scss';
+import { IFooterProps } from './Footer.interface';
 
-const Footer: FC = () => {
+const Footer: FC<IFooterProps> = ({ dashboardFont }) => {
   const { t } = useTranslation();
   return (
-    <footer className={styles.root}>
+    <footer className={`${styles.root} ${dashboardFont}`}>
       <div className={`${styles.rights} ${styles.rights}`}>
         <Trans
           t={t}

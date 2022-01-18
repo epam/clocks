@@ -79,6 +79,7 @@ const Navbar: FC<INavbarProps> = ({
       tabIndex={0}
       role="button"
       onKeyPress={handleKeyDown}
+      className={dashboardFont}
       position="static"
       classes={{ root: styles['app-bar'] }}
       color="transparent"
