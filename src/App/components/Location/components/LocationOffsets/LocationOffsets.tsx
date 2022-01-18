@@ -1,6 +1,5 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import clsx from 'clsx';
 
 import { ILocationOffsetsProps } from './LocationOffsets.interface';
 
@@ -27,16 +26,7 @@ const LocationOffsets: FC<ILocationOffsetsProps> = ({
     hours < 0 || minutes < 0 ? '-' : hours === 0 && minutes === 0 ? '' : '+';
 
   if (host) {
-    return (
-      <div
-        className={clsx(
-          { [styles.hostLight]: type === 'light' },
-          { [styles.hostDark]: type === 'dark' }
-        )}
-      >
-        {t('location.here')}
-      </div>
-    );
+    return <div className={styles.host}>{t('location.here')}</div>;
   }
 
   return (

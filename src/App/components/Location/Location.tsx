@@ -5,6 +5,7 @@ import { EditOutlined, DeleteOutline, HomeOutlined } from '@mui/icons-material';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import ReactHtmlParser from 'react-html-parser';
+import clsx from 'clsx';
 
 import { useUrl } from '../../hooks/useUrl';
 import DeleteModal from '../DeleteModal';
@@ -81,7 +82,9 @@ const Location: FC<ILocationProps> = ({
           <IconButton
             data-testid="HomeIconButton"
             onClick={ChangeUserCurrentLocation}
-            className={styles.button}
+            className={clsx(styles.button, {
+              [styles['button-dark']]: type === 'dark'
+            })}
           >
             <HomeOutlined />
           </IconButton>
@@ -89,7 +92,9 @@ const Location: FC<ILocationProps> = ({
         <IconButton
           data-testid="DeleteButton"
           onClick={DeleteModalHandler}
-          className={styles.button}
+          className={clsx(styles.button, {
+            [styles['button-dark']]: type === 'dark'
+          })}
         >
           <DeleteOutline />
         </IconButton>

@@ -136,9 +136,11 @@ const SettingsModal: FC<ISettingsModalProps> = ({
         >
           <div className={styles['text-block']}>
             <Heading
-              className={styles.default}
               eyeIsOpen={hasDate}
               eyeHandler={setHasDate}
+              className={clsx(styles.default, {
+                [styles.eyeDark]: type === THEMES.dark
+              })}
             >
               {time.format('D MMM').toUpperCase()}{' '}
             </Heading>
@@ -146,7 +148,9 @@ const SettingsModal: FC<ISettingsModalProps> = ({
             <Heading
               eyeIsOpen={hasTimezone}
               eyeHandler={setHasTimezone}
-              className={`${styles.grey} ${styles.mb20}`}
+              className={clsx(styles.grey, styles.mb20, {
+                [styles.eyeDark]: type === THEMES.dark
+              })}
             >
               {timezone} GMT {gmtOffset}
             </Heading>
@@ -156,7 +160,9 @@ const SettingsModal: FC<ISettingsModalProps> = ({
             <Heading
               eyeIsOpen={hasCountry}
               eyeHandler={setHasCountry}
-              className={`${styles.default} ${styles.mb25}`}
+              className={clsx(styles.default, styles.mb25, {
+                [styles.eyeDark]: type === THEMES.dark
+              })}
             >
               {country}
             </Heading>
@@ -168,14 +174,20 @@ const SettingsModal: FC<ISettingsModalProps> = ({
                 themeHandler={themeHandler}
               />
             </div>
-            <div className={styles['bottom-container']}>
-              <FontSelector font={font} changeHandler={setFont} />
-            </div>
+            <FontSelector
+              font={dashboardFont}
+              changeHandler={setFont}
+              className={clsx(styles['bottom-container'], {
+                [styles['bottom-container-dark']]: type === THEMES.dark
+              })}
+            />
           </div>
           <div className={styles['buttons-container']}>
             <Button
               variant="outlined"
-              className={`${styles.button} ${styles['cancel-button']}`}
+              className={clsx(styles.button, styles['cancel-button'], {
+                [styles['cancel-button-dark']]: type === THEMES.dark
+              })}
               onClick={handleCancel}
             >
               {t('cancel', { ns: 'common' })}

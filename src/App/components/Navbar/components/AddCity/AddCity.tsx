@@ -11,6 +11,7 @@ import {
 } from '@material-ui/core';
 import { Close } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
+import clsx from 'clsx';
 
 import CustomItem from '../../../Location/components/CustomItem';
 import {
@@ -112,7 +113,9 @@ const AddCity: FC<IInputDrawerProps> = ({
 
   return (
     <SwipeableDrawer
-      classes={{ paper: css.sidebarPaper }}
+      classes={{
+        paper: clsx(css.sidebarPaper, { [css.sidebarDark]: type === 'dark' })
+      }}
       anchor="right"
       disableBackdropTransition={!iOS}
       disableDiscovery={iOS}
@@ -123,10 +126,16 @@ const AddCity: FC<IInputDrawerProps> = ({
     >
       <Toolbar id={css.toolbar}>
         <Grid container alignItems="center" justifyContent="space-between">
-          <Typography variant="button">{t('navbar.addNewCity')}</Typography>
+          <Typography
+            variant="button"
+            className={clsx({ [css.sidebarDarkTypography]: type === 'dark' })}
+          >
+            {t('navbar.addNewCity')}
+          </Typography>
           <IconButton
             aria-label="Close Drawer Button"
             onClick={visibilityHandler}
+            className={clsx({ [css.sidebarCloseBtnDark]: type === 'dark' })}
           >
             <Close />
           </IconButton>
@@ -139,6 +148,11 @@ const AddCity: FC<IInputDrawerProps> = ({
           value={value}
           label={t('navbar.searchCities')}
           variant="outlined"
+          classes={{
+            root: clsx({
+              [css.textFieldDark]: type === 'dark'
+            })
+          }}
           className={css.textFieldSize}
           inputProps={{ 'data-testid': 'search-input' }}
         />

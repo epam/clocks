@@ -16,11 +16,15 @@ const EPAMBlueSelect = styled(Select)(({ theme }) => ({
   }
 }));
 
-const FontSelector: FC<IFontSelectorProps> = ({ font, changeHandler }) => {
+const FontSelector: FC<IFontSelectorProps> = ({
+  font,
+  changeHandler,
+  className
+}) => {
   return (
     <EPAMBlueSelect
       variant="outlined"
-      className={styles.select}
+      className={`${styles.select} ${className}`}
       onChange={(e: any) => changeHandler(e.target.value)}
       defaultValue={font}
     >

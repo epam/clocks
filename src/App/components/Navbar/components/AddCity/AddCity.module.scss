@@ -8,6 +8,36 @@
   }
 }
 
+.sidebarDark {
+  background-color: #121212 !important;
+  color: white;
+}
+
+.sidebarDarkTypography {
+  color: white;
+}
+
+.sidebarCloseBtnDark {
+  svg {
+    color: white;
+  }
+}
+
+.textFieldDark {
+  & label {
+    color: white;
+  }
+
+  & input {
+    color: white;
+  }
+
+  & fieldset {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
+  }
+}
+
 #toolbar {
   font-family: 'Roboto', sans-serif;
   padding-right: 16px !important;

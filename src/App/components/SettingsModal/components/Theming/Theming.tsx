@@ -2,6 +2,7 @@ import { Button, FormControlLabel, Switch } from '@material-ui/core';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { alpha, styled } from '@mui/material/styles';
 import { FC, useMemo } from 'react';
+import clsx from 'clsx';
 
 import { checkComputerThemeSupport } from '../../../../handlers';
 import { THEMES } from '../../../../redux/navbarRedux/navbar.constants';
@@ -51,16 +52,21 @@ const Theming: FC<IThemingProps> = ({
         />
       )}
       <span className={styles['margin-block']} />
-      <Button
-        variant="outlined"
-        onClick={themeHandler}
-        disabled={autoTheming}
-        endIcon={theme === 'light' ? <Brightness7 /> : <Brightness4 />}
-        classes={{ root: styles['mode-control-btn'] }}
-        className={styles['mode-control-btn']}
+      <span
+        className={clsx({
+          [styles['mode-control-btn-dark']]: theme === THEMES.dark
+        })}
       >
-        {theme === 'light' ? 'LIGHT' : 'DARK'}
-      </Button>
+        <Button
+          variant="outlined"
+          onClick={themeHandler}
+          disabled={autoTheming}
+          endIcon={theme === 'light' ? <Brightness7 /> : <Brightness4 />}
+          classes={{ root: styles['mode-control-btn'] }}
+        >
+          {theme === 'light' ? 'LIGHT' : 'DARK'}
+        </Button>
+      </span>
     </>
   );
 };

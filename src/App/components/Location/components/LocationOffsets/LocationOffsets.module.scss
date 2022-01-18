@@ -10,21 +10,11 @@
   align-items: center;
 }
 
-.hostLight {
-  padding: $space-xxxxs $space-xs;
+.host {
+  margin: 4px 0;
   color: $white;
   background-color: $epam-blue;
   border-radius: 20px;
-  font-size: $fs12;
+  font-size: $fs14;
   width: 100px;
-}
-
-.hostDark {
-  padding: $space-xxxxs $space-xs;
-  color: $white;
-  background-color: $epam-blue;
-  border-radius: 20px;
-  font-size: $fs12;
-  width: 100px;
-  margin: $space-xxs 0;
 }
