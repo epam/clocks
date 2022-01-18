@@ -20,7 +20,6 @@ import { THEMES } from '../../redux/navbarRedux/navbar.constants';
 
 const Dashboard: FC<IDashboardProps> = ({
   type,
-  className,
   locations,
   ChangeUserCurrentLocation,
   SetLocations,
@@ -78,7 +77,7 @@ const Dashboard: FC<IDashboardProps> = ({
 
   return (
     <div
-      className={`${dashboardFont} ${className} ${styles.container} ${clsx({
+      className={`${dashboardFont} ${styles.container} ${clsx({
         [styles['container-light']]: type === THEMES.light,
         [styles['container-dark']]: type === THEMES.dark
       })}`}

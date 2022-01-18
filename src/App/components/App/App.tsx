@@ -15,7 +15,7 @@ const App: FC = () => {
       <Navbar />
       <Switch>
         <Route>
-          <Dashboard className={classNames.dashboard} />
+          <Dashboard />
         </Route>
       </Switch>
       <Footer />
