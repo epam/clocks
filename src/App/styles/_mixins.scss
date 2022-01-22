@@ -1,7 +1,18 @@
 // SCREEN SIZE
-
 @mixin screenMax500 {
   @media (max-width: 500px) {
     @content;
   }
+}
+
+// BLOCKS
+@mixin lightBlock {
+  background-color: $whiteColor;
+  border-radius: 5px;
+  box-shadow: 3px 2px 10px 0px $lightGrayColor;
+}
+
+@mixin darkBlock {
+  background-color: $darkGrayColor;
+  border-radius: 5px;
 }

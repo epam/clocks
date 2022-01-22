@@ -1,41 +1,51 @@
 @import '../../styles/index.scss';
 
-.rights {
-  font-size: $fs12;
-}
+.container {
+  padding: $space-s;
+  margin-top: $space-s;
 
-.icons {
-  a {
-    margin: 0 $space-s;
+  %body {
+    min-height: 64px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: $space-s;
+    padding-right: $space-s;
+    padding-bottom: $space-s;
+    padding-left: $space-s;
+    max-width: $parentMaxWidth;
+    margin-left: auto;
+    margin-right: auto;
 
     @include screenMax500 {
-      margin: 0 $space-xxs;
+      flex-direction: column;
+    }
+
+    .credits {
+      @include screenMax500 {
+        text-align: center;
+        margin-top: $space-xs;
+        margin-bottom: $space-xs;
+      }
+    }
+
+    .iconContainer {
+      display: flex;
+      align-items: center;
     }
   }
-}
 
-.root {
-  width: 100%;
-  height: 64px;
-  padding: 0 $space-l;
-  background: $epam-black;
-  color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  .lightBody {
+    @include lightBlock;
+    @extend %body;
 
-.rights {
-  color: inherit;
-  font-weight: 300;
-}
+    color: $darkColor;
+  }
 
-.icons {
-  display: flex;
-  align-items: center;
-  & a {
-    color: white;
-    text-decoration: none;
-    vertical-align: middle;
+  .darkBody {
+    @include darkBlock;
+    @extend %body;
+
+    color: $lightColor;
   }
 }

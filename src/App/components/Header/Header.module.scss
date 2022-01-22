@@ -1,0 +1,37 @@
+@import '../../styles/index.scss';
+
+.body {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: $parentMaxWidth;
+  height: 64px;
+  padding-right: $space-s;
+  padding-left: $space-s;
+  margin-left: auto;
+  margin-right: auto;
+
+  .logoContainer {
+    display: flex;
+    align-items: center;
+    font-family: roboto-bold;
+    font-size: $fs20;
+
+    .lightLogo {
+      color: $darkColor;
+    }
+
+    .darkLogo {
+      color: $lightColor;
+    }
+
+    span {
+      margin-left: $space-xxs;
+    }
+  }
+
+  .controlsContainer {
+    display: flex;
+    align-items: center;
+  }
+}

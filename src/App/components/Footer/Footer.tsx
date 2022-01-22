@@ -1,70 +1,74 @@
-import { FC } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
-import {
-  LinkedIn,
-  Twitter,
-  Facebook,
-  Instagram,
-  GitHub
-} from '@mui/icons-material';
 
-import styles from './Footer.module.scss';
+import { IconButton } from '@mui/material';
+import { Instagram, Facebook, Twitter, LinkedIn, GitHub } from '@mui/icons-material';
 
-const Footer: FC = () => {
+import useTheme from '../../hooks/useTheme';
+
+import style from './Footer.module.scss';
+
+const Footer: React.FC = () => {
   const { t } = useTranslation();
+
+  const bodyTheme = useTheme(style.lightBody, style.darkBody);
+  const iconTheme = useTheme(style.lightIcon, style.darkIcon);
+
+  const social = useMemo(
+    () => [
+      {
+        url: 'https://github.com/epam/clocks',
+        icon: GitHub
+      },
+      {
+        url: 'https://www.linkedin.com/company/epam-systems/',
+        icon: LinkedIn
+      },
+      {
+        url: 'https://twitter.com/EPAMSYSTEMS',
+        icon: Twitter
+      },
+      {
+        url: 'https://www.facebook.com/EPAM.Global',
+        icon: Facebook
+      },
+      {
+        url: 'https://www.instagram.com/epamsystems/',
+        icon: Instagram
+      }
+    ],
+    []
+  );
+
   return (
-    <footer className={styles.root}>
-      <div className={`${styles.rights} ${styles.rights}`}>
-        <Trans
-          t={t}
-          i18nKey="footer.rights"
-          values={{ date: new Date().getFullYear() }}
-          components={{ br: <br /> }}
-        />
+    <div className={style.container}>
+      <div className={bodyTheme}>
+        <div className={style.credits}>
+          <Trans
+            t={t}
+            i18nKey="Footer.Credits"
+            values={{ date: new Date().getFullYear() }}
+            components={{ br: <br /> }}
+          />
+        </div>
+        <div className={style.iconContainer}>
+          {social.map((item, index) => (
+            <a
+              key={index + 'SOCIAL'}
+              href={item.url}
+              data-testid="GitHubIconLink"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <IconButton>
+                <item.icon className={iconTheme} />
+              </IconButton>
+            </a>
+          ))}
+        </div>
       </div>
-      <div className={`${styles.icons} ${styles.icons}`}>
-        <a
-          href="https://github.com/epam"
-          data-testid="GitHubIconLink"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <GitHub />
-        </a>
-        <a
-          href="https://www.linkedin.com/company/epam-systems/"
-          data-testid="LinkedInIconLink"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <LinkedIn />
-        </a>
-        <a
-          href="https://twitter.com/EPAMSYSTEMS"
-          data-testid="TwitterIconLink"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Twitter />
-        </a>
-        <a
-          href="https://www.facebook.com/EPAM.Global"
-          data-testid="FacebookIconLink"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Facebook />
-        </a>
-        <a
-          href="https://www.instagram.com/epamsystems/"
-          data-testid="InstagramIconLink"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <Instagram />
-        </a>
-      </div>
-    </footer>
+    </div>
   );
 };
+
 export default Footer;

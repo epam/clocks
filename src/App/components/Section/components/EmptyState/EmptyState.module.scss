@@ -1,0 +1,48 @@
+@import '../../../../styles/index.scss';
+
+%body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+  width: 100%;
+  font-family: roboto-medium;
+  font-size: $fs16;
+}
+
+.lightBody {
+  @extend %body;
+
+  color: $darkColor;
+}
+
+.darkBody {
+  @extend %body;
+
+  color: $lightColor;
+}
+
+.deleteMode {
+  position: relative;
+  animation-duration: 0.7s;
+  animation-name: shaking;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shaking {
+  0% {
+    transform: rotate(-1deg);
+  }
+  25% {
+    transform: rotate(1deg);
+  }
+  50% {
+    transform: rotate(-1deg);
+  }
+  75% {
+    transform: rotate(1deg);
+  }
+  100% {
+    transform: rotate(-1deg);
+  }
+}

@@ -1,33 +1,27 @@
 // COLORS
+$darkColor: #272727;
+$lightColor: #f9fcfd;
+$whiteColor: #ffffff;
+$grayColor: #8f8f8f;
+$darkGrayColor: #343434;
+$lightGrayColor: #ededed;
+$redColor: #ff0000;
+$blueColor: #39c2d7;
 
-$epam-blue: #39c2d7;
-$epam-blue-dark: #30a4b6;
-$epam-green: #a3c644;
-$epam-black: #464547;
-$epam-red: #b22746;
-$epam-violet: #8e244d;
-$graphite: #222222;
-$white: #ffffff;
-$coral: #d35d47;
-$dark-blue: #263852;
-$gray: #bcb9b5;
-$light-gray: #dcdcda;
+// SPACES
+$space-xl: 30px;
+$space-l: 25px;
+$space-m: 20px;
+$space-s: 15px;
+$space-xs: 10px;
+$space-xxs: 5px;
 
-// SPACE SIZES
-
-$space-xxxxs: 1px;
-$space-xxxs: 2px;
-$space-xxs: 4px;
-$space-xs: 8px;
-$space-s: 12px;
-$space-m: 16px;
-$space-l: 24px;
-$space-xl: 32px;
-$space-xxl: 64px;
-
-// FONT SIZES
-
+// FONTS
 $fs20: 20px;
+$fs18: 18px;
 $fs16: 16px;
 $fs14: 14px;
 $fs12: 12px;
+
+// SIZES
+$parentMaxWidth: 1630px;

@@ -1,0 +1,182 @@
+@import '../../../../styles/index.scss';
+
+%body {
+  width: 370px;
+  padding: $space-s;
+  margin: $space-s;
+  position: relative;
+
+  @include screenMax500 {
+    width: 100%;
+  }
+
+  .deleteButton {
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    background-color: $lightGrayColor;
+    color: $darkGrayColor;
+
+    &:hover {
+      background-color: $redColor;
+      color: $whiteColor;
+    }
+
+    .icon {
+      font-size: $fs16;
+    }
+  }
+
+  .infoBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .leftSide {
+      display: flex;
+
+      .buttonContainer {
+        display: flex;
+        flex-direction: column;
+        margin-right: $space-s;
+      }
+
+      .infoContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .bottomInfo {
+        color: $grayColor;
+        text-align: start;
+      }
+    }
+
+    .rightSide {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      .bottomInfo {
+        color: $grayColor;
+        text-align: end;
+      }
+    }
+
+    .topInfo {
+      font-family: roboto-medium;
+      font-size: $fs18;
+      margin-bottom: $space-xxs;
+    }
+  }
+
+  .commentBlock {
+    margin-top: $space-xs;
+    margin-left: 7px;
+
+    .commentText {
+      font-family: roboto-bold;
+      margin-right: $space-xxs;
+    }
+  }
+}
+
+.lightBody {
+  @include lightBlock;
+  @extend %body;
+
+  color: $darkColor;
+}
+
+.darkBody {
+  @include darkBlock;
+  @extend %body;
+
+  color: $lightColor;
+}
+
+.deleteMode {
+  position: relative;
+  animation-duration: 0.7s;
+  animation-name: shaking;
+  animation-iteration-count: infinite;
+}
+
+@keyframes shaking {
+  0% {
+    transform: rotate(-0.5deg);
+  }
+  25% {
+    transform: rotate(0.5deg);
+  }
+  50% {
+    transform: rotate(-0.5deg);
+  }
+  75% {
+    transform: rotate(0.5deg);
+  }
+  100% {
+    transform: rotate(-0.5deg);
+  }
+}
+
+%commentModal {
+  width: 250px;
+  padding: $space-s;
+
+  .modalTitle {
+    font-family: roboto-bold;
+    font-size: $fs20;
+    margin-bottom: $space-l;
+  }
+
+  .input {
+    width: 100%;
+    border: 1px solid $blueColor;
+    border-radius: 5px;
+    height: 50px;
+    padding: $space-s;
+    font-size: $fs14;
+    transition: 0.2s;
+
+    &:focus {
+      outline: 1.5px solid $blueColor;
+    }
+
+    &::placeholder {
+      color: $grayColor;
+    }
+  }
+
+  .buttonContainer {
+    margin-top: $space-s;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+}
+
+.lightCommentModal {
+  @extend %commentModal;
+
+  background-color: $lightColor;
+  color: $darkColor;
+
+  .input {
+    background-color: $lightColor;
+    color: $darkColor;
+  }
+}
+
+.darkCommentModal {
+  @extend %commentModal;
+
+  background-color: $darkColor;
+  color: $lightColor;
+
+  .input {
+    background-color: $darkColor;
+    color: $lightColor;
+  }
+}

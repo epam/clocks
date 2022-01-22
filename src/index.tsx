@@ -1,22 +1,26 @@
-import { StrictMode } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import App from './App/components/App/App';
-import rootReducer from './App/redux/rootReducer';
-import './styles.scss';
+import App from './App/App';
+import reducer from './App/redux/reducer';
 
-const store = createStore(rootReducer);
+import './index.scss';
+import './App/dictionary/i18n';
+
+const store = createStore(reducer);
 
 ReactDOM.render(
-  <StrictMode>
+  <React.StrictMode>
     <Provider store={store}>
       <Router>
-        <App />
+        <Routes>
+          <Route path="/" element={<App />} />
+        </Routes>
       </Router>
     </Provider>
-  </StrictMode>,
+  </React.StrictMode>,
   document.getElementById('root')
 );
