@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import useLocations from '../../hooks/useLocations';
 import { IInitialState, IUrlLocations, IUrlLocation } from '../../redux/types';
-import { locationsDB } from '../../lib/locationsDB';
 import { setUserLocation, setCounter } from '../../redux/actions';
 
 import style from './Section.module.scss';
@@ -11,7 +10,7 @@ import LocationBlock from './components/LocationBlock/LocationBlock';
 import EmptyState from './components/EmptyState/EmptyState';
 
 const Section: React.FC = () => {
-  const { counter } = useSelector((state: IInitialState) => state);
+  const { counter, locationsDB } = useSelector((state: IInitialState) => state);
 
   const { locations, setLocations, findLocation } = useLocations();
 

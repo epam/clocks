@@ -1,9 +1,12 @@
 import { useSearchParams } from 'react-router-dom';
-import { IUrlLocations, IUrlLocation, ILocation } from '../redux/types';
-import { locationsDB } from '../lib/locationsDB';
+import { useSelector } from 'react-redux';
+
+import { IUrlLocations, IUrlLocation, ILocation, IInitialState } from '../redux/types';
 
 const useLocations = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const { locationsDB } = useSelector((state: IInitialState) => state);
 
   const urlLocations = searchParams.get('locations');
 

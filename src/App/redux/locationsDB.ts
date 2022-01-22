@@ -1,4 +1,4 @@
-import { ILocation } from '../redux/types';
+import { ILocation } from './types';
 
 export const locationsDB: ILocation[] = [
   {

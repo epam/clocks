@@ -6,6 +6,7 @@ export interface IInitialState {
   autoTheme?: boolean;
   showDate: boolean;
   showCountry: boolean;
+  locationsDB: ILocation[],
   userLocation?: ILocation;
   snackbarStatus: boolean;
   snackbarText?: string;

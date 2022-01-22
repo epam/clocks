@@ -9,7 +9,7 @@ import { Add, Close } from '@mui/icons-material';
 import useTheme from '../../../../hooks/useTheme';
 import useLocations from '../../../../hooks/useLocations';
 import useSnackbar from '../../../../hooks/useSnackbar';
-import { locationsDB } from '../../../../lib/locationsDB';
+import useDebounce from '../../../../hooks/useDebounce';
 import { ILocation, IInitialState, IUrlLocations, IUrlLocation } from '../../../../redux/types';
 
 import style from './AddLocation.module.scss';
@@ -26,13 +26,15 @@ const AddLocation: React.FC = () => {
 
   const { locations, setLocations } = useLocations();
 
-  const { deleteMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, locationsDB } = useSelector((state: IInitialState) => state);
 
   const [isPanelOpen, setPanel] = useState(false);
 
   const [searchText, setSearchText] = useState('');
 
   const [locationsFound, setLocationsFound] = useState<ILocation[]>([]);
+
+  const debounce = useDebounce(searchText);
 
   const handleSearch = useCallback((text: string) => {
     if (!!text) {
@@ -46,11 +48,13 @@ const AddLocation: React.FC = () => {
     } else {
       setLocationsFound([]);
     }
+    // don't need as a dependancy locationsDB
+    // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    setTimeout(() => handleSearch(searchText), 1000);
-  }, [searchText, handleSearch]);
+    handleSearch(debounce);
+  }, [debounce, handleSearch]);
 
   const handleOpenPanel = () => {
     setPanel(true);
@@ -124,7 +128,7 @@ const AddLocation: React.FC = () => {
           <Add className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode })} />
         </IconButton>
       </Tooltip>
-      
+
       <Drawer anchor="right" open={isPanelOpen} onClose={handleClosePanel}>
         <div className={bodyTheme}>
           <div className={style.header}>

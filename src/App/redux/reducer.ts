@@ -1,3 +1,4 @@
+import { locationsDB } from './locationsDB';
 import { IInitialState, IActionPayload } from './types';
 import { ACTION_TYPE, THEME } from './constants';
 
@@ -7,6 +8,7 @@ const initialState: IInitialState = {
   autoTheme: undefined,
   showDate: true,
   showCountry: true,
+  locationsDB: locationsDB,
   userLocation: undefined,
   snackbarStatus: false,
   snackbarText: undefined,
