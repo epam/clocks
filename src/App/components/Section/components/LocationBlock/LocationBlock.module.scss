@@ -1,14 +1,12 @@
 @import '../../../../styles/index.scss';
 
 %body {
-  width: 370px;
+  width: 1fr;
   padding: $space-s;
   margin: $space-s;
   position: relative;
-
-  @include screenMax500 {
-    width: 100%;
-  }
+  border: 2px solid transparent;
+  transition: 0.2s;
 
   .deleteButton {
     position: absolute;
@@ -96,7 +94,11 @@
   color: $lightColor;
 }
 
-.deleteMode {
+.currentBody {
+  border: 2px solid $blueColor;
+}
+
+.shaking {
   position: relative;
   animation-duration: 0.7s;
   animation-name: shaking;

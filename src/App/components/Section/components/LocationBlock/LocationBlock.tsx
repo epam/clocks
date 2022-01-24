@@ -97,7 +97,10 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
       <div
         className={clsx({
           [bodyTheme]: true,
-          [style.deleteMode]: deleteMode
+          [style.shaking]: deleteMode,
+          [style.currentBody]:
+            urlUserLocation ||
+            (location?.city === userLocation?.city && location?.lat === userLocation?.lat)
         })}
       >
         {deleteMode && (

@@ -5,8 +5,8 @@
   height: 100%;
   padding-right: $space-s;
   padding-left: $space-s;
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   margin-left: auto;
   margin-right: auto;
 }
