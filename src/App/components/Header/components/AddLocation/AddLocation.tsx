@@ -144,6 +144,7 @@ const AddLocation: React.FC = () => {
               placeholder={t('AddLocation.InputPlaceholder')}
               onChange={e => setSearchText(e.target.value)}
               value={searchText}
+              autoFocus={true}
             />
           </div>
           <div className={style.searchResultsContainer}>
