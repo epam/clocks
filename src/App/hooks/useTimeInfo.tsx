@@ -16,7 +16,6 @@ const useTimeInfo = (location?: ILocation) => {
     minutes: '',
     day: '',
     offset: '',
-    meridiem: '',
     suffix: ''
   };
   const isHour12Format = timeFormat === TIME_FORMAT.H12;
