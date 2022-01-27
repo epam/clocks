@@ -12,7 +12,6 @@ Produces a permanent sharable link that can be sent to third party users;\
 Allows to add arbitrary comments to time zones;\
 Minimalistic enough to embed it into another HTML page via <iframe> (no ads or spy software, etc.)\
 
-![изображение](https://user-images.githubusercontent.com/88092877/134647694-1c002995-4737-4765-8e59-8cc91addcd5a.png)
 ![изображение](https://user-images.githubusercontent.com/88092877/151424317-21fde88c-ef22-402d-ac77-88229ee97afc.png)
 
 ### Environment
@@ -21,10 +20,10 @@ Clocks.lab.epam.com
 
 ### How to use
 
-The application shows the time in the selected location, location name, country and time zone.
+The application shows the time in the selected location, location name, country.
 When you go to the page to Clocks.lab.epam.com, the dashboard automatically creates a widget with information for the user's location.\
 
-![изображение](https://user-images.githubusercontent.com/88092877/134662957-8c7729e0-2c8a-4986-a502-dea316dedace.png)
+![изображение](https://user-images.githubusercontent.com/88092877/151424721-645af42c-2483-4906-baf2-5a567d566f76.png)
 
 Users can add other locations through the "add city" button. It also displays information about the time difference between the user's location and the added location. users can delete widgets for locations on the dashboard.
 In addition, it is possible to add comments for locations. \
