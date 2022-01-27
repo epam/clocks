@@ -28,7 +28,7 @@ When you go to the page to Clocks.lab.epam.com, the dashboard automatically crea
 Users can add other locations through the "add city" button. It also displays information about the time difference between the user's location and the added location. users can delete widgets for locations on the dashboard.
 In addition, it is possible to add comments for locations. \
 
-![изображение](https://user-images.githubusercontent.com/88092877/134655648-887616c7-9cf2-416a-b214-034713cbbbe6.png)
+![изображение](https://user-images.githubusercontent.com/88092877/151425498-5c9cf077-f347-47de-aaa5-fd0bc02e2e15.png)
 
 ### Using hotkeys
 
