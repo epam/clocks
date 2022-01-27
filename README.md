@@ -13,6 +13,7 @@ Allows to add arbitrary comments to time zones;\
 Minimalistic enough to embed it into another HTML page via <iframe> (no ads or spy software, etc.)\
 
 ![изображение](https://user-images.githubusercontent.com/88092877/134647694-1c002995-4737-4765-8e59-8cc91addcd5a.png)
+![изображение](https://user-images.githubusercontent.com/88092877/151424317-21fde88c-ef22-402d-ac77-88229ee97afc.png)
 
 ### Environment
 
