@@ -1,12 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { TIME_FORMAT } from '../redux/constants';
 
 import { ILocation, IInitialState } from '../redux/types';
 
 const useTimeInfo = (location?: ILocation) => {
   const { t } = useTranslation();
 
-  const { userLocation } = useSelector((state: IInitialState) => state);
+  const { userLocation, timeFormat } = useSelector((state: IInitialState) => state);
 
   const date = new Date();
 
@@ -15,11 +16,16 @@ const useTimeInfo = (location?: ILocation) => {
     minutes: '',
     day: '',
     offset: '',
-    meridiem: ''
+    meridiem: '',
+    suffix: ''
   };
+  const isHour12Format = timeFormat === TIME_FORMAT.H12;
 
   const locationTime = date
-    .toLocaleTimeString('ru-RU', { timeZone: location?.timezone })
+    .toLocaleTimeString('ru-RU', {
+      timeZone: location?.timezone,
+      hour12: isHour12Format
+    })
     .split(':');
 
   const locationDate = date
@@ -29,13 +35,15 @@ const useTimeInfo = (location?: ILocation) => {
   const locationHours = Number(locationTime[0]);
   const locationDay = Number(locationDate[1]);
   const locationMonth = Number(locationDate[0]);
+  const timeSuffix = locationTime[2].substring(3);
 
   timeObject.hours = locationTime[0];
   timeObject.minutes = locationTime[1];
+  timeObject.suffix = timeSuffix;
 
   if (userLocation) {
     const userLocationTime = date
-      .toLocaleTimeString('ru-RU', { timeZone: userLocation?.timezone })
+      .toLocaleTimeString('ru-RU', { timeZone: userLocation?.timezone, hour12: isHour12Format })
       .split(':');
 
     const userLocationDate = date
@@ -47,9 +55,9 @@ const useTimeInfo = (location?: ILocation) => {
     const userLocationMonth = Number(userLocationDate[0]);
 
     const getMinutes = () => {
-      const minuteDiffrence = Math.abs(Number(locationTime[1]) - Number(userLocationTime[1]));
+      const minuteDifference = Math.abs(Number(locationTime[1]) - Number(userLocationTime[1]));
 
-      return minuteDiffrence ? `:${minuteDiffrence} ` : ' ';
+      return minuteDifference ? `:${minuteDifference} ` : ' ';
     };
 
     if (userLocationMonth === locationMonth) {
@@ -73,18 +81,18 @@ const useTimeInfo = (location?: ILocation) => {
           locationHours - userLocationHours + getMinutes() + t('LocationBlock.Ahead');
       }
       if (userLocationDay < locationDay && userLocationHours > locationHours) {
-        timeObject.day = t('LocationBlock.Tommorow');
+        timeObject.day = t('LocationBlock.Tomorrow');
         timeObject.offset =
           24 - userLocationHours + locationHours + getMinutes() + t('LocationBlock.Ahead');
       }
     } else {
       if (userLocationDay < locationDay && userLocationMonth > locationMonth) {
-        timeObject.day = t('LocationBlock.Yesteday');
+        timeObject.day = t('LocationBlock.Yesterday');
         timeObject.offset =
           24 - userLocationHours + locationHours + getMinutes() + t('LocationBlock.Ahead');
       }
       if (userLocationDay > locationDay && userLocationMonth < locationMonth) {
-        timeObject.day = t('LocationBlock.Tommorow');
+        timeObject.day = t('LocationBlock.Tomorrow');
         timeObject.offset =
           24 - locationHours + userLocationHours + getMinutes() + t('LocationBlock.Behind');
       }

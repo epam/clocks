@@ -8,6 +8,7 @@ export interface ILocationBlockProps {
 export interface ITimeState {
   hours: string;
   minutes: string;
+  suffix: string;
   day?: string;
   offset?: string;
 }

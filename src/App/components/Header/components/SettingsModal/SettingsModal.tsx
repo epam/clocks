@@ -18,7 +18,7 @@ import { SettingsOutlined } from '@mui/icons-material';
 import useTheme from '../../../../hooks/useTheme';
 import useAutoTheme from '../../../../hooks/useAutoTheme';
 import { IInitialState, IActionSettingsPayload } from '../../../../redux/types';
-import { THEME } from '../../../../redux/constants';
+import { THEME, TIME_FORMAT } from '../../../../redux/constants';
 import { setSettings } from '../../../../redux/actions';
 
 import style from './SettingsModal.module.scss';
@@ -34,7 +34,7 @@ const SettingsModal: React.FC = () => {
 
   const [isModalOpen, setModal] = useState(false);
 
-  const { autoTheme, theme, showDate, showCountry, deleteMode, counter } = useSelector(
+  const { autoTheme, theme, showDate, showCountry, deleteMode, counter, timeFormat } = useSelector(
     (state: IInitialState) => state
   );
 
@@ -44,7 +44,8 @@ const SettingsModal: React.FC = () => {
     autoTheme: undefined,
     theme: THEME.light,
     showDate: true,
-    showCountry: true
+    showCountry: true,
+    timeFormat: TIME_FORMAT.H24
   });
 
   useEffect(() => {
@@ -52,9 +53,10 @@ const SettingsModal: React.FC = () => {
       autoTheme,
       theme,
       showDate,
-      showCountry
+      showCountry,
+      timeFormat
     });
-  }, [autoTheme, theme, showDate, showCountry, isModalOpen]);
+  }, [autoTheme, theme, showDate, showCountry, isModalOpen, timeFormat]);
 
   useEffect(() => {
     const localStorageSettings = localStorage.getItem('settings');
@@ -71,7 +73,7 @@ const SettingsModal: React.FC = () => {
     if (autoTheme) {
       setAutoTheme();
     }
-    // don't need as a dependancy setAutoTheme
+    // don't need as a dependency setAutoTheme
     // eslint-disable-next-line
   }, [autoTheme, counter]);
 
@@ -92,6 +94,12 @@ const SettingsModal: React.FC = () => {
           break;
         case SETTING_VALUE.auto:
           setLocalSettings({ ...localSettings, autoTheme: !localSettings.autoTheme });
+          break;
+        case SETTING_VALUE.H24:
+          setLocalSettings({ ...localSettings, timeFormat: value });
+          break;
+        case SETTING_VALUE.H12:
+          setLocalSettings({ ...localSettings, timeFormat: value });
           break;
         default:
           setLocalSettings({ ...localSettings, theme: value });
@@ -142,6 +150,16 @@ const SettingsModal: React.FC = () => {
             />
             <span>{t('Settings.ShowCountry')}</span>
           </div>
+          <RadioGroup value={localSettings.timeFormat} onChange={handleSetSettings}>
+            <div>
+              <Radio value={TIME_FORMAT.H24} />
+              <span>{t('Settings.24HourFormat')}</span>
+            </div>
+            <div>
+              <Radio value={TIME_FORMAT.H12} />
+              <span>{t('Settings.12HourFormat')}</span>
+            </div>
+          </RadioGroup>
           <Divider
             className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
           />

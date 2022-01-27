@@ -1,6 +1,6 @@
 import { locationsDB } from './locationsDB';
 import { IInitialState, IActionPayload } from './types';
-import { ACTION_TYPE, THEME } from './constants';
+import { ACTION_TYPE, THEME, TIME_FORMAT } from './constants';
 
 const initialState: IInitialState = {
   deleteMode: false,
@@ -8,6 +8,7 @@ const initialState: IInitialState = {
   autoTheme: undefined,
   showDate: true,
   showCountry: true,
+  timeFormat: TIME_FORMAT.H24,
   locationsDB: locationsDB,
   userLocation: undefined,
   snackbarStatus: false,
@@ -49,6 +50,11 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
       return {
         ...state,
         counter: action.payload
+      };
+    case ACTION_TYPE.setTimeFormat:
+      return {
+        ...state,
+        timeFormat: action.payload
       };
 
     default:

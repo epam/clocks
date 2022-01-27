@@ -22,7 +22,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
 
   const { t } = useTranslation();
 
-  const { showDate, showCountry, deleteMode, userLocation, counter } = useSelector(
+  const { showDate, showCountry, deleteMode, userLocation, counter, timeFormat } = useSelector(
     (state: IInitialState) => state
   );
 
@@ -40,7 +40,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     hours: '',
     minutes: '',
     day: undefined,
-    offset: undefined
+    offset: undefined,
+    suffix: ''
   });
 
   useEffect(() => {
@@ -55,7 +56,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     setTime(timeInfo);
     // don't need as a dependency timeInfo
     // eslint-disable-next-line
-  }, [counter, userLocation]);
+  }, [counter, userLocation, timeFormat]);
 
   const handleDelete = () => {
     location && delete locations[location?.city + location?.lat];
@@ -136,7 +137,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           </div>
           <div className={style.rightSide}>
             <div className={style.topInfo}>
-              {time.hours}:{time.minutes}
+              {time.hours}:{time.minutes} {time.suffix}
             </div>
             <div className={style.bottomInfo}>
               {showDate && time.day && time.offset && `${time.day}, ${time.offset}`}
