@@ -78,7 +78,7 @@ const Section: React.FC = () => {
     // eslint-disable-next-line
   }, [locations]);
 
-  return <div className={locations ? style.body : style.empyBody}>{locationsRender}</div>;
+  return <div className={locations ? style.body : style.emptyBody}>{locationsRender}</div>;
 };
 
 export default Section;
