@@ -24,7 +24,7 @@ const AddLocation: React.FC = () => {
 
   const { snackbarError } = useSnackbar();
 
-  const { locations, setLocations } = useLocations();
+  const { locations, setLocations, getLocationOffset } = useLocations();
 
   const { deleteMode, locationsDB } = useSelector((state: IInitialState) => state);
 
@@ -81,7 +81,8 @@ const AddLocation: React.FC = () => {
             ...locations,
             [location.city + location.lat]: {
               city: location.city,
-              lat: location.lat
+              lat: location.lat,
+              offset: getLocationOffset(location.timezone)
             }
           };
 
@@ -92,14 +93,15 @@ const AddLocation: React.FC = () => {
         const locationObj: IUrlLocations = {
           [location.city + location.lat]: {
             city: location.city,
-            lat: location.lat
+            lat: location.lat,
+            offset: getLocationOffset(location.timezone)
           }
         };
         setLocations(locationObj);
         handleClosePanel();
       }
     },
-    [locations, setLocations, t, snackbarError]
+    [locations, setLocations, t, snackbarError, getLocationOffset]
   );
 
   const searchResultsRender = useMemo(

@@ -2,11 +2,14 @@
 
 %body {
   width: 1fr;
+  min-height: 100px;
   padding: $space-s;
   margin: $space-s;
   position: relative;
   border: 2px solid transparent;
   transition: 0.2s;
+  display: flex;
+  flex-direction: column;
 
   .deleteButton {
     position: absolute;
@@ -25,19 +28,41 @@
     }
   }
 
+  .opaccityBlock {
+    display: none;
+    opacity: 0;
+    transition: 0.2s;
+  }
+
+  .moveLeftOrRight {
+    position: relative;
+    left: -45px;
+  }
+
+  &:hover {
+    .opaccityBlock {
+      opacity: 1;
+    }
+
+    .moveLeftOrRight {
+      left: 0px;
+    }
+  }
+
   .infoBlock {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
+    .buttonContainer {
+      display: flex;
+      flex-direction: column;
+      margin-right: $space-s;
+    }
+
     .leftSide {
       display: flex;
-
-      .buttonContainer {
-        display: flex;
-        flex-direction: column;
-        margin-right: $space-s;
-      }
+      transition: 0.2s;
 
       .infoContainer {
         display: flex;
@@ -71,7 +96,7 @@
 
   .commentBlock {
     margin-top: $space-xs;
-    margin-left: 7px;
+    margin-left: $space-xxs;
 
     .commentText {
       font-family: roboto-bold;

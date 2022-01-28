@@ -12,7 +12,7 @@ import EmptyState from './components/EmptyState/EmptyState';
 const Section: React.FC = () => {
   const { counter, locationsDB } = useSelector((state: IInitialState) => state);
 
-  const { locations, setLocations, findLocation } = useLocations();
+  const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
 
   const dispatch = useDispatch();
 
@@ -43,7 +43,8 @@ const Section: React.FC = () => {
           [userLocation[0].city + userLocation[0].lat]: {
             city: userLocation[0].city,
             lat: userLocation[0].lat,
-            userLocation: true
+            userLocation: true,
+            offset: getLocationOffset(userLocation[0].timezone)
           }
         };
 
@@ -60,17 +61,25 @@ const Section: React.FC = () => {
 
   const locationsRender = useMemo(() => {
     if (locations) {
-      return Object.values(locations).map((urlLocation: IUrlLocation, index: number) => {
-        const find = findLocation(urlLocation);
+      const sortFoo = (a: IUrlLocation, b: IUrlLocation) => {
+        if (a.offset < b.offset) return 1;
+        if (a.offset > b.offset) return -1;
+        return 0;
+      };
 
-        return (
-          <LocationBlock
-            key={index + 'LOCATION'}
-            location={find}
-            urlUserLocation={urlLocation.userLocation}
-          />
-        );
-      });
+      return Object.values(locations)
+        .sort(sortFoo)
+        .map((urlLocation: IUrlLocation, index: number) => {
+          const find = findLocation(urlLocation);
+
+          return (
+            <LocationBlock
+              key={index + 'LOCATION'}
+              location={find}
+              urlUserLocation={urlLocation.userLocation}
+            />
+          );
+        });
     }
 
     return <EmptyState />;
