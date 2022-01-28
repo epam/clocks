@@ -61,7 +61,7 @@ const useTimeInfo = (location?: ILocation) => {
 
     if (userLocationMonth === locationMonth) {
       if (userLocationDay > locationDay) {
-        timeObject.day = t('LocationBlock.Yesteday');
+        timeObject.day = t('LocationBlock.Yesterday');
         timeObject.offset =
           24 - locationHours + userLocationHours + getMinutes() + t('LocationBlock.Behind');
       }
