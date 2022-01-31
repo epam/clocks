@@ -99,7 +99,11 @@ const useTimeInfo = (location?: ILocation) => {
           }
         }
       }
-      if (userLocationDay < locationDay) {
+      if (userLocationDay < locationDay && !getMinutes()) {
+        timeObject.day = t('LocationBlock.Tomorrow');
+        timeObject.offset = `UTC +${24 - userLocationHours + locationHours}`;
+      }
+      if (userLocationDay < locationDay && getMinutes()) {
         timeObject.day = t('LocationBlock.Tomorrow');
         timeObject.offset = `UTC +${24 - userLocationHours + locationHours}:${getMinutes()}`;
       }

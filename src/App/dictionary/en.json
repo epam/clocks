@@ -6,7 +6,7 @@
   "AddLocation.ButtonTooltip": "Add new location",
   "DeleteMode.ButtonTooltip": "Delete mode",
   "EmptyState.Text": "No active locations",
-  "Footer.Credits": "© {{date}} EPAM Systems, Inc. <br /> All Rights Reserved.",
+  "Footer.Credits": "© {{date}} EPAM Systems, Inc. <br /> All Rights Reserved. <br /> CLOCKS v{{version}}",
   "LocationBlock.CommentModalTitle": "Add comment",
   "LocationBlock.CommentModalInputPlaceholder": "Comment",
   "LocationBlock.CommentModalCancelButton": "Cancel",
