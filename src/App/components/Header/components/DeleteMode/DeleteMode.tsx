@@ -22,7 +22,7 @@ const DeleteMode: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const { deleteMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, onboarding } = useSelector((state: IInitialState) => state);
 
   const { locations } = useLocations();
 
@@ -50,6 +50,17 @@ const DeleteMode: React.FC = () => {
           />
         </IconButton>
       </Tooltip>
+      {onboarding?.deleteButton && anchorRef.current && (
+          <Onboarding
+              open={onboarding.deleteButton}
+              anchorElement={anchorRef.current}
+              nextElement="settingsModal"
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+              title="Delete location button"
+              text="By clicking to this button you can any location from your dashboard"
+          />
+      )}
     </>
   );
 };

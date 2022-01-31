@@ -187,6 +187,16 @@ const SettingsModal: React.FC = () => {
           </div>
         </div>
       </Dialog>
+      {onboarding?.deleteButton && anchorRef.current && (
+          <Onboarding
+              open={onboarding.deleteButton}
+              anchorElement={anchorRef.current}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+              title="Settings modal button"
+              text="By clicking to this button you can open settings modal and set your settings"
+          />
+      )}
     </>
   );
 };

@@ -26,10 +26,13 @@ const Onboarding: FC<IOnboardingProps> = ({
     <Popover
       open={open}
       anchorEl={anchorElement}
-      onClose={finish}
+      onClose={() => {}}
       anchorOrigin={anchorOrigin}
       transformOrigin={transformOrigin}
       marginThreshold={32}
+      BackdropProps={{
+        classes: { root: style.backdrop }
+      }}
       PaperProps={{
         classes: { root: style.paper }
       }}
@@ -40,7 +43,9 @@ const Onboarding: FC<IOnboardingProps> = ({
       </DialogContent>
       <DialogActions>
         <Button onClick={finish}>Skip</Button>
-        <Button onClick={() => next(nextElement)}>Next</Button>
+        <Button onClick={() => (nextElement ? next(nextElement) : finish())}>
+          {nextElement ? 'Next' : 'Finish'}
+        </Button>
       </DialogActions>
     </Popover>
   );

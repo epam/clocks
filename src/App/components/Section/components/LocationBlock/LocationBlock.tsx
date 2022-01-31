@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -14,15 +14,18 @@ import { IInitialState, IUrlLocation } from '../../../../redux/types';
 
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
+import Onboarding from "../Onboarding/Onboarding";
 
-const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation }) => {
+const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
+  const anchorLocation = useRef(null);
+  const anchorComment = useRef(null);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
   const commentModalTheme = useTheme(style.lightCommentModal, style.darkCommentModal);
 
   const { t } = useTranslation();
 
-  const { showDate, showCountry, deleteMode, userLocation, counter } = useSelector(
+  const { showDate, showCountry, deleteMode, userLocation, counter, onboarding } = useSelector(
     (state: IInitialState) => state
   );
 
@@ -111,7 +114,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
         <div className={style.infoBlock}>
           <div className={style.leftSide}>
             <div className={style.buttonContainer}>
-              <IconButton size="small" onClick={handleSetUserLocation} disabled={deleteMode}>
+              <IconButton ref={anchorLocation} size="small" onClick={handleSetUserLocation} disabled={deleteMode}>
                 <FmdGoodOutlined
                   className={clsx({
                     [iconTheme]: true,
@@ -123,7 +126,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
                   })}
                 />
               </IconButton>
-              <IconButton size="small" onClick={handleOpenCommentModal} disabled={deleteMode}>
+              <IconButton ref={anchorComment} size="small" onClick={handleOpenCommentModal} disabled={deleteMode}>
                 <CommentOutlined
                   className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode })}
                 />
@@ -174,6 +177,28 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
             </div>
           </div>
         </Dialog>
+      )}
+      {onboarding?.myLocation && index === 0 && anchorLocation.current && (
+          <Onboarding
+              open={onboarding.myLocation}
+              anchorElement={anchorLocation.current}
+              nextElement="comment"
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+              title="Change location"
+              text="By clicking to this button you can change your location"
+          />
+      )}
+      {onboarding?.comment && index === 0 && anchorComment.current && (
+          <Onboarding
+              open={onboarding.comment}
+              anchorElement={anchorComment.current}
+              nextElement="shareButton"
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+              title="Add comment"
+              text="By clicking to this button you can add comment for particular location"
+          />
       )}
     </>
   );

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -13,8 +13,10 @@ import useDebounce from '../../../../hooks/useDebounce';
 import { ILocation, IInitialState, IUrlLocations, IUrlLocation } from '../../../../redux/types';
 
 import style from './AddLocation.module.scss';
+import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 const AddLocation: React.FC = () => {
+  const anchorRef = useRef(null);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const inputTheme = useTheme(style.lightInput, style.darkInput);
@@ -26,7 +28,7 @@ const AddLocation: React.FC = () => {
 
   const { locations, setLocations } = useLocations();
 
-  const { deleteMode, locationsDB } = useSelector((state: IInitialState) => state);
+  const { deleteMode, locationsDB, onboarding } = useSelector((state: IInitialState) => state);
 
   const [isPanelOpen, setPanel] = useState(false);
 
@@ -124,7 +126,7 @@ const AddLocation: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleOpenPanel} disabled={deleteMode}>
+        <IconButton ref={anchorRef} onClick={handleOpenPanel} disabled={deleteMode}>
           <Add className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode })} />
         </IconButton>
       </Tooltip>
@@ -155,6 +157,18 @@ const AddLocation: React.FC = () => {
           </div>
         </div>
       </Drawer>
+
+      {onboarding?.addCity && anchorRef.current && (
+        <Onboarding
+          open={onboarding.addCity}
+          anchorElement={anchorRef.current}
+          nextElement="myLocation"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          title="Add city drawer"
+          text="By clicking to this button you can open add city drawer and add your desired location"
+        />
+      )}
     </>
   );
 };

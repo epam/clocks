@@ -4,29 +4,24 @@ import { setOnboarding } from '../redux/actions';
 import { IOnboarding } from '../redux/types';
 
 const onboardingInitialState: IOnboarding = {
-  deleteButton: false,
-  settingsModal: false,
-  shareButton: false,
   addCity: false,
+  myLocation: false,
   comment: false,
-  myLocation: false
+  shareButton: false,
+  deleteButton: false,
+  settingsModal: false
 };
-const onboardingSequence = Object.keys(onboardingInitialState) as unknown as keyof IOnboarding;
 
 const useOnboarding = () => {
   const dispatch = useDispatch();
 
-  const next = (next: keyof IOnboarding | undefined) => {
-    if (next) {
-      dispatch(
-        setOnboarding({
-          ...onboardingInitialState,
-          [next]: true
-        })
-      );
-    } else {
-      dispatch(setOnboarding(onboardingInitialState));
-    }
+  const next = (next: keyof IOnboarding) => {
+    dispatch(
+      setOnboarding({
+        ...onboardingInitialState,
+        [next]: true
+      })
+    );
   };
 
   const initialize = () => {
@@ -35,7 +30,7 @@ const useOnboarding = () => {
       dispatch(
         setOnboarding({
           ...onboardingInitialState,
-          deleteButton: true
+          addCity: true
         })
       );
     }

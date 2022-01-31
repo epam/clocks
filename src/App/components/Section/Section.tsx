@@ -68,6 +68,7 @@ const Section: React.FC = () => {
             key={index + 'LOCATION'}
             location={find}
             urlUserLocation={urlLocation.userLocation}
+            index={index}
           />
         );
       });
