@@ -20,32 +20,36 @@ const useTimeInfo = (location?: ILocation) => {
   };
   const isHour12Format = timeFormat === TIME_FORMAT.H12;
 
-  const locationTime = date
+  const visiableTime = date
     .toLocaleTimeString('ru-RU', {
       timeZone: location?.timezone,
       hour12: isHour12Format
     })
     .split(':');
 
-  const locationDate = date
-    .toLocaleDateString('en-US', { timeZone: location?.timezone })
-    .split('/');
-
-  const locationHours = Number(locationTime[0]);
-  const locationMinutes = Number(locationTime[1]);
-  const locationDay = Number(locationDate[1]);
-  const locationMonth = Number(locationDate[0]);
-  const timeSuffix = locationTime[2].substring(3);
-
-  timeObject.hours = locationTime[0];
-  timeObject.minutes = locationTime[1];
-  timeObject.suffix = timeSuffix;
+  timeObject.hours = visiableTime[0];
+  timeObject.minutes = visiableTime[1];
+  timeObject.suffix = visiableTime[2].substring(3);
 
   if (userLocation) {
+    const locationTime = date
+      .toLocaleTimeString('ru-RU', {
+        timeZone: location?.timezone
+      })
+      .split(':');
+
+    const locationDate = date
+      .toLocaleDateString('en-US', { timeZone: location?.timezone })
+      .split('/');
+
+    const locationHours = Number(locationTime[0]);
+    const locationMinutes = Number(locationTime[1]);
+    const locationDay = Number(locationDate[1]);
+    const locationMonth = Number(locationDate[0]);
+
     const userLocationTime = date
       .toLocaleTimeString('ru-RU', {
-        timeZone: userLocation?.timezone,
-        hour12: isHour12Format
+        timeZone: userLocation?.timezone
       })
       .split(':');
 
