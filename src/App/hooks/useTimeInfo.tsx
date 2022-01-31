@@ -56,11 +56,6 @@ const useTimeInfo = (location?: ILocation) => {
     const userLocationMonth = Number(userLocationDate[0]);
 
     const getMinutes = () => {
-<<<<<<< HEAD
-      const minuteDifference = Math.abs(Number(locationTime[1]) - Number(userLocationTime[1]));
-
-      return minuteDifference ? `:${minuteDifference} ` : ' ';
-=======
       const difference = userLocationMinutes - locationMinutes;
 
       if (!difference) {
@@ -68,27 +63,12 @@ const useTimeInfo = (location?: ILocation) => {
       }
 
       return difference === 30 ? 30 : 45;
->>>>>>> main
     };
 
     if (userLocationMonth === locationMonth) {
       if (userLocationDay > locationDay) {
         timeObject.day = t('LocationBlock.Yesterday');
-<<<<<<< HEAD
-        timeObject.offset =
-          24 - locationHours + userLocationHours + getMinutes() + t('LocationBlock.Behind');
-      }
-      if (userLocationDay === locationDay && userLocationHours === locationHours) {
-        timeObject.day = t('LocationBlock.Today');
-        timeObject.offset = t('LocationBlock.Local');
-      }
-      if (userLocationDay === locationDay && userLocationHours > locationHours) {
-        timeObject.day = t('LocationBlock.Today');
-        timeObject.offset =
-          userLocationHours - locationHours + getMinutes() + t('LocationBlock.Behind');
-=======
         timeObject.offset = `UTC -${24 - locationHours + userLocationHours}:${getMinutes()}`;
->>>>>>> main
       }
       if (userLocationDay === locationDay) {
         timeObject.day = '';
@@ -127,35 +107,18 @@ const useTimeInfo = (location?: ILocation) => {
           }
         }
       }
-<<<<<<< HEAD
-      if (userLocationDay < locationDay && userLocationHours > locationHours) {
-        timeObject.day = t('LocationBlock.Tomorrow');
-        timeObject.offset =
-          24 - userLocationHours + locationHours + getMinutes() + t('LocationBlock.Ahead');
-=======
       if (userLocationDay < locationDay) {
         timeObject.day = t('LocationBlock.Tomorrow');
         timeObject.offset = `UTC +${24 - userLocationHours + locationHours}:${getMinutes()}`;
->>>>>>> main
       }
     } else {
       if (userLocationDay < locationDay && userLocationMonth > locationMonth) {
         timeObject.day = t('LocationBlock.Yesterday');
-<<<<<<< HEAD
-        timeObject.offset =
-          24 - userLocationHours + locationHours + getMinutes() + t('LocationBlock.Ahead');
-      }
-      if (userLocationDay > locationDay && userLocationMonth < locationMonth) {
-        timeObject.day = t('LocationBlock.Tomorrow');
-        timeObject.offset =
-          24 - locationHours + userLocationHours + getMinutes() + t('LocationBlock.Behind');
-=======
         timeObject.offset = `UTC -${24 - userLocationHours + locationHours}:${getMinutes()}`;
       }
       if (userLocationDay > locationDay && userLocationMonth < locationMonth) {
         timeObject.day = t('LocationBlock.Tomorrow');
         timeObject.offset = `UTC -${24 - locationHours + userLocationHours}:${getMinutes()}`;
->>>>>>> main
       }
     }
 
