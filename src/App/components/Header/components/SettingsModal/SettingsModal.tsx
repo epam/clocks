@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, ChangeEvent, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, ChangeEvent, useCallback, useRef } from "react";
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
@@ -23,8 +23,10 @@ import { setSettings } from '../../../../redux/actions';
 
 import style from './SettingsModal.module.scss';
 import { SETTING_VALUE } from './SettingsModal.constants';
+import Onboarding from "../../../Section/components/Onboarding/Onboarding";
 
 const SettingsModal: React.FC = () => {
+  const anchorRef = useRef(null);
   const buttonTheme = useTheme(style.lightIcon, style.darkIcon);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
@@ -34,7 +36,7 @@ const SettingsModal: React.FC = () => {
 
   const [isModalOpen, setModal] = useState(false);
 
-  const { autoTheme, theme, showDate, showCountry, deleteMode, counter } = useSelector(
+  const { autoTheme, theme, showDate, showCountry, deleteMode, counter, onboarding } = useSelector(
     (state: IInitialState) => state
   );
 
@@ -116,7 +118,7 @@ const SettingsModal: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleOpenModal} disabled={deleteMode}>
+        <IconButton ref={anchorRef} onClick={handleOpenModal} disabled={deleteMode}>
           <SettingsOutlined
             className={clsx({ [buttonTheme]: true, [style.disabledIcon]: deleteMode })}
           />

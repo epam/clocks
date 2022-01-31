@@ -19,7 +19,7 @@ const ShareButton: React.FC = () => {
 
   const { t } = useTranslation();
 
-  const { deleteMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, onboarding } = useSelector((state: IInitialState) => state);
 
   const handleCopy = () => {
     const url: string = window?.location?.href;
@@ -40,6 +40,7 @@ const ShareButton: React.FC = () => {
           />
         </IconButton>
       </Tooltip>
+
     </>
   );
 };

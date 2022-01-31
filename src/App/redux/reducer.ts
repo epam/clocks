@@ -13,7 +13,8 @@ const initialState: IInitialState = {
   snackbarStatus: false,
   snackbarText: undefined,
   snackbarColor: undefined,
-  counter: 0
+  counter: 0,
+  onboarding: undefined
 };
 
 const reducer = (state = initialState, action: IActionPayload): IInitialState => {
@@ -50,6 +51,11 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
         ...state,
         counter: action.payload
       };
+    case ACTION_TYPE.setOnboarding:
+      return {
+        ...state,
+        onboarding: action.payload
+      }
 
     default:
       return state;

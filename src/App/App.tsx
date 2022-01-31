@@ -12,6 +12,7 @@ import useAutoTheme from './hooks/useAutoTheme';
 import { IInitialState } from './redux/types';
 
 import style from './App.module.scss';
+import useOnboarding from "./hooks/useOnboarding";
 
 const App: React.FC = () => {
   const theme = useTheme(style.lightBody, style.darkBody);
@@ -19,6 +20,8 @@ const App: React.FC = () => {
   const { closeSnackbar } = useSnackbar();
 
   const { setAutoTheme } = useAutoTheme();
+
+  const { initialize } = useOnboarding();
 
   const { autoTheme, counter, snackbarStatus, snackbarText, snackbarColor } = useSelector(
     (state: IInitialState) => state
@@ -28,9 +31,14 @@ const App: React.FC = () => {
     if (autoTheme && counter % 60 === 0) {
       setAutoTheme();
     }
-    // don't need as a dependancy autoTheme and setAutoTheme
+    // don't need as a dependency autoTheme and setAutoTheme
     // eslint-disable-next-line
   }, [counter]);
+
+  useEffect(() => {
+    initialize();
+    // eslint-disable-next-line
+  }, [])
 
   return (
     <>

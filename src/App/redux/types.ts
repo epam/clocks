@@ -12,6 +12,7 @@ export interface IInitialState {
   snackbarText?: string;
   snackbarColor?: AlertColor;
   counter: number;
+  onboarding?: IOnboarding;
 }
 
 export interface IActionPayload {
@@ -54,4 +55,13 @@ export interface IUrlLocation {
   lat: number;
   comment?: string;
   userLocation?: boolean;
+}
+
+export interface IOnboarding {
+  deleteButton: boolean;
+  settingsModal: boolean;
+  shareButton: boolean;
+  addCity: boolean;
+  comment: boolean;
+  myLocation: boolean;
 }

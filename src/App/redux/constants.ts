@@ -4,7 +4,8 @@ export const ACTION_TYPE = {
   setSettings: '/set-settings',
   setSnackbar: '/set-snackbar',
   setUserLocation: '/set-user-location',
-  setCounter: '/set-counter'
+  setCounter: '/set-counter',
+  setOnboarding: '/set-onboarding'
 };
 
 export const THEME = {
