@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -44,6 +44,10 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     suffix: ''
   });
 
+  const isUserLocation = useMemo(() => {
+    return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
+  }, [userLocation?.city, userLocation?.lat, location?.city, location?.lat]);
+
   useEffect(() => {
     if (location && locations[location.city + location.lat].comment) {
       setInputText(locations[location.city + location.lat].comment || '');
@@ -56,7 +60,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     setTime(timeInfo);
     // don't need as a dependency timeInfo
     // eslint-disable-next-line
-  }, [counter, userLocation, timeFormat]);
+  }, [counter, userLocation, locations, timeFormat]);
 
   const handleDelete = () => {
     location && delete locations[location?.city + location?.lat];
@@ -99,9 +103,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
         className={clsx({
           [bodyTheme]: true,
           [style.shaking]: deleteMode,
-          [style.currentBody]:
-            urlUserLocation ||
-            (location?.city === userLocation?.city && location?.lat === userLocation?.lat)
+          [style.currentBody]: urlUserLocation || isUserLocation
         })}
       >
         {deleteMode && (
@@ -110,16 +112,23 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           </IconButton>
         )}
         <div className={style.infoBlock}>
-          <div className={style.leftSide}>
-            <div className={style.buttonContainer}>
+          <div
+            className={clsx({
+              [style.leftSide]: true,
+              [style.moveLeftOrRight]: !isUserLocation
+            })}
+          >
+            <div
+              className={clsx({
+                [style.buttonContainer]: true,
+                [style.opaccityBlock]: !isUserLocation
+              })}
+            >
               <IconButton size="small" onClick={handleSetUserLocation} disabled={deleteMode}>
                 <FmdGoodOutlined
                   className={clsx({
                     [iconTheme]: true,
-                    [style.blueIcon]:
-                      urlUserLocation ||
-                      (location?.city === userLocation?.city &&
-                        location?.lat === userLocation?.lat),
+                    [style.blueIcon]: urlUserLocation || isUserLocation,
                     [style.disabledIcon]: deleteMode
                   })}
                 />
@@ -140,13 +149,12 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
               {time.hours}:{time.minutes} {time.suffix}
             </div>
             <div className={style.bottomInfo}>
-              {showDate && time.day && time.offset && `${time.day}, ${time.offset}`}
+              {showDate && time.offset && `${time.day} ${time.offset}`}
             </div>
           </div>
         </div>
         {location && locations[location.city + location.lat].comment && (
           <div className={style.commentBlock}>
-            <span className={style.commentText}>{t('LocationBlock.Comment')}</span>
             {locations[location.city + location.lat].comment}
           </div>
         )}
@@ -163,6 +171,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
                 placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
                 value={inputText}
                 onChange={e => setInputText(e.target.value)}
+                autoFocus={true}
               />
             </div>
             <div className={style.buttonContainer}>

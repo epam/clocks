@@ -56,4 +56,5 @@ export interface IUrlLocation {
   lat: number;
   comment?: string;
   userLocation?: boolean;
+  offset: number;
 }
