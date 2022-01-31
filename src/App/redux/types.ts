@@ -6,12 +6,13 @@ export interface IInitialState {
   autoTheme?: boolean;
   showDate: boolean;
   showCountry: boolean;
-  locationsDB: ILocation[],
+  locationsDB: ILocation[];
   userLocation?: ILocation;
   snackbarStatus: boolean;
   snackbarText?: string;
   snackbarColor?: AlertColor;
   counter: number;
+  timeFormat: string;
 }
 
 export interface IActionPayload {
@@ -24,6 +25,7 @@ export interface IActionSettingsPayload {
   autoTheme?: boolean;
   showDate: boolean;
   showCountry: boolean;
+  timeFormat: string;
 }
 
 export interface IActionSnackbarPayload {

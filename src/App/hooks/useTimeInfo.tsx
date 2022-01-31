@@ -1,12 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { TIME_FORMAT } from '../redux/constants';
 
 import { ILocation, IInitialState } from '../redux/types';
 
 const useTimeInfo = (location?: ILocation) => {
   const { t } = useTranslation();
 
-  const { userLocation } = useSelector((state: IInitialState) => state);
+  const { userLocation, timeFormat } = useSelector((state: IInitialState) => state);
 
   const date = new Date();
 
@@ -14,11 +15,16 @@ const useTimeInfo = (location?: ILocation) => {
     hours: '',
     minutes: '',
     day: '',
-    offset: ''
+    offset: '',
+    suffix: ''
   };
+  const isHour12Format = timeFormat === TIME_FORMAT.H12;
 
   const locationTime = date
-    .toLocaleTimeString('ru-RU', { timeZone: location?.timezone })
+    .toLocaleTimeString('ru-RU', {
+      timeZone: location?.timezone,
+      hour12: isHour12Format
+    })
     .split(':');
 
   const locationDate = date
@@ -29,13 +35,15 @@ const useTimeInfo = (location?: ILocation) => {
   const locationMinutes = Number(locationTime[1]);
   const locationDay = Number(locationDate[1]);
   const locationMonth = Number(locationDate[0]);
+  const timeSuffix = locationTime[2].substring(3);
 
   timeObject.hours = locationTime[0];
   timeObject.minutes = locationTime[1];
+  timeObject.suffix = timeSuffix;
 
   if (userLocation) {
     const userLocationTime = date
-      .toLocaleTimeString('ru-RU', { timeZone: userLocation?.timezone })
+      .toLocaleTimeString('ru-RU', { timeZone: userLocation?.timezone, hour12: isHour12Format })
       .split(':');
 
     const userLocationDate = date
