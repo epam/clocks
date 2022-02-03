@@ -42,7 +42,8 @@ const AddLocation: React.FC = () => {
         location =>
           !!location.city.match(new RegExp(text, 'gi')) ||
           !!location.names.match(new RegExp(text, 'gi')) ||
-          !!location.city_ascii.match(new RegExp(text, 'gi'))
+          !!location.city_ascii.match(new RegExp(text, 'gi')) ||
+          !!location.country.match(new RegExp(text, 'gi'))
       );
 
       setLocationsFound(filter);
