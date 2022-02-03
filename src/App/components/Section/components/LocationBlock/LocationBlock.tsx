@@ -22,9 +22,16 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
 
   const { t } = useTranslation();
 
-  const { showDate, showCountry, deleteMode, userLocation, counter, timeFormat } = useSelector(
-    (state: IInitialState) => state
-  );
+  const {
+    showDate,
+    showCountry,
+    deleteMode,
+    userLocation,
+    counter,
+    timeFormat,
+    planningMode,
+    additionalHours
+  } = useSelector((state: IInitialState) => state);
 
   const timeInfo = useTimeInfo(location);
 
@@ -60,7 +67,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     setTime(timeInfo);
     // don't need as a dependency timeInfo
     // eslint-disable-next-line
-  }, [counter, userLocation, locations, timeFormat]);
+  }, [counter, userLocation, locations, timeFormat, additionalHours]);
 
   const handleDelete = () => {
     location && delete locations[location?.city + location?.lat];
@@ -145,7 +152,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
             </div>
           </div>
           <div className={style.rightSide}>
-            <div className={style.topInfo}>
+            <div className={clsx(style.topInfo, { [style.blueIcon]: planningMode })}>
               {time.hours}:{time.minutes} {time.suffix}
             </div>
             <div className={style.bottomInfo}>
