@@ -4,6 +4,7 @@ import { ACTION_TYPE, THEME, TIME_FORMAT } from './constants';
 
 const initialState: IInitialState = {
   deleteMode: false,
+  planningMode: false,
   theme: THEME.light,
   autoTheme: undefined,
   showDate: true,
@@ -14,6 +15,7 @@ const initialState: IInitialState = {
   snackbarStatus: false,
   snackbarText: undefined,
   snackbarColor: undefined,
+  additionalHours: 0,
   counter: 0
 };
 
@@ -28,6 +30,12 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
       return {
         ...state,
         deleteMode: action.payload
+      };
+    case ACTION_TYPE.setPlanningMode:
+      return {
+        ...state,
+        planningMode: action.payload.status,
+        additionalHours: action.payload.additionalHours
       };
     case ACTION_TYPE.setSettings:
       return {

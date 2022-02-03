@@ -2,6 +2,7 @@ import { AlertColor } from '@mui/material';
 
 export interface IInitialState {
   deleteMode: boolean;
+  planningMode: boolean;
   theme: string;
   autoTheme?: boolean;
   showDate: boolean;
@@ -12,6 +13,7 @@ export interface IInitialState {
   snackbarText?: string;
   snackbarColor?: AlertColor;
   counter: number;
+  additionalHours: number;
   timeFormat: string;
 }
 
@@ -57,4 +59,9 @@ export interface IUrlLocation {
   comment?: string;
   userLocation?: boolean;
   offset: number;
+}
+
+export interface IActionPlanningModePayload {
+  status: boolean;
+  additionalHours?: number;
 }
