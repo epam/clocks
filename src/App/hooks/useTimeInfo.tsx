@@ -1,5 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import moment from 'moment-timezone';
+
 import { TIME_FORMAT } from '../redux/constants';
 
 import { ILocation, IInitialState } from '../redux/types';
@@ -110,142 +112,68 @@ const useTimeInfo = (location?: ILocation) => {
     tempDate.minutes
   );
 
-  if (userLocation) {
-    const locationTime = date
-      .toLocaleTimeString('ru-RU', {
-        timeZone: location?.timezone
-      })
-      .split(':');
-
-    const locationDate = date
-      .toLocaleDateString('en-US', { timeZone: location?.timezone })
-      .split('/');
-
-    const locationHours = Number(locationTime[0]);
-    const locationMinutes = Number(locationTime[1]);
-    const locationDay = Number(locationDate[1]);
-    const locationMonth = Number(locationDate[0]);
-
-    const userLocationTime = date
-      .toLocaleTimeString('ru-RU', {
-        timeZone: userLocation?.timezone
-      })
-      .split(':');
-
+  if (userLocation && location) {
     const userLocationDate = date
       .toLocaleDateString('en-US', { timeZone: userLocation?.timezone })
       .split('/');
+    const widjetLocationDate = date
+      .toLocaleDateString('en-US', { timeZone: location?.timezone })
+      .split('/');
 
-    const userLocationHours = Number(userLocationTime[0]);
-    const userLocationMinutes = Number(userLocationTime[1]);
-    const userLocationDay = Number(userLocationDate[1]);
-    const userLocationMonth = Number(userLocationDate[0]);
+    const getDay = () => {
+      if (userLocationDate[0] > widjetLocationDate[0]) {
+        return t('LocationBlock.Yesterday');
+      }
+      if (userLocationDate[0] < widjetLocationDate[0]) {
+        return t('LocationBlock.Tomorrow');
+      }
+      if (userLocationDate[1] > widjetLocationDate[1]) {
+        return t('LocationBlock.Yesterday');
+      }
+      if (userLocationDate[1] < widjetLocationDate[1]) {
+        return t('LocationBlock.Tomorrow');
+      }
 
-    const getHours = (calculationResult: number) => {
-      if (calculationResult === 1) {
-        return `${calculationResult} ${t('LocationBlock.Hour')} `;
-      }
-      if (calculationResult === 0) {
-        return '';
-      }
-      return `${calculationResult} ${t('LocationBlock.Hours')} `;
+      return '';
     };
 
-    const getMinutes =
-      userLocationMinutes - locationMinutes
-        ? userLocationMinutes - locationMinutes === 30
-          ? 30
-          : 45
-        : '';
+    const userLocationOffset = moment().tz(userLocation.timezone).utcOffset();
+    const widjetLocationOffset = moment().tz(location.timezone).utcOffset();
 
-    if (userLocationMonth === locationMonth) {
-      if (userLocationDay > locationDay) {
-        timeObject.day = t('LocationBlock.Yesterday');
-        timeObject.offset =
-          '-' +
-          getHours(24 - locationHours + userLocationHours) +
-          getMinutes +
-          t('LocationBlock.Minutes');
+    const getMinusPlus = () => {
+      if (userLocationOffset > widjetLocationOffset) {
+        return '-';
       }
-      if (userLocationDay === locationDay) {
-        timeObject.day = '';
+      if (userLocationOffset < widjetLocationOffset) {
+        return '+';
+      }
+      return '';
+    };
 
-        const hoursDifference =
-          userLocationHours - locationHours === 1 ? 0 : Math.abs(userLocationHours - locationHours);
+    const getTimeDifference = () => {
+      const difference = Math.abs(widjetLocationOffset - userLocationOffset);
 
-        if (userLocationHours === locationHours && !getMinutes) {
-          timeObject.offset = t('LocationBlock.Local');
-        }
-        if (userLocationHours === locationHours && getMinutes) {
-          timeObject.offset =
-            (userLocationMinutes > locationMinutes ? '-' : '+') +
-            getHours(userLocationHours - locationHours) +
-            getMinutes +
-            t('LocationBlock.Minutes');
-        }
-        if (userLocationHours > locationHours && !getMinutes) {
-          timeObject.offset = '-' + getHours(userLocationHours - locationHours);
-        }
-        if (userLocationHours > locationHours && getMinutes) {
-          if (getMinutes === 30) {
-            timeObject.offset =
-              '-' +
-              getHours(userLocationHours - locationHours) +
-              getMinutes +
-              t('LocationBlock.Minutes');
-          }
-          if (getMinutes === 45) {
-            timeObject.offset =
-              '-' + getHours(hoursDifference) + getMinutes + t('LocationBlock.Minutes');
-          }
-        }
-        if (userLocationHours < locationHours && !getMinutes) {
-          timeObject.offset = '+' + getHours(locationHours - userLocationHours);
-        }
-        if (userLocationHours < locationHours && getMinutes) {
-          if (getMinutes === 30) {
-            timeObject.offset =
-              '+' +
-              getHours(locationHours - userLocationHours) +
-              getMinutes +
-              t('LocationBlock.Minutes');
-          }
-          if (getMinutes === 45) {
-            timeObject.offset =
-              '+' + getHours(hoursDifference) + getMinutes + t('LocationBlock.Minutes');
-          }
-        }
+      if (difference === 0) {
+        return t('LocationBlock.Local');
       }
-      if (userLocationDay < locationDay && !getMinutes) {
-        timeObject.day = t('LocationBlock.Tomorrow');
-        timeObject.offset = '+' + getHours(24 - userLocationHours + locationHours);
+      if (difference < 60) {
+        return `${difference} ${t('LocationBlock.Minutes')}`;
       }
-      if (userLocationDay < locationDay && getMinutes) {
-        timeObject.day = t('LocationBlock.Tomorrow');
-        timeObject.offset =
-          '+' +
-          getHours(24 - userLocationHours + locationHours) +
-          getMinutes +
-          t('LocationBlock.Minutes');
+      if (difference % 60 !== 0) {
+        const time = String(difference / 60).split('.');
+        const hours = Number(time[0]);
+        const minutes = (60 / 100) * Number(time[1]);
+
+        return `${hours} ${t(hours === 1 ? 'LocationBlock.Hour' : 'LocationBlock.Hours')}
+         ${minutes === 3 ? 30 : minutes} ${t('LocationBlock.Minutes')}`;
       }
-    } else {
-      if (userLocationDay < locationDay && userLocationMonth > locationMonth) {
-        timeObject.day = t('LocationBlock.Yesterday');
-        timeObject.offset =
-          '-' +
-          getHours(24 - userLocationHours + locationHours) +
-          getMinutes +
-          t('LocationBlock.Minutes');
-      }
-      if (userLocationDay > locationDay && userLocationMonth < locationMonth) {
-        timeObject.day = t('LocationBlock.Tomorrow');
-        timeObject.offset =
-          '-' +
-          getHours(24 - locationHours + userLocationHours) +
-          getMinutes +
-          t('LocationBlock.Minutes');
-      }
-    }
+
+      const hours = difference / 60;
+
+      return `${hours} ${t(hours === 1 ? 'LocationBlock.Hour' : 'LocationBlock.Hours')}`;
+    };
+
+    timeObject.offset = `${getDay()} ${getMinusPlus()}${getTimeDifference()}`;
 
     return timeObject;
   }
