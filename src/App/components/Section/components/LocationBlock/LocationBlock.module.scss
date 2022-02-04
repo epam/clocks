@@ -105,6 +105,11 @@
   }
 }
 
+.hide {
+  opacity: 0;
+  z-index: 1000;
+}
+
 .lightBody {
   @include lightBlock;
   @extend %body;

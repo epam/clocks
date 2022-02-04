@@ -9,6 +9,7 @@ import DeleteMode from './components/DeleteMode/DeleteMode';
 import SettingsModal from './components/SettingsModal/SettingsModal';
 import ShareButton from './components/ShareButton/ShareButton';
 import AddLocation from './components/AddLocation/AddLocation';
+import DragDropMode from './components/DragDropMode/DragDropMode';
 import { EPAM_LOGO } from './Header.constants';
 
 const Header: React.FC = () => {
@@ -21,6 +22,7 @@ const Header: React.FC = () => {
         <span className={logoTheme}>{EPAM_LOGO}</span>
       </div>
       <div className={style.controlsContainer}>
+        <DragDropMode />
         <DeleteMode />
         <SettingsModal />
         <ShareButton />

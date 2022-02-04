@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import useLocations from '../../hooks/useLocations';
-import { IInitialState, IUrlLocations, IUrlLocation } from '../../redux/types';
+import { IInitialState, IUrlLocations, IUrlLocation, ILocation } from '../../redux/types';
 import { setUserLocation, setCounter } from '../../redux/actions';
 
 import style from './Section.module.scss';
@@ -11,6 +11,7 @@ import EmptyState from './components/EmptyState/EmptyState';
 
 const Section: React.FC = () => {
   const { counter, locationsDB } = useSelector((state: IInitialState) => state);
+  const [selectedLocation, setSelectedLocation] = useState<ILocation | null>(null);
 
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
 
@@ -77,6 +78,8 @@ const Section: React.FC = () => {
               key={index + 'LOCATION'}
               location={find}
               urlUserLocation={urlLocation.userLocation}
+              selectedLocation={selectedLocation}
+              setSelectedLocation={setSelectedLocation}
             />
           );
         });

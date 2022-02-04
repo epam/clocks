@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, DragEvent, useRef } from 'react';
 import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -15,16 +15,21 @@ import { IInitialState, IUrlLocation } from '../../../../redux/types';
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
 
-const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation }) => {
+const LocationBlock: React.FC<ILocationBlockProps> = ({
+  location,
+  urlUserLocation,
+  selectedLocation,
+  setSelectedLocation
+}) => {
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
   const commentModalTheme = useTheme(style.lightCommentModal, style.darkCommentModal);
 
   const { t } = useTranslation();
+  const containerDivRef = useRef<HTMLDivElement>(null);
 
-  const { showDate, showCountry, deleteMode, userLocation, counter, timeFormat } = useSelector(
-    (state: IInitialState) => state
-  );
+  const { showDate, showCountry, deleteMode, userLocation, counter, timeFormat, dragDropMode } =
+    useSelector((state: IInitialState) => state);
 
   const timeInfo = useTimeInfo(location);
 
@@ -97,12 +102,55 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     handleCloseCommentModal();
   };
 
+  const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
+    if (!location) {
+      throw Error('Location is undefined');
+    }
+    if (dragDropMode) {
+      setSelectedLocation(location);
+      setTimeout(() => {
+        // @ts-ignore
+        // e.target.classList.add(style.hide);
+        containerDivRef.current?.classList.add(style.hide);
+      });
+    }
+  };
+
+  const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
+    // @ts-ignore
+    // e.target.classList.remove(style.hide);
+    containerDivRef.current?.classList.remove(style.hide);
+  };
+
+  const dropHandler = (e: DragEvent<HTMLDivElement>) => {
+    if (dragDropMode) {
+      console.log('drop', selectedLocation);
+    }
+  };
+
+  const dragOverHandler = (e: DragEvent<HTMLDivElement>) => e.preventDefault();
+
+  // const dragEnterHandler = () => {
+  //   containerDivRef.current?.classList.add(style['bg-red']);
+  // };
+
+  // const dragLeaveHandler = () => {
+  //   containerDivRef.current?.classList.remove(style['bg-red']);
+  // };
+
   return (
-    <>
+    <div
+      draggable={dragDropMode}
+      onDragStart={dragStartHandler}
+      onDragEnd={dragEndHandler}
+      onDrop={dropHandler}
+      onDragOver={dragOverHandler}
+    >
       <div
+        ref={containerDivRef}
         className={clsx({
           [bodyTheme]: true,
-          [style.shaking]: deleteMode,
+          [style.shaking]: deleteMode || dragDropMode,
           [style.currentBody]: urlUserLocation || isUserLocation
         })}
       >
@@ -185,7 +233,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           </div>
         </Dialog>
       )}
-    </>
+    </div>
   );
 };
 
