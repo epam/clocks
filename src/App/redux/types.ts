@@ -2,6 +2,7 @@ import { AlertColor } from '@mui/material';
 
 export interface IInitialState {
   deleteMode: boolean;
+  dragDropMode: boolean;
   theme: string;
   autoTheme?: boolean;
   showDate: boolean;

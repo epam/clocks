@@ -10,6 +10,11 @@ export const setSettings = (payload: IActionSettingsPayload) => ({
   payload
 });
 
+export const setDragDropMode = (payload: boolean) => ({
+  type: ACTION_TYPE.setDragDropMode,
+  payload
+});
+
 export const setSnackbar = (payload: IActionSnackbarPayload) => ({
   type: ACTION_TYPE.setSnackbar,
   payload
