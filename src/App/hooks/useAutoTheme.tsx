@@ -12,7 +12,7 @@ const useAutoTheme = () => {
   const { t } = useTranslation();
 
   const { showDate, showCountry, theme, autoTheme, timeFormat } = useSelector(
-    (state: IInitialState) => state
+    (state: IInitialState) => state.settings
   );
 
   const { snackbarError } = useSnackbar();

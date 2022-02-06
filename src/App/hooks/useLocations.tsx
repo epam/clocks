@@ -7,7 +7,7 @@ import { IUrlLocations, IUrlLocation, ILocation, IInitialState } from '../redux/
 const useLocations = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { locationsDB } = useSelector((state: IInitialState) => state);
+  const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const urlLocations = searchParams.get('locations');
 

@@ -7,7 +7,7 @@ import { THEME } from '../redux/constants';
 const useTheme = (lightClass: string, darkClass: string) => {
   const [currentTheme, setCurrentTheme] = useState(lightClass);
 
-  const { theme } = useSelector((state: IInitialState) => state);
+  const { theme } = useSelector((state: IInitialState) => state.settings);
 
   useEffect(() => {
     setCurrentTheme(theme === THEME.light ? lightClass : darkClass);

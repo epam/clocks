@@ -9,7 +9,8 @@ import { ILocation, IInitialState } from '../redux/types';
 const useTimeInfo = (location?: ILocation) => {
   const { t } = useTranslation();
 
-  const { userLocation, timeFormat } = useSelector((state: IInitialState) => state);
+  const { userLocation } = useSelector((state: IInitialState) => state.locations);
+  const { timeFormat } = useSelector((state: IInitialState) => state.settings);
 
   const date = new Date();
 
