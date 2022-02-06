@@ -129,7 +129,10 @@ const AddLocation: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleOpenPanel} disabled={deleteMode.isOn}>
+        <IconButton
+          onClick={handleOpenPanel}
+          disabled={deleteMode.isOn}
+        >
           <Add className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })} />
         </IconButton>
       </Tooltip>

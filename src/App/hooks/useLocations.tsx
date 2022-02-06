@@ -12,13 +12,13 @@ const useLocations = () => {
   const urlLocations = searchParams.get('locations');
 
   const locations = useMemo(
-    (): IUrlLocations => urlLocations && JSON.parse(urlLocations),
+    (): IUrlLocations => urlLocations && JSON.parse(atob(urlLocations)),
     [urlLocations]
   );
 
   const setLocations = (newLocations: IUrlLocations) => {
     if (!!Object.keys(newLocations).length) {
-      setSearchParams({ locations: JSON.stringify(newLocations) });
+      setSearchParams({ locations: btoa(JSON.stringify(newLocations)) });
     } else {
       setSearchParams({});
     }
