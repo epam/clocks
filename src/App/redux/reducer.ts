@@ -5,6 +5,7 @@ import { ACTION_TYPE, THEME, TIME_FORMAT } from './constants';
 const initialState: IInitialState = {
   deleteMode: false,
   dragDropMode: false,
+  autoSorting: true,
   theme: THEME.light,
   autoTheme: undefined,
   showDate: true,

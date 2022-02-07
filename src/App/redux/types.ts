@@ -14,6 +14,7 @@ export interface IInitialState {
   snackbarColor?: AlertColor;
   counter: number;
   timeFormat: string;
+  autoSorting: boolean;
 }
 
 export interface IActionPayload {
@@ -27,6 +28,7 @@ export interface IActionSettingsPayload {
   showDate: boolean;
   showCountry: boolean;
   timeFormat: string;
+  autoSorting: boolean;
 }
 
 export interface IActionSnackbarPayload {

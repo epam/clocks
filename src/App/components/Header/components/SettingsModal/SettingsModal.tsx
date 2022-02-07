@@ -34,9 +34,8 @@ const SettingsModal: React.FC = () => {
 
   const [isModalOpen, setModal] = useState(false);
 
-  const { autoTheme, theme, showDate, showCountry, deleteMode, counter, timeFormat } = useSelector(
-    (state: IInitialState) => state
-  );
+  const { autoTheme, theme, showDate, showCountry, deleteMode, counter, timeFormat, autoSorting } =
+    useSelector((state: IInitialState) => state);
 
   const dispatch = useDispatch();
 
@@ -45,7 +44,8 @@ const SettingsModal: React.FC = () => {
     theme: THEME.light,
     showDate: true,
     showCountry: true,
-    timeFormat: TIME_FORMAT.H24
+    timeFormat: TIME_FORMAT.H24,
+    autoSorting: true
   });
 
   useEffect(() => {
@@ -54,9 +54,10 @@ const SettingsModal: React.FC = () => {
       theme,
       showDate,
       showCountry,
-      timeFormat
+      timeFormat,
+      autoSorting
     });
-  }, [autoTheme, theme, showDate, showCountry, isModalOpen, timeFormat]);
+  }, [autoTheme, theme, showDate, showCountry, isModalOpen, timeFormat, autoSorting]);
 
   useEffect(() => {
     const localStorageSettings = localStorage.getItem('settings');
@@ -94,6 +95,9 @@ const SettingsModal: React.FC = () => {
           break;
         case SETTING_VALUE.auto:
           setLocalSettings({ ...localSettings, autoTheme: !localSettings.autoTheme });
+          break;
+        case SETTING_VALUE.autoSorting:
+          setLocalSettings({ ...localSettings, autoSorting: !localSettings.autoSorting });
           break;
         case SETTING_VALUE.H24:
           setLocalSettings({ ...localSettings, timeFormat: value });
@@ -160,6 +164,14 @@ const SettingsModal: React.FC = () => {
               <span>{t('Settings.12HourFormat')}</span>
             </div>
           </RadioGroup>
+          <div>
+            <Checkbox
+              checked={localSettings.autoSorting}
+              onChange={handleSetSettings}
+              value={SETTING_VALUE.autoSorting}
+            />
+            <span>{t('Settings.AutoSortWidget')}</span>
+          </div>
           <Divider
             className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
           />

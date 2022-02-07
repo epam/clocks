@@ -1,8 +1,10 @@
 import React from 'react';
 
 import { QueryBuilder } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
 
 import useTheme from '../../hooks/useTheme';
+import { IInitialState } from '../../redux/types';
 
 import style from './Header.module.scss';
 import DeleteMode from './components/DeleteMode/DeleteMode';
@@ -14,6 +16,7 @@ import { EPAM_LOGO } from './Header.constants';
 
 const Header: React.FC = () => {
   const logoTheme = useTheme(style.lightLogo, style.darkLogo);
+  const { autoSorting } = useSelector((state: IInitialState) => state);
 
   return (
     <div className={style.body}>
@@ -22,7 +25,7 @@ const Header: React.FC = () => {
         <span className={logoTheme}>{EPAM_LOGO}</span>
       </div>
       <div className={style.controlsContainer}>
-        <DragDropMode />
+        {!autoSorting && <DragDropMode />}
         <DeleteMode />
         <SettingsModal />
         <ShareButton />
