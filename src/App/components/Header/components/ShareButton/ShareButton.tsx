@@ -19,7 +19,7 @@ const ShareButton: React.FC = () => {
 
   const { t } = useTranslation();
 
-  const { deleteMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, dragDropMode } = useSelector((state: IInitialState) => state);
 
   const handleCopy = () => {
     const url: string = window?.location?.href;
@@ -34,7 +34,7 @@ const ShareButton: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleCopy} disabled={deleteMode}>
+        <IconButton onClick={handleCopy} disabled={deleteMode || dragDropMode}>
           <ShareOutlined
             className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode })}
           />

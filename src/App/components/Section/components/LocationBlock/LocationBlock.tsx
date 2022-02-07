@@ -172,7 +172,11 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
                 [style.opaccityBlock]: !isUserLocation
               })}
             >
-              <IconButton size="small" onClick={handleSetUserLocation} disabled={deleteMode}>
+              <IconButton
+                size="small"
+                onClick={handleSetUserLocation}
+                disabled={deleteMode || dragDropMode}
+              >
                 <FmdGoodOutlined
                   className={clsx({
                     [iconTheme]: true,
@@ -181,7 +185,11 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
                   })}
                 />
               </IconButton>
-              <IconButton size="small" onClick={handleOpenCommentModal} disabled={deleteMode}>
+              <IconButton
+                size="small"
+                onClick={handleOpenCommentModal}
+                disabled={deleteMode || dragDropMode}
+              >
                 <CommentOutlined
                   className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode })}
                 />
