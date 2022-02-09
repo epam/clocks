@@ -88,7 +88,7 @@ const Section: React.FC = () => {
     return <EmptyState />;
     // don't need as a dependency findLocation
     // eslint-disable-next-line
-  }, [locations]);
+  }, [locations, selectedLocation]);
 
   return <div className={locations ? style.body : style.emptyBody}>{locationsRender}</div>;
 };

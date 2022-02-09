@@ -103,49 +103,20 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   };
 
   const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
-    if (!location) {
-      throw Error('Location is undefined');
-    }
-    if (dragDropMode) {
+    if (dragDropMode && location) {
       setSelectedLocation(location);
       setTimeout(() => {
-        // @ts-ignore
-        // e.target.classList.add(style.hide);
         containerDivRef.current?.classList.add(style.hide);
       });
     }
   };
 
   const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
-    // @ts-ignore
-    // e.target.classList.remove(style.hide);
     containerDivRef.current?.classList.remove(style.hide);
   };
 
-  const dropHandler = (e: DragEvent<HTMLDivElement>) => {
-    if (dragDropMode) {
-      console.log('drop', selectedLocation);
-    }
-  };
-
-  const dragOverHandler = (e: DragEvent<HTMLDivElement>) => e.preventDefault();
-
-  // const dragEnterHandler = () => {
-  //   containerDivRef.current?.classList.add(style['bg-red']);
-  // };
-
-  // const dragLeaveHandler = () => {
-  //   containerDivRef.current?.classList.remove(style['bg-red']);
-  // };
-
   return (
-    <div
-      draggable={dragDropMode}
-      onDragStart={dragStartHandler}
-      onDragEnd={dragEndHandler}
-      onDrop={dropHandler}
-      onDragOver={dragOverHandler}
-    >
+    <div draggable={dragDropMode} onDragStart={dragStartHandler} onDragEnd={dragEndHandler}>
       <div
         ref={containerDivRef}
         className={clsx({
