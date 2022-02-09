@@ -31,7 +31,7 @@ const DeleteMode: React.FC = () => {
   }, [dispatch, locations]);
 
   const handleSetDeleteMode = () => {
-    dispatch(setDeleteMode(!deleteMode));
+    dispatch(setDeleteMode(!deleteMode.isOn));
   };
 
   const tooltipText = useMemo((): string => t('DeleteMode.ButtonTooltip'), [t]);
@@ -43,7 +43,7 @@ const DeleteMode: React.FC = () => {
           <DeleteOutline
             className={clsx({
               [iconTheme]: true,
-              [style.redIcon]: deleteMode
+              [style.redIcon]: deleteMode.isOn
             })}
           />
         </IconButton>

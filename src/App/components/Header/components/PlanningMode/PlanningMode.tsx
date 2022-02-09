@@ -19,15 +19,13 @@ const DeleteMode: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const { planningMode, deleteMode, additionalHours } = useSelector(
-    (state: IInitialState) => state
-  );
+  const { planningMode, deleteMode } = useSelector((state: IInitialState) => state);
 
   const handleSetPlanningMode = () => {
     dispatch(
       setPlanningMode({
-        status: !planningMode,
-        additionalHours: planningMode ? additionalHours : 0
+        status: !planningMode.isOn,
+        additionalHours: planningMode.isOn ? planningMode.additionalHours : 0
       })
     );
   };
@@ -37,12 +35,12 @@ const DeleteMode: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleSetPlanningMode} disabled={deleteMode}>
+        <IconButton onClick={handleSetPlanningMode} disabled={deleteMode.isOn}>
           <HistoryIcon
             className={clsx({
               [iconTheme]: true,
-              [style.disabledIcon]: deleteMode,
-              [style.blueIcon]: planningMode
+              [style.disabledIcon]: deleteMode.isOn,
+              [style.blueIcon]: planningMode.isOn
             })}
           />
         </IconButton>

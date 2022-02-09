@@ -11,7 +11,8 @@ import EmptyState from './components/EmptyState/EmptyState';
 import PlanningModeSlider from './components/PlanningModeSlider/PlanningModeSlider';
 
 const Section: React.FC = () => {
-  const { counter, locationsDB } = useSelector((state: IInitialState) => state);
+  const { counter } = useSelector((state: IInitialState) => state);
+  const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
 

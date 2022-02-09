@@ -9,9 +9,9 @@ import { ILocation, IInitialState } from '../redux/types';
 const useTimeInfo = (location?: ILocation) => {
   const { t } = useTranslation();
 
-  const { userLocation, timeFormat, additionalHours, planningMode } = useSelector(
-    (state: IInitialState) => state
-  );
+  const { userLocation } = useSelector((state: IInitialState) => state.locations);
+  const { timeFormat } = useSelector((state: IInitialState) => state.settings);
+  const { isOn, additionalHours } = useSelector((state: IInitialState) => state.planningMode);
 
   const date = new Date();
 
@@ -38,7 +38,8 @@ const useTimeInfo = (location?: ILocation) => {
     suffix: visiableTime[2].substring(3)
   };
 
-  if (planningMode) {
+  // Planning mode ON
+  if (isOn) {
     const integerAdditionalHours =
       additionalHours < 0 ? Math.ceil(additionalHours) : Math.floor(additionalHours);
     const additionalMinutes = 60 * (additionalHours - integerAdditionalHours);
@@ -116,17 +117,40 @@ const useTimeInfo = (location?: ILocation) => {
       .split('/');
 
     const getDay = () => {
+      const monthsDB = [
+        t('LocationBlock.Jan'),
+        t('LocationBlock.Feb'),
+        t('LocationBlock.Mar'),
+        t('LocationBlock.Apr'),
+        t('LocationBlock.May'),
+        t('LocationBlock.Jun'),
+        t('LocationBlock.Jul'),
+        t('LocationBlock.Aug'),
+        t('LocationBlock.Sep'),
+        t('LocationBlock.Oct'),
+        t('LocationBlock.Nov'),
+        t('LocationBlock.Dec')
+      ];
+
+      const month = monthsDB[Number(widjetLocationDate[0]) - 1];
+      const today = new Date();
+      const tomorrow = new Date(today.setDate(today.getDate() + 1)).getDate();
+      const yesterday = new Date(today.setDate(today.getDate() - 1)).getDate();
+
       if (userLocationDate[0] > widjetLocationDate[0]) {
-        return t('LocationBlock.Yesterday');
+        return `${yesterday} ${month}`;
       }
       if (userLocationDate[0] < widjetLocationDate[0]) {
-        return t('LocationBlock.Tomorrow');
+        return `${tomorrow} ${month}`;
       }
       if (userLocationDate[1] > widjetLocationDate[1]) {
-        return t('LocationBlock.Yesterday');
+        return `${yesterday} ${month}`;
       }
       if (userLocationDate[1] < widjetLocationDate[1]) {
-        return t('LocationBlock.Tomorrow');
+        return `${tomorrow} ${month}`;
+      }
+      if (userLocation.city === location.city) {
+        return `${widjetLocationDate[1]} ${month}`;
       }
 
       return '';

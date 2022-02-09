@@ -10,7 +10,7 @@ import { CLOCK_MARKS } from '../../../../redux/constants';
 import style from './PlanningModeSlider.module.scss';
 
 const PlanningModeSlider: React.FC = () => {
-  const { additionalHours, planningMode, theme } = useSelector((state: IInitialState) => state);
+  const { planningMode, settings } = useSelector((state: IInitialState) => state);
 
   const dispatch = useDispatch();
   const [sliderType, setSliderType] = useState<'vertical' | 'horizontal'>('horizontal');
@@ -48,7 +48,7 @@ const PlanningModeSlider: React.FC = () => {
 
   const handleChange = (event: Event, newValue: number | number[]) => {
     if (typeof newValue === 'number') {
-      dispatch(setPlanningMode({ status: planningMode, additionalHours: newValue }));
+      dispatch(setPlanningMode({ status: planningMode.isOn, additionalHours: newValue }));
     }
   };
   return (
@@ -56,13 +56,13 @@ const PlanningModeSlider: React.FC = () => {
       className={clsx(
         { [style[`slider-box-${sliderType}`]]: true },
         { [style[`slider-box-${sliderType}`]]: true },
-        { [style.sliderBoxInvisible]: !planningMode }
+        { [style.sliderBoxInvisible]: !planningMode.isOn }
       )}
     >
       <div
         className={clsx(
           style.slider,
-          { [style[`slider-${theme}`]]: true },
+          { [style[`slider-${settings.theme}`]]: true },
           { [style[`slider-${sliderType}`]]: true },
           { [style[`slider-${sliderType}`]]: true }
         )}
@@ -71,7 +71,7 @@ const PlanningModeSlider: React.FC = () => {
           orientation={sliderType}
           min={-12}
           defaultValue={0}
-          value={additionalHours}
+          value={planningMode.additionalHours}
           getAriaValueText={sliderText}
           valueLabelFormat={sliderText}
           max={12}
@@ -84,8 +84,11 @@ const PlanningModeSlider: React.FC = () => {
             rail: style.sliderRail,
             track: style.sliderTrack,
             thumb: style.sliderThumb,
-            mark: clsx({ [style[`slider-mark-${theme}`]]: true }, style.sliderMark),
-            markLabel: clsx({ [style[`slider-mark-${theme}`]]: true }, style.sliderMarkLabel)
+            mark: clsx({ [style[`slider-mark-${settings.theme}`]]: true }, style.sliderMark),
+            markLabel: clsx(
+              { [style[`slider-mark-${settings.theme}`]]: true },
+              style.sliderMarkLabel
+            )
           }}
         />
       </div>
