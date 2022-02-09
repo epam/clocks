@@ -8,6 +8,7 @@ import { setUserLocation, setCounter } from '../../redux/actions';
 import style from './Section.module.scss';
 import LocationBlock from './components/LocationBlock/LocationBlock';
 import EmptyState from './components/EmptyState/EmptyState';
+import PlanningModeSlider from './components/PlanningModeSlider/PlanningModeSlider';
 
 const Section: React.FC = () => {
   const { counter, locationsDB } = useSelector((state: IInitialState) => state);
@@ -87,7 +88,12 @@ const Section: React.FC = () => {
     // eslint-disable-next-line
   }, [locations]);
 
-  return <div className={locations ? style.body : style.emptyBody}>{locationsRender}</div>;
+  return (
+    <div className={locations ? style.body : style.emptyBody}>
+      {locationsRender}
+      <PlanningModeSlider />
+    </div>
+  );
 };
 
 export default Section;

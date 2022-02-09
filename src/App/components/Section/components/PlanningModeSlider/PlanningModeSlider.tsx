@@ -1,0 +1,96 @@
+import React, { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { Slider, Box } from '@mui/material';
+import clsx from 'clsx';
+
+import { IInitialState } from '../../../../redux/types';
+import { setPlanningMode } from '../../../../redux/actions';
+import { CLOCK_MARKS } from '../../../../redux/constants';
+
+import style from './PlanningModeSlider.module.scss';
+
+const PlanningModeSlider: React.FC = () => {
+  const { additionalHours, planningMode, theme } = useSelector((state: IInitialState) => state);
+
+  const dispatch = useDispatch();
+  const [sliderType, setSliderType] = useState<'vertical' | 'horizontal'>('horizontal');
+
+  useEffect(() => {
+    if (window.innerWidth < 601) {
+      setSliderType('vertical');
+    } else {
+      setSliderType('horizontal');
+    }
+    return window.addEventListener('resize', () => {
+      if (window.innerWidth < 601) {
+        setSliderType('vertical');
+      } else {
+        setSliderType('horizontal');
+      }
+    });
+  }, []);
+
+  const sliderText = (value: number) => {
+    const integerPart = value > 0 ? Math.floor(value) : Math.ceil(value);
+    const decimalPart = value - integerPart;
+    if (integerPart === value) {
+      return value > 0 ? `+${value}h` : value < 0 ? `${value}h` : '0';
+    } else if (integerPart === 0) {
+      return value > 0 ? `+${60 * decimalPart}m` : value < 0 ? `${60 * decimalPart}m` : '0';
+    } else {
+      return value > 0
+        ? `+${integerPart}h ${60 * decimalPart}m`
+        : value < 0
+        ? `${integerPart}h ${Math.abs(60 * decimalPart)}m`
+        : '0';
+    }
+  };
+
+  const handleChange = (event: Event, newValue: number | number[]) => {
+    if (typeof newValue === 'number') {
+      dispatch(setPlanningMode({ status: planningMode, additionalHours: newValue }));
+    }
+  };
+  return (
+    <Box
+      className={clsx(
+        { [style[`slider-box-${sliderType}`]]: true },
+        { [style[`slider-box-${sliderType}`]]: true },
+        { [style.sliderBoxInvisible]: !planningMode }
+      )}
+    >
+      <div
+        className={clsx(
+          style.slider,
+          { [style[`slider-${theme}`]]: true },
+          { [style[`slider-${sliderType}`]]: true },
+          { [style[`slider-${sliderType}`]]: true }
+        )}
+      >
+        <Slider
+          orientation={sliderType}
+          min={-12}
+          defaultValue={0}
+          value={additionalHours}
+          getAriaValueText={sliderText}
+          valueLabelFormat={sliderText}
+          max={12}
+          step={0.25}
+          valueLabelDisplay="on"
+          onChange={handleChange}
+          marks={CLOCK_MARKS[sliderType]}
+          classes={{
+            root: style.sliderRoot,
+            rail: style.sliderRail,
+            track: style.sliderTrack,
+            thumb: style.sliderThumb,
+            mark: clsx({ [style[`slider-mark-${theme}`]]: true }, style.sliderMark),
+            markLabel: clsx({ [style[`slider-mark-${theme}`]]: true }, style.sliderMarkLabel)
+          }}
+        />
+      </div>
+    </Box>
+  );
+};
+
+export default PlanningModeSlider;

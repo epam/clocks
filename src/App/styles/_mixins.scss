@@ -5,6 +5,12 @@
   }
 }
 
+@mixin screenMax600 {
+  @media (max-width: 600px) {
+    @content;
+  }
+}
+
 // BLOCKS
 @mixin lightBlock {
   background-color: $whiteColor;

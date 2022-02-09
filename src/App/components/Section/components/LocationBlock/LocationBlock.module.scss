@@ -11,6 +11,13 @@
   display: flex;
   flex-direction: column;
 
+  @include screenMax600 {
+    width: 82vw;
+  }
+  @include screenMax500 {
+    width: 78vw;
+  }
+
   .deleteButton {
     position: absolute;
     right: -10px;
@@ -209,5 +216,18 @@
   .input {
     background-color: $darkColor;
     color: $lightColor;
+  }
+}
+
+@keyframes planningModeHours {
+  0% {
+  }
+  25% {
+  }
+  50% {
+  }
+  75% {
+  }
+  100% {
   }
 }

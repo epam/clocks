@@ -67,7 +67,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     setTime(timeInfo);
     // don't need as a dependency timeInfo
     // eslint-disable-next-line
-  }, [counter, userLocation, locations, timeFormat, additionalHours]);
+  }, [counter, userLocation, locations, timeFormat, additionalHours, planningMode]);
 
   const handleDelete = () => {
     location && delete locations[location?.city + location?.lat];

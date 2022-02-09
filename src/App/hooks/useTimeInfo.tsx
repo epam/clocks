@@ -35,8 +35,7 @@ const useTimeInfo = (location?: ILocation) => {
   const tempDate = {
     hours: parseInt(visiableTime[0]),
     minutes: parseInt(visiableTime[1]),
-    suffix: visiableTime[2].substring(3),
-    day: date.getDay()
+    suffix: visiableTime[2].substring(3)
   };
 
   if (planningMode) {
@@ -77,7 +76,6 @@ const useTimeInfo = (location?: ILocation) => {
       } else {
         tempDate.hours = tempDate.hours + integerAdditionalHours;
       }
-      console.log('after', hoursBefore, tempDate.hours, integerAdditionalHours);
 
       // Setting right AM/PM
       if (hoursBefore !== tempDate.hours) {
@@ -98,19 +96,16 @@ const useTimeInfo = (location?: ILocation) => {
         tempDate.hours = tempDate.hours + integerAdditionalHours;
       }
     }
+
+    timeObject.hours =
+      tempDate.hours < 10 && !isHour12Format ? `0${tempDate.hours}` : `${tempDate.hours}`;
+    timeObject.minutes = tempDate.minutes < 10 ? `0${tempDate.minutes}` : `${tempDate.minutes}`;
+    timeObject.suffix = tempDate.suffix;
+  } else {
+    timeObject.hours = visiableTime[0];
+    timeObject.minutes = visiableTime[1];
+    timeObject.suffix = visiableTime[2].substring(3);
   }
-
-  timeObject.hours = tempDate.hours < 10 ? `0${tempDate.hours}` : `${tempDate.hours}`;
-  timeObject.minutes = tempDate.minutes < 10 ? `0${tempDate.minutes}` : `${tempDate.minutes}`;
-  timeObject.suffix = tempDate.suffix;
-
-  const newDate = new Date(
-    date.getFullYear(),
-    date.getMonth(),
-    tempDate.day,
-    tempDate.hours,
-    tempDate.minutes
-  );
 
   if (userLocation && location) {
     const userLocationDate = date
