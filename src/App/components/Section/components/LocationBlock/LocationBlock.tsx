@@ -25,7 +25,9 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   const { showDate, showCountry, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
-  const { deleteMode, counter, planningMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, counter, planningMode, settings } = useSelector(
+    (state: IInitialState) => state
+  );
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
   const timeInfo = useTimeInfo(location);
@@ -133,18 +135,29 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
                 [style.opaccityBlock]: !isUserLocation
               })}
             >
-              <IconButton size="small" onClick={handleSetUserLocation} disabled={deleteMode.isOn}>
+              <IconButton
+                size="small"
+                onClick={handleSetUserLocation}
+                disabled={deleteMode.isOn || planningMode.isOn}
+              >
                 <FmdGoodOutlined
                   className={clsx({
                     [iconTheme]: true,
                     [style.blueIcon]: urlUserLocation || isUserLocation,
-                    [style.disabledIcon]: deleteMode.isOn
+                    [style.disabledIcon]: deleteMode.isOn || planningMode.isOn
                   })}
                 />
               </IconButton>
-              <IconButton size="small" onClick={handleOpenCommentModal} disabled={deleteMode.isOn}>
+              <IconButton
+                size="small"
+                onClick={handleOpenCommentModal}
+                disabled={deleteMode.isOn || planningMode.isOn}
+              >
                 <CommentOutlined
-                  className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
+                  className={clsx({
+                    [iconTheme]: true,
+                    [style.disabledIcon]: deleteMode.isOn || planningMode.isOn
+                  })}
                 />
               </IconButton>
             </div>
@@ -154,7 +167,14 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
             </div>
           </div>
           <div className={style.rightSide}>
-            <div className={clsx(style.topInfo, { [style.blueIcon]: planningMode.isOn })}>
+            <div
+              className={clsx(
+                style.topInfo,
+                { [style.planningModeLight]: planningMode.isOn && settings.theme === 'light' },
+                { [style.planningModeDark]: planningMode.isOn && settings.theme === 'dark' },
+                { [style.blueIcon]: planningMode.isOn }
+              )}
+            >
               {time.hours}:{time.minutes} {time.suffix}
             </div>
             <div className={style.bottomInfo}>

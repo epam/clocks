@@ -219,15 +219,38 @@
   }
 }
 
-@keyframes planningModeHours {
+.planningModeLight {
+  animation-duration: 2s;
+  animation-name: planningModeLight;
+  animation-iteration-count: infinite;
+}
+
+@keyframes planningModeLight {
   0% {
-  }
-  25% {
-  }
-  50% {
-  }
-  75% {
+    box-shadow: 0px 0px 7px 10px rgba(255, 255, 255, 0.9);
+    -webkit-box-shadow: 0px 0px 7px 10px rgba(255, 255, 255, 0.9);
+    -moz-box-shadow: 0px 0px 7px 10px rgba(255, 255, 255, 0.9);
   }
   100% {
+    -webkit-box-shadow: 0 0 14px 10px $blueColor;
+    box-shadow: 0 0 14px 10px $blueColor;
+  }
+}
+
+.planningModeDark {
+  animation-duration: 2s;
+  animation-name: planningModeDark;
+  animation-iteration-count: infinite;
+}
+
+@keyframes planningModeDark {
+  0% {
+    box-shadow: 0px 0px 7px 10px rgba(0, 0, 0, 0.9);
+    -webkit-box-shadow: 0px 0px 7px 10px rgba(0, 0, 0, 0.9);
+    -moz-box-shadow: 0px 0px 7px 10px rgba(0, 0, 0, 0.9);
+  }
+  100% {
+    -webkit-box-shadow: 0 0 14px 10px $blueColor;
+    box-shadow: 0 0 14px 10px $blueColor;
   }
 }

@@ -37,7 +37,7 @@ const SettingsModal: React.FC = () => {
   const { autoTheme, theme, showDate, showCountry, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
-  const { deleteMode, counter } = useSelector((state: IInitialState) => state);
+  const { deleteMode, counter, planningMode } = useSelector((state: IInitialState) => state);
 
   const dispatch = useDispatch();
 
@@ -125,9 +125,12 @@ const SettingsModal: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleOpenModal} disabled={deleteMode.isOn}>
+        <IconButton onClick={handleOpenModal} disabled={deleteMode.isOn || planningMode.isOn}>
           <SettingsOutlined
-            className={clsx({ [buttonTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
+            className={clsx({
+              [buttonTheme]: true,
+              [style.disabledIcon]: deleteMode.isOn || planningMode.isOn
+            })}
           />
         </IconButton>
       </Tooltip>
