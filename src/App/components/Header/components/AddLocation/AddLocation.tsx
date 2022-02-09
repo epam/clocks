@@ -26,7 +26,8 @@ const AddLocation: React.FC = () => {
 
   const { locations, setLocations, getLocationOffset } = useLocations();
 
-  const { deleteMode, locationsDB, dragDropMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, dragDropMode } = useSelector((state: IInitialState) => state);
+  const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const [isPanelOpen, setPanel] = useState(false);
 
@@ -128,8 +129,13 @@ const AddLocation: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleOpenPanel} disabled={deleteMode || dragDropMode}>
-          <Add className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode })} />
+        <IconButton onClick={handleOpenPanel} disabled={deleteMode.isOn || dragDropMode.isOn}>
+          <Add
+            className={clsx({
+              [iconTheme]: true,
+              [style.disabledIcon]: deleteMode.isOn || dragDropMode.isOn
+            })}
+          />
         </IconButton>
       </Tooltip>
 

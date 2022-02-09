@@ -28,8 +28,11 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   const { t } = useTranslation();
   const containerDivRef = useRef<HTMLDivElement>(null);
 
-  const { showDate, showCountry, deleteMode, userLocation, counter, timeFormat, dragDropMode } =
-    useSelector((state: IInitialState) => state);
+  const { showDate, showCountry, timeFormat } = useSelector(
+    (state: IInitialState) => state.settings
+  );
+  const { deleteMode, counter, dragDropMode } = useSelector((state: IInitialState) => state);
+  const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
   const timeInfo = useTimeInfo(location);
 
@@ -116,16 +119,16 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   };
 
   return (
-    <div draggable={dragDropMode} onDragStart={dragStartHandler} onDragEnd={dragEndHandler}>
+    <div draggable={dragDropMode.isOn} onDragStart={dragStartHandler} onDragEnd={dragEndHandler}>
       <div
         ref={containerDivRef}
         className={clsx({
           [bodyTheme]: true,
-          [style.shaking]: deleteMode || dragDropMode,
+          [style.shaking]: deleteMode.isOn || dragDropMode.isOn,
           [style.currentBody]: urlUserLocation || isUserLocation
         })}
       >
-        {deleteMode && (
+        {deleteMode.isOn && (
           <IconButton className={style.deleteButton} size="small" onClick={handleDelete}>
             <Remove className={style.icon} />
           </IconButton>
@@ -146,23 +149,23 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
               <IconButton
                 size="small"
                 onClick={handleSetUserLocation}
-                disabled={deleteMode || dragDropMode}
+                disabled={deleteMode.isOn || dragDropMode.isOn}
               >
                 <FmdGoodOutlined
                   className={clsx({
                     [iconTheme]: true,
                     [style.blueIcon]: urlUserLocation || isUserLocation,
-                    [style.disabledIcon]: deleteMode
+                    [style.disabledIcon]: deleteMode.isOn
                   })}
                 />
               </IconButton>
               <IconButton
                 size="small"
                 onClick={handleOpenCommentModal}
-                disabled={deleteMode || dragDropMode}
+                disabled={deleteMode.isOn || dragDropMode.isOn}
               >
                 <CommentOutlined
-                  className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode })}
+                  className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
                 />
               </IconButton>
             </div>

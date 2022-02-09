@@ -6,7 +6,6 @@ export const ACTION_TYPE = {
   setSnackbar: '/set-snackbar',
   setUserLocation: '/set-user-location',
   setCounter: '/set-counter',
-  setTimeFormat: '/set-time-format'
 };
 
 export const THEME = {

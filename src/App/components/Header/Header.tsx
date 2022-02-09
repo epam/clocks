@@ -16,7 +16,7 @@ import { EPAM_LOGO } from './Header.constants';
 
 const Header: React.FC = () => {
   const logoTheme = useTheme(style.lightLogo, style.darkLogo);
-  const { autoSorting } = useSelector((state: IInitialState) => state);
+  const { autoSorting } = useSelector((state: IInitialState) => state.settings);
 
   return (
     <div className={style.body}>

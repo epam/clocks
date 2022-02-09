@@ -1,20 +1,30 @@
 import { AlertColor } from '@mui/material';
 
 export interface IInitialState {
-  deleteMode: boolean;
-  dragDropMode: boolean;
-  theme: string;
-  autoTheme?: boolean;
-  showDate: boolean;
-  showCountry: boolean;
-  locationsDB: ILocation[];
-  userLocation?: ILocation;
-  snackbarStatus: boolean;
-  snackbarText?: string;
-  snackbarColor?: AlertColor;
+  locations: {
+    locationsDB: ILocation[];
+    userLocation?: ILocation;
+  };
+  deleteMode: {
+    isOn: boolean;
+  };
+  dragDropMode: {
+    isOn: boolean;
+  };
+  settings: {
+    theme: string;
+    autoTheme?: boolean;
+    showDate: boolean;
+    showCountry: boolean;
+    timeFormat: string;
+    autoSorting: boolean;
+  };
+  snackbar: {
+    status: boolean;
+    text?: string;
+    color?: AlertColor;
+  };
   counter: number;
-  timeFormat: string;
-  autoSorting: boolean;
 }
 
 export interface IActionPayload {

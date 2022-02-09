@@ -31,7 +31,7 @@ const DeleteMode: React.FC = () => {
   }, [dispatch, locations]);
 
   const handleSetDeleteMode = () => {
-    dispatch(setDeleteMode(!deleteMode));
+    dispatch(setDeleteMode(!deleteMode.isOn));
   };
 
   const tooltipText = useMemo((): string => t('DeleteMode.ButtonTooltip'), [t]);
@@ -39,11 +39,11 @@ const DeleteMode: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleSetDeleteMode} disabled={dragDropMode}>
+        <IconButton onClick={handleSetDeleteMode} disabled={dragDropMode.isOn}>
           <DeleteOutline
             className={clsx({
               [iconTheme]: true,
-              [style.redIcon]: deleteMode
+              [style.redIcon]: deleteMode.isOn
             })}
           />
         </IconButton>

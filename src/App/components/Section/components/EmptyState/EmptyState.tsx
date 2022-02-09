@@ -16,7 +16,7 @@ const EmptyState: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <div className={clsx({ [theme]: true, [style.deleteMode]: deleteMode })}>
+    <div className={clsx({ [theme]: true, [style.deleteMode]: deleteMode.isOn })}>
       {t('EmptyState.Text')}
     </div>
   );

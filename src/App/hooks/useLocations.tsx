@@ -7,18 +7,18 @@ import { IUrlLocations, IUrlLocation, ILocation, IInitialState } from '../redux/
 const useLocations = () => {
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { locationsDB } = useSelector((state: IInitialState) => state);
+  const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const urlLocations = searchParams.get('locations');
 
   const locations = useMemo(
-    (): IUrlLocations => urlLocations && JSON.parse(urlLocations),
+    (): IUrlLocations => urlLocations && JSON.parse(atob(urlLocations)),
     [urlLocations]
   );
 
   const setLocations = (newLocations: IUrlLocations) => {
     if (!!Object.keys(newLocations).length) {
-      setSearchParams({ locations: JSON.stringify(newLocations) });
+      setSearchParams({ locations: btoa(JSON.stringify(newLocations)) });
     } else {
       setSearchParams({});
     }

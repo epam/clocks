@@ -34,9 +34,9 @@ const ShareButton: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleCopy} disabled={deleteMode || dragDropMode}>
+        <IconButton onClick={handleCopy} disabled={deleteMode.isOn || dragDropMode.isOn}>
           <ShareOutlined
-            className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode })}
+            className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
           />
         </IconButton>
       </Tooltip>

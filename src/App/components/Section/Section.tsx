@@ -10,8 +10,9 @@ import LocationBlock from './components/LocationBlock/LocationBlock';
 import EmptyState from './components/EmptyState/EmptyState';
 
 const Section: React.FC = () => {
-  const { counter, locationsDB } = useSelector((state: IInitialState) => state);
   const [selectedLocation, setSelectedLocation] = useState<ILocation | null>(null);
+  const { counter } = useSelector((state: IInitialState) => state);
+  const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
 
