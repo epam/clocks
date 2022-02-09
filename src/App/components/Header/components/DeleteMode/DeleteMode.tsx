@@ -43,7 +43,8 @@ const DeleteMode: React.FC = () => {
           <DeleteOutline
             className={clsx({
               [iconTheme]: true,
-              [style.redIcon]: deleteMode.isOn
+              [style.redIcon]: deleteMode.isOn,
+              [style.disabledIcon]: dragDropMode.isOn
             })}
           />
         </IconButton>

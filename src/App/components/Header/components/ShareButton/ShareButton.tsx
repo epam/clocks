@@ -30,14 +30,13 @@ const ShareButton: React.FC = () => {
   };
 
   const tooltipText = useMemo(() => t('ShareButton.ButtonTooltip'), [t]);
+  const disabled = useMemo(() => deleteMode.isOn || dragDropMode.isOn, [deleteMode, dragDropMode]);
 
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleCopy} disabled={deleteMode.isOn || dragDropMode.isOn}>
-          <ShareOutlined
-            className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
-          />
+        <IconButton onClick={handleCopy} disabled={disabled}>
+          <ShareOutlined className={clsx({ [iconTheme]: true, [style.disabledIcon]: disabled })} />
         </IconButton>
       </Tooltip>
     </>

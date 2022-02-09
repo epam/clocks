@@ -126,13 +126,14 @@ const SettingsModal: React.FC = () => {
   };
 
   const tooltipText = useMemo((): string => t('Settings.ButtonTooltip'), [t]);
+  const disabled = useMemo(() => deleteMode.isOn || dragDropMode.isOn, [deleteMode, dragDropMode]);
 
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleOpenModal} disabled={deleteMode.isOn || dragDropMode.isOn}>
+        <IconButton onClick={handleOpenModal} disabled={disabled}>
           <SettingsOutlined
-            className={clsx({ [buttonTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
+            className={clsx({ [buttonTheme]: true, [style.disabledIcon]: disabled })}
           />
         </IconButton>
       </Tooltip>

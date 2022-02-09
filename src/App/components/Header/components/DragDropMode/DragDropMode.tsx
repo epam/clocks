@@ -11,20 +11,24 @@ import { setDragDropMode } from '../../../../redux/actions';
 
 const DragDropMode = () => {
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
-  
+
   const { deleteMode } = useSelector((state: IInitialState) => state);
   const { dragDropMode } = useSelector((state: IInitialState) => state);
 
   const dispatch = useDispatch();
 
   const handleSetDragDropMode = () => {
-    dispatch(setDragDropMode(!dragDropMode));
+    dispatch(setDragDropMode(!dragDropMode.isOn));
   };
 
   return (
     <IconButton onClick={handleSetDragDropMode}>
       <LibraryBooksOutlined
-        className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode })}
+        className={clsx({
+          [iconTheme]: true,
+          [style.redIcon]: dragDropMode.isOn,
+          [style.disabledIcon]: deleteMode.isOn
+        })}
       />
     </IconButton>
   );

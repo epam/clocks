@@ -125,15 +125,16 @@ const AddLocation: React.FC = () => {
   );
 
   const tooltipText = useMemo((): string => t('AddLocation.ButtonTooltip'), [t]);
+  const disabled = useMemo(() => deleteMode.isOn || dragDropMode.isOn, [deleteMode, dragDropMode]);
 
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleOpenPanel} disabled={deleteMode.isOn || dragDropMode.isOn}>
+        <IconButton onClick={handleOpenPanel} disabled={disabled}>
           <Add
             className={clsx({
               [iconTheme]: true,
-              [style.disabledIcon]: deleteMode.isOn || dragDropMode.isOn
+              [style.disabledIcon]: disabled
             })}
           />
         </IconButton>

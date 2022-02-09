@@ -55,6 +55,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   const isUserLocation = useMemo(() => {
     return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
   }, [userLocation?.city, userLocation?.lat, location?.city, location?.lat]);
+  const disabled = useMemo(() => deleteMode.isOn || dragDropMode.isOn, [deleteMode, dragDropMode]);
 
   useEffect(() => {
     if (location && locations[location.city + location.lat].comment) {
@@ -146,26 +147,18 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
                 [style.opaccityBlock]: !isUserLocation
               })}
             >
-              <IconButton
-                size="small"
-                onClick={handleSetUserLocation}
-                disabled={deleteMode.isOn || dragDropMode.isOn}
-              >
+              <IconButton size="small" onClick={handleSetUserLocation} disabled={disabled}>
                 <FmdGoodOutlined
                   className={clsx({
                     [iconTheme]: true,
                     [style.blueIcon]: urlUserLocation || isUserLocation,
-                    [style.disabledIcon]: deleteMode.isOn
+                    [style.disabledIcon]: disabled
                   })}
                 />
               </IconButton>
-              <IconButton
-                size="small"
-                onClick={handleOpenCommentModal}
-                disabled={deleteMode.isOn || dragDropMode.isOn}
-              >
+              <IconButton size="small" onClick={handleOpenCommentModal} disabled={disabled}>
                 <CommentOutlined
-                  className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
+                  className={clsx({ [iconTheme]: true, [style.disabledIcon]: disabled })}
                 />
               </IconButton>
             </div>
