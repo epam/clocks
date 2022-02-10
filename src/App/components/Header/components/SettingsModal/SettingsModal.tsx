@@ -187,9 +187,9 @@ const SettingsModal: React.FC = () => {
           </div>
         </div>
       </Dialog>
-      {onboarding?.deleteButton && anchorRef.current && (
+      {onboarding?.settingsModal && anchorRef.current && (
           <Onboarding
-              open={onboarding.deleteButton}
+              open={onboarding.settingsModal}
               anchorElement={anchorRef.current}
               anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
               transformOrigin={{ vertical: 'top', horizontal: 'center' }}

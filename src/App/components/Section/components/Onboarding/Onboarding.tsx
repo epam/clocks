@@ -22,6 +22,8 @@ const Onboarding: FC<IOnboardingProps> = ({
 }) => {
   const { finish, next } = useOnboarding();
 
+  const position = anchorElement.getBoundingClientRect();
+
   return (
     <Popover
       open={open}
@@ -30,11 +32,22 @@ const Onboarding: FC<IOnboardingProps> = ({
       anchorOrigin={anchorOrigin}
       transformOrigin={transformOrigin}
       marginThreshold={32}
-      BackdropProps={{
-        classes: { root: style.backdrop }
-      }}
       PaperProps={{
         classes: { root: style.paper }
+      }}
+      BackdropProps={{
+        classes: { root: style.backdrop },
+        children: (
+          <div
+            className={style.highlighter}
+            style={{
+              width: position.width + 6,
+              height: position.height + 6,
+              top: position.top - 3,
+              left: position.left - 3
+            }}
+          />
+        )
       }}
     >
       <DialogTitle>{title}</DialogTitle>
