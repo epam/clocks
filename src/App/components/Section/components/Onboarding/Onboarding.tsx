@@ -55,7 +55,7 @@ const Onboarding: FC<IOnboardingProps> = ({
         <DialogContentText>{text}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={finish}>Skip</Button>
+        {nextElement && <Button onClick={finish}>Skip</Button>}
         <Button onClick={() => (nextElement ? next(nextElement) : finish())}>
           {nextElement ? 'Next' : 'Finish'}
         </Button>

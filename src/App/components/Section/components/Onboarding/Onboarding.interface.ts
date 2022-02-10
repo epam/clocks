@@ -1,5 +1,5 @@
-import { PopoverOrigin } from "@mui/material";
-import { IOnboarding } from "../../../../redux/types";
+import { PopoverOrigin } from '@mui/material';
+import { IOnboarding } from '../../../../redux/types';
 
 export interface IOnboardingProps {
   open: boolean;

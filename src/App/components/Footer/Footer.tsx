@@ -7,6 +7,7 @@ import { Instagram, Facebook, Twitter, LinkedIn, GitHub } from '@mui/icons-mater
 import useTheme from '../../hooks/useTheme';
 
 import style from './Footer.module.scss';
+import { VERSION } from './Footer.constants';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -47,7 +48,7 @@ const Footer: React.FC = () => {
           <Trans
             t={t}
             i18nKey="Footer.Credits"
-            values={{ date: new Date().getFullYear() }}
+            values={{ date: new Date().getFullYear(), version: VERSION }}
             components={{ br: <br /> }}
           />
         </div>

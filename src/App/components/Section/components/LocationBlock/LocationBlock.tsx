@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -14,20 +14,22 @@ import { IInitialState, IUrlLocation } from '../../../../redux/types';
 
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
-import Onboarding from "../Onboarding/Onboarding";
+import Onboarding from '../Onboarding/Onboarding';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
-  const anchorLocation = useRef(null);
   const anchorComment = useRef(null);
+  const anchorLocation = useRef(null);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
   const commentModalTheme = useTheme(style.lightCommentModal, style.darkCommentModal);
 
   const { t } = useTranslation();
 
-  const { showDate, showCountry, deleteMode, userLocation, counter, onboarding } = useSelector(
-    (state: IInitialState) => state
+  const { showDate, showCountry, timeFormat } = useSelector(
+    (state: IInitialState) => state.settings
   );
+  const { deleteMode, counter, onboarding } = useSelector((state: IInitialState) => state);
+  const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
   const timeInfo = useTimeInfo(location);
 
@@ -43,8 +45,13 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     hours: '',
     minutes: '',
     day: undefined,
-    offset: undefined
+    offset: undefined,
+    suffix: ''
   });
+
+  const isUserLocation = useMemo(() => {
+    return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
+  }, [userLocation?.city, userLocation?.lat, location?.city, location?.lat]);
 
   useEffect(() => {
     if (location && locations[location.city + location.lat].comment) {
@@ -58,7 +65,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     setTime(timeInfo);
     // don't need as a dependency timeInfo
     // eslint-disable-next-line
-  }, [counter, userLocation]);
+  }, [counter, userLocation, locations, timeFormat]);
 
   const handleDelete = () => {
     location && delete locations[location?.city + location?.lat];
@@ -100,35 +107,50 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
       <div
         className={clsx({
           [bodyTheme]: true,
-          [style.shaking]: deleteMode,
-          [style.currentBody]:
-            urlUserLocation ||
-            (location?.city === userLocation?.city && location?.lat === userLocation?.lat)
+          [style.shaking]: deleteMode.isOn,
+          [style.currentBody]: urlUserLocation || isUserLocation
         })}
       >
-        {deleteMode && (
+        {deleteMode.isOn && (
           <IconButton className={style.deleteButton} size="small" onClick={handleDelete}>
             <Remove className={style.icon} />
           </IconButton>
         )}
         <div className={style.infoBlock}>
-          <div className={style.leftSide}>
-            <div className={style.buttonContainer}>
-              <IconButton ref={anchorLocation} size="small" onClick={handleSetUserLocation} disabled={deleteMode}>
+          <div
+            className={clsx({
+              [style.leftSide]: true,
+              [style.moveLeftOrRight]: !isUserLocation
+            })}
+          >
+            <div
+              className={clsx({
+                [style.buttonContainer]: true,
+                [style.opaccityBlock]: !isUserLocation
+              })}
+            >
+              <IconButton
+                ref={anchorLocation}
+                size="small"
+                onClick={handleSetUserLocation}
+                disabled={deleteMode.isOn}
+              >
                 <FmdGoodOutlined
                   className={clsx({
                     [iconTheme]: true,
-                    [style.blueIcon]:
-                      urlUserLocation ||
-                      (location?.city === userLocation?.city &&
-                        location?.lat === userLocation?.lat),
-                    [style.disabledIcon]: deleteMode
+                    [style.blueIcon]: urlUserLocation || isUserLocation,
+                    [style.disabledIcon]: deleteMode.isOn
                   })}
                 />
               </IconButton>
-              <IconButton ref={anchorComment} size="small" onClick={handleOpenCommentModal} disabled={deleteMode}>
+              <IconButton
+                ref={anchorComment}
+                size="small"
+                onClick={handleOpenCommentModal}
+                disabled={deleteMode.isOn}
+              >
                 <CommentOutlined
-                  className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode })}
+                  className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
                 />
               </IconButton>
             </div>
@@ -139,16 +161,15 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           </div>
           <div className={style.rightSide}>
             <div className={style.topInfo}>
-              {time.hours}:{time.minutes}
+              {time.hours}:{time.minutes} {time.suffix}
             </div>
             <div className={style.bottomInfo}>
-              {showDate && time.day && time.offset && `${time.day}, ${time.offset}`}
+              {showDate && time.offset && `${time.day} ${time.offset}`}
             </div>
           </div>
         </div>
         {location && locations[location.city + location.lat].comment && (
           <div className={style.commentBlock}>
-            <span className={style.commentText}>{t('LocationBlock.Comment')}</span>
             {locations[location.city + location.lat].comment}
           </div>
         )}
@@ -165,6 +186,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
                 placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
                 value={inputText}
                 onChange={e => setInputText(e.target.value)}
+                autoFocus={true}
               />
             </div>
             <div className={style.buttonContainer}>
@@ -178,27 +200,27 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           </div>
         </Dialog>
       )}
-      {onboarding?.myLocation && index === 0 && anchorLocation.current && (
-          <Onboarding
-              open={onboarding.myLocation}
-              anchorElement={anchorLocation.current}
-              nextElement="comment"
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-              title="Change location"
-              text="By clicking to this button you can change your location"
-          />
+      {onboarding?.myLocation && anchorLocation.current && (
+        <Onboarding
+          open={onboarding.myLocation}
+          anchorElement={anchorLocation.current}
+          nextElement="comment"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          title="Location button"
+          text="By clicking to this button you can change your location"
+        />
       )}
-      {onboarding?.comment && index === 0 && anchorComment.current && (
-          <Onboarding
-              open={onboarding.comment}
-              anchorElement={anchorComment.current}
-              nextElement="shareButton"
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-              title="Add comment"
-              text="By clicking to this button you can add comment for particular location"
-          />
+      {onboarding?.comment && anchorComment.current && (
+        <Onboarding
+          open={onboarding.comment}
+          anchorElement={anchorComment.current}
+          nextElement="shareButton"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          title="Comment button"
+          text="By clicking to this button you can add a comment for a specific location"
+        />
       )}
     </>
   );

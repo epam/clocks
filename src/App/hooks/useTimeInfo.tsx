@@ -1,12 +1,16 @@
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import moment from 'moment-timezone';
+
+import { TIME_FORMAT } from '../redux/constants';
 
 import { ILocation, IInitialState } from '../redux/types';
 
 const useTimeInfo = (location?: ILocation) => {
   const { t } = useTranslation();
 
-  const { userLocation } = useSelector((state: IInitialState) => state);
+  const { userLocation } = useSelector((state: IInitialState) => state.locations);
+  const { timeFormat } = useSelector((state: IInitialState) => state.settings);
 
   const date = new Date();
 
@@ -15,80 +19,106 @@ const useTimeInfo = (location?: ILocation) => {
     minutes: '',
     day: '',
     offset: '',
-    meridiem: ''
+    suffix: ''
   };
+  const isHour12Format = timeFormat === TIME_FORMAT.H12;
 
-  const locationTime = date
-    .toLocaleTimeString('ru-RU', { timeZone: location?.timezone })
+  const visiableTime = date
+    .toLocaleTimeString('ru-RU', {
+      timeZone: location?.timezone,
+      hour12: isHour12Format
+    })
     .split(':');
 
-  const locationDate = date
-    .toLocaleDateString('en-US', { timeZone: location?.timezone })
-    .split('/');
+  timeObject.hours = visiableTime[0];
+  timeObject.minutes = visiableTime[1];
+  timeObject.suffix = visiableTime[2].substring(3);
 
-  const locationHours = Number(locationTime[0]);
-  const locationDay = Number(locationDate[1]);
-  const locationMonth = Number(locationDate[0]);
-
-  timeObject.hours = locationTime[0];
-  timeObject.minutes = locationTime[1];
-
-  if (userLocation) {
-    const userLocationTime = date
-      .toLocaleTimeString('ru-RU', { timeZone: userLocation?.timezone })
-      .split(':');
-
+  if (userLocation && location) {
     const userLocationDate = date
       .toLocaleDateString('en-US', { timeZone: userLocation?.timezone })
       .split('/');
+    const widjetLocationDate = date
+      .toLocaleDateString('en-US', { timeZone: location?.timezone })
+      .split('/');
 
-    const userLocationHours = Number(userLocationTime[0]);
-    const userLocationDay = Number(userLocationDate[1]);
-    const userLocationMonth = Number(userLocationDate[0]);
+    const getDay = () => {
+      const monthsDB = [
+        t('LocationBlock.Jan'),
+        t('LocationBlock.Feb'),
+        t('LocationBlock.Mar'),
+        t('LocationBlock.Apr'),
+        t('LocationBlock.May'),
+        t('LocationBlock.Jun'),
+        t('LocationBlock.Jul'),
+        t('LocationBlock.Aug'),
+        t('LocationBlock.Sep'),
+        t('LocationBlock.Oct'),
+        t('LocationBlock.Nov'),
+        t('LocationBlock.Dec')
+      ];
 
-    const getMinutes = () => {
-      const minuteDiffrence = Math.abs(Number(locationTime[1]) - Number(userLocationTime[1]));
+      const month = monthsDB[Number(widjetLocationDate[0]) - 1];
+      const today = new Date();
+      const tomorrow = new Date(today.setDate(today.getDate() + 1)).getDate();
+      const yesterday = new Date(today.setDate(today.getDate() - 1)).getDate();
 
-      return minuteDiffrence ? `:${minuteDiffrence} ` : ' ';
+      if (userLocationDate[0] > widjetLocationDate[0]) {
+        return `${yesterday} ${month}`;
+      }
+      if (userLocationDate[0] < widjetLocationDate[0]) {
+        return `${tomorrow} ${month}`;
+      }
+      if (userLocationDate[1] > widjetLocationDate[1]) {
+        return `${yesterday} ${month}`;
+      }
+      if (userLocationDate[1] < widjetLocationDate[1]) {
+        return `${tomorrow} ${month}`;
+      }
+      if (userLocation.city === location.city) {
+        return `${widjetLocationDate[1]} ${month}`;
+      }
+
+      return '';
     };
 
-    if (userLocationMonth === locationMonth) {
-      if (userLocationDay > locationDay) {
-        timeObject.day = t('LocationBlock.Yesteday');
-        timeObject.offset =
-          24 - locationHours + userLocationHours + getMinutes() + t('LocationBlock.Behind');
+    const userLocationOffset = moment().tz(userLocation.timezone).utcOffset();
+    const widjetLocationOffset = moment().tz(location.timezone).utcOffset();
+
+    const getMinusPlus = () => {
+      if (userLocationOffset > widjetLocationOffset) {
+        return '-';
       }
-      if (userLocationDay === locationDay && userLocationHours === locationHours) {
-        timeObject.day = t('LocationBlock.Today');
-        timeObject.offset = t('LocationBlock.Local');
+      if (userLocationOffset < widjetLocationOffset) {
+        return '+';
       }
-      if (userLocationDay === locationDay && userLocationHours > locationHours) {
-        timeObject.day = t('LocationBlock.Today');
-        timeObject.offset =
-          userLocationHours - locationHours + getMinutes() + t('LocationBlock.Behind');
+      return '';
+    };
+
+    const getTimeDifference = () => {
+      const difference = Math.abs(widjetLocationOffset - userLocationOffset);
+
+      if (difference === 0) {
+        return t('LocationBlock.Local');
       }
-      if (userLocationDay === locationDay && userLocationHours < locationHours) {
-        timeObject.day = t('LocationBlock.Today');
-        timeObject.offset =
-          locationHours - userLocationHours + getMinutes() + t('LocationBlock.Ahead');
+      if (difference < 60) {
+        return `${difference} ${t('LocationBlock.Minutes')}`;
       }
-      if (userLocationDay < locationDay && userLocationHours > locationHours) {
-        timeObject.day = t('LocationBlock.Tommorow');
-        timeObject.offset =
-          24 - userLocationHours + locationHours + getMinutes() + t('LocationBlock.Ahead');
+      if (difference % 60 !== 0) {
+        const time = String(difference / 60).split('.');
+        const hours = Number(time[0]);
+        const minutes = (60 / 100) * Number(time[1]);
+
+        return `${hours} ${t(hours === 1 ? 'LocationBlock.Hour' : 'LocationBlock.Hours')}
+         ${minutes === 3 ? 30 : minutes} ${t('LocationBlock.Minutes')}`;
       }
-    } else {
-      if (userLocationDay < locationDay && userLocationMonth > locationMonth) {
-        timeObject.day = t('LocationBlock.Yesteday');
-        timeObject.offset =
-          24 - userLocationHours + locationHours + getMinutes() + t('LocationBlock.Ahead');
-      }
-      if (userLocationDay > locationDay && userLocationMonth < locationMonth) {
-        timeObject.day = t('LocationBlock.Tommorow');
-        timeObject.offset =
-          24 - locationHours + userLocationHours + getMinutes() + t('LocationBlock.Behind');
-      }
-    }
+
+      const hours = difference / 60;
+
+      return `${hours} ${t(hours === 1 ? 'LocationBlock.Hour' : 'LocationBlock.Hours')}`;
+    };
+
+    timeObject.offset = `${getDay()} ${getMinusPlus()}${getTimeDifference()}`;
 
     return timeObject;
   }

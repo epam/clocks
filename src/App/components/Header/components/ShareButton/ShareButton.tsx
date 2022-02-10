@@ -1,4 +1,4 @@
-import React, {useMemo, useRef} from 'react';
+import React, { useMemo, useRef } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -11,7 +11,7 @@ import useTheme from '../../../../hooks/useTheme';
 import { IInitialState } from '../../../../redux/types';
 
 import style from './ShareButton.module.scss';
-import Onboarding from "../../../Section/components/Onboarding/Onboarding";
+import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 const ShareButton: React.FC = () => {
   const anchorRef = useRef(null);
@@ -36,22 +36,22 @@ const ShareButton: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton ref={anchorRef} onClick={handleCopy} disabled={deleteMode}>
+        <IconButton ref={anchorRef} onClick={handleCopy} disabled={deleteMode.isOn}>
           <ShareOutlined
-            className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode })}
+            className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
           />
         </IconButton>
       </Tooltip>
       {onboarding?.shareButton && anchorRef.current && (
-          <Onboarding
-              open={onboarding.shareButton}
-              anchorElement={anchorRef.current}
-              nextElement="deleteButton"
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
-              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-              title="Share url button"
-              text="By clicking to this button you can copy your url to clipboard and send via any messenger"
-          />
+        <Onboarding
+          open={onboarding.shareButton}
+          anchorElement={anchorRef.current}
+          nextElement="deleteButton"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          title="Share url button"
+          text="By clicking to this button you can copy your url to clipboard and send via any messenger"
+        />
       )}
     </>
   );

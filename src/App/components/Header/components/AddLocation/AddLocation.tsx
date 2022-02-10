@@ -26,9 +26,10 @@ const AddLocation: React.FC = () => {
 
   const { snackbarError } = useSnackbar();
 
-  const { locations, setLocations } = useLocations();
+  const { locations, setLocations, getLocationOffset } = useLocations();
 
-  const { deleteMode, locationsDB, onboarding } = useSelector((state: IInitialState) => state);
+  const { deleteMode, onboarding } = useSelector((state: IInitialState) => state);
+  const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const [isPanelOpen, setPanel] = useState(false);
 
@@ -43,7 +44,9 @@ const AddLocation: React.FC = () => {
       const filter = locationsDB.filter(
         location =>
           !!location.city.match(new RegExp(text, 'gi')) ||
-          !!location.names.match(new RegExp(text, 'gi'))
+          !!location.names.match(new RegExp(text, 'gi')) ||
+          !!location.city_ascii.match(new RegExp(text, 'gi')) ||
+          !!location.country.match(new RegExp(text, 'gi'))
       );
 
       setLocationsFound(filter);
@@ -83,7 +86,8 @@ const AddLocation: React.FC = () => {
             ...locations,
             [location.city + location.lat]: {
               city: location.city,
-              lat: location.lat
+              lat: location.lat,
+              offset: getLocationOffset(location.timezone)
             }
           };
 
@@ -94,14 +98,15 @@ const AddLocation: React.FC = () => {
         const locationObj: IUrlLocations = {
           [location.city + location.lat]: {
             city: location.city,
-            lat: location.lat
+            lat: location.lat,
+            offset: getLocationOffset(location.timezone)
           }
         };
         setLocations(locationObj);
         handleClosePanel();
       }
     },
-    [locations, setLocations, t, snackbarError]
+    [locations, setLocations, t, snackbarError, getLocationOffset]
   );
 
   const searchResultsRender = useMemo(
@@ -126,8 +131,8 @@ const AddLocation: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton ref={anchorRef} onClick={handleOpenPanel} disabled={deleteMode}>
-          <Add className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode })} />
+        <IconButton ref={anchorRef} onClick={handleOpenPanel} disabled={deleteMode.isOn}>
+          <Add className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })} />
         </IconButton>
       </Tooltip>
 
@@ -146,6 +151,7 @@ const AddLocation: React.FC = () => {
               placeholder={t('AddLocation.InputPlaceholder')}
               onChange={e => setSearchText(e.target.value)}
               value={searchText}
+              autoFocus={true}
             />
           </div>
           <div className={style.searchResultsContainer}>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, ChangeEvent, useCallback, useRef } from "react";
+import React, { useState, useEffect, useMemo, ChangeEvent, useCallback, useRef } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
@@ -18,12 +18,12 @@ import { SettingsOutlined } from '@mui/icons-material';
 import useTheme from '../../../../hooks/useTheme';
 import useAutoTheme from '../../../../hooks/useAutoTheme';
 import { IInitialState, IActionSettingsPayload } from '../../../../redux/types';
-import { THEME } from '../../../../redux/constants';
+import { THEME, TIME_FORMAT } from '../../../../redux/constants';
 import { setSettings } from '../../../../redux/actions';
 
 import style from './SettingsModal.module.scss';
 import { SETTING_VALUE } from './SettingsModal.constants';
-import Onboarding from "../../../Section/components/Onboarding/Onboarding";
+import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 const SettingsModal: React.FC = () => {
   const anchorRef = useRef(null);
@@ -36,9 +36,10 @@ const SettingsModal: React.FC = () => {
 
   const [isModalOpen, setModal] = useState(false);
 
-  const { autoTheme, theme, showDate, showCountry, deleteMode, counter, onboarding } = useSelector(
-    (state: IInitialState) => state
+  const { autoTheme, theme, showDate, showCountry, timeFormat } = useSelector(
+    (state: IInitialState) => state.settings
   );
+  const { deleteMode, counter, onboarding } = useSelector((state: IInitialState) => state);
 
   const dispatch = useDispatch();
 
@@ -46,7 +47,8 @@ const SettingsModal: React.FC = () => {
     autoTheme: undefined,
     theme: THEME.light,
     showDate: true,
-    showCountry: true
+    showCountry: true,
+    timeFormat: TIME_FORMAT.H24
   });
 
   useEffect(() => {
@@ -54,9 +56,10 @@ const SettingsModal: React.FC = () => {
       autoTheme,
       theme,
       showDate,
-      showCountry
+      showCountry,
+      timeFormat
     });
-  }, [autoTheme, theme, showDate, showCountry, isModalOpen]);
+  }, [autoTheme, theme, showDate, showCountry, isModalOpen, timeFormat]);
 
   useEffect(() => {
     const localStorageSettings = localStorage.getItem('settings');
@@ -73,7 +76,7 @@ const SettingsModal: React.FC = () => {
     if (autoTheme) {
       setAutoTheme();
     }
-    // don't need as a dependancy setAutoTheme
+    // don't need as a dependency setAutoTheme
     // eslint-disable-next-line
   }, [autoTheme, counter]);
 
@@ -94,6 +97,12 @@ const SettingsModal: React.FC = () => {
           break;
         case SETTING_VALUE.auto:
           setLocalSettings({ ...localSettings, autoTheme: !localSettings.autoTheme });
+          break;
+        case SETTING_VALUE.H24:
+          setLocalSettings({ ...localSettings, timeFormat: value });
+          break;
+        case SETTING_VALUE.H12:
+          setLocalSettings({ ...localSettings, timeFormat: value });
           break;
         default:
           setLocalSettings({ ...localSettings, theme: value });
@@ -118,9 +127,9 @@ const SettingsModal: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton ref={anchorRef} onClick={handleOpenModal} disabled={deleteMode}>
+        <IconButton ref={anchorRef} onClick={handleOpenModal} disabled={deleteMode.isOn}>
           <SettingsOutlined
-            className={clsx({ [buttonTheme]: true, [style.disabledIcon]: deleteMode })}
+            className={clsx({ [buttonTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
           />
         </IconButton>
       </Tooltip>
@@ -144,6 +153,16 @@ const SettingsModal: React.FC = () => {
             />
             <span>{t('Settings.ShowCountry')}</span>
           </div>
+          <RadioGroup value={localSettings.timeFormat} onChange={handleSetSettings}>
+            <div>
+              <Radio value={TIME_FORMAT.H24} />
+              <span>{t('Settings.24HourFormat')}</span>
+            </div>
+            <div>
+              <Radio value={TIME_FORMAT.H12} />
+              <span>{t('Settings.12HourFormat')}</span>
+            </div>
+          </RadioGroup>
           <Divider
             className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
           />
@@ -188,14 +207,14 @@ const SettingsModal: React.FC = () => {
         </div>
       </Dialog>
       {onboarding?.settingsModal && anchorRef.current && (
-          <Onboarding
-              open={onboarding.settingsModal}
-              anchorElement={anchorRef.current}
-              anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
-              transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-              title="Settings modal button"
-              text="By clicking to this button you can open settings modal and set your settings"
-          />
+        <Onboarding
+          open={onboarding.settingsModal}
+          anchorElement={anchorRef.current}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+          title="Settings button"
+          text="By clicking to this button you can set your own setting"
+        />
       )}
     </>
   );

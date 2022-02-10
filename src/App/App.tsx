@@ -12,7 +12,7 @@ import useAutoTheme from './hooks/useAutoTheme';
 import { IInitialState } from './redux/types';
 
 import style from './App.module.scss';
-import useOnboarding from "./hooks/useOnboarding";
+import useOnboarding from './hooks/useOnboarding';
 
 const App: React.FC = () => {
   const theme = useTheme(style.lightBody, style.darkBody);
@@ -23,9 +23,8 @@ const App: React.FC = () => {
 
   const { initialize } = useOnboarding();
 
-  const { autoTheme, counter, snackbarStatus, snackbarText, snackbarColor } = useSelector(
-    (state: IInitialState) => state
-  );
+  const { autoTheme } = useSelector((state: IInitialState) => state.settings);
+  const { counter, snackbar } = useSelector((state: IInitialState) => state);
 
   useEffect(() => {
     if (autoTheme && counter % 60 === 0) {
@@ -38,7 +37,7 @@ const App: React.FC = () => {
   useEffect(() => {
     initialize();
     // eslint-disable-next-line
-  }, [])
+  }, []);
 
   return (
     <>
@@ -49,16 +48,16 @@ const App: React.FC = () => {
         </div>
         <Footer />
       </div>
-      {snackbarStatus && (
+      {snackbar.status && (
         <Snackbar
-          open={snackbarStatus}
+          open={snackbar.status}
           onClose={closeSnackbar}
           autoHideDuration={3000}
           TransitionComponent={props => <Slide {...props} direction="up" />}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
         >
-          <Alert onClose={closeSnackbar} severity={snackbarColor || 'info'}>
-            {snackbarText}
+          <Alert onClose={closeSnackbar} severity={snackbar.color || 'info'}>
+            {snackbar.text}
           </Alert>
         </Snackbar>
       )}

@@ -1,16 +1,25 @@
 import { AlertColor } from '@mui/material';
 
 export interface IInitialState {
-  deleteMode: boolean;
-  theme: string;
-  autoTheme?: boolean;
-  showDate: boolean;
-  showCountry: boolean;
-  locationsDB: ILocation[],
-  userLocation?: ILocation;
-  snackbarStatus: boolean;
-  snackbarText?: string;
-  snackbarColor?: AlertColor;
+  locations: {
+    locationsDB: ILocation[];
+    userLocation?: ILocation;
+  };
+  deleteMode: {
+    isOn: boolean;
+  };
+  settings: {
+    theme: string;
+    autoTheme?: boolean;
+    showDate: boolean;
+    showCountry: boolean;
+    timeFormat: string;
+  };
+  snackbar: {
+    status: boolean;
+    text?: string;
+    color?: AlertColor;
+  };
   counter: number;
   onboarding?: IOnboarding;
 }
@@ -25,6 +34,7 @@ export interface IActionSettingsPayload {
   autoTheme?: boolean;
   showDate: boolean;
   showCountry: boolean;
+  timeFormat: string;
 }
 
 export interface IActionSnackbarPayload {
@@ -55,6 +65,7 @@ export interface IUrlLocation {
   lat: number;
   comment?: string;
   userLocation?: boolean;
+  offset: number;
 }
 
 export interface IOnboarding {
