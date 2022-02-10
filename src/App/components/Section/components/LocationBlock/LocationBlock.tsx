@@ -22,7 +22,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
 
   const { t } = useTranslation();
 
-  const { showDate, showCountry, timeFormat } = useSelector(
+  const { showDate, showCountry, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
   const { deleteMode, counter } = useSelector((state: IInitialState) => state);
@@ -43,7 +43,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     minutes: '',
     day: undefined,
     offset: undefined,
-    suffix: ''
+    suffix: '',
+    timezone: ''
   });
 
   const isUserLocation = useMemo(() => {
@@ -151,7 +152,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
               {time.hours}:{time.minutes} {time.suffix}
             </div>
             <div className={style.bottomInfo}>
-              {showDate && time.offset && `${time.day} ${time.offset}`}
+              <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
+              <div>{showTimezone && time.timezone}</div>
             </div>
           </div>
         </div>

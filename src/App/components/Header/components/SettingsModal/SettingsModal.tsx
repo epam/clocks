@@ -34,7 +34,7 @@ const SettingsModal: React.FC = () => {
 
   const [isModalOpen, setModal] = useState(false);
 
-  const { autoTheme, theme, showDate, showCountry, timeFormat } = useSelector(
+  const { autoTheme, theme, showDate, showCountry, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
   const { deleteMode, counter } = useSelector((state: IInitialState) => state);
@@ -46,6 +46,7 @@ const SettingsModal: React.FC = () => {
     theme: THEME.light,
     showDate: true,
     showCountry: true,
+    showTimezone: false,
     timeFormat: TIME_FORMAT.H24
   });
 
@@ -55,9 +56,10 @@ const SettingsModal: React.FC = () => {
       theme,
       showDate,
       showCountry,
+      showTimezone,
       timeFormat
     });
-  }, [autoTheme, theme, showDate, showCountry, isModalOpen, timeFormat]);
+  }, [autoTheme, theme, showDate, showCountry, showTimezone, isModalOpen, timeFormat]);
 
   useEffect(() => {
     const localStorageSettings = localStorage.getItem('settings');
@@ -92,6 +94,9 @@ const SettingsModal: React.FC = () => {
           break;
         case SETTING_VALUE.country:
           setLocalSettings({ ...localSettings, showCountry: !localSettings.showCountry });
+          break;
+        case SETTING_VALUE.timezone:
+          setLocalSettings({ ...localSettings, showTimezone: !localSettings.showTimezone });
           break;
         case SETTING_VALUE.auto:
           setLocalSettings({ ...localSettings, autoTheme: !localSettings.autoTheme });
@@ -151,6 +156,17 @@ const SettingsModal: React.FC = () => {
             />
             <span>{t('Settings.ShowCountry')}</span>
           </div>
+          <div>
+            <Checkbox
+              checked={localSettings.showTimezone}
+              onChange={handleSetSettings}
+              value={SETTING_VALUE.timezone}
+            />
+            <span>{t('Settings.ShowTimezone')}</span>
+          </div>
+          <Divider
+            className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
+          />
           <RadioGroup value={localSettings.timeFormat} onChange={handleSetSettings}>
             <div>
               <Radio value={TIME_FORMAT.H24} />

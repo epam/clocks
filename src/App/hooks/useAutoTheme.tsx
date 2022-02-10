@@ -11,7 +11,7 @@ const useAutoTheme = () => {
 
   const { t } = useTranslation();
 
-  const { showDate, showCountry, theme, autoTheme, timeFormat } = useSelector(
+  const { showDate, showCountry, showTimezone, theme, autoTheme, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
 
@@ -27,17 +27,33 @@ const useAutoTheme = () => {
         dispatch(setTheme(THEME.dark));
         localStorage.setItem(
           'settings',
-          JSON.stringify({ showDate, showCountry, autoTheme, theme: THEME.dark, timeFormat })
+          JSON.stringify({
+            showDate,
+            showCountry,
+            showTimezone,
+            autoTheme,
+            theme: THEME.dark,
+            timeFormat
+          })
         );
       } else {
         dispatch(setTheme(THEME.light));
         localStorage.setItem(
           'settings',
-          JSON.stringify({ showDate, showCountry, autoTheme, theme: THEME.light, timeFormat })
+          JSON.stringify({
+            showDate,
+            showCountry,
+            showTimezone,
+            autoTheme,
+            theme: THEME.light,
+            timeFormat
+          })
         );
       }
     } else {
-      dispatch(setSettings({ showDate, showCountry, theme, timeFormat, autoTheme: false }));
+      dispatch(
+        setSettings({ showDate, showCountry, showTimezone, theme, timeFormat, autoTheme: false })
+      );
       snackbarError(t('UseAutoTheme.SnackbarMessage'));
     }
   };
