@@ -11,9 +11,9 @@ const useTimeInfo = (location?: ILocation) => {
 
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
   const { timeFormat } = useSelector((state: IInitialState) => state.settings);
-  const { isOn, additionalHours } = useSelector((state: IInitialState) => state.planningMode);
+  const { planningMode } = useSelector((state: IInitialState) => state);
 
-  const date = new Date();
+  let date = new Date();
 
   const timeObject = {
     hours: '',
@@ -24,6 +24,10 @@ const useTimeInfo = (location?: ILocation) => {
   };
   const isHour12Format = timeFormat === TIME_FORMAT.H12;
 
+  if (planningMode.isOn) {
+    date = new Date(date.getTime() + planningMode.additionalHours * 3.6 * 1000000);
+  }
+
   const visiableTime = date
     .toLocaleTimeString('ru-RU', {
       timeZone: location?.timezone,
@@ -31,82 +35,9 @@ const useTimeInfo = (location?: ILocation) => {
     })
     .split(':');
 
-  // Adding additional hours
-  const tempDate = {
-    hours: parseInt(visiableTime[0]),
-    minutes: parseInt(visiableTime[1]),
-    suffix: visiableTime[2].substring(3)
-  };
-
-  // Planning mode ON
-  if (isOn) {
-    const integerAdditionalHours =
-      additionalHours < 0 ? Math.ceil(additionalHours) : Math.floor(additionalHours);
-    const additionalMinutes = 60 * (additionalHours - integerAdditionalHours);
-    const tempMinutes = tempDate.minutes + additionalMinutes;
-    const hoursBefore = tempDate.hours + integerAdditionalHours;
-
-    // Setting the right minutes
-    if (tempMinutes > 60) {
-      tempDate.hours += 1;
-      tempDate.minutes = tempMinutes - 60;
-    } else if (tempMinutes === 60) {
-      tempDate.hours += 1;
-      tempDate.minutes = 0;
-    } else if (tempMinutes < 0) {
-      if (tempDate.hours === 0) {
-        tempDate.hours = 23;
-      } else {
-        tempDate.hours -= 1;
-      }
-      tempDate.minutes = 60 + tempMinutes;
-    } else {
-      tempDate.minutes = tempMinutes;
-    }
-
-    // Settings the right hours
-    if (isHour12Format) {
-      if (tempDate.hours + integerAdditionalHours > 12) {
-        tempDate.hours = tempDate.hours + integerAdditionalHours - 12;
-      } else if (tempDate.hours + integerAdditionalHours === 12) {
-        tempDate.hours = 12;
-      } else if (tempDate.hours + integerAdditionalHours < 0) {
-        tempDate.hours = 12 + tempDate.hours + integerAdditionalHours;
-      } else if (tempDate.hours + integerAdditionalHours === 0) {
-        tempDate.hours = 12;
-      } else {
-        tempDate.hours = tempDate.hours + integerAdditionalHours;
-      }
-
-      // Setting right AM/PM
-      if (hoursBefore !== tempDate.hours) {
-        if ((hoursBefore === 12 || hoursBefore === 0) && tempDate.hours === 11) {
-          tempDate.suffix = tempDate.suffix === 'AM' ? 'PM' : 'AM';
-        } else if (hoursBefore === 11 && (tempDate.hours === 12 || tempDate.hours === 0)) {
-          tempDate.suffix = tempDate.suffix === 'AM' ? 'PM' : 'AM';
-        }
-      }
-    } else {
-      if (tempDate.hours + integerAdditionalHours > 24) {
-        tempDate.hours = tempDate.hours + integerAdditionalHours - 24;
-      } else if (tempDate.hours + integerAdditionalHours === 24) {
-        tempDate.hours = 0;
-      } else if (tempDate.hours + integerAdditionalHours < 0) {
-        tempDate.hours = 24 + tempDate.hours + integerAdditionalHours;
-      } else {
-        tempDate.hours = tempDate.hours + integerAdditionalHours;
-      }
-    }
-
-    timeObject.hours =
-      tempDate.hours < 10 && !isHour12Format ? `0${tempDate.hours}` : `${tempDate.hours}`;
-    timeObject.minutes = tempDate.minutes < 10 ? `0${tempDate.minutes}` : `${tempDate.minutes}`;
-    timeObject.suffix = tempDate.suffix;
-  } else {
-    timeObject.hours = visiableTime[0];
-    timeObject.minutes = visiableTime[1];
-    timeObject.suffix = visiableTime[2].substring(3);
-  }
+  timeObject.hours = visiableTime[0];
+  timeObject.minutes = visiableTime[1];
+  timeObject.suffix = visiableTime[2].substring(3);
 
   if (userLocation && location) {
     const userLocationDate = date
