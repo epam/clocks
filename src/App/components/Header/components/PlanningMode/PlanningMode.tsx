@@ -25,7 +25,7 @@ const DeleteMode: React.FC = () => {
     dispatch(
       setPlanningMode({
         status: !planningMode.isOn,
-        additionalHours: planningMode.isOn ? planningMode.additionalHours : 0
+        additionalHours: planningMode.additionalHours
       })
     );
   };
