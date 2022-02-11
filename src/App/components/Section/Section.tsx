@@ -13,6 +13,7 @@ const Section: React.FC = () => {
   const [selectedLocation, setSelectedLocation] = useState<ILocation | null>(null);
   const { counter } = useSelector((state: IInitialState) => state);
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
+  const { autoSorting } = useSelector((state: IInitialState) => state.settings);
 
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
 
@@ -69,27 +70,29 @@ const Section: React.FC = () => {
         return 0;
       };
 
-      return Object.values(locations)
-        .sort(sortFoo)
-        .map((urlLocation: IUrlLocation, index: number) => {
-          const find = findLocation(urlLocation);
+      const locationsArray = autoSorting
+        ? Object.values(locations).sort(sortFoo)
+        : Object.values(locations);
 
-          return (
-            <LocationBlock
-              key={index + 'LOCATION'}
-              location={find}
-              urlUserLocation={urlLocation.userLocation}
-              selectedLocation={selectedLocation}
-              setSelectedLocation={setSelectedLocation}
-            />
-          );
-        });
+      return locationsArray.map((urlLocation: IUrlLocation, index: number) => {
+        const find = findLocation(urlLocation);
+
+        return (
+          <LocationBlock
+            key={index + 'LOCATION'}
+            location={find}
+            urlUserLocation={urlLocation.userLocation}
+            selectedLocation={selectedLocation}
+            setSelectedLocation={setSelectedLocation}
+          />
+        );
+      });
     }
 
     return <EmptyState />;
     // don't need as a dependency findLocation
     // eslint-disable-next-line
-  }, [locations, selectedLocation]);
+  }, [locations, selectedLocation, autoSorting]);
 
   return <div className={locations ? style.body : style.emptyBody}>{locationsRender}</div>;
 };

@@ -38,7 +38,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
 
   const dispatch = useDispatch();
 
-  const { locations, setLocations } = useLocations();
+  const { locations, setLocations, getLocationOffset } = useLocations();
 
   const [commentModal, setCommentModal] = useState(false);
 
@@ -117,10 +117,44 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
 
   const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
     containerDivRef.current?.classList.remove(style.hide);
+
+    const newLocations: { [key: string]: IUrlLocation } = {};
+
+    if (selectedLocation || selectedLocation) {
+      const locationObj: IUrlLocation = {
+        city: selectedLocation.city,
+        lat: selectedLocation.lat,
+        offset: getLocationOffset(selectedLocation.timezone)
+      };
+      const selectedLocationKey: string = selectedLocation.city + selectedLocation.lat;
+      Object.entries(locations).forEach(([key, location]) => {
+        if (key !== selectedLocationKey) {
+          newLocations[`${key}`] = location;
+        }
+      });
+      newLocations[selectedLocationKey] = locationObj;
+    }
+    setLocations(newLocations);
+  };
+
+  const dropHandler = (e: DragEvent<HTMLDivElement>) => {
+    const x = e.clientX;
+    const y = e.clientY;
+    const documentWidth = document.body.clientWidth;
+    const widgetBlockWidth = documentWidth - 15 * 2;
+    const clockItemWidth = widgetBlockWidth / 4;
+    const clockWidgetWidth = clockItemWidth - 15 * 2;
+    console.log(e);
   };
 
   return (
-    <div draggable={dragDropMode.isOn} onDragStart={dragStartHandler} onDragEnd={dragEndHandler}>
+    <div
+      draggable={dragDropMode.isOn}
+      onDrop={dropHandler}
+      onDragOver={e => e.preventDefault()}
+      onDragStart={dragStartHandler}
+      onDragEnd={dragEndHandler}
+    >
       <div
         ref={containerDivRef}
         className={clsx({
