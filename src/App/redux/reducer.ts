@@ -19,7 +19,8 @@ const initialState: IInitialState = {
     showDate: true,
     showCountry: true,
     timeFormat: TIME_FORMAT.H24,
-    autoSorting: true
+    autoSorting: true,
+    showTimezone: false,
   },
   snackbar: {
     status: false,

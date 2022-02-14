@@ -14,4 +14,5 @@ export interface ITimeState {
   suffix: string;
   day?: string;
   offset?: string;
+  timezone?: string;
 }

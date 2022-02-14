@@ -5,5 +5,6 @@ export const SETTING_VALUE = {
   country: 'country',
   auto: 'auto',
   autoSorting: 'autoSorting',
+  timezone: 'timezone',
   ...TIME_FORMAT
 };

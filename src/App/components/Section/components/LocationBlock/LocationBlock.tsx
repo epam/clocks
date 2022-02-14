@@ -29,7 +29,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   const containerDivRef = useRef<HTMLDivElement>(null);
   const rightBlockRef = useRef<HTMLDivElement>(null);
 
-  const { showDate, showCountry, timeFormat } = useSelector(
+  const { showDate, showCountry, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
   const { deleteMode, counter, dragDropMode } = useSelector((state: IInitialState) => state);
@@ -50,7 +50,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     minutes: '',
     day: undefined,
     offset: undefined,
-    suffix: ''
+    suffix: '',
+    timezone: ''
   });
 
   const isUserLocation = useMemo(() => {
@@ -199,57 +200,61 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
               </div>
             </div>
           </div>
-          {location && locations[location.city + location.lat].comment && (
-            <div className={style.commentBlock}>
-              {locations[location.city + location.lat].comment}
+          <div className={style.rightSide}>
+            <div className={style.topInfo}>
+              {time.hours}:{time.minutes} {time.suffix}
             </div>
+            <div className={style.bottomInfo}>
+              <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
+              <div>{showTimezone && time.timezone}</div>
+            </div>
+          </div>
+
+          {commentModal && (
+            <Dialog open={commentModal} onClose={handleCloseCommentModal}>
+              <div className={commentModalTheme}>
+                <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
+                <div>
+                  <input
+                    className={style.input}
+                    maxLength={50}
+                    placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
+                    value={inputText}
+                    onChange={e => setInputText(e.target.value)}
+                    autoFocus={true}
+                  />
+                </div>
+                <div className={style.buttonContainer}>
+                  <Button className={style.button} onClick={handleCloseCommentModal}>
+                    {t('Settings.CancelButton')}
+                  </Button>
+                  <Button className={style.button} onClick={handleSaveComment}>
+                    {t('Settings.SaveButton')}
+                  </Button>
+                </div>
+              </div>
+            </Dialog>
           )}
         </div>
-
-        {commentModal && (
-          <Dialog open={commentModal} onClose={handleCloseCommentModal}>
-            <div className={commentModalTheme}>
-              <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
-              <div>
-                <input
-                  className={style.input}
-                  maxLength={50}
-                  placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
-                  value={inputText}
-                  onChange={e => setInputText(e.target.value)}
-                  autoFocus={true}
-                />
-              </div>
-              <div className={style.buttonContainer}>
-                <Button className={style.button} onClick={handleCloseCommentModal}>
-                  {t('Settings.CancelButton')}
-                </Button>
-                <Button className={style.button} onClick={handleSaveComment}>
-                  {t('Settings.SaveButton')}
-                </Button>
-              </div>
-            </div>
-          </Dialog>
-        )}
+        <div
+          ref={rightBlockRef}
+          className={clsx({
+            [style.rightBlock]: true,
+            [style.positioned]: true
+          })}
+          draggable={dragDropMode.isOn}
+          onDragEnter={blockDragEnterHandler}
+          onDragLeave={blockDragLeaveHandler}
+          onDragOver={e => e.preventDefault()}
+          onDrop={dropHandler}
+        />
+        <div
+          className={clsx({
+            [style.bottomBlock]: true,
+            [style.positioned]: true
+          })}
+        />
       </div>
-      <div
-        ref={rightBlockRef}
-        className={clsx({
-          [style.rightBlock]: true,
-          [style.positioned]: true
-        })}
-        draggable={dragDropMode.isOn}
-        onDragEnter={blockDragEnterHandler}
-        onDragLeave={blockDragLeaveHandler}
-        onDragOver={e => e.preventDefault()}
-        onDrop={dropHandler}
-      />
-      <div
-        className={clsx({
-          [style.bottomBlock]: true,
-          [style.positioned]: true
-        })}
-      />
     </div>
   );
 };
