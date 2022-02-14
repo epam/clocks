@@ -13,7 +13,7 @@
   height: 70px;
   width: 100%;
   position: fixed;
-  bottom: $space-xl;
+  bottom: calc($space-xl + 70px);
   display: flex;
   justify-content: center;
   align-items: center;

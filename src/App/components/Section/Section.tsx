@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import useLocations from '../../hooks/useLocations';
 import { IInitialState, IUrlLocations, IUrlLocation } from '../../redux/types';
 import { setUserLocation, setCounter } from '../../redux/actions';
+import clsx from 'clsx';
 
 import style from './Section.module.scss';
 import LocationBlock from './components/LocationBlock/LocationBlock';
@@ -11,7 +12,7 @@ import EmptyState from './components/EmptyState/EmptyState';
 import PlanningModeSlider from './components/PlanningModeSlider/PlanningModeSlider';
 
 const Section: React.FC = () => {
-  const { counter } = useSelector((state: IInitialState) => state);
+  const { counter, planningMode } = useSelector((state: IInitialState) => state);
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
@@ -90,7 +91,13 @@ const Section: React.FC = () => {
   }, [locations]);
 
   return (
-    <div className={locations ? style.body : style.emptyBody}>
+    <div
+      className={clsx(
+        { [style.body]: locations },
+        { [style.emptyBody]: !locations },
+        { [style.marginBottom]: planningMode.isOn }
+      )}
+    >
       {locationsRender}
       <PlanningModeSlider />
     </div>
