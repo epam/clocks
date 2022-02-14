@@ -53,17 +53,18 @@ const PlanningModeSlider: React.FC = () => {
   return (
     <div
       className={clsx(
-        { [style[`slider-box-${sliderType}`]]: true },
-        { [style[`slider-box-${sliderType}`]]: true },
+        { [style.sliderBoxHorizontal]: sliderType === 'horizontal' },
+        { [style.sliderBoxVertical]: sliderType === 'vertical' },
         { [style.sliderBoxInvisible]: !planningMode.isOn }
       )}
     >
       <div
         className={clsx(
           style.slider,
-          { [style[`slider-${settings.theme}`]]: true },
-          { [style[`slider-${sliderType}`]]: true },
-          { [style[`slider-${sliderType}`]]: true }
+          { [style.lightBody]: settings.theme === 'light' },
+          { [style.darkBody]: settings.theme === 'dark' },
+          { [style.sliderHorizontal]: sliderType === 'horizontal' },
+          { [style.sliderVertical]: sliderType === 'vertical' }
         )}
       >
         <Slider
@@ -81,12 +82,7 @@ const PlanningModeSlider: React.FC = () => {
             root: style.sliderRoot,
             rail: style.sliderRail,
             track: style.sliderTrack,
-            thumb: style.sliderThumb,
-            mark: clsx({ [style[`slider-mark-${settings.theme}`]]: true }, style.sliderMark),
-            markLabel: clsx(
-              { [style[`slider-mark-${settings.theme}`]]: true },
-              style.sliderMarkLabel
-            )
+            thumb: style.sliderThumb
           }}
         />
       </div>

@@ -1,94 +1,72 @@
 @import '../../../../../styles/index.scss';
 
-.slider-box-vertical {
-  height: 80vh;
-  width: 40px;
-  position: fixed;
-  top: calc($space-s + 64px);
-  bottom: calc($space-s + 64px);
-  right: $space-xxs;
-  display: flex;
-  z-index: 1;
+%body {
+  span.sliderRoot {
+    padding: 0;
+  }
+
+  span.sliderTrack,
+  span.sliderThumb,
+  span.sliderRail {
+    color: $blueColor;
+  }
+
+  span.sliderRail {
+    opacity: 1;
+  }
 }
 
-.slider-box-horizontal {
-  height: 70px;
-  width: 100%;
-  position: fixed;
-  left: 0;
-  bottom: calc($space-l + 70px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1;
+.lightBody {
+  @extend %body;
+  box-shadow: 3px 2px 15px 0px $lightGrayColor;
+  background-color: $whiteColor;
 }
 
-.sliderBoxInvisible {
-  display: none;
+.darkBody {
+  @extend %body;
+  background-color: $darkGrayColor;
+}
+
+%slider {
+  position: fixed;
+  display: flex;
+  z-index: 1;
 }
 
 .slider {
   width: 90%;
-  background-color: $whiteColor;
   border-radius: $space-xxs;
   display: flex;
   justify-content: center;
 }
 
-.slider-light {
-  box-shadow: 3px 2px 15px 0px $lightGrayColor;
-}
+.sliderBoxVertical {
+  @extend %slider;
+  height: 80vh;
+  width: 40px;
+  top: calc($space-s + 64px);
+  bottom: calc($space-s + 64px);
+  right: $space-xxs;
 
-.slider-dark {
-  background-color: $darkGrayColor;
-}
-
-.slider-horizontal {
-  padding: $space-m $space-xl;
-
-  & span.sliderMark {
-    background-color: $blueColor;
-  }
-
-  & span.sliderMarkLabel {
-    color: $darkColor;
-    top: 12px;
+  .sliderVertical {
+    padding: $space-s;
   }
 }
 
-.slider-vertical {
-  padding: $space-s;
+.sliderBoxHorizontal {
+  @extend %slider;
+  height: 70px;
+  width: 100%;
+  left: 0;
+  bottom: calc($space-l + 70px);
+  justify-content: center;
+  align-items: center;
 
-  & span.sliderMark {
-    background-color: $blueColor;
+  .sliderHorizontal {
+    padding: $space-m $space-xl;
   }
 }
 
-span.sliderRoot {
-  padding: 0;
-}
-
-span.sliderRail {
-  color: $blueColor;
-  opacity: 1;
-}
-
-span.sliderTrack {
-  color: $blueColor;
-}
-
-span.sliderThumb {
-  color: $blueColor;
-}
-
-span.sliderMark {
-  color: $whiteColor;
-}
-
-span.sliderMarkLabelDark {
-  color: $whiteColor;
-}
-
-span.slider-mark-dark {
-  color: $whiteColor;
+.sliderBoxInvisible {
+  display: none;
 }
