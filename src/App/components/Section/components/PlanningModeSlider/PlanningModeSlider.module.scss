@@ -41,24 +41,23 @@
 }
 
 .slider-horizontal {
-  padding: $space-m;
+  padding: $space-m $space-xl;
 
   & span.sliderMark {
-    width: 4px;
-    height: $space-xxs;
+    background-color: $blueColor;
   }
 
   & span.sliderMarkLabel {
-    top: $space-s;
+    color: $darkColor;
+    top: 12px;
   }
 }
 
 .slider-vertical {
-  padding: $space-xxs;
+  padding: $space-s;
 
   & span.sliderMark {
-    width: $space-xxs;
-    height: 4px;
+    background-color: $blueColor;
   }
 }
 
