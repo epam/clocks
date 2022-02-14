@@ -220,23 +220,12 @@
 
 @keyframes planningMode {
   0% {
-    transform: rotate(-1deg);
     opacity: 1;
   }
-  25% {
-    transform: rotate(1deg);
-    opacity: 0.8;
-  }
   50% {
-    transform: rotate(-1deg);
-    opacity: 0.6;
-  }
-  75% {
-    transform: rotate(1deg);
-    opacity: 0.8;
+    opacity: 0.2;
   }
   100% {
-    transform: rotate(-1deg);
     opacity: 1;
   }
 }
