@@ -113,7 +113,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
         className={clsx({
           [bodyTheme]: true,
           [style.shaking]: deleteMode.isOn,
-          [style.currentBody]: urlUserLocation || isUserLocation
+          [style.currentBody]: urlUserLocation || isUserLocation,
+          [style.marginRight]: planningMode.isOn
         })}
       >
         {deleteMode.isOn && (
@@ -166,7 +167,11 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
             </div>
           </div>
           <div className={style.rightSide}>
-            <div className={clsx(style.topInfo, { [style.planningMode]: planningMode.isOn })}>
+            <div
+              className={clsx(style.topInfo, {
+                [style.planningMode]: planningMode.isOn
+              })}
+            >
               {time.hours}:{time.minutes} {time.suffix}
             </div>
             <div className={style.bottomInfo}>

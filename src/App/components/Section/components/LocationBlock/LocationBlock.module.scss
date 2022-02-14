@@ -11,13 +11,6 @@
   display: flex;
   flex-direction: column;
 
-  @include screenMax600 {
-    width: 82vw;
-  }
-  @include screenMax500 {
-    width: 78vw;
-  }
-
   .deleteButton {
     position: absolute;
     right: -10px;
@@ -245,5 +238,11 @@
   100% {
     transform: rotate(-1deg);
     opacity: 1;
+  }
+}
+
+.marginRight {
+  @include screenMax600 {
+    margin-right: calc($space-s + 40px);
   }
 }
