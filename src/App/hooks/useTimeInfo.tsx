@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import moment from 'moment-timezone';
 
 import { TIME_FORMAT } from '../redux/constants';
-
+import { ITimeState } from '../components/Section/components/LocationBlock/LocationBlock.types';
 import { ILocation, IInitialState } from '../redux/types';
 
 const useTimeInfo = (location?: ILocation) => {
@@ -15,12 +15,13 @@ const useTimeInfo = (location?: ILocation) => {
 
   let date = new Date();
 
-  const timeObject = {
+  const timeObject: ITimeState = {
     hours: '',
     minutes: '',
     day: '',
     offset: '',
-    suffix: ''
+    suffix: '',
+    timezone: location?.timezone
   };
   const isHour12Format = timeFormat === TIME_FORMAT.H12;
 
@@ -92,7 +93,7 @@ const useTimeInfo = (location?: ILocation) => {
 
     const getMinusPlus = () => {
       if (userLocationOffset > widjetLocationOffset) {
-        return '-';
+        return '–';
       }
       if (userLocationOffset < widjetLocationOffset) {
         return '+';
@@ -114,13 +115,12 @@ const useTimeInfo = (location?: ILocation) => {
         const hours = Number(time[0]);
         const minutes = (60 / 100) * Number(time[1]);
 
-        return `${hours} ${t(hours === 1 ? 'LocationBlock.Hour' : 'LocationBlock.Hours')}
-         ${minutes === 3 ? 30 : minutes} ${t('LocationBlock.Minutes')}`;
+        return `${hours} ${t('LocationBlock.Hours')} ${minutes === 3 ? 30 : minutes} ${t(
+          'LocationBlock.Minutes'
+        )}`;
       }
 
-      const hours = difference / 60;
-
-      return `${hours} ${t(hours === 1 ? 'LocationBlock.Hour' : 'LocationBlock.Hours')}`;
+      return `${difference / 60} ${t('LocationBlock.Hours')}`;
     };
 
     timeObject.offset = `${getDay()} ${getMinusPlus()}${getTimeDifference()}`;
