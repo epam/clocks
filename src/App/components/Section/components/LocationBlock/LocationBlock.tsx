@@ -25,9 +25,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   const { showDate, showCountry, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
-  const { deleteMode, counter, planningMode, settings } = useSelector(
-    (state: IInitialState) => state
-  );
+  const { deleteMode, counter, planningMode } = useSelector((state: IInitialState) => state);
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
   const timeInfo = useTimeInfo(location);

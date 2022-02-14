@@ -9,7 +9,6 @@ import clsx from 'clsx';
 import style from './Section.module.scss';
 import LocationBlock from './components/LocationBlock/LocationBlock';
 import EmptyState from './components/EmptyState/EmptyState';
-import PlanningModeSlider from './components/PlanningModeSlider/PlanningModeSlider';
 
 const Section: React.FC = () => {
   const { counter, planningMode } = useSelector((state: IInitialState) => state);
@@ -99,7 +98,6 @@ const Section: React.FC = () => {
       )}
     >
       {locationsRender}
-      <PlanningModeSlider />
     </div>
   );
 };

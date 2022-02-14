@@ -18,5 +18,7 @@
 }
 
 .marginBottom {
-  margin-bottom: calc($space-xl * 2);
+  @include screenMin600 {
+    margin-bottom: calc($space-xl * 2);
+  }
 }

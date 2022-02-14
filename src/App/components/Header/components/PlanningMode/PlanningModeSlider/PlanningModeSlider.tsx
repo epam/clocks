@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Slider, Box } from '@mui/material';
+import { Slider } from '@mui/material';
 import clsx from 'clsx';
 
-import { IInitialState } from '../../../../redux/types';
-import { setPlanningMode } from '../../../../redux/actions';
-import { CLOCK_MARKS } from '../../../../redux/constants';
+import { IInitialState } from '../../../../../redux/types';
+import { setPlanningMode } from '../../../../../redux/actions';
+import { CLOCK_MARKS } from '../../../../../redux/constants';
 
 import style from './PlanningModeSlider.module.scss';
 
@@ -52,7 +52,7 @@ const PlanningModeSlider: React.FC = () => {
     }
   };
   return (
-    <Box
+    <div
       className={clsx(
         { [style[`slider-box-${sliderType}`]]: true },
         { [style[`slider-box-${sliderType}`]]: true },
@@ -92,7 +92,7 @@ const PlanningModeSlider: React.FC = () => {
           }}
         />
       </div>
-    </Box>
+    </div>
   );
 };
 

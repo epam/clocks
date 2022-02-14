@@ -1,9 +1,10 @@
-@import '../../../../styles/index.scss';
+@import '../../../../../styles/index.scss';
 
 .slider-box-vertical {
   height: 85vh;
   width: 40px;
   position: fixed;
+  top: calc($space-s + 40px);
   right: $space-xxs;
   display: flex;
   z-index: 1;
@@ -13,6 +14,7 @@
   height: 70px;
   width: 100%;
   position: fixed;
+  left: 0;
   bottom: calc($space-xl + 70px);
   display: flex;
   justify-content: center;
