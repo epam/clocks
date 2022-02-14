@@ -5,7 +5,6 @@ import clsx from 'clsx';
 
 import { IInitialState } from '../../../../../redux/types';
 import { setPlanningMode } from '../../../../../redux/actions';
-import { CLOCK_MARKS } from '../../../../../redux/constants';
 
 import style from './PlanningModeSlider.module.scss';
 
@@ -78,7 +77,6 @@ const PlanningModeSlider: React.FC = () => {
           step={0.25}
           valueLabelDisplay="on"
           onChange={handleChange}
-          marks={CLOCK_MARKS[sliderType]}
           classes={{
             root: style.sliderRoot,
             rail: style.sliderRail,
