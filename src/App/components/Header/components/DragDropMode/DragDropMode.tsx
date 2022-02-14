@@ -26,7 +26,7 @@ const DragDropMode = () => {
       <LibraryBooksOutlined
         className={clsx({
           [iconTheme]: true,
-          [style.redIcon]: dragDropMode.isOn,
+          [style.blueIcon]: dragDropMode.isOn,
           [style.disabledIcon]: deleteMode.isOn
         })}
       />

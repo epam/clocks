@@ -1,5 +1,29 @@
 @import '../../../../styles/index.scss';
 
+.rightBlock {
+  width: calc(2 * $space-s);
+  top: 0;
+  bottom: 0;
+  right: calc(-1 * $space-s);
+}
+
+.positioned {
+  position: absolute;
+  z-index: 100;
+}
+
+.bgGray {
+  background-color: $grayColor;
+  opacity: 0.3;
+}
+
+.bottomBlock {
+  height: calc(2 * $space-s);
+  right: 0;
+  left: 0;
+  bottom: calc(-1 * $space-s);
+}
+
 %body {
   width: 1fr;
   min-height: 100px;

@@ -27,6 +27,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
 
   const { t } = useTranslation();
   const containerDivRef = useRef<HTMLDivElement>(null);
+  const rightBlockRef = useRef<HTMLDivElement>(null);
 
   const { showDate, showCountry, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
@@ -38,7 +39,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
 
   const dispatch = useDispatch();
 
-  const { locations, setLocations, getLocationOffset } = useLocations();
+  const { locations, setLocations, dragAndDropLocation } = useLocations();
 
   const [commentModal, setCommentModal] = useState(false);
 
@@ -115,133 +116,140 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     }
   };
 
-  const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
-    containerDivRef.current?.classList.remove(style.hide);
+  const dropHandler = (e: DragEvent<HTMLDivElement>) => {
+    rightBlockRef.current?.classList.remove(style.bgGray);
 
-    const newLocations: { [key: string]: IUrlLocation } = {};
-
-    if (selectedLocation || selectedLocation) {
-      const locationObj: IUrlLocation = {
-        city: selectedLocation.city,
-        lat: selectedLocation.lat,
-        offset: getLocationOffset(selectedLocation.timezone)
-      };
-      const selectedLocationKey: string = selectedLocation.city + selectedLocation.lat;
-      Object.entries(locations).forEach(([key, location]) => {
-        if (key !== selectedLocationKey) {
-          newLocations[`${key}`] = location;
-        }
-      });
-      newLocations[selectedLocationKey] = locationObj;
+    if (selectedLocation && location) {
+      dragAndDropLocation(selectedLocation, location);
     }
-    setLocations(newLocations);
   };
 
-  const dropHandler = (e: DragEvent<HTMLDivElement>) => {
-    const x = e.clientX;
-    const y = e.clientY;
-    const documentWidth = document.body.clientWidth;
-    const widgetBlockWidth = documentWidth - 15 * 2;
-    const clockItemWidth = widgetBlockWidth / 4;
-    const clockWidgetWidth = clockItemWidth - 15 * 2;
-    console.log(e);
+  const blockDragEnterHandler = (e: DragEvent<HTMLDivElement>) => {
+    rightBlockRef.current?.classList.add(style.bgGray);
+  };
+
+  const blockDragLeaveHandler = (e: DragEvent<HTMLDivElement>) => {
+    rightBlockRef.current?.classList.remove(style.bgGray);
+  };
+
+  const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
+    containerDivRef.current?.classList.remove(style.hide);
   };
 
   return (
-    <div
-      draggable={dragDropMode.isOn}
-      onDrop={dropHandler}
-      onDragOver={e => e.preventDefault()}
-      onDragStart={dragStartHandler}
-      onDragEnd={dragEndHandler}
-    >
+    <div style={{ position: 'relative' }}>
       <div
-        ref={containerDivRef}
-        className={clsx({
-          [bodyTheme]: true,
-          [style.shaking]: deleteMode.isOn || dragDropMode.isOn,
-          [style.currentBody]: urlUserLocation || isUserLocation
-        })}
+        draggable={dragDropMode.isOn}
+        onDragOver={e => e.preventDefault()}
+        onDragStart={dragStartHandler}
+        onDragEnd={dragEndHandler}
       >
-        {deleteMode.isOn && (
-          <IconButton className={style.deleteButton} size="small" onClick={handleDelete}>
-            <Remove className={style.icon} />
-          </IconButton>
-        )}
-        <div className={style.infoBlock}>
-          <div
-            className={clsx({
-              [style.leftSide]: true,
-              [style.moveLeftOrRight]: !isUserLocation
-            })}
-          >
+        <div
+          ref={containerDivRef}
+          className={clsx({
+            [bodyTheme]: true,
+            [style.shaking]: deleteMode.isOn || dragDropMode.isOn,
+            [style.currentBody]: urlUserLocation || isUserLocation
+          })}
+        >
+          {deleteMode.isOn && (
+            <IconButton className={style.deleteButton} size="small" onClick={handleDelete}>
+              <Remove className={style.icon} />
+            </IconButton>
+          )}
+          <div className={style.infoBlock}>
             <div
               className={clsx({
-                [style.buttonContainer]: true,
-                [style.opaccityBlock]: !isUserLocation
+                [style.leftSide]: true,
+                [style.moveLeftOrRight]: !isUserLocation
               })}
             >
-              <IconButton size="small" onClick={handleSetUserLocation} disabled={disabled}>
-                <FmdGoodOutlined
-                  className={clsx({
-                    [iconTheme]: true,
-                    [style.blueIcon]: urlUserLocation || isUserLocation,
-                    [style.disabledIcon]: disabled
-                  })}
-                />
-              </IconButton>
-              <IconButton size="small" onClick={handleOpenCommentModal} disabled={disabled}>
-                <CommentOutlined
-                  className={clsx({ [iconTheme]: true, [style.disabledIcon]: disabled })}
-                />
-              </IconButton>
+              <div
+                className={clsx({
+                  [style.buttonContainer]: true,
+                  [style.opaccityBlock]: !isUserLocation
+                })}
+              >
+                <IconButton size="small" onClick={handleSetUserLocation} disabled={disabled}>
+                  <FmdGoodOutlined
+                    className={clsx({
+                      [iconTheme]: true,
+                      [style.blueIcon]: urlUserLocation || isUserLocation,
+                      [style.disabledIcon]: disabled
+                    })}
+                  />
+                </IconButton>
+                <IconButton size="small" onClick={handleOpenCommentModal} disabled={disabled}>
+                  <CommentOutlined
+                    className={clsx({ [iconTheme]: true, [style.disabledIcon]: disabled })}
+                  />
+                </IconButton>
+              </div>
+              <div className={style.infoContainer}>
+                <div className={style.topInfo}>{location?.city}</div>
+                <div className={style.bottomInfo}>{showCountry && location?.country}</div>
+              </div>
             </div>
-            <div className={style.infoContainer}>
-              <div className={style.topInfo}>{location?.city}</div>
-              <div className={style.bottomInfo}>{showCountry && location?.country}</div>
+            <div className={style.rightSide}>
+              <div className={style.topInfo}>
+                {time.hours}:{time.minutes} {time.suffix}
+              </div>
+              <div className={style.bottomInfo}>
+                {showDate && time.offset && `${time.day} ${time.offset}`}
+              </div>
             </div>
           </div>
-          <div className={style.rightSide}>
-            <div className={style.topInfo}>
-              {time.hours}:{time.minutes} {time.suffix}
+          {location && locations[location.city + location.lat].comment && (
+            <div className={style.commentBlock}>
+              {locations[location.city + location.lat].comment}
             </div>
-            <div className={style.bottomInfo}>
-              {showDate && time.offset && `${time.day} ${time.offset}`}
-            </div>
-          </div>
+          )}
         </div>
-        {location && locations[location.city + location.lat].comment && (
-          <div className={style.commentBlock}>
-            {locations[location.city + location.lat].comment}
-          </div>
+
+        {commentModal && (
+          <Dialog open={commentModal} onClose={handleCloseCommentModal}>
+            <div className={commentModalTheme}>
+              <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
+              <div>
+                <input
+                  className={style.input}
+                  maxLength={50}
+                  placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
+                  value={inputText}
+                  onChange={e => setInputText(e.target.value)}
+                  autoFocus={true}
+                />
+              </div>
+              <div className={style.buttonContainer}>
+                <Button className={style.button} onClick={handleCloseCommentModal}>
+                  {t('Settings.CancelButton')}
+                </Button>
+                <Button className={style.button} onClick={handleSaveComment}>
+                  {t('Settings.SaveButton')}
+                </Button>
+              </div>
+            </div>
+          </Dialog>
         )}
       </div>
-
-      {commentModal && (
-        <Dialog open={commentModal} onClose={handleCloseCommentModal}>
-          <div className={commentModalTheme}>
-            <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
-            <div>
-              <input
-                className={style.input}
-                maxLength={50}
-                placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
-                value={inputText}
-                onChange={e => setInputText(e.target.value)}
-                autoFocus={true}
-              />
-            </div>
-            <div className={style.buttonContainer}>
-              <Button className={style.button} onClick={handleCloseCommentModal}>
-                {t('Settings.CancelButton')}
-              </Button>
-              <Button className={style.button} onClick={handleSaveComment}>
-                {t('Settings.SaveButton')}
-              </Button>
-            </div>
-          </div>
-        </Dialog>
-      )}
+      <div
+        ref={rightBlockRef}
+        className={clsx({
+          [style.rightBlock]: true,
+          [style.positioned]: true
+        })}
+        draggable={dragDropMode.isOn}
+        onDragEnter={blockDragEnterHandler}
+        onDragLeave={blockDragLeaveHandler}
+        onDragOver={e => e.preventDefault()}
+        onDrop={dropHandler}
+      />
+      <div
+        className={clsx({
+          [style.bottomBlock]: true,
+          [style.positioned]: true
+        })}
+      />
     </div>
   );
 };
