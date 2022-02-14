@@ -219,38 +219,31 @@
   }
 }
 
-.planningModeLight {
-  animation-duration: 2s;
-  animation-name: planningModeLight;
+.planningMode {
+  animation-duration: 3s;
+  animation-name: planningMode;
   animation-iteration-count: infinite;
 }
 
-@keyframes planningModeLight {
+@keyframes planningMode {
   0% {
-    box-shadow: 0px 0px 7px 10px rgba(255, 255, 255, 0.9);
-    -webkit-box-shadow: 0px 0px 7px 10px rgba(255, 255, 255, 0.9);
-    -moz-box-shadow: 0px 0px 7px 10px rgba(255, 255, 255, 0.9);
+    transform: rotate(-1deg);
+    opacity: 1;
+  }
+  25% {
+    transform: rotate(1deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: rotate(-1deg);
+    opacity: 0.6;
+  }
+  75% {
+    transform: rotate(1deg);
+    opacity: 0.8;
   }
   100% {
-    -webkit-box-shadow: 0 0 14px 10px $blueColor;
-    box-shadow: 0 0 14px 10px $blueColor;
-  }
-}
-
-.planningModeDark {
-  animation-duration: 2s;
-  animation-name: planningModeDark;
-  animation-iteration-count: infinite;
-}
-
-@keyframes planningModeDark {
-  0% {
-    box-shadow: 0px 0px 7px 10px rgba(0, 0, 0, 0.9);
-    -webkit-box-shadow: 0px 0px 7px 10px rgba(0, 0, 0, 0.9);
-    -moz-box-shadow: 0px 0px 7px 10px rgba(0, 0, 0, 0.9);
-  }
-  100% {
-    -webkit-box-shadow: 0 0 14px 10px $blueColor;
-    box-shadow: 0 0 14px 10px $blueColor;
+    transform: rotate(-1deg);
+    opacity: 1;
   }
 }

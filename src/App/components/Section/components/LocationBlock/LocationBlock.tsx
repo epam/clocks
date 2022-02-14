@@ -168,14 +168,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
             </div>
           </div>
           <div className={style.rightSide}>
-            <div
-              className={clsx(
-                style.topInfo,
-                { [style.planningModeLight]: planningMode.isOn && settings.theme === 'light' },
-                { [style.planningModeDark]: planningMode.isOn && settings.theme === 'dark' },
-                { [style.blueIcon]: planningMode.isOn }
-              )}
-            >
+            <div className={clsx(style.topInfo, { [style.planningMode]: planningMode.isOn })}>
               {time.hours}:{time.minutes} {time.suffix}
             </div>
             <div className={style.bottomInfo}>
