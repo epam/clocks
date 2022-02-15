@@ -14,6 +14,7 @@ import { IInitialState, IUrlLocation } from '../../../../redux/types';
 
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
+import { addClassName, removeClassName } from './utils';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({
   location,
@@ -112,13 +113,13 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     if (dragDropMode && location) {
       setSelectedLocation(location);
       setTimeout(() => {
-        containerDivRef.current?.classList.add(style.hide);
+        addClassName(containerDivRef, style.hide);
       });
     }
   };
 
   const dropHandler = (e: DragEvent<HTMLDivElement>) => {
-    rightBlockRef.current?.classList.remove(style.bgGray);
+    removeClassName(rightBlockRef, style.bgGray);
 
     if (selectedLocation && location) {
       dragAndDropLocation(selectedLocation, location);
@@ -126,15 +127,15 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   };
 
   const blockDragEnterHandler = (e: DragEvent<HTMLDivElement>) => {
-    rightBlockRef.current?.classList.add(style.bgGray);
+    addClassName(rightBlockRef, style.bgGray);
   };
 
   const blockDragLeaveHandler = (e: DragEvent<HTMLDivElement>) => {
-    rightBlockRef.current?.classList.remove(style.bgGray);
+    removeClassName(rightBlockRef, style.bgGray);
   };
 
   const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
-    containerDivRef.current?.classList.remove(style.hide);
+    removeClassName(containerDivRef, style.hide);
   };
 
   return (
@@ -247,7 +248,10 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
           onDragLeave={blockDragLeaveHandler}
           onDragOver={e => e.preventDefault()}
           onDrop={dropHandler}
-        />
+        >
+          {' '}
+          <div className={style.innerBlock}></div>{' '}
+        </div>
         <div
           className={clsx({
             [style.bottomBlock]: true,
