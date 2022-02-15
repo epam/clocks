@@ -13,6 +13,7 @@ export interface IInitialState {
     autoTheme?: boolean;
     showDate: boolean;
     showCountry: boolean;
+    showTimezone: boolean;
     timeFormat: string;
   };
   snackbar: {
@@ -34,6 +35,7 @@ export interface IActionSettingsPayload {
   autoTheme?: boolean;
   showDate: boolean;
   showCountry: boolean;
+  showTimezone: boolean;
   timeFormat: string;
 }
 

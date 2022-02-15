@@ -31,6 +31,9 @@ const Onboarding: FC<IOnboardingProps> = ({
         window.addEventListener('resize', handleResize);
 
         return () => window.removeEventListener('resize', handleResize);
+
+        // do not need handlePosition as a dependency
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
   return (

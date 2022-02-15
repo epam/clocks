@@ -1,4 +1,4 @@
-@import './styles/index.scss';
+@import "./styles/index.scss";
 
 %body {
   display: flex;
@@ -10,12 +10,12 @@
 
 .lightBody {
   @extend %body;
-
+  
   background-color: $lightColor;
 }
 
 .darkBody {
   @extend %body;
-
+  
   background-color: $darkColor;
 }

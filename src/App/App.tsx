@@ -36,6 +36,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     initialize();
+    // don't need initialize function as a dependency
     // eslint-disable-next-line
   }, []);
 

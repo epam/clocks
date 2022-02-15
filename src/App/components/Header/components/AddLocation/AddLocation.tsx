@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 
 import { IconButton, Drawer, Tooltip } from '@mui/material';
 import { Add, Close } from '@mui/icons-material';
+import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 import useTheme from '../../../../hooks/useTheme';
 import useLocations from '../../../../hooks/useLocations';
@@ -13,7 +14,6 @@ import useDebounce from '../../../../hooks/useDebounce';
 import { ILocation, IInitialState, IUrlLocations, IUrlLocation } from '../../../../redux/types';
 
 import style from './AddLocation.module.scss';
-import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 const AddLocation: React.FC = () => {
   const anchorRef = useRef(null);

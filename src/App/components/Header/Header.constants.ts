@@ -1,1 +1,1 @@
-export const EPAM_LOGO = 'clocks';
+export const EPAM_LOGO = "clocks";

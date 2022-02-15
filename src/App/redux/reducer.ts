@@ -15,6 +15,7 @@ const initialState: IInitialState = {
     autoTheme: undefined,
     showDate: true,
     showCountry: true,
+    showTimezone: false,
     timeFormat: TIME_FORMAT.H24
   },
   snackbar: {
