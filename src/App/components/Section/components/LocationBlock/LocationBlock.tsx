@@ -15,6 +15,7 @@ import { IInitialState, IUrlLocation } from '../../../../redux/types';
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
 import { addClassName, removeClassName } from './utils';
+import { generateLocationKey } from '../../../../utils';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({
   location,
@@ -127,7 +128,14 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   };
 
   const blockDragEnterHandler = (e: DragEvent<HTMLDivElement>) => {
-    addClassName(rightBlockRef, style.bgGray);
+    if (!selectedLocation || !location) {
+      throw new Error('Dragged location or dropped block location is null');
+    }
+    const selectedLocationKey = generateLocationKey(selectedLocation);
+    const currentLocationKey = generateLocationKey(location);
+    if (selectedLocationKey !== currentLocationKey) {
+      addClassName(rightBlockRef, style.bgGray);
+    }
   };
 
   const blockDragLeaveHandler = (e: DragEvent<HTMLDivElement>) => {
