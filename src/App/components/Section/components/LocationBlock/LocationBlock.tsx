@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, DragEvent, useRef } from 'react';
+import React, { useState, useEffect, useMemo, DragEvent, useRef, RefObject } from 'react';
 import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -30,6 +30,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   const { t } = useTranslation();
   const containerDivRef = useRef<HTMLDivElement>(null);
   const rightBlockRef = useRef<HTMLDivElement>(null);
+  const bottomBlockRef = useRef<HTMLDivElement>(null);
 
   const { showDate, showCountry, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
@@ -127,19 +128,19 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     }
   };
 
-  const blockDragEnterHandler = (e: DragEvent<HTMLDivElement>) => {
+  const blockDragEnterHandler = (blockRef: RefObject<HTMLDivElement>) => {
     if (!selectedLocation || !location) {
       throw new Error('Dragged location or dropped block location is null');
     }
     const selectedLocationKey = generateLocationKey(selectedLocation);
     const currentLocationKey = generateLocationKey(location);
     if (selectedLocationKey !== currentLocationKey) {
-      addClassName(rightBlockRef, style.bgGray);
+      addClassName(blockRef, style.bgGray);
     }
   };
 
-  const blockDragLeaveHandler = (e: DragEvent<HTMLDivElement>) => {
-    removeClassName(rightBlockRef, style.bgGray);
+  const dragLeaveHandler = (blockRef: RefObject<HTMLDivElement>) => {
+    removeClassName(blockRef, style.bgGray);
   };
 
   const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
@@ -252,20 +253,26 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
             [style.positioned]: true
           })}
           draggable={dragDropMode.isOn}
-          onDragEnter={blockDragEnterHandler}
-          onDragLeave={blockDragLeaveHandler}
+          onDragEnter={_ => blockDragEnterHandler(rightBlockRef)}
+          onDragLeave={_ => dragLeaveHandler(rightBlockRef)}
           onDragOver={e => e.preventDefault()}
           onDrop={dropHandler}
         >
           {' '}
-          <div className={style.innerBlock}></div>{' '}
+          <div className={style.innerBlock} />
         </div>
         <div
+          ref={bottomBlockRef}
+          draggable={dragDropMode.isOn}
+          onDragEnter={_ => blockDragEnterHandler(bottomBlockRef)}
+          onDragLeave={_ => dragLeaveHandler(bottomBlockRef)}
           className={clsx({
             [style.bottomBlock]: true,
             [style.positioned]: true
           })}
-        />
+        >
+          <div className={style.innerBlock} />
+        </div>
       </div>
     </div>
   );

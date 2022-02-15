@@ -5,22 +5,25 @@
   top: 0;
   bottom: 0;
   right: calc(-1 * $space-s);
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
   &.bgGray .innerBlock {
     width: 0;
     height: 65%;
-    box-shadow: 0 0 10px 10px gray;;
-    background-color: gray;
-    opacity: .25;
   }
 }
 
 .positioned {
   position: absolute;
   z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.bgGray .innerBlock {
+    box-shadow: 0 0 10px 10px gray;
+    background-color: gray;
+    opacity: 0.25;
+  }
 }
 
 .bottomBlock {
@@ -28,6 +31,11 @@
   right: 0;
   left: 0;
   bottom: calc(-1 * $space-s);
+
+  &.bgGray .innerBlock {
+    height: 0;
+    width: 80%;
+  }
 }
 
 %body {
