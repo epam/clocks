@@ -168,7 +168,7 @@ const AddLocation: React.FC = () => {
         <Onboarding
           open={onboarding.addCity}
           anchorElement={anchorRef.current}
-          nextElement="myLocation"
+          nextElement="shareButton"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           title="Add city drawer"

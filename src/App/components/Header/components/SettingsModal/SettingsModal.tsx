@@ -210,6 +210,7 @@ const SettingsModal: React.FC = () => {
         <Onboarding
           open={onboarding.settingsModal}
           anchorElement={anchorRef.current}
+          nextElement="deleteButton"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
           title="Settings button"

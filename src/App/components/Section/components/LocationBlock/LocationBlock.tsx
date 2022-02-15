@@ -108,7 +108,9 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
         className={clsx({
           [bodyTheme]: true,
           [style.shaking]: deleteMode.isOn,
-          [style.currentBody]: urlUserLocation || isUserLocation
+          [style.currentBody]: urlUserLocation || isUserLocation,
+          [style.onboarding]:
+            !index && (onboarding?.deleteButton || onboarding?.myLocation || onboarding?.comment)
         })}
       >
         {deleteMode.isOn && (
@@ -200,7 +202,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           </div>
         </Dialog>
       )}
-      {onboarding?.myLocation && anchorLocation.current && (
+      {index === 0 && onboarding?.myLocation && anchorLocation.current && (
         <Onboarding
           open={onboarding.myLocation}
           anchorElement={anchorLocation.current}
@@ -211,11 +213,10 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           text="By clicking to this button you can change your location"
         />
       )}
-      {onboarding?.comment && anchorComment.current && (
+      {index === 0 && onboarding?.comment && anchorComment.current && (
         <Onboarding
           open={onboarding.comment}
           anchorElement={anchorComment.current}
-          nextElement="shareButton"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           title="Comment button"

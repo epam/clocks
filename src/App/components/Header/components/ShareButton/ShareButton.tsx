@@ -46,7 +46,7 @@ const ShareButton: React.FC = () => {
         <Onboarding
           open={onboarding.shareButton}
           anchorElement={anchorRef.current}
-          nextElement="deleteButton"
+          nextElement="settingsModal"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           title="Share url button"

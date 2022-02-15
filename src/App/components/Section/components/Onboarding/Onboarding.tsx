@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import useOnboarding from '../../../../hooks/useOnboarding';
 import {
   Popover,
@@ -22,7 +22,16 @@ const Onboarding: FC<IOnboardingProps> = ({
 }) => {
   const { finish, next } = useOnboarding();
 
-  const position = anchorElement.getBoundingClientRect();
+  const handlePosition = () => anchorElement.getBoundingClientRect();
+  const [ position, setPosition ] = useState(handlePosition);
+
+    useEffect(() => {
+        const handleResize = () => setPosition(handlePosition);
+
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, [])
 
   return (
     <Popover
