@@ -56,3 +56,9 @@
   background-color: $darkColor;
   color: $lightColor;
 }
+
+.autoSorting {
+  @include screenMax500 {
+    display: none;
+  }
+}

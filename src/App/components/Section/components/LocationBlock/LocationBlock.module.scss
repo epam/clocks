@@ -18,6 +18,10 @@
     background-color: gray;
     opacity: 0.25;
   }
+
+  @include screenMax500 {
+    display: none;
+  }
 }
 
 %body {

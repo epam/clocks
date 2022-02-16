@@ -182,7 +182,7 @@ const SettingsModal: React.FC = () => {
               <span>{t('Settings.12HourFormat')}</span>
             </div>
           </RadioGroup>
-          <div>
+          <div className={style.autoSorting}>
             <Checkbox
               checked={localSettings.autoSorting}
               onChange={handleSetSettings}
