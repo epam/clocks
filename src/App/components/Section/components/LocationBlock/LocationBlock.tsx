@@ -81,6 +81,36 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     setLocations(locations);
   };
 
+  const renderCommentModal = () => {
+    return (
+      commentModal && (
+        <Dialog open={commentModal} onClose={handleCloseCommentModal}>
+          <div className={commentModalTheme}>
+            <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
+            <div>
+              <input
+                className={style.input}
+                maxLength={50}
+                placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
+                value={inputText}
+                onChange={e => setInputText(e.target.value)}
+                autoFocus={true}
+              />
+            </div>
+            <div className={style.buttonContainer}>
+              <Button className={style.button} onClick={handleCloseCommentModal}>
+                {t('Settings.CancelButton')}
+              </Button>
+              <Button className={style.button} onClick={handleSaveComment}>
+                {t('Settings.SaveButton')}
+              </Button>
+            </div>
+          </div>
+        </Dialog>
+      )
+    );
+  };
+
   const handleSetUserLocation = () => {
     location && dispatch(setUserLocation(location));
     Object.values(locations).forEach((urlLocation: IUrlLocation) => {
@@ -206,44 +236,15 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
                 {time.hours}:{time.minutes} {time.suffix}
               </div>
               <div className={style.bottomInfo}>
-                {showDate && time.offset && `${time.day} ${time.offset}`}
+                <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
+                <div>{showTimezone && time.timezone}</div>
               </div>
             </div>
           </div>
-          <div className={style.rightSide}>
-            <div className={style.topInfo}>
-              {time.hours}:{time.minutes} {time.suffix}
+          {location && locations[location.city + location.lat].comment && (
+            <div className={style.commentBlock}>
+              {locations[location.city + location.lat].comment}
             </div>
-            <div className={style.bottomInfo}>
-              <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
-              <div>{showTimezone && time.timezone}</div>
-            </div>
-          </div>
-
-          {commentModal && (
-            <Dialog open={commentModal} onClose={handleCloseCommentModal}>
-              <div className={commentModalTheme}>
-                <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
-                <div>
-                  <input
-                    className={style.input}
-                    maxLength={50}
-                    placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
-                    value={inputText}
-                    onChange={e => setInputText(e.target.value)}
-                    autoFocus={true}
-                  />
-                </div>
-                <div className={style.buttonContainer}>
-                  <Button className={style.button} onClick={handleCloseCommentModal}>
-                    {t('Settings.CancelButton')}
-                  </Button>
-                  <Button className={style.button} onClick={handleSaveComment}>
-                    {t('Settings.SaveButton')}
-                  </Button>
-                </div>
-              </div>
-            </Dialog>
           )}
         </div>
         <div
@@ -274,6 +275,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
           <div className={style.innerBlock} />
         </div>
       </div>
+
+      {renderCommentModal()}
     </div>
   );
 };
