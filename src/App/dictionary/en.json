@@ -44,5 +44,6 @@
   "Settings.ButtonTooltip": "Settings",
   "ShareButton.SnackbarMessage": "URL copied to clipboard",
   "ShareButton.ButtonTooltip": "Copy url and share",
-  "UseAutoTheme.SnackbarMessage": "Your device doesn't support auto theming"
+  "UseAutoTheme.SnackbarMessage": "Your device doesn't support auto theming",
+  "UseLocations.SnackbarMessage": "Something is wrong with the url!"
 }
