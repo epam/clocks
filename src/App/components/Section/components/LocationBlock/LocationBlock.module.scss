@@ -5,14 +5,6 @@
   top: 0;
   bottom: 0;
   right: calc(-1 * $space-s);
-
-  &.bgGray .innerBlock {
-    width: 0;
-    height: 65%;
-  }
-}
-
-.positioned {
   position: absolute;
   z-index: 100;
   display: flex;
@@ -20,21 +12,11 @@
   align-items: center;
 
   &.bgGray .innerBlock {
+    width: 0;
+    height: 65%;
     box-shadow: 0 0 10px 10px gray;
     background-color: gray;
     opacity: 0.25;
-  }
-}
-
-.bottomBlock {
-  height: calc(2 * $space-s);
-  right: 0;
-  left: 0;
-  bottom: calc(-1 * $space-s);
-
-  &.bgGray .innerBlock {
-    height: 0;
-    width: 80%;
   }
 }
 

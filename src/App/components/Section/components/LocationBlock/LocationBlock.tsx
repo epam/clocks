@@ -30,7 +30,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   const { t } = useTranslation();
   const containerDivRef = useRef<HTMLDivElement>(null);
   const rightBlockRef = useRef<HTMLDivElement>(null);
-  const bottomBlockRef = useRef<HTMLDivElement>(null);
 
   const { showDate, showCountry, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
@@ -258,19 +257,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
           onDragLeave={_ => dragLeaveHandler(rightBlockRef)}
           onDragOver={e => e.preventDefault()}
           onDrop={dropHandler}
-        >
-          {' '}
-          <div className={style.innerBlock} />
-        </div>
-        <div
-          ref={bottomBlockRef}
-          draggable={dragDropMode.isOn}
-          onDragEnter={_ => blockDragEnterHandler(bottomBlockRef)}
-          onDragLeave={_ => dragLeaveHandler(bottomBlockRef)}
-          className={clsx({
-            [style.bottomBlock]: true,
-            [style.positioned]: true
-          })}
         >
           <div className={style.innerBlock} />
         </div>
