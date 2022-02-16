@@ -13,10 +13,10 @@
 
   &.bgGray .innerBlock {
     width: 0;
-    height: 65%;
-    box-shadow: 0 0 10px 10px gray;
-    background-color: gray;
-    opacity: 0.25;
+    height: 60%;
+    box-shadow: 0 0 10px 7px $blueColor;
+    background-color: $blueColor;
+    opacity: 0.4;
   }
 
   @include screenMax500 {
