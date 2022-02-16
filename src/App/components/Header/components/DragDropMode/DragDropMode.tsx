@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import useTheme from '../../../../hooks/useTheme';
 import { IInitialState } from '../../../../redux/types';
+import { setDragDropMode } from '../../../../redux/actions';
 
 import style from './DragDropMode.module.scss';
-import { setDragDropMode } from '../../../../redux/actions';
 
 const DragDropMode = () => {
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
