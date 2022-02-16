@@ -19,6 +19,6 @@
 
 .marginBottom {
   @include screenMin600 {
-    margin-bottom: calc($space-l * 2);
+    margin-bottom: 50px;
   }
 }

@@ -1,15 +1,14 @@
-import React, { useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useCallback } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { IconButton, Tooltip } from '@mui/material';
+import { IconButton, Tooltip, Slider } from '@mui/material';
 import HistoryIcon from '@mui/icons-material/History';
 
 import useTheme from '../../../../hooks/useTheme';
 import { IInitialState } from '../../../../redux/types';
 import { setPlanningMode } from '../../../../redux/actions';
-import PlanningModeSlider from './PlanningModeSlider/PlanningModeSlider';
 
 import style from './PlanningMode.module.scss';
 
@@ -20,18 +19,60 @@ const DeleteMode: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const { planningMode, deleteMode } = useSelector((state: IInitialState) => state);
+  const { planningMode, deleteMode, settings } = useSelector((state: IInitialState) => state);
 
-  const handleSetPlanningMode = () => {
+  const tooltipText = useMemo((): string => t('Planning mode'), [t]);
+
+  const [sliderType, setSliderType] = useState<'vertical' | 'horizontal'>('horizontal');
+
+  useEffect(() => {
+    if (window.innerWidth < 601) {
+      setSliderType('vertical');
+    } else {
+      setSliderType('horizontal');
+    }
+    return window.addEventListener('resize', () => {
+      if (window.innerWidth < 601) {
+        setSliderType('vertical');
+      } else {
+        setSliderType('horizontal');
+      }
+    });
+  }, []);
+
+  const sliderText = (value: number) => {
+    const integerPart = value > 0 ? Math.floor(value) : Math.ceil(value);
+    const decimalPart = value - integerPart;
+    if (integerPart === value) {
+      return value > 0 ? `+${value}h` : value < 0 ? `${value}h` : '0';
+    } else if (integerPart === 0) {
+      return value > 0 ? `+${60 * decimalPart}m` : value < 0 ? `${60 * decimalPart}m` : '0';
+    } else {
+      return value > 0
+        ? `+${integerPart}h ${60 * decimalPart}m`
+        : value < 0
+        ? `${integerPart}h ${Math.abs(60 * decimalPart)}m`
+        : '0';
+    }
+  };
+
+  const handleSetPlanningMode = useCallback(() => {
     dispatch(
       setPlanningMode({
-        status: !planningMode.isOn,
+        isOn: !planningMode.isOn,
         additionalHours: planningMode.additionalHours
       })
     );
-  };
+  }, [dispatch, planningMode.isOn, planningMode.additionalHours]);
 
-  const tooltipText = useMemo((): string => t('Planning mode'), [t]);
+  const handleChange = useCallback(
+    (event: Event, newValue: number | number[]) => {
+      if (typeof newValue === 'number') {
+        dispatch(setPlanningMode({ isOn: true, additionalHours: newValue }));
+      }
+    },
+    [dispatch]
+  );
 
   return (
     <>
@@ -46,7 +87,42 @@ const DeleteMode: React.FC = () => {
           />
         </IconButton>
       </Tooltip>
-      <PlanningModeSlider />
+      <div
+        className={clsx(
+          { [style.sliderContainerHorizontal]: sliderType === 'horizontal' },
+          { [style.sliderContainerVertical]: sliderType === 'vertical' },
+          { [style.sliderContainerInvisible]: !planningMode.isOn }
+        )}
+      >
+        <div
+          className={clsx(
+            style.sliderBody,
+            { [style.lightBody]: settings.theme === 'light' },
+            { [style.darkBody]: settings.theme === 'dark' },
+            { [style.sliderBodyHorizontal]: sliderType === 'horizontal' },
+            { [style.sliderBodyVertical]: sliderType === 'vertical' }
+          )}
+        >
+          <Slider
+            orientation={sliderType}
+            min={-12}
+            defaultValue={0}
+            value={planningMode.additionalHours}
+            getAriaValueText={sliderText}
+            valueLabelFormat={sliderText}
+            max={12}
+            step={0.25}
+            valueLabelDisplay="on"
+            onChange={handleChange}
+            classes={{
+              root: style.sliderRoot,
+              rail: style.sliderRail,
+              track: style.sliderTrack,
+              thumb: style.sliderThumb
+            }}
+          />
+        </div>
+      </div>
     </>
   );
 };

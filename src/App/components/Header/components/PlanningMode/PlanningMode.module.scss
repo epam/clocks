@@ -1,1 +1,72 @@
 @import '../../../../styles/index.scss';
+
+%body {
+  span.sliderRoot {
+    padding: 0;
+  }
+
+  span.sliderTrack,
+  span.sliderThumb,
+  span.sliderRail {
+    color: $blueColor;
+  }
+
+  span.sliderRail {
+    opacity: 1;
+  }
+}
+
+.lightBody {
+  @extend %body;
+  box-shadow: 3px 2px 15px 0px $lightGrayColor;
+  background-color: $whiteColor;
+}
+
+.darkBody {
+  @extend %body;
+  background-color: $darkGrayColor;
+}
+
+%slider {
+  position: fixed;
+  display: flex;
+  z-index: 1;
+}
+
+.sliderBody {
+  width: 90%;
+  border-radius: $space-xxs;
+  display: flex;
+  justify-content: center;
+}
+
+.sliderContainerVertical {
+  @extend %slider;
+  height: 80vh;
+  width: 40px;
+  top: calc($space-s + 64px);
+  bottom: calc($space-s + 64px);
+  right: $space-xxs;
+
+  .sliderBodyVertical {
+    padding: $space-s;
+  }
+}
+
+.sliderContainerHorizontal {
+  @extend %slider;
+  height: 70px;
+  width: 100%;
+  left: 0;
+  bottom: calc($space-l + 70px);
+  justify-content: center;
+  align-items: center;
+
+  .sliderBodyHorizontal {
+    padding: $space-m $space-xl;
+  }
+}
+
+.sliderContainerInvisible {
+  display: none;
+}

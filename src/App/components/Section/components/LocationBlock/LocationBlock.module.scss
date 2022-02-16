@@ -213,7 +213,7 @@
 }
 
 .planningMode {
-  animation-duration: 3s;
+  animation-duration: 2s;
   animation-name: planningMode;
   animation-iteration-count: infinite;
 }
@@ -232,6 +232,6 @@
 
 .marginRight {
   @include screenMax600 {
-    margin-right: calc($space-s + 40px);
+    margin-right: 55px;
   }
 }

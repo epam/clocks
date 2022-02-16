@@ -51,8 +51,7 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
       return {
         ...state,
         planningMode: {
-          isOn: action.payload.status,
-          additionalHours: action.payload.additionalHours
+          ...action.payload
         }
       };
     case ACTION_TYPE.setSettings:

@@ -74,6 +74,6 @@ export interface IUrlLocation {
 }
 
 export interface IActionPlanningModePayload {
-  status: boolean;
+  isOn: boolean;
   additionalHours?: number;
 }
