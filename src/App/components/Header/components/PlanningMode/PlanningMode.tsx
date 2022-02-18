@@ -21,7 +21,7 @@ const DeleteMode: React.FC = () => {
 
   const { planningMode, deleteMode, settings } = useSelector((state: IInitialState) => state);
 
-  const tooltipText = useMemo((): string => t('Planning mode'), [t]);
+  const tooltipText = useMemo((): string => t('PlanningMode.ButtonTooltip'), [t]);
 
   const [sliderType, setSliderType] = useState<'vertical' | 'horizontal'>('horizontal');
 
