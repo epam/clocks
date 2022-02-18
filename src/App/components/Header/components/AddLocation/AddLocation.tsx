@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo, useEffect } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, ChangeEvent } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -59,8 +59,27 @@ const AddLocation: React.FC = () => {
     handleSearch(debounce);
   }, [debounce, handleSearch]);
 
+  useEffect(() => {
+    const listener = (event: KeyboardEvent) => {
+      const { key, target } = event;
+      if (key === '+' || key === '=') {
+        setPanel(true);
+      }
+    };
+
+    document.addEventListener('keydown', listener);
+
+    return () => window.removeEventListener('keydown', listener);
+  }, []);
+
   const handleOpenPanel = () => {
     setPanel(true);
+  };
+
+  const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value === '+' || value === '=') return;
+    setSearchText(value);
   };
 
   const handleClosePanel = () => {
@@ -111,6 +130,7 @@ const AddLocation: React.FC = () => {
     () =>
       locationsFound.map((location: ILocation, index: number) => (
         <div
+          tabIndex={1}
           key={index + 'FOUND_LOCATION'}
           className={foundLocationTheme}
           onClick={() => handleSelectLocation(location)}
@@ -129,10 +149,7 @@ const AddLocation: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton
-          onClick={handleOpenPanel}
-          disabled={deleteMode.isOn}
-        >
+        <IconButton onClick={handleOpenPanel} disabled={deleteMode.isOn}>
           <Add className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })} />
         </IconButton>
       </Tooltip>
@@ -150,7 +167,7 @@ const AddLocation: React.FC = () => {
               type="text"
               className={inputTheme}
               placeholder={t('AddLocation.InputPlaceholder')}
-              onChange={e => setSearchText(e.target.value)}
+              onChange={inputChangeHandler}
               value={searchText}
               autoFocus={true}
             />
