@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { IconButton, Drawer, Tooltip } from '@mui/material';
+import { IconButton, Drawer, Tooltip, MenuList, MenuItem } from '@mui/material';
 import { Add, Close } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
@@ -129,17 +129,17 @@ const AddLocation: React.FC = () => {
   const searchResultsRender = useMemo(
     () =>
       locationsFound.map((location: ILocation, index: number) => (
-        <div
+        <MenuItem
           tabIndex={1}
           key={index + 'FOUND_LOCATION'}
           className={foundLocationTheme}
           onClick={() => handleSelectLocation(location)}
         >
           <div className={style.title}>{location.city}</div>
-          <div>
+          <div className={style.zone}>
             {location.country}, {location.province}
           </div>
-        </div>
+        </MenuItem>
       )),
     [locationsFound, foundLocationTheme, handleSelectLocation]
   );
@@ -172,13 +172,13 @@ const AddLocation: React.FC = () => {
               autoFocus={true}
             />
           </div>
-          <div className={style.searchResultsContainer}>
+          <MenuList className={style.searchResultsContainer}>
             {!!locationsFound.length ? (
               searchResultsRender
             ) : (
               <div className={style.notFound}>{t('AddLocation.NotFound')}</div>
             )}
-          </div>
+          </MenuList>
         </div>
       </Drawer>
     </>
