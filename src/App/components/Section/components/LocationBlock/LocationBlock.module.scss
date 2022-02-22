@@ -1,10 +1,10 @@
 @import '../../../../styles/index.scss';
 
 .rightBlock {
-  width: calc(2 * $space-s);
+  width: 30px;
   top: 0;
   bottom: 0;
-  right: calc(-1 * $space-s);
+  right: -15px;
   position: absolute;
   z-index: 100;
   display: flex;

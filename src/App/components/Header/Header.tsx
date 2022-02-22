@@ -1,7 +1,7 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { QueryBuilder } from '@mui/icons-material';
-import { useSelector } from 'react-redux';
 
 import useTheme from '../../hooks/useTheme';
 import { IInitialState } from '../../redux/types';
