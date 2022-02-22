@@ -1,4 +1,4 @@
-export const TIMEZONES = {
+export const timezonesDB = {
   ET: 'America/New_York',
   CT: 'America/Chicago',
   MT: 'America/Denver',

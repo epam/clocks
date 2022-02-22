@@ -1,11 +1,13 @@
 import { locationsDB } from './locationsDB';
+import { timezonesDB } from './timezonesDB';
 import { IInitialState, IActionPayload } from './types';
 import { ACTION_TYPE, THEME, TIME_FORMAT } from './constants';
 
 const initialState: IInitialState = {
   locations: {
     locationsDB: locationsDB,
-    userLocation: undefined
+    userLocation: undefined,
+    timezonesDB: timezonesDB
   },
   deleteMode: {
     isOn: false

@@ -4,6 +4,7 @@ export interface IInitialState {
   locations: {
     locationsDB: ILocation[];
     userLocation?: ILocation;
+    timezonesDB: any;
   };
   deleteMode: {
     isOn: boolean;
