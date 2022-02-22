@@ -229,8 +229,8 @@ const SettingsModal: React.FC = () => {
           nextElement="deleteButton"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-          title="Settings button"
-          text="By clicking to this button you can set your own setting"
+          title={t('Onboarding.SettingsModalTitle')}
+          text={t('Onboarding.SettingsModalContent')}
         />
       )}
     </>

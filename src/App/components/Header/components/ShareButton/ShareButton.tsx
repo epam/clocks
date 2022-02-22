@@ -49,8 +49,8 @@ const ShareButton: React.FC = () => {
           nextElement="settingsModal"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          title="Share url button"
-          text="By clicking to this button you can copy your url to clipboard and send via any messenger"
+          title={t('Onboarding.ShareUrlTitle')}
+          text={t('Onboarding.ShareUrlContent')}
         />
       )}
     </>

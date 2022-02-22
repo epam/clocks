@@ -40,13 +40,7 @@
   }
 
   &:hover {
-    .opaccityBlock {
-      opacity: 1;
-    }
-
-    .moveLeftOrRight {
-      left: 0px;
-    }
+    @extend .onboarding;
   }
 
   .infoBlock {

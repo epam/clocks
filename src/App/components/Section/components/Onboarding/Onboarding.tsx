@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import useOnboarding from '../../../../hooks/useOnboarding';
+
 import {
   Popover,
   DialogActions,
@@ -8,6 +8,9 @@ import {
   DialogTitle,
   Button
 } from '@mui/material';
+
+import useOnboarding from '../../../../hooks/useOnboarding';
+
 import { IOnboardingProps } from './Onboarding.interface';
 import style from './Onboarding.module.scss';
 

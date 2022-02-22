@@ -57,8 +57,8 @@ const DeleteMode: React.FC = () => {
           nextElement="myLocation"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
-          title="Delete location button"
-          text="By clicking to this button you can any location from your dashboard"
+          title={t('Onboarding.DeleteLocationTitle')}
+          text={t('Onboarding.DeleteLocationContent')}
         />
       )}
     </>

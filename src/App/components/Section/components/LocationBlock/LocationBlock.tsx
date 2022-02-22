@@ -204,25 +204,25 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           </div>
         </Dialog>
       )}
-      {index === 0 && onboarding?.myLocation && anchorLocation.current && (
+      {!index && onboarding?.myLocation && anchorLocation.current && (
         <Onboarding
           open={onboarding.myLocation}
           anchorElement={anchorLocation.current}
           nextElement="comment"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          title="Location button"
-          text="By clicking to this button you can change your location"
+          title={t('Onboarding.LocationTitle')}
+          text={t('Onboarding.LocationContent')}
         />
       )}
-      {index === 0 && onboarding?.comment && anchorComment.current && (
+      {!index && onboarding?.comment && anchorComment.current && (
         <Onboarding
           open={onboarding.comment}
           anchorElement={anchorComment.current}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          title="Comment button"
-          text="By clicking to this button you can add a comment for a specific location"
+          title={t('Onboarding.AddCommentTitle')}
+          text={t('Onboarding.AddCommentContent')}
         />
       )}
     </>

@@ -171,8 +171,8 @@ const AddLocation: React.FC = () => {
           nextElement="shareButton"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-          title="Add city drawer"
-          text="By clicking to this button you can open add city drawer and add your desired location"
+          title={t('Onboarding.AddLocationTitle')}
+          text={t('Onboarding.AddLocationTitle')}
         />
       )}
     </>
