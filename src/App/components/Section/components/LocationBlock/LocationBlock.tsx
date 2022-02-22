@@ -27,6 +27,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   );
   const { deleteMode, counter } = useSelector((state: IInitialState) => state);
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const timeInfo = useTimeInfo(location);
 
@@ -100,6 +101,10 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     handleCloseCommentModal();
   };
 
+  const focusHandler = () => {
+    setIsFocused(isFocused => !isFocused);
+  };
+
   return (
     <>
       <div
@@ -108,6 +113,9 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           [style.shaking]: deleteMode.isOn,
           [style.currentBody]: urlUserLocation || isUserLocation
         })}
+        tabIndex={0}
+        onFocus={focusHandler}
+        onBlur={focusHandler}
       >
         {deleteMode.isOn && (
           <IconButton className={style.deleteButton} size="small" onClick={handleDelete}>
@@ -118,16 +126,21 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           <div
             className={clsx({
               [style.leftSide]: true,
-              [style.moveLeftOrRight]: !isUserLocation
+              [style.moveLeftOrRight]: !isFocused && !isUserLocation
             })}
           >
             <div
               className={clsx({
                 [style.buttonContainer]: true,
-                [style.opaccityBlock]: !isUserLocation
+                [style.opaccityBlock]: !isFocused && !isUserLocation
               })}
             >
-              <IconButton size="small" onClick={handleSetUserLocation} disabled={deleteMode.isOn}>
+              <IconButton
+                tabIndex={-1}
+                size="small"
+                onClick={handleSetUserLocation}
+                disabled={deleteMode.isOn}
+              >
                 <FmdGoodOutlined
                   className={clsx({
                     [iconTheme]: true,
@@ -136,7 +149,12 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
                   })}
                 />
               </IconButton>
-              <IconButton size="small" onClick={handleOpenCommentModal} disabled={deleteMode.isOn}>
+              <IconButton
+                tabIndex={-1}
+                size="small"
+                onClick={handleOpenCommentModal}
+                disabled={deleteMode.isOn}
+              >
                 <CommentOutlined
                   className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
                 />
