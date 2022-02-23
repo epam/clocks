@@ -1,48 +1,48 @@
 @import '../../../../styles/index.scss';
 
-%body {
-  span.sliderRoot {
-    padding: 0;
-  }
-
-  span.sliderTrack,
-  span.sliderThumb,
-  span.sliderRail {
-    color: $blueColor;
-  }
-
-  span.sliderRail {
-    opacity: 1;
-  }
-}
-
-.lightBody {
-  @extend %body;
-  box-shadow: 3px 2px 15px 0px $paleGrayColor;
-  background-color: $whiteColor;
-}
-
-.darkBody {
-  @extend %body;
-  box-shadow: 3px 2px 15px 0px $darkColor;
-  background-color: $darkGrayColor;
-}
-
-%slider {
+%sliderContainer {
   position: fixed;
   display: flex;
   z-index: 1;
-}
 
-.sliderBody {
-  width: 90%;
-  border-radius: $space-xxs;
-  display: flex;
-  justify-content: center;
+  .sliderBody {
+    width: 90%;
+    border-radius: $space-xxs;
+    display: flex;
+    justify-content: center;
+  }
+
+  %body {
+    span.sliderRoot {
+      padding: 0;
+    }
+
+    span.sliderTrack,
+    span.sliderThumb,
+    span.sliderRail {
+      color: $blueColor;
+    }
+
+    span.sliderRail {
+      opacity: 1;
+    }
+  }
+
+  .lightBody {
+    @extend %body;
+    box-shadow: 3px 2px 15px 0px $paleGrayColor;
+    background-color: $whiteColor;
+  }
+
+  .darkBody {
+    @extend %body;
+    box-shadow: 3px 2px 15px 0px $darkColor;
+    background-color: $darkGrayColor;
+  }
 }
 
 .sliderContainerVertical {
-  @extend %slider;
+  @extend %sliderContainer;
   height: 80vh;
   width: 40px;
   top: calc($space-s + 64px);
@@ -55,7 +55,7 @@
 }
 
 .sliderContainerHorizontal {
-  @extend %slider;
+  @extend %sliderContainer;
   height: 70px;
   width: 100%;
   left: 0;
