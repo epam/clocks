@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -60,20 +60,16 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     // eslint-disable-next-line
   }, []);
 
-  const locationBlockListener = (event: KeyboardEvent) => {
-    const { key, altKey } = event;
+  const locationBlockListener = useCallback(({ key, altKey }: KeyboardEvent) => {
     if (key === ' ') {
       handleSetUserLocation();
     } else if (key === 'c' && altKey) {
       handleOpenCommentModal();
     }
-  };
+  }, []);
 
   useEffect(() => {
-    const target = locationRef.current;
-    if (target) {
-      target.addEventListener('keydown', locationBlockListener);
-    }
+    locationRef.current?.addEventListener('keydown', locationBlockListener);
 
     return () => window.removeEventListener('keydown', locationBlockListener);
   }, []);

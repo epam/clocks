@@ -55,18 +55,17 @@ const AddLocation: React.FC = () => {
     // eslint-disable-next-line
   }, []);
 
+  const listener = useCallback(({ key }: KeyboardEvent) => {
+    if (key === '+' || key === '=') {
+      setPanel(true);
+    }
+  }, []);
+
   useEffect(() => {
     handleSearch(debounce);
   }, [debounce, handleSearch]);
 
   useEffect(() => {
-    const listener = (event: KeyboardEvent) => {
-      const { key, target } = event;
-      if (key === '+' || key === '=') {
-        setPanel(true);
-      }
-    };
-
     document.addEventListener('keydown', listener);
 
     return () => window.removeEventListener('keydown', listener);
