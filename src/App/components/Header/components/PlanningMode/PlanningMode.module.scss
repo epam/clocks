@@ -18,12 +18,13 @@
 
 .lightBody {
   @extend %body;
-  box-shadow: 3px 2px 15px 0px $lightGrayColor;
+  box-shadow: 3px 2px 15px 0px $paleGrayColor;
   background-color: $whiteColor;
 }
 
 .darkBody {
   @extend %body;
+  box-shadow: 3px 2px 15px 0px $darkColor;
   background-color: $darkGrayColor;
 }
 
@@ -65,8 +66,4 @@
   .sliderBodyHorizontal {
     padding: $space-m $space-xl;
   }
-}
-
-.sliderContainerInvisible {
-  display: none;
 }

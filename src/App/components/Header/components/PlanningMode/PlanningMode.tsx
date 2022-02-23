@@ -7,40 +7,42 @@ import { IconButton, Tooltip, Slider } from '@mui/material';
 import HistoryIcon from '@mui/icons-material/History';
 
 import useTheme from '../../../../hooks/useTheme';
-import { IInitialState } from '../../../../redux/types';
+import { IInitialState, TSliderType } from '../../../../redux/types';
 import { setPlanningMode } from '../../../../redux/actions';
+import { SLIDER_TYPE } from '../../../../redux/constants';
 
 import style from './PlanningMode.module.scss';
 
-const DeleteMode: React.FC = () => {
+const PlanningMode: React.FC = () => {
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
+  const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
-  const { planningMode, deleteMode, settings } = useSelector((state: IInitialState) => state);
+  const { planningMode, deleteMode } = useSelector((state: IInitialState) => state);
 
   const tooltipText = useMemo((): string => t('PlanningMode.ButtonTooltip'), [t]);
 
-  const [sliderType, setSliderType] = useState<'vertical' | 'horizontal'>('horizontal');
+  const [sliderType, setSliderType] = useState<TSliderType>(SLIDER_TYPE.HORIZONTAL);
 
   useEffect(() => {
     if (window.innerWidth < 601) {
-      setSliderType('vertical');
+      setSliderType(SLIDER_TYPE.VERTICAL);
     } else {
-      setSliderType('horizontal');
+      setSliderType(SLIDER_TYPE.HORIZONTAL);
     }
     return window.addEventListener('resize', () => {
       if (window.innerWidth < 601) {
-        setSliderType('vertical');
+        setSliderType(SLIDER_TYPE.VERTICAL);
       } else {
-        setSliderType('horizontal');
+        setSliderType(SLIDER_TYPE.HORIZONTAL);
       }
     });
   }, []);
 
-  const sliderText = (value: number) => {
+  const sliderText = useCallback((value: number) => {
     const integerPart = value > 0 ? Math.floor(value) : Math.ceil(value);
     const decimalPart = value - integerPart;
     if (integerPart === value) {
@@ -54,7 +56,7 @@ const DeleteMode: React.FC = () => {
         ? `${integerPart}h ${Math.abs(60 * decimalPart)}m`
         : '0';
     }
-  };
+  }, []);
 
   const handleSetPlanningMode = useCallback(() => {
     dispatch(
@@ -65,8 +67,8 @@ const DeleteMode: React.FC = () => {
     );
   }, [dispatch, planningMode.isOn, planningMode.additionalHours]);
 
-  const handleChange = useCallback(
-    (event: Event, newValue: number | number[]) => {
+  const handleChangeAdditionalHours = useCallback(
+    (event: Event, newValue: any) => {
       if (typeof newValue === 'number') {
         dispatch(setPlanningMode({ isOn: true, additionalHours: newValue }));
       }
@@ -87,44 +89,45 @@ const DeleteMode: React.FC = () => {
           />
         </IconButton>
       </Tooltip>
-      <div
-        className={clsx(
-          { [style.sliderContainerHorizontal]: sliderType === 'horizontal' },
-          { [style.sliderContainerVertical]: sliderType === 'vertical' },
-          { [style.sliderContainerInvisible]: !planningMode.isOn }
-        )}
-      >
+
+      {planningMode.isOn && (
         <div
           className={clsx(
-            style.sliderBody,
-            { [style.lightBody]: settings.theme === 'light' },
-            { [style.darkBody]: settings.theme === 'dark' },
-            { [style.sliderBodyHorizontal]: sliderType === 'horizontal' },
-            { [style.sliderBodyVertical]: sliderType === 'vertical' }
+            { [style.sliderContainerHorizontal]: sliderType === 'horizontal' },
+            { [style.sliderContainerVertical]: sliderType === 'vertical' }
           )}
         >
-          <Slider
-            orientation={sliderType}
-            min={-12}
-            defaultValue={0}
-            value={planningMode.additionalHours}
-            getAriaValueText={sliderText}
-            valueLabelFormat={sliderText}
-            max={12}
-            step={0.25}
-            valueLabelDisplay="on"
-            onChange={handleChange}
-            classes={{
-              root: style.sliderRoot,
-              rail: style.sliderRail,
-              track: style.sliderTrack,
-              thumb: style.sliderThumb
-            }}
-          />
+          <div
+            className={clsx(
+              style.sliderBody,
+              { [bodyTheme]: true },
+              { [style.sliderBodyHorizontal]: sliderType === 'horizontal' },
+              { [style.sliderBodyVertical]: sliderType === 'vertical' }
+            )}
+          >
+            <Slider
+              orientation={sliderType}
+              min={-12}
+              defaultValue={0}
+              value={planningMode.additionalHours}
+              getAriaValueText={sliderText}
+              valueLabelFormat={sliderText}
+              max={12}
+              step={0.25}
+              valueLabelDisplay="on"
+              onChange={handleChangeAdditionalHours}
+              classes={{
+                root: style.sliderRoot,
+                rail: style.sliderRail,
+                track: style.sliderTrack,
+                thumb: style.sliderThumb
+              }}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };
 
-export default DeleteMode;
+export default PlanningMode;
