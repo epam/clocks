@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -27,7 +27,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   );
   const { deleteMode, counter } = useSelector((state: IInitialState) => state);
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
-  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const timeInfo = useTimeInfo(location);
 
@@ -36,9 +35,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   const { locations, setLocations } = useLocations();
 
   const [commentModal, setCommentModal] = useState(false);
-
+  const [isFocused, setIsFocused] = useState<boolean>(false);
   const [inputText, setInputText] = useState<string>('');
-
   const [time, setTime] = useState<ITimeState>({
     hours: '',
     minutes: '',
@@ -47,6 +45,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     suffix: '',
     timezone: ''
   });
+
+  const locationRef = useRef<HTMLDivElement>(null);
 
   const isUserLocation = useMemo(() => {
     return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
@@ -58,6 +58,24 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     }
     // use it only when component mount
     // eslint-disable-next-line
+  }, []);
+
+  const locationBlockListener = (event: KeyboardEvent) => {
+    const { key, altKey } = event;
+    if (key === ' ') {
+      handleSetUserLocation();
+    } else if (key === 'c' && altKey) {
+      handleOpenCommentModal();
+    }
+  };
+
+  useEffect(() => {
+    const target = locationRef.current;
+    if (target) {
+      target.addEventListener('keydown', locationBlockListener);
+    }
+
+    return () => window.removeEventListener('keydown', locationBlockListener);
   }, []);
 
   useEffect(() => {
@@ -116,6 +134,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
         tabIndex={0}
         onFocus={focusHandler}
         onBlur={focusHandler}
+        ref={locationRef}
       >
         {deleteMode.isOn && (
           <IconButton className={style.deleteButton} size="small" onClick={handleDelete}>
