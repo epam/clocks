@@ -23,6 +23,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   selectedLocation,
   setSelectedLocation
 }) => {
+  console.log('🚀 ~ file: LocationBlock.tsx ~ line 26 ~ selectedLocation', selectedLocation);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
   const commentModalTheme = useTheme(style.lightCommentModal, style.darkCommentModal);
@@ -142,8 +143,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
 
   const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
     if (dragDropMode && location) {
-      setSelectedLocation(location);
       setTimeout(() => {
+        setSelectedLocation(location);
         addClassName(containerDivRef, style.hide);
       });
     }
@@ -174,11 +175,13 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
 
   const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
     removeClassName(containerDivRef, style.hide);
+    setSelectedLocation(null);
   };
 
   return (
     <div className={style.relativeBlock}>
       <div
+        className={style.locationContainer}
         draggable={dragDropMode.isOn}
         onDragOver={e => e.preventDefault()}
         onDragStart={dragStartHandler}
@@ -246,22 +249,21 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
             </div>
           )}
         </div>
-        <div
-          ref={rightBlockRef}
-          className={clsx({
-            [style.rightBlock]: true,
-            [style.positioned]: true
-          })}
-          draggable={dragDropMode.isOn}
-          onDragEnter={_ => blockDragEnterHandler(rightBlockRef)}
-          onDragLeave={_ => dragLeaveHandler(rightBlockRef)}
-          onDragOver={e => e.preventDefault()}
-          onDrop={dropHandler}
-        >
-          <div className={style.innerBlock} />
-        </div>
       </div>
-
+      <div
+        ref={rightBlockRef}
+        className={clsx({
+          [style.rightBlock]: true,
+          [style.behind]: selectedLocation === null
+        })}
+        draggable={dragDropMode.isOn}
+        onDragEnter={_ => blockDragEnterHandler(rightBlockRef)}
+        onDragLeave={_ => dragLeaveHandler(rightBlockRef)}
+        onDragOver={e => e.preventDefault()}
+        onDrop={dropHandler}
+      >
+        <div className={style.innerBlock} />
+      </div>
       {renderCommentModal()}
     </div>
   );
