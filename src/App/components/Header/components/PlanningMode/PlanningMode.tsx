@@ -28,34 +28,15 @@ const PlanningMode: React.FC = () => {
   const [sliderType, setSliderType] = useState<TSliderType>(SLIDER_TYPE.HORIZONTAL);
 
   useEffect(() => {
-    if (window.innerWidth < 601) {
-      setSliderType(SLIDER_TYPE.VERTICAL);
-    } else {
-      setSliderType(SLIDER_TYPE.HORIZONTAL);
-    }
-    return window.addEventListener('resize', () => {
-      if (window.innerWidth < 601) {
-        setSliderType(SLIDER_TYPE.VERTICAL);
-      } else {
-        setSliderType(SLIDER_TYPE.HORIZONTAL);
-      }
-    });
-  }, []);
+    window.innerWidth < 601
+      ? setSliderType(SLIDER_TYPE.VERTICAL)
+      : setSliderType(SLIDER_TYPE.HORIZONTAL);
+  }, [planningMode.isOn]);
 
   const sliderText = useCallback((value: number) => {
-    const integerPart = value > 0 ? Math.floor(value) : Math.ceil(value);
-    const decimalPart = value - integerPart;
-    if (integerPart === value) {
-      return value > 0 ? `+${value}h` : value < 0 ? `${value}h` : '0';
-    } else if (integerPart === 0) {
-      return value > 0 ? `+${60 * decimalPart}m` : value < 0 ? `${60 * decimalPart}m` : '0';
-    } else {
-      return value > 0
-        ? `+${integerPart}h ${60 * decimalPart}m`
-        : value < 0
-        ? `${integerPart}h ${Math.abs(60 * decimalPart)}m`
-        : '0';
-    }
+    const hours = String(value).split('.')[0];
+    const minutes = Math.abs(60 * (value - Number(hours)));
+    return `${hours ? hours + 'h' : ''} ${minutes ? minutes + 'm' : ''}`;
   }, []);
 
   const handleSetPlanningMode = useCallback(() => {

@@ -18,7 +18,8 @@
 }
 
 .marginBottom {
-  @include screenMin600 {
-    margin-bottom: 50px;
+  margin-bottom: 50px;
+  @include screenMax600 {
+    margin-bottom: 0;
   }
 }
