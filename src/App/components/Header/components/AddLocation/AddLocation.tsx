@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo, useEffect } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { matchSorter } from 'match-sorter';
 
 import { IconButton, Drawer, Tooltip } from '@mui/material';
 import { Add, Close } from '@mui/icons-material';
@@ -39,15 +40,22 @@ const AddLocation: React.FC = () => {
 
   const handleSearch = useCallback((text: string) => {
     if (!!text) {
-      const filter = locationsDB.filter(
-        location =>
-          !!location.city.match(new RegExp(text, 'gi')) ||
-          !!location.names.match(new RegExp(text, 'gi')) ||
-          !!location.city_ascii.match(new RegExp(text, 'gi')) ||
-          !!location.country.match(new RegExp(text, 'gi'))
-      );
+      const filter = matchSorter(locationsDB, text, {
+        keys: ['city_ascii', 'city', 'province', 'country', 'timezone', 'names']
+      });
 
-      setLocationsFound(filter);
+      if (filter.length) {
+        const bestMatch = filter[0];
+        const rest = filter.slice(1, 50);
+        rest.sort((a, b) => {
+          if (a['city_ascii'] < b['city_ascii']) return -1;
+          if (a['city_ascii'] > b['city_ascii']) return 1;
+          return 0;
+        });
+        setLocationsFound([bestMatch, ...rest]);
+      } else {
+        setLocationsFound([])
+      }
     } else {
       setLocationsFound([]);
     }
@@ -129,10 +137,7 @@ const AddLocation: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton
-          onClick={handleOpenPanel}
-          disabled={deleteMode.isOn}
-        >
+        <IconButton onClick={handleOpenPanel} disabled={deleteMode.isOn}>
           <Add className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })} />
         </IconButton>
       </Tooltip>
