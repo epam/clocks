@@ -13,6 +13,7 @@ import useDebounce from '../../../../hooks/useDebounce';
 import { ILocation, IInitialState, IUrlLocations, IUrlLocation } from '../../../../redux/types';
 
 import style from './AddLocation.module.scss';
+import { KEYBOARD } from './AddLocation.constants';
 
 const AddLocation: React.FC = () => {
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
@@ -56,7 +57,7 @@ const AddLocation: React.FC = () => {
   }, []);
 
   const listener = useCallback(({ key }: KeyboardEvent) => {
-    if (key === '+' || key === '=') {
+    if (key === KEYBOARD.plus || key === KEYBOARD.plus) {
       setPanel(true);
     }
   }, []);
@@ -77,7 +78,7 @@ const AddLocation: React.FC = () => {
 
   const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (value === '+' || value === '=') return;
+    if (value === KEYBOARD.plus || value === KEYBOARD.plus) return;
     setSearchText(value);
   };
 

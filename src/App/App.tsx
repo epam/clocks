@@ -28,7 +28,7 @@ const App: React.FC = () => {
     if (autoTheme && counter % 60 === 0) {
       setAutoTheme();
     }
-    // don't need as a dependancy autoTheme and setAutoTheme
+    // don't need as a dependency autoTheme and setAutoTheme
     // eslint-disable-next-line
   }, [counter]);
 
