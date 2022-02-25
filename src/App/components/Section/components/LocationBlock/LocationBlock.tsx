@@ -127,7 +127,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           [style.shaking]: deleteMode.isOn,
           [style.currentBody]: urlUserLocation || isUserLocation
         })}
-        tabIndex={0}
+        tabIndex={deleteMode.isOn ? -1 : 0}
         onFocus={focusHandler}
         onBlur={focusHandler}
         ref={locationRef}

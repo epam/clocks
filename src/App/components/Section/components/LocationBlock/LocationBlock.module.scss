@@ -1,5 +1,10 @@
 @import '../../../../styles/index.scss';
 
+.active {
+  background-color: $redColor;
+  color: $whiteColor;
+}
+
 %body {
   width: 1fr;
   min-height: 100px;
@@ -13,6 +18,10 @@
 
   &:focus-within {
     outline: none;
+
+    & .deleteButton {
+      @extend .active;
+    }
   }
 
   .deleteButton {
@@ -23,8 +32,7 @@
     color: $darkGrayColor;
 
     &:hover {
-      background-color: $redColor;
-      color: $whiteColor;
+      @extend .active;
     }
 
     .icon {
