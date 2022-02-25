@@ -41,11 +41,8 @@ const AddLocation: React.FC = () => {
     if (!!text) {
       let filter;
       if (timezonesDB[text]) {
-        filter = locationsDB.filter(location => location.timezone === timezonesDB[text]);
-        console.log('if');
-        console.log(filter);
+        filter = locationsDB.filter(location => timezonesDB[text].includes(location.timezone));
       } else {
-        console.log('else');
         filter = locationsDB.filter(
           location =>
             !!location.city.match(new RegExp(text, 'gi')) ||
@@ -53,6 +50,7 @@ const AddLocation: React.FC = () => {
             !!location.city_ascii.match(new RegExp(text, 'gi')) ||
             !!location.country.match(new RegExp(text, 'gi'))
         );
+        console.log(filter);
       }
 
       setLocationsFound(filter);
