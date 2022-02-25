@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Snackbar, Alert, Slide } from '@mui/material';
@@ -15,6 +15,7 @@ import style from './App.module.scss';
 
 const App: React.FC = () => {
   const theme = useTheme(style.lightBody, style.darkBody);
+  const screenRef = useRef<HTMLDivElement>(null);
 
   const { closeSnackbar } = useSnackbar();
 
@@ -31,8 +32,20 @@ const App: React.FC = () => {
     // eslint-disable-next-line
   }, [counter]);
 
+  const listener = ({ key }: KeyboardEvent) => {
+    if (key === 'Escape') {
+      screenRef.current?.focus();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', listener);
+
+    return () => window.removeEventListener('keydown', listener);
+  }, []);
+
   return (
-    <>
+    <div ref={screenRef} tabIndex={0}>
       <div className={theme}>
         <div>
           <Header />
@@ -53,7 +66,7 @@ const App: React.FC = () => {
           </Alert>
         </Snackbar>
       )}
-    </>
+    </div>
   );
 };
 
