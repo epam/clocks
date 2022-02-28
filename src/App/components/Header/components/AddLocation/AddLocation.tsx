@@ -39,19 +39,15 @@ const AddLocation: React.FC = () => {
 
   const handleSearch = useCallback((text: string) => {
     if (!!text) {
-      let filter;
-      if (timezonesDB[text]) {
-        filter = locationsDB.filter(location => timezonesDB[text].includes(location.timezone));
-      } else {
-        filter = locationsDB.filter(
-          location =>
-            !!location.city.match(new RegExp(text, 'gi')) ||
-            !!location.names.match(new RegExp(text, 'gi')) ||
-            !!location.city_ascii.match(new RegExp(text, 'gi')) ||
-            !!location.country.match(new RegExp(text, 'gi'))
-        );
-        console.log(filter);
-      }
+      const filter = timezonesDB[text]
+        ? locationsDB.filter(location => timezonesDB[text].includes(location.timezone))
+        : locationsDB.filter(
+            location =>
+              !!location.city.match(new RegExp(text, 'gi')) ||
+              !!location.names.match(new RegExp(text, 'gi')) ||
+              !!location.city_ascii.match(new RegExp(text, 'gi')) ||
+              !!location.country.match(new RegExp(text, 'gi'))
+          );
 
       setLocationsFound(filter);
     } else {
