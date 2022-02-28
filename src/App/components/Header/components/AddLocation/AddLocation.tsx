@@ -39,8 +39,12 @@ const AddLocation: React.FC = () => {
 
   const handleSearch = useCallback((text: string) => {
     if (!!text) {
-      const filter = timezonesDB[text]
-        ? locationsDB.filter(location => timezonesDB[text].includes(location.timezone))
+      const filter = timezonesDB.abbreviations.includes(text)
+        ? locationsDB.filter(location =>
+            timezonesDB.timezones[timezonesDB.abbreviations.indexOf(text)].values.includes(
+              location.timezone
+            )
+          )
         : locationsDB.filter(
             location =>
               !!location.city.match(new RegExp(text, 'gi')) ||
