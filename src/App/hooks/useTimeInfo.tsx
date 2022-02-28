@@ -13,7 +13,10 @@ const useTimeInfo = (location?: ILocation) => {
   const { timeFormat } = useSelector((state: IInitialState) => state.settings);
   const { planningMode } = useSelector((state: IInitialState) => state);
 
-  let date = new Date();
+  const currentDate = new Date();
+  const date = planningMode.isOn
+    ? new Date(currentDate.getTime() + planningMode.additionalHours * 3.6 * 1000000)
+    : currentDate;
 
   const timeObject: ITimeState = {
     hours: '',
@@ -24,10 +27,6 @@ const useTimeInfo = (location?: ILocation) => {
     timezone: location?.timezone
   };
   const isHour12Format = timeFormat === TIME_FORMAT.H12;
-
-  if (planningMode.isOn) {
-    date = new Date(date.getTime() + planningMode.additionalHours * 3.6 * 1000000);
-  }
 
   const visiableTime = date
     .toLocaleTimeString('ru-RU', {
