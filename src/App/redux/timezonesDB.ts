@@ -4,7 +4,7 @@ export const timezonesDB = {
     'CT',
     'MT',
     'PT',
-    'AK',
+    'AKST',
     'HAST',
     'MST',
     'AST',
@@ -96,16 +96,128 @@ export const timezonesDB = {
     'SMST'
   ],
   timezones: [
-    { abbreviation: 'ET', values: ['America/New_York'] },
-    { abbreviation: 'CT', values: ['America/Chicago'] },
-    { abbreviation: 'MT', values: ['America/Denver'] },
-    { abbreviation: 'PT', values: ['America/Los_Angeles'] },
-    { abbreviation: 'AK', values: ['America/Anchorage'] },
+    {
+      abbreviation: 'ET',
+      values: [
+        'America/New_York',
+        'America/Detroit',
+        'America/Iqaluit',
+        'America/Montreal',
+        'America/Halifax',
+        'America/Indiana/Indianapolis',
+        'America/Jamaica',
+        'America/Panama',
+        'America/Nassau',
+        'America/Port-au-Prince',
+        'America/Grand_Turk'
+      ]
+    },
+    {
+      abbreviation: 'EST',
+      values: [
+        'America/New_York',
+        'America/Detroit',
+        'America/Iqaluit',
+        'America/Montreal',
+        'America/Halifax',
+        'America/Indiana/Indianapolis',
+        'America/Jamaica',
+        'America/Panama',
+        'America/Nassau',
+        'America/Port-au-Prince',
+        'America/Grand_Turk'
+      ]
+    },
+    {
+      abbreviation: 'CT',
+      values: [
+        'America/Chicago',
+        'America/Winnipeg',
+        'America/Regina',
+        'America/Mexico_City',
+        'America/Belize',
+        'America/Costa_Rica',
+        'America/El_Salvador',
+        'America/Guatemala',
+        'America/Tegucigalpa',
+        'America/Managua',
+        'America/Monterrey'
+      ]
+    },
+    {
+      abbreviation: 'CST',
+      values: [
+        'America/Chicago',
+        'America/Winnipeg',
+        'America/Regina',
+        'America/Mexico_City',
+        'America/Belize',
+        'America/Costa_Rica',
+        'America/El_Salvador',
+        'America/Guatemala',
+        'America/Tegucigalpa',
+        'America/Managua',
+        'America/Monterrey'
+      ]
+    },
+    {
+      abbreviation: 'MT',
+      values: [
+        'America/Denver',
+        'America/Boise',
+        'America/Edmonton',
+        'America/Yellowknife',
+        'America/Cambridge_Bay',
+        'America/Chihuahua',
+        'America/Mazatlan',
+        'America/Hermosillo',
+        'America/Dawson',
+        'America/Phoenix'
+      ]
+    },
+    { abbreviation: 'PT', values: ['America/Los_Angeles', 'America/Tijuana', 'America/Vancouver'] },
+    {
+      abbreviation: 'PST',
+      values: ['America/Los_Angeles', 'America/Tijuana', 'America/Vancouver']
+    },
+    { abbreviation: 'AKST', values: ['America/Anchorage'] },
     { abbreviation: 'HAST', values: ['Pacific/Honolulu'] },
-    { abbreviation: 'MST', values: ['America/Phoenix'] },
+    {
+      abbreviation: 'MST',
+      values: [
+        'America/Denver',
+        'America/Boise',
+        'America/Edmonton',
+        'America/Yellowknife',
+        'America/Cambridge_Bay',
+        'America/Chihuahua',
+        'America/Mazatlan',
+        'America/Hermosillo',
+        'America/Dawson',
+        'America/Phoenix'
+      ]
+    },
     {
       abbreviation: 'AST',
-      values: ['America/Aruba', 'America/Moncton', 'Atlantic/Bermuda', 'America/Santo_Domingo']
+      values: [
+        'America/Aruba',
+        'America/Barbados',
+        'America/Moncton',
+        'Atlantic/Bermuda',
+        'America/Santo_Domingo',
+        'America/Halifax',
+        'America/Curacao',
+        'America/Dominica',
+        'America/Grenada',
+        'America/Guadeloupe',
+        'America/Martinique',
+        'America/Puerto_Rico',
+        'America/St_Thomas',
+        'America/St_Kitts',
+        'America/St_Lucia',
+        'America/St_Vincent',
+        'America/Port_of_Spain'
+      ]
     },
     { abbreviation: 'MOST', values: ['Africa/Casablanca'] },
     {
@@ -514,26 +626,9 @@ export const timezonesDB = {
       abbreviation: 'SAPST',
       values: ['America/Bogota', 'America/Lima', 'America/Guayaquil']
     },
-    {
-      abbreviation: 'EST',
-      values: [
-        'America/New_York',
-        'America/Detroit',
-        'America/Iqaluit',
-        'America/Montreal',
-        'America/Halifax',
-        'America/Indiana/Indianapolis',
-        'America/Jamaica',
-        'America/Panama',
-        'America/Nassau',
-        'America/Port-au-Prince'
-      ]
-    },
     { abbreviation: 'CAST', values: ['America/El_Salvador', 'America/Mexico_City'] },
-    { abbreviation: 'CST', values: ['America/Monterrey', 'America/Mexico_City'] },
     { abbreviation: 'CCST', values: ['Canada/Regina'] },
     { abbreviation: 'MSTM', values: ['America/Chihuahua', 'America/Mazatlan'] },
-    { abbreviation: 'PST', values: ['America/Los_Angeles'] },
     { abbreviation: 'SMST', values: ['Pacific/Pago_Pago', 'Pacific/Apia'] }
   ]
 };
