@@ -77,5 +77,3 @@ export interface IActionPlanningModePayload {
   isOn: boolean;
   additionalHours?: number;
 }
-
-export type TSliderType = 'vertical' | 'horizontal' | undefined;

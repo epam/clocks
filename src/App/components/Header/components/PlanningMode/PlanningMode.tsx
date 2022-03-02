@@ -7,10 +7,11 @@ import { IconButton, Tooltip, Slider } from '@mui/material';
 import HistoryIcon from '@mui/icons-material/History';
 
 import useTheme from '../../../../hooks/useTheme';
-import { IInitialState, TSliderType } from '../../../../redux/types';
+import { IInitialState } from '../../../../redux/types';
 import { setPlanningMode } from '../../../../redux/actions';
-import { SLIDER_TYPE } from '../../../../redux/constants';
 
+import { TSliderType } from './PlanningMode.type';
+import { SLIDER_TYPE } from './PlannigMode.constants';
 import style from './PlanningMode.module.scss';
 
 const PlanningMode: React.FC = () => {
