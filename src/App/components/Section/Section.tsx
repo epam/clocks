@@ -94,7 +94,8 @@ const Section: React.FC = () => {
       className={clsx(
         { [style.body]: locations },
         { [style.emptyBody]: !locations },
-        { [style.marginBottom]: planningMode.isOn }
+        { [style.marginBottom]: planningMode.isOn },
+        { [style.paddingLeft]: planningMode.isOn }
       )}
     >
       {locationsRender}

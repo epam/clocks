@@ -43,11 +43,11 @@
 
 .sliderContainerVertical {
   @extend %sliderContainer;
-  height: 80vh;
+  height: 70vh;
   width: 40px;
   top: calc($space-s + 64px);
   bottom: calc($space-s + 64px);
-  right: $space-xxs;
+  right: $space-s;
 
   .sliderBodyVertical {
     padding: $space-s;
