@@ -10,7 +10,7 @@ import useTheme from '../../../../hooks/useTheme';
 import { IInitialState } from '../../../../redux/types';
 import { setPlanningMode } from '../../../../redux/actions';
 
-import { TSliderType } from './PlanningMode.type';
+import { TSliderType } from './PlanningMode.types';
 import { SLIDER_TYPE } from './PlannigMode.constants';
 import style from './PlanningMode.module.scss';
 
