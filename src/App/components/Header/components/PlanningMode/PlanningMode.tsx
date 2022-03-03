@@ -74,18 +74,16 @@ const PlanningMode: React.FC = () => {
 
       {planningMode.isOn && (
         <div
-          className={clsx(
-            { [style.sliderContainerHorizontal]: sliderType === SLIDER_TYPE.HORIZONTAL },
-            { [style.sliderContainerVertical]: sliderType === SLIDER_TYPE.VERTICAL }
-          )}
+          className={clsx({
+            [style.sliderContainerHorizontal]: sliderType === SLIDER_TYPE.HORIZONTAL,
+            [style.sliderContainerVertical]: sliderType === SLIDER_TYPE.VERTICAL
+          })}
         >
           <div
-            className={clsx(
-              style.sliderBody,
-              { [bodyTheme]: true },
-              { [style.sliderBodyHorizontal]: sliderType === SLIDER_TYPE.HORIZONTAL },
-              { [style.sliderBodyVertical]: sliderType === SLIDER_TYPE.VERTICAL }
-            )}
+            className={clsx(bodyTheme, style.sliderBody, {
+              [style.sliderBodyHorizontal]: sliderType === SLIDER_TYPE.HORIZONTAL,
+              [style.sliderBodyVertical]: sliderType === SLIDER_TYPE.VERTICAL
+            })}
           >
             <Slider
               orientation={sliderType}

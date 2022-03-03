@@ -91,12 +91,12 @@ const Section: React.FC = () => {
 
   return (
     <div
-      className={clsx(
-        { [style.body]: locations },
-        { [style.emptyBody]: !locations },
-        { [style.marginBottom]: planningMode.isOn },
-        { [style.paddingLeft]: planningMode.isOn }
-      )}
+      className={clsx({
+        [style.body]: locations,
+        [style.emptyBody]: !locations,
+        [style.marginBottom]: planningMode.isOn,
+        [style.paddingLeft]: planningMode.isOn && window.innerWidth < 601
+      })}
     >
       {locationsRender}
     </div>
