@@ -14,8 +14,9 @@ import { IInitialState, IUrlLocation } from '../../../../redux/types';
 
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
-import { addClassName, removeClassName } from './utils';
-import { generateLocationKey } from '../../../../utils';
+import addClassName from '../../../../utils/addClassName';
+import removeClassName from '../../../../utils/removeClassName';
+import generateLocationKey from '../../../../utils/generateLocationKey';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({
   location,
