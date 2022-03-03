@@ -12,11 +12,9 @@
   align-items: center;
 
   &.bgGray .innerBlock {
-    width: 0;
+    width: 2px;
     height: 60%;
-    box-shadow: 0 0 10px 7px $blueColor;
     background-color: $blueColor;
-    opacity: 0.4;
   }
 
   @include screenMax500 {
