@@ -3,6 +3,10 @@
 .paper {
   width: 280px;
   margin: 16px;
+
+  .buttonTextColor {
+    color: $blueColor;
+  }
 }
 
 .backdrop {

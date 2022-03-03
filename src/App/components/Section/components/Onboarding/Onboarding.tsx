@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 
 import {
   Popover,
@@ -14,7 +14,7 @@ import useOnboarding from '../../../../hooks/useOnboarding';
 import { IOnboardingProps } from './Onboarding.interface';
 import style from './Onboarding.module.scss';
 
-const Onboarding: FC<IOnboardingProps> = ({
+const Onboarding: React.FC<IOnboardingProps> = ({
   open,
   anchorElement,
   nextElement,
@@ -26,18 +26,18 @@ const Onboarding: FC<IOnboardingProps> = ({
   const { finish, next } = useOnboarding();
 
   const handlePosition = () => anchorElement.getBoundingClientRect();
-  const [ position, setPosition ] = useState(handlePosition);
+  const [position, setPosition] = useState(handlePosition);
 
-    useEffect(() => {
-        const handleResize = () => setPosition(handlePosition);
+  useEffect(() => {
+    const handleResize = () => setPosition(handlePosition);
 
-        window.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
 
-        return () => window.removeEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
 
-        // do not need handlePosition as a dependency
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    // do not need handlePosition as a dependency
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Popover
@@ -70,8 +70,15 @@ const Onboarding: FC<IOnboardingProps> = ({
         <DialogContentText>{text}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        {nextElement && <Button onClick={finish}>Skip</Button>}
-        <Button onClick={() => (nextElement ? next(nextElement) : finish())}>
+        {nextElement && (
+          <Button className={style.buttonTextColor} onClick={finish}>
+            Skip
+          </Button>
+        )}
+        <Button
+          className={style.buttonTextColor}
+          onClick={() => (nextElement ? next(nextElement) : finish())}
+        >
           {nextElement ? 'Next' : 'Finish'}
         </Button>
       </DialogActions>
