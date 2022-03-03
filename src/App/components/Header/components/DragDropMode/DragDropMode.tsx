@@ -2,7 +2,7 @@ import clsx from 'clsx';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { IconButton } from '@mui/material';
-import { LibraryBooksOutlined } from '@mui/icons-material';
+import { LibraryBooksOutlined, SwipeOutlined } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
 import { IInitialState } from '../../../../redux/types';
@@ -23,7 +23,7 @@ const DragDropMode = () => {
 
   return (
     <IconButton onClick={handleSetDragDropMode}>
-      <LibraryBooksOutlined
+      <SwipeOutlined
         className={clsx({
           [iconTheme]: true,
           [style.blueIcon]: dragDropMode.isOn,
