@@ -25,7 +25,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   const { showDate, showCountry, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
-  const { deleteMode, counter } = useSelector((state: IInitialState) => state);
+  const { deleteMode, counter, planningMode } = useSelector((state: IInitialState) => state);
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
   const timeInfo = useTimeInfo(location);
@@ -63,7 +63,14 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     setTime(timeInfo);
     // don't need as a dependency timeInfo
     // eslint-disable-next-line
-  }, [counter, userLocation, locations, timeFormat]);
+  }, [
+    counter,
+    userLocation,
+    locations,
+    timeFormat,
+    planningMode.additionalHours,
+    planningMode.isOn
+  ]);
 
   const handleDelete = () => {
     location && delete locations[location?.city + location?.lat];
@@ -106,7 +113,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
         className={clsx({
           [bodyTheme]: true,
           [style.shaking]: deleteMode.isOn,
-          [style.currentBody]: urlUserLocation || isUserLocation
+          [style.currentBody]: urlUserLocation || isUserLocation,
+          [style.marginRight]: planningMode.isOn
         })}
       >
         {deleteMode.isOn && (
@@ -127,18 +135,29 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
                 [style.opaccityBlock]: !isUserLocation
               })}
             >
-              <IconButton size="small" onClick={handleSetUserLocation} disabled={deleteMode.isOn}>
+              <IconButton
+                size="small"
+                onClick={handleSetUserLocation}
+                disabled={deleteMode.isOn || planningMode.isOn}
+              >
                 <FmdGoodOutlined
                   className={clsx({
                     [iconTheme]: true,
                     [style.blueIcon]: urlUserLocation || isUserLocation,
-                    [style.disabledIcon]: deleteMode.isOn
+                    [style.disabledIcon]: deleteMode.isOn || planningMode.isOn
                   })}
                 />
               </IconButton>
-              <IconButton size="small" onClick={handleOpenCommentModal} disabled={deleteMode.isOn}>
+              <IconButton
+                size="small"
+                onClick={handleOpenCommentModal}
+                disabled={deleteMode.isOn || planningMode.isOn}
+              >
                 <CommentOutlined
-                  className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
+                  className={clsx({
+                    [iconTheme]: true,
+                    [style.disabledIcon]: deleteMode.isOn || planningMode.isOn
+                  })}
                 />
               </IconButton>
             </div>
@@ -148,7 +167,11 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
             </div>
           </div>
           <div className={style.rightSide}>
-            <div className={style.topInfo}>
+            <div
+              className={clsx(style.topInfo, {
+                [style.planningMode]: planningMode.isOn
+              })}
+            >
               {time.hours}:{time.minutes} {time.suffix}
             </div>
             <div className={style.bottomInfo}>

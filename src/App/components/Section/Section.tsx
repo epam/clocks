@@ -4,13 +4,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import useLocations from '../../hooks/useLocations';
 import { IInitialState, IUrlLocations, IUrlLocation } from '../../redux/types';
 import { setUserLocation, setCounter } from '../../redux/actions';
+import clsx from 'clsx';
 
 import style from './Section.module.scss';
 import LocationBlock from './components/LocationBlock/LocationBlock';
 import EmptyState from './components/EmptyState/EmptyState';
 
 const Section: React.FC = () => {
-  const { counter } = useSelector((state: IInitialState) => state);
+  const { counter, planningMode } = useSelector((state: IInitialState) => state);
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
@@ -88,7 +89,18 @@ const Section: React.FC = () => {
     // eslint-disable-next-line
   }, [locations]);
 
-  return <div className={locations ? style.body : style.emptyBody}>{locationsRender}</div>;
+  return (
+    <div
+      className={clsx({
+        [style.body]: locations,
+        [style.emptyBody]: !locations,
+        [style.marginBottom]: planningMode.isOn,
+        [style.paddingLeft]: planningMode.isOn && window.innerWidth < 601
+      })}
+    >
+      {locationsRender}
+    </div>
+  );
 };
 
 export default Section;

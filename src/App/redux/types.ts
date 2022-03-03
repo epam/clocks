@@ -21,6 +21,10 @@ export interface IInitialState {
     text?: string;
     color?: AlertColor;
   };
+  planningMode: {
+    isOn: boolean;
+    additionalHours: number;
+  };
   counter: number;
 }
 
@@ -67,4 +71,9 @@ export interface IUrlLocation {
   comment?: string;
   userLocation?: boolean;
   offset: number;
+}
+
+export interface IActionPlanningModePayload {
+  isOn: boolean;
+  additionalHours?: number;
 }
