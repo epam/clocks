@@ -25,5 +25,7 @@
 }
 
 .paddingLeft {
-  padding-left: 0;
+  @include screenMax600 {
+    padding-left: 0;
+  }
 }
