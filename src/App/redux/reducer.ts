@@ -20,12 +20,16 @@ const initialState: IInitialState = {
     showCountry: true,
     timeFormat: TIME_FORMAT.H24,
     autoSorting: true,
-    showTimezone: false,
+    showTimezone: false
   },
   snackbar: {
     status: false,
     text: undefined,
     color: undefined
+  },
+  planningMode: {
+    isOn: false,
+    additionalHours: 0
   },
   counter: 0
 };
@@ -52,6 +56,13 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
         ...state,
         dragDropMode: {
           isOn: action.payload
+        }
+      };
+    case ACTION_TYPE.setPlanningMode:
+      return {
+        ...state,
+        planningMode: {
+          ...action.payload
         }
       };
     case ACTION_TYPE.setSettings:

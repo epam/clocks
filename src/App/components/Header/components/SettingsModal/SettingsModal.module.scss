@@ -58,7 +58,7 @@
 }
 
 .autoSorting {
-  @include screenMax500 {
+  @include screenMax600 {
     display: none;
   }
 }

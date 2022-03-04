@@ -16,3 +16,14 @@
   justify-content: center;
   align-items: center;
 }
+
+.marginBottom {
+  margin-bottom: 50px;
+  @include screenMax600 {
+    margin-bottom: 0;
+  }
+}
+
+.paddingLeft {
+  padding-left: 0;
+}

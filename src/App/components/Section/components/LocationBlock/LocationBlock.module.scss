@@ -17,7 +17,7 @@
     background-color: $blueColor;
   }
 
-  @include screenMax500 {
+  @include screenMax600 {
     display: none;
   }
 }
@@ -249,4 +249,28 @@
 
 .behind {
   z-index: -1;
+}
+
+.planningMode {
+  animation-duration: 2s;
+  animation-name: planningMode;
+  animation-iteration-count: infinite;
+}
+
+@keyframes planningMode {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.marginRight {
+  @include screenMax600 {
+    margin-right: 55px;
+  }
 }

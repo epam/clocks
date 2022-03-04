@@ -19,7 +19,7 @@ const ShareButton: React.FC = () => {
 
   const { t } = useTranslation();
 
-  const { deleteMode, dragDropMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, dragDropMode, planningMode } = useSelector((state: IInitialState) => state);
 
   const handleCopy = () => {
     const url: string = window?.location?.href;
@@ -30,7 +30,10 @@ const ShareButton: React.FC = () => {
   };
 
   const tooltipText = useMemo(() => t('ShareButton.ButtonTooltip'), [t]);
-  const disabled = useMemo(() => deleteMode.isOn || dragDropMode.isOn, [deleteMode, dragDropMode]);
+  const disabled = useMemo(
+    () => deleteMode.isOn || dragDropMode.isOn || planningMode.isOn,
+    [deleteMode, planningMode, dragDropMode]
+  );
 
   return (
     <>
