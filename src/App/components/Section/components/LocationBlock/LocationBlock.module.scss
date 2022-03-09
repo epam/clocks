@@ -36,6 +36,10 @@
   display: flex;
   flex-direction: column;
 
+  @include screenMax600 {
+    margin-bottom: 0;
+  }
+
   .deleteButton {
     position: absolute;
     right: -10px;
@@ -271,6 +275,6 @@
 
 .marginRight {
   @include screenMax600 {
-    margin-right: 55px;
+    margin-right: 70px;
   }
 }
