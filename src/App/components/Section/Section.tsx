@@ -95,7 +95,7 @@ const Section: React.FC = () => {
         [style.body]: locations,
         [style.emptyBody]: !locations,
         [style.marginBottom]: planningMode.isOn,
-        [style.paddingLeft]: planningMode.isOn && window.innerWidth < 601
+        [style.paddingLeft]: planningMode.isOn
       })}
     >
       {locationsRender}
