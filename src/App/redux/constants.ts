@@ -1,6 +1,7 @@
 export const ACTION_TYPE = {
   setTheme: '/set-theme',
   setDeleteMode: '/set-delete-mode',
+  setDragDropMode: '/set-drag-drop-mode',
   setPlanningMode: '/set-planning-mode',
   setSettings: '/set-settings',
   setSnackbar: '/set-snackbar',

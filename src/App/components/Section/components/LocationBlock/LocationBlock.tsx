@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, DragEvent, useRef, RefObject } from 'react';
 import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -14,25 +14,38 @@ import { IInitialState, IUrlLocation } from '../../../../redux/types';
 
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
+import addClassName from '../../../../utils/addClassName';
+import removeClassName from '../../../../utils/removeClassName';
+import generateLocationKey from '../../../../utils/generateLocationKey';
 
-const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation }) => {
+const LocationBlock: React.FC<ILocationBlockProps> = ({
+  location,
+  urlUserLocation,
+  selectedLocation,
+  setSelectedLocation
+}) => {
+  console.log('🚀 ~ file: LocationBlock.tsx ~ line 26 ~ selectedLocation', selectedLocation);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
   const commentModalTheme = useTheme(style.lightCommentModal, style.darkCommentModal);
 
   const { t } = useTranslation();
+  const containerDivRef = useRef<HTMLDivElement>(null);
+  const rightBlockRef = useRef<HTMLDivElement>(null);
 
   const { showDate, showCountry, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
-  const { deleteMode, counter, planningMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, counter, dragDropMode, planningMode } = useSelector(
+    (state: IInitialState) => state
+  );
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
   const timeInfo = useTimeInfo(location);
 
   const dispatch = useDispatch();
 
-  const { locations, setLocations } = useLocations();
+  const { locations, setLocations, dragAndDropLocation } = useLocations();
 
   const [commentModal, setCommentModal] = useState(false);
 
@@ -50,6 +63,10 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   const isUserLocation = useMemo(() => {
     return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
   }, [userLocation?.city, userLocation?.lat, location?.city, location?.lat]);
+  const disabled = useMemo(
+    () => deleteMode.isOn || dragDropMode.isOn || planningMode.isOn,
+    [planningMode, deleteMode, dragDropMode]
+  );
 
   useEffect(() => {
     if (location && locations[location.city + location.lat].comment) {
@@ -75,6 +92,36 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   const handleDelete = () => {
     location && delete locations[location?.city + location?.lat];
     setLocations(locations);
+  };
+
+  const renderCommentModal = () => {
+    return (
+      commentModal && (
+        <Dialog open={commentModal} onClose={handleCloseCommentModal}>
+          <div className={commentModalTheme}>
+            <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
+            <div>
+              <input
+                className={style.input}
+                maxLength={50}
+                placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
+                value={inputText}
+                onChange={e => setInputText(e.target.value)}
+                autoFocus={true}
+              />
+            </div>
+            <div className={style.buttonContainer}>
+              <Button className={style.button} onClick={handleCloseCommentModal}>
+                {t('Settings.CancelButton')}
+              </Button>
+              <Button className={style.button} onClick={handleSaveComment}>
+                {t('Settings.SaveButton')}
+              </Button>
+            </div>
+          </div>
+        </Dialog>
+      )
+    );
   };
 
   const handleSetUserLocation = () => {
@@ -107,112 +154,137 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     handleCloseCommentModal();
   };
 
+  const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
+    if (dragDropMode && location) {
+      setTimeout(() => {
+        setSelectedLocation(location);
+        addClassName(containerDivRef, style.hide);
+      });
+    }
+  };
+
+  const dropHandler = (e: DragEvent<HTMLDivElement>) => {
+    removeClassName(rightBlockRef, style.bgGray);
+
+    if (selectedLocation && location) {
+      dragAndDropLocation(selectedLocation, location);
+    }
+  };
+
+  const blockDragEnterHandler = (blockRef: RefObject<HTMLDivElement>) => {
+    if (!selectedLocation || !location) {
+      throw new Error('Dragged location or dropped block location is null');
+    }
+    const selectedLocationKey = generateLocationKey(selectedLocation);
+    const currentLocationKey = generateLocationKey(location);
+    if (selectedLocationKey !== currentLocationKey) {
+      addClassName(blockRef, style.bgGray);
+    }
+  };
+
+  const dragLeaveHandler = (blockRef: RefObject<HTMLDivElement>) => {
+    removeClassName(blockRef, style.bgGray);
+  };
+
+  const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
+    removeClassName(containerDivRef, style.hide);
+    setSelectedLocation(null);
+  };
+
   return (
-    <>
+    <div className={style.relativeBlock}>
       <div
-        className={clsx({
-          [bodyTheme]: true,
-          [style.shaking]: deleteMode.isOn,
-          [style.currentBody]: urlUserLocation || isUserLocation,
-          [style.marginRight]: planningMode.isOn
-        })}
+        className={style.container}
+        draggable={dragDropMode.isOn}
+        onDragOver={e => e.preventDefault()}
+        onDragStart={dragStartHandler}
+        onDragEnd={dragEndHandler}
       >
-        {deleteMode.isOn && (
-          <IconButton className={style.deleteButton} size="small" onClick={handleDelete}>
-            <Remove className={style.icon} />
-          </IconButton>
-        )}
-        <div className={style.infoBlock}>
-          <div
-            className={clsx({
-              [style.leftSide]: true,
-              [style.moveLeftOrRight]: !isUserLocation
-            })}
-          >
+        <div
+          ref={containerDivRef}
+          className={clsx({
+            [bodyTheme]: true,
+            [style.shaking]: deleteMode.isOn || dragDropMode.isOn,
+            [style.currentBody]: urlUserLocation || isUserLocation,
+            [style.marginRight]: planningMode.isOn,
+            [style.dragDropCursor]: dragDropMode.isOn
+          })}
+        >
+          {deleteMode.isOn && (
+            <IconButton className={style.deleteButton} size="small" onClick={handleDelete}>
+              <Remove className={style.icon} />
+            </IconButton>
+          )}
+          <div className={style.infoBlock}>
             <div
               className={clsx({
-                [style.buttonContainer]: true,
-                [style.opaccityBlock]: !isUserLocation
+                [style.leftSide]: true,
+                [style.moveLeftOrRight]: !isUserLocation
               })}
             >
-              <IconButton
-                size="small"
-                onClick={handleSetUserLocation}
-                disabled={deleteMode.isOn || planningMode.isOn}
+              <div
+                className={clsx({
+                  [style.buttonContainer]: true,
+                  [style.opaccityBlock]: !isUserLocation
+                })}
               >
-                <FmdGoodOutlined
-                  className={clsx({
-                    [iconTheme]: true,
-                    [style.blueIcon]: urlUserLocation || isUserLocation,
-                    [style.disabledIcon]: deleteMode.isOn || planningMode.isOn
-                  })}
-                />
-              </IconButton>
-              <IconButton
-                size="small"
-                onClick={handleOpenCommentModal}
-                disabled={deleteMode.isOn || planningMode.isOn}
-              >
-                <CommentOutlined
-                  className={clsx({
-                    [iconTheme]: true,
-                    [style.disabledIcon]: deleteMode.isOn || planningMode.isOn
-                  })}
-                />
-              </IconButton>
+                <IconButton size="small" onClick={handleSetUserLocation} disabled={disabled}>
+                  <FmdGoodOutlined
+                    className={clsx({
+                      [iconTheme]: true,
+                      [style.blueIcon]: urlUserLocation || isUserLocation,
+                      [style.disabledIcon]: disabled
+                    })}
+                  />
+                </IconButton>
+                <IconButton size="small" onClick={handleOpenCommentModal} disabled={disabled}>
+                  <CommentOutlined
+                    className={clsx({ [iconTheme]: true, [style.disabledIcon]: disabled })}
+                  />
+                </IconButton>
+              </div>
+              <div className={style.infoContainer}>
+                <div className={style.topInfo}>{location?.city}</div>
+                <div className={style.bottomInfo}>{showCountry && location?.country}</div>
+              </div>
             </div>
-            <div className={style.infoContainer}>
-              <div className={style.topInfo}>{location?.city}</div>
-              <div className={style.bottomInfo}>{showCountry && location?.country}</div>
+            <div className={style.rightSide}>
+              <div
+                className={clsx(style.topInfo, {
+                  [style.planningMode]: planningMode.isOn
+                })}
+              >
+                {time.hours}:{time.minutes} {time.suffix}
+              </div>
+              <div className={style.bottomInfo}>
+                <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
+                <div>{showTimezone && time.timezone}</div>
+              </div>
             </div>
           </div>
-          <div className={style.rightSide}>
-            <div
-              className={clsx(style.topInfo, {
-                [style.planningMode]: planningMode.isOn
-              })}
-            >
-              {time.hours}:{time.minutes} {time.suffix}
+          {location && locations[location.city + location.lat].comment && (
+            <div className={style.commentBlock}>
+              {locations[location.city + location.lat].comment}
             </div>
-            <div className={style.bottomInfo}>
-              <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
-              <div>{showTimezone && time.timezone}</div>
-            </div>
-          </div>
+          )}
         </div>
-        {location && locations[location.city + location.lat].comment && (
-          <div className={style.commentBlock}>
-            {locations[location.city + location.lat].comment}
-          </div>
-        )}
       </div>
-
-      {commentModal && (
-        <Dialog open={commentModal} onClose={handleCloseCommentModal}>
-          <div className={commentModalTheme}>
-            <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
-            <div>
-              <input
-                className={style.input}
-                maxLength={50}
-                placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
-                value={inputText}
-                onChange={e => setInputText(e.target.value)}
-                autoFocus={true}
-              />
-            </div>
-            <div className={style.buttonContainer}>
-              <Button className={style.button} onClick={handleCloseCommentModal}>
-                {t('Settings.CancelButton')}
-              </Button>
-              <Button className={style.button} onClick={handleSaveComment}>
-                {t('Settings.SaveButton')}
-              </Button>
-            </div>
-          </div>
-        </Dialog>
-      )}
-    </>
+      <div
+        ref={rightBlockRef}
+        className={clsx({
+          [style.rightBlock]: true,
+          [style.behind]: selectedLocation === null
+        })}
+        draggable={dragDropMode.isOn}
+        onDragEnter={_ => blockDragEnterHandler(rightBlockRef)}
+        onDragLeave={_ => dragLeaveHandler(rightBlockRef)}
+        onDragOver={e => e.preventDefault()}
+        onDrop={dropHandler}
+      >
+        <div className={style.innerBlock} />
+      </div>
+      {renderCommentModal()}
+    </div>
   );
 };
 

@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import useLocations from '../../hooks/useLocations';
-import { IInitialState, IUrlLocations, IUrlLocation } from '../../redux/types';
+import { IInitialState, IUrlLocations, IUrlLocation, ILocation } from '../../redux/types';
 import { setUserLocation, setCounter } from '../../redux/actions';
 import clsx from 'clsx';
 
@@ -11,8 +11,10 @@ import LocationBlock from './components/LocationBlock/LocationBlock';
 import EmptyState from './components/EmptyState/EmptyState';
 
 const Section: React.FC = () => {
-  const { counter, planningMode } = useSelector((state: IInitialState) => state);
+  const [selectedLocation, setSelectedLocation] = useState<ILocation | null>(null);
+  const { counter, dragDropMode, planningMode } = useSelector((state: IInitialState) => state);
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
+  const { autoSorting } = useSelector((state: IInitialState) => state.settings);
 
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
 
@@ -69,25 +71,29 @@ const Section: React.FC = () => {
         return 0;
       };
 
-      return Object.values(locations)
-        .sort(sortFoo)
-        .map((urlLocation: IUrlLocation, index: number) => {
-          const find = findLocation(urlLocation);
+      const locationsArray = autoSorting
+        ? Object.values(locations).sort(sortFoo)
+        : Object.values(locations);
 
-          return (
-            <LocationBlock
-              key={index + 'LOCATION'}
-              location={find}
-              urlUserLocation={urlLocation.userLocation}
-            />
-          );
-        });
+      return locationsArray.map((urlLocation: IUrlLocation, index: number) => {
+        const find = findLocation(urlLocation);
+
+        return (
+          <LocationBlock
+            key={index + 'LOCATION'}
+            location={find}
+            urlUserLocation={urlLocation.userLocation}
+            selectedLocation={selectedLocation}
+            setSelectedLocation={setSelectedLocation}
+          />
+        );
+      });
     }
 
     return <EmptyState />;
     // don't need as a dependency findLocation
     // eslint-disable-next-line
-  }, [locations]);
+  }, [locations, selectedLocation, autoSorting, dragDropMode]);
 
   return (
     <div
