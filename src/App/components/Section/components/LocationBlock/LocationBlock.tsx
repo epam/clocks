@@ -194,6 +194,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   return (
     <div className={style.relativeBlock}>
       <div
+        className={style.container}
         draggable={dragDropMode.isOn}
         onDragOver={e => e.preventDefault()}
         onDragStart={dragStartHandler}

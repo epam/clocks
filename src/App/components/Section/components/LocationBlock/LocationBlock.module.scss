@@ -22,20 +22,23 @@
   }
 }
 
+.container {
+  margin: $space-s;
+
+  @include screenMax600 {
+    margin-bottom: 0;
+  }
+}
+
 %body {
   width: 1fr;
   min-height: 100px;
   padding: $space-s;
-  margin: $space-s;
   position: relative;
   border: 2px solid transparent;
   transition: 0.2s;
   display: flex;
   flex-direction: column;
-
-  @include screenMax600 {
-    margin-bottom: 0;
-  }
 
   .deleteButton {
     position: absolute;
