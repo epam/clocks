@@ -194,7 +194,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   return (
     <div className={style.relativeBlock}>
       <div
-        className={style.locationContainer}
         draggable={dragDropMode.isOn}
         onDragOver={e => e.preventDefault()}
         onDragStart={dragStartHandler}
@@ -206,7 +205,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
             [bodyTheme]: true,
             [style.shaking]: deleteMode.isOn || dragDropMode.isOn,
             [style.currentBody]: urlUserLocation || isUserLocation,
-            [style.marginRight]: planningMode.isOn
+            [style.marginRight]: planningMode.isOn,
+            [style.dragDropCursor]: dragDropMode.isOn
           })}
         >
           {deleteMode.isOn && (

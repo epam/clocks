@@ -1,10 +1,10 @@
 @import '../../../../styles/index.scss';
 
 .rightBlock {
-  width: 200px;
+  width: 400px;
   top: 0;
   bottom: 0;
-  right: -100px;
+  right: -200px;
   position: absolute;
   z-index: 100;
   display: flex;
@@ -22,14 +22,11 @@
   }
 }
 
-.locationContainer {
-  margin: $space-s;
-}
-
 %body {
   width: 1fr;
   min-height: 100px;
   padding: $space-s;
+  margin: $space-s;
   position: relative;
   border: 2px solid transparent;
   transition: 0.2s;
@@ -132,6 +129,10 @@
       margin-right: $space-xxs;
     }
   }
+}
+
+.dragDropCursor {
+  cursor: grab;
 }
 
 .hide {
