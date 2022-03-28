@@ -36,7 +36,9 @@ const SettingsModal: React.FC = () => {
 
   const { autoTheme, theme, showDate, showCountry, showTimezone, timeFormat, autoSorting } =
     useSelector((state: IInitialState) => state.settings);
-  const { deleteMode, counter, dragDropMode, planningMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, counter, dragDropMode, planningMode } = useSelector(
+    (state: IInitialState) => state
+  );
 
   const dispatch = useDispatch();
 
@@ -130,7 +132,10 @@ const SettingsModal: React.FC = () => {
   };
 
   const tooltipText = useMemo((): string => t('Settings.ButtonTooltip'), [t]);
-  const disabled = useMemo(() => deleteMode.isOn || dragDropMode.isOn|| planningMode.isOn, [deleteMode, planningMode, dragDropMode]);
+  const disabled = useMemo(
+    () => deleteMode.isOn || dragDropMode.isOn || planningMode.isOn,
+    [deleteMode, planningMode, dragDropMode]
+  );
 
   return (
     <>
