@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { IInitialState } from '../redux/types';
 import { THEME } from '../redux/constants';
+import { render } from '@testing-library/react';
 
 const useTheme = (lightClass: string, darkClass: string) => {
   const [currentTheme, setCurrentTheme] = useState(lightClass);
