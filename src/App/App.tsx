@@ -8,7 +8,7 @@ import Section from './components/Section/Section';
 import Footer from './components/Footer/Footer';
 import useTheme from './hooks/useTheme';
 import useSnackbar from './hooks/useSnackbar';
-import useAutoTheme from './hooks/useAutoTheme';
+import useAutoTheme from './hooks/useAutoTheme/useAutoTheme';
 import { IInitialState } from './redux/types';
 
 import style from './App.module.scss';

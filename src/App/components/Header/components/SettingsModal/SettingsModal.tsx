@@ -16,7 +16,7 @@ import {
 import { SettingsOutlined } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
-import useAutoTheme from '../../../../hooks/useAutoTheme';
+import useAutoTheme from '../../../../hooks/useAutoTheme/useAutoTheme';
 import { IInitialState, IActionSettingsPayload } from '../../../../redux/types';
 import { THEME, TIME_FORMAT } from '../../../../redux/constants';
 import { setSettings } from '../../../../redux/actions';

@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import useSnackbar from './useSnackbar';
-import { setTheme, setSettings } from '../redux/actions';
-import { THEME } from '../redux/constants';
-import { IInitialState } from '../redux/types';
+import useSnackbar from '../useSnackbar';
+import { setTheme, setSettings } from '../../redux/actions';
+import { THEME } from '../../redux/constants';
+import { IInitialState } from '../../redux/types';
 
 const useAutoTheme = () => {
   const dispatch = useDispatch();
