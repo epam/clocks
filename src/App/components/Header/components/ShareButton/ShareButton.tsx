@@ -7,7 +7,7 @@ import { IconButton, Tooltip } from '@mui/material';
 import { ShareOutlined } from '@mui/icons-material';
 
 import useSnackbar from '../../../../hooks/useSnackbar';
-import useTheme from '../../../../hooks/useTheme';
+import useTheme from '../../../../hooks/useTheme/useTheme';
 import { IInitialState } from '../../../../redux/types';
 
 import style from './ShareButton.module.scss';

@@ -6,7 +6,7 @@ import { Snackbar, Alert, Slide } from '@mui/material';
 import Header from './components/Header/Header';
 import Section from './components/Section/Section';
 import Footer from './components/Footer/Footer';
-import useTheme from './hooks/useTheme';
+import useTheme from './hooks/useTheme/useTheme';
 import useSnackbar from './hooks/useSnackbar';
 import useAutoTheme from './hooks/useAutoTheme';
 import { IInitialState } from './redux/types';

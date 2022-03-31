@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { QueryBuilder } from '@mui/icons-material';
 
-import useTheme from '../../hooks/useTheme';
+import useTheme from '../../hooks/useTheme/useTheme';
 import { IInitialState } from '../../redux/types';
 
 import style from './Header.module.scss';

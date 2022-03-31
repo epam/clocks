@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { IconButton, Dialog, Button } from '@mui/material';
 import { FmdGoodOutlined, CommentOutlined, Remove } from '@mui/icons-material';
 
-import useTheme from '../../../../hooks/useTheme';
+import useTheme from '../../../../hooks/useTheme/useTheme';
 import useTimeInfo from '../../../../hooks/useTimeInfo';
 import useLocations from '../../../../hooks/useLocations';
 import { setUserLocation } from '../../../../redux/actions';

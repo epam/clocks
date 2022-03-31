@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IconButton, Tooltip } from '@mui/material';
 import { DeleteOutline } from '@mui/icons-material';
 
-import useTheme from '../../../../hooks/useTheme';
+import useTheme from '../../../../hooks/useTheme/useTheme';
 import useLocations from '../../../../hooks/useLocations';
 import { IInitialState } from '../../../../redux/types';
 import { setDeleteMode } from '../../../../redux/actions';

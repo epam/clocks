@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { IconButton, Drawer, Tooltip } from '@mui/material';
 import { Add, Close } from '@mui/icons-material';
 
-import useTheme from '../../../../hooks/useTheme';
+import useTheme from '../../../../hooks/useTheme/useTheme';
 import useLocations from '../../../../hooks/useLocations';
 import useSnackbar from '../../../../hooks/useSnackbar';
 import useDebounce from '../../../../hooks/useDebounce';

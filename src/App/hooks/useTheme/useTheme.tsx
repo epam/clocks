@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
-import { IInitialState } from '../redux/types';
-import { THEME } from '../redux/constants';
+import { IInitialState } from '../../redux/types';
+import { THEME } from '../../redux/constants';
 
 const useTheme = (lightClass: string, darkClass: string) => {
   const [currentTheme, setCurrentTheme] = useState(lightClass);

@@ -15,7 +15,7 @@ import {
 } from '@mui/material';
 import { SettingsOutlined } from '@mui/icons-material';
 
-import useTheme from '../../../../hooks/useTheme';
+import useTheme from '../../../../hooks/useTheme/useTheme';
 import useAutoTheme from '../../../../hooks/useAutoTheme';
 import { IInitialState, IActionSettingsPayload } from '../../../../redux/types';
 import { THEME, TIME_FORMAT } from '../../../../redux/constants';
@@ -90,7 +90,6 @@ const SettingsModal: React.FC = () => {
   const handleSetSettings = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const value = e.target.value;
-
       switch (value) {
         case SETTING_VALUE.date:
           setLocalSettings({ ...localSettings, showDate: !localSettings.showDate });

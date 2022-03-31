@@ -4,7 +4,7 @@ import { useTranslation, Trans } from 'react-i18next';
 import { IconButton } from '@mui/material';
 import { Instagram, Facebook, Twitter, LinkedIn, GitHub } from '@mui/icons-material';
 
-import useTheme from '../../hooks/useTheme';
+import useTheme from '../../hooks/useTheme/useTheme';
 
 import style from './Footer.module.scss';
 
