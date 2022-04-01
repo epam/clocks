@@ -8,7 +8,7 @@ import { Add, Close } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
 import useLocations from '../../../../hooks/useLocations';
-import useSnackbar from '../../../../hooks/useSnackbar';
+import useSnackbar from '../../../../hooks/useSnackbar/useSnackbar';
 import useDebounce from '../../../../hooks/useDebounce/useDebounce';
 import { ILocation, IInitialState, IUrlLocations, IUrlLocation } from '../../../../redux/types';
 

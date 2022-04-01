@@ -9,12 +9,13 @@ it('useDebounce sets debounced text', () => {
   const text = 'hello';
   let debouncedText;
 
-  function MyComponent() {
+  function Component() {
     debouncedText = useDebounce(text);
     return null;
   }
 
-  render(<MyComponent />);
+  render(<Component />);
+  expect(debouncedText).toEqual('');
   act(() => {
     jest.advanceTimersByTime(1000);
   });

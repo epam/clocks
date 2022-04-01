@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import useSnackbar from './useSnackbar';
+import useSnackbar from './useSnackbar/useSnackbar';
 import { IUrlLocations, IUrlLocation, ILocation, IInitialState } from '../redux/types';
 import generateLocationKey from '../utils/generateLocationKey';
 
