@@ -41,8 +41,8 @@ global:
     #   username: $=jira-username # Jira login
     #   password: $=jira-password # Jira password
     email:
-      # mail_to: SupportEPM-TIGROperational@epam.com # List of email addresses
-      mail_to: artur_salikhov@epam.com, SupportEPM-TIGROperational@epam.com, Dzmitry_Sakavets1@epam.com # List of email addresses
+      mail_to: SupportEPM-TIGROperational@epam.com # List of email addresses
+      # mail_to: artur_salikhov@epam.com, SupportEPM-TIGROperational@epam.com, Dzmitry_Sakavets1@epam.com # List of email addresses
       server: $=email-server # SMTP server host
       login: $=email-login # SMTP server login
       password: $=email-password # SMTP server password
