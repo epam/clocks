@@ -1,0 +1,98 @@
+pipeline {
+  /*
+    Pipeline triggers
+  */
+  triggers {
+    pollSCM("H/15 * * * *")
+  }
+
+  /*
+    Agent to run pipeline on
+  */
+  agent {
+    label "docker"
+  }
+
+  /*
+    Pipeline options
+  */
+  options {
+    // buildDiscarder(logRotator(numToKeepStr: "20")) // Keep only latest builds to save disk space
+    skipDefaultCheckout(true) // We checkout configuration manually to ensure consistency
+    disableConcurrentBuilds() // We do not need to run testing concurrently
+    disableResume() // We do not need resume
+  }
+
+  /*
+    Pipeline stages
+  */
+  stages {
+    stage("Init") {
+      steps {
+        cleanWs() // Cleanup workspace
+        // Settings
+        script {
+          // Credentials
+          env.GIT_USER_ID = "ssdl-carrier-git" // Jenkins credential ID for user with git repository access
+          // GIT repository with configuration
+          env.GIT_CONFIG_URL = "git@github.com:epam/clocks.git" // Git repository URL
+          env.GIT_CONFIG_BRANCH = "ssdl-configuration" // Branch in repository
+        }
+        // Define vividus object
+        script {
+          vividus = null
+        }
+      }
+    }
+
+    stage("Get VIVIDUS config") {
+      steps {
+        git(
+          url: env.GIT_CONFIG_URL,
+          branch: env.GIT_CONFIG_BRANCH,
+          credentialsId: env.GIT_USER_ID,
+          changelog: true,
+          poll: true
+        )
+      }
+    }
+
+    stage("Run VIVIDUS build") {
+      when { expression { return fileExists("vividus-data/build.jenkinsfile") } }
+      steps {
+        script {
+          vividus = load("vividus-data/build.jenkinsfile")
+          vividus.build()
+        }
+      }
+    }
+  } // stages
+
+  post {
+    success {
+      script {
+        if (vividus != null) { vividus.post_success() }
+      }
+    }
+    failure {
+      script {
+        if (vividus != null) { vividus.post_failure() }
+      }
+    }
+    unstable {
+      script {
+        if (vividus != null) { vividus.post_unstable() }
+      }
+    }
+    changed {
+      script {
+        if (vividus != null) { vividus.post_changed() }
+      }
+    }
+    always {
+      script {
+        if (vividus != null) { vividus.post_always() }
+      }
+    }
+  } // post
+} // pipeline

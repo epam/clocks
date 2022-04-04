@@ -1,0 +1,193 @@
+pipeline {
+  /*
+    Pipeline parameters
+  */
+  parameters {
+    string(name: "CONFIG", defaultValue: "carrier/config.yaml", description: "Path to scan configuration file")
+    string(name: "SUITE", defaultValue: "sast", description: "Name of test suite in config")
+    booleanParam(name: "DEBUG", defaultValue: false, description: "Enable debug output")
+  }
+
+  /*
+    Pipeline triggers. Please run at least weekly
+  */
+  triggers {
+    // For single suite
+    cron("@weekly")
+    // For multiple suites
+    // parameterizedCron("""
+    //   01 H * * H % SUITE=sast
+    //   02 H H * * % SUITE=sast_full
+    // """)
+  }
+
+  /*
+    Agent to run pipeline on
+  */
+  // For EPAM Jenkins
+  agent {
+    label "dsast"
+  }
+  // For EDP/PaaS
+  // agent {
+  //   kubernetes {
+  //     label "sast-pod"
+  //     cloud "openshift"
+  //     defaultContainer "jnlp"
+  //     idleMinutes 1
+  //     yaml """
+  //       apiVersion: v1
+  //       kind: Pod
+  //       spec:
+  //         containers:
+  //         - name: sast-container
+  //           image: getcarrier/sast:2.0
+  //           imagePullPolicy: Always
+  //           command:
+  //           - cat
+  //           tty: true
+  //     """
+  //   }
+  // }
+
+  /*
+    Pipeline options
+  */
+  options {
+    buildDiscarder(logRotator(numToKeepStr: "20")) // Keep only latest builds to save disk space
+    skipDefaultCheckout(true) // We checkout configuration manually to ensure consistency
+    disableConcurrentBuilds() // We do not need to run testing concurrently
+    disableResume() // We do not need resume
+  }
+
+  /*
+    Pipeline stages
+  */
+  stages {
+    stage("Init") {
+      steps {
+        cleanWs() // Cleanup workspace
+        // Settings
+        script {
+          // Credentials
+          env.GIT_USER_ID = "ssdl-carrier-git" // Jenkins credential ID for user with git repository access
+          env.VAULT_USER_ID = "ssdl-carrier-epam-vault" // Jenkins credential ID for user with vault access
+          // GIT repository with configuration
+          env.GIT_CONFIG_URL = "git@github.com:epam/clocks.git" // Git repository URL
+          env.GIT_CONFIG_BRANCH = "ssdl-configuration" // Branch in repository
+          // Carrier settings
+          env.CARRIER_DOCKER_IMAGE = "getcarrier/sast:2.0" // Carrier docker image
+          // Uncomment if running in EDP/PaaS
+          // env.IN_EDP_PAAS = true
+        }
+        // Collect credentials
+        script {
+          CREDENTIALS_BINDINGS = [
+            // For git via SSH: git@git.epam.com:epm-project/epm-project.git
+            sshUserPrivateKey(credentialsId: env.GIT_USER_ID, keyFileVariable: "GIT_KEY"),
+            // For git via HTTPS: https://git.epam.com/epm-project/epm-project.git
+            // usernamePassword(credentialsId: env.GIT_USER_ID, usernameVariable: "GIT_LOGIN", passwordVariable: "GIT_PASSWORD"),
+            usernamePassword(credentialsId: env.VAULT_USER_ID, usernameVariable: "VAULT_ROLE", passwordVariable: "VAULT_SECRET")
+          ]
+        }
+        // Set build description
+        script {
+          currentBuild.description = "Suite: ${params.SUITE}"
+        }
+        // Enable debug if needed
+        script {
+          env.DEBUG_ENABLE = ""
+          if (params.DEBUG) {
+            env.DEBUG_ENABLE = "-d"
+          }
+        }
+        // Pull latest carrier image
+        script {
+          if (!env.IN_EDP_PAAS) {
+            carrier = docker.image(env.CARRIER_DOCKER_IMAGE)
+            carrier.pull()
+          }
+        }
+      }
+    }
+
+    stage("Get configuration and code or artifacts") {
+      steps {
+        // Get configuration
+        dir("config") {
+          withCredentials(bindings: CREDENTIALS_BINDINGS) {
+            script {
+              if (env.IN_EDP_PAAS) {
+                container("sast-container") {
+                  sh "nohung dusty git-clone -r '${env.GIT_CONFIG_URL}' -b '${env.GIT_CONFIG_BRANCH}' -l 1 -t . ${env.DEBUG_ENABLE}"
+                }
+              } else {
+                carrier.inside("--entrypoint=") {
+                  sh "dusty git-clone -r '${env.GIT_CONFIG_URL}' -b '${env.GIT_CONFIG_BRANCH}' -l 1 -t . ${env.DEBUG_ENABLE}"
+                }
+              }
+              // Load suite script
+              code = load("carrier/SAST/${params.SUITE}/code.jenkinsfile")
+              // Get settings
+              code.getSettings()
+            }
+          }
+        }
+        // Get code or artifacts
+        dir("code") {
+          script {
+            code.getArtifacts()
+          }
+        }
+      }
+    }
+
+    stage("Run SAST and Carrier") {
+      steps {
+        withCredentials(bindings: CREDENTIALS_BINDINGS) {
+          script {
+            code.runActions()
+            if (env.IN_EDP_PAAS) {
+              container("sast-container") {
+                sh "nohung dusty run -c 'config/${params.CONFIG}' -s '${params.SUITE}' ${env.DEBUG_ENABLE}"
+              }
+            } else {
+              carrier.inside("--entrypoint=") {
+                sh "dusty run -c 'config/${params.CONFIG}' -s '${params.SUITE}' ${env.DEBUG_ENABLE}"
+              }
+            }
+          }
+        }
+      }
+    }
+
+    stage("Save results") {
+      steps {
+        archiveArtifacts artifacts: "*_report.*"
+        junit "*_report.xml"
+      }
+    }
+  } // stages
+
+  post {
+    // Cleanup workspace if build is not failed
+    success {
+      cleanWs()
+    }
+    unstable {
+      cleanWs()
+    }
+    always {
+      // Prune unused docker images to save disk space
+      script {
+        if (!env.IN_EDP_PAAS) {
+          if (isUnix()) {
+            sh "docker image prune -f"
+          } else {
+            bat "docker image prune -f"
+          }
+        }
+      }
+    }
+  } // post
+} // pipeline

@@ -1,0 +1,52 @@
+/*
+  Set project/module/artifact-specific settings
+  Code runs under "config" directory inside Jenkins workspace
+*/
+void getSettings() {
+}
+
+/*
+  Download code or artifacts. Prepare for scanning (e.g. build)
+  Code runs under "code" directory inside Jenkins workspace
+*/
+void getArtifacts() {
+  def targets = [
+    ["git@github.com:epam/clocks.git", "main", "clocks"]
+  ]
+  withCredentials(bindings: CREDENTIALS_BINDINGS) {
+    if (env.IN_EDP_PAAS) {
+      container("sast-container") {
+        for (int i = 0; i < targets.size(); i++) {
+         def target = targets[i]
+         def repo_url = target[0]
+         def repo_branch = target[1]
+         def repo_target = target[2]
+         dir(repo_target) {
+           sh "nohung dusty git-clone -r '${repo_url}' -b '${repo_branch}' -l 1 -t . ${env.DEBUG_ENABLE}"
+         }
+       }
+      }
+    } else {
+      carrier.inside("--entrypoint=") {
+        for (int i = 0; i < targets.size(); i++) {
+         def target = targets[i]
+         def repo_url = target[0]
+         def repo_branch = target[1]
+         def repo_target = target[2]
+         dir(repo_target) {
+           sh "dusty git-clone -r '${repo_url}' -b '${repo_branch}' -l 1 -t . ${env.DEBUG_ENABLE}"
+         }
+       }
+      }
+    }
+  }
+}
+
+/*
+  Run additional actions, such as external scanning
+  Code runs directly in Jenkins workspace
+*/
+void runActions() {
+}
+
+return this

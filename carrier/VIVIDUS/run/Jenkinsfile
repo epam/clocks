@@ -1,0 +1,170 @@
+pipeline {
+  /*
+    Pipeline parameters
+  */
+  parameters {
+    string(name: "SUITE", defaultValue: "security", description: "")
+    string(name: "ENVIRONMENTS", defaultValue: "security", description: "")
+    string(name: "CARRIER_CONFIG", defaultValue: "carrier/config.yaml", description: "Path to scan configuration file")
+    string(name: "CARRIER_SUITE", defaultValue: "vividus_report", description: "Name of test suite in config")
+    booleanParam(name: "CARRIER_DEBUG", defaultValue: false, description: "Enable debug output")
+  }
+
+  /*
+    Pipeline triggers. Please run at least weekly
+  */
+  triggers {
+    // For single suite
+    cron("@weekly")
+    // For multiple suites
+    // parameterizedCron("""
+    //   01 H * * H % SUITE=security; ENVIRONMENTS=security
+    //   02 H * * H % SUITE=notsecurity; ENVIRONMENTS=notsecurity
+    // """)
+  }
+
+  /*
+    Agent to run pipeline on
+  */
+  agent {
+    label "docker"
+  }
+
+  /*
+    Pipeline options
+  */
+  options {
+    // buildDiscarder(logRotator(numToKeepStr: "20")) // Keep only latest builds to save disk space
+    skipDefaultCheckout(true) // We checkout configuration manually to ensure consistency
+    disableConcurrentBuilds() // We do not need to run testing concurrently
+    disableResume() // We do not need resume
+  }
+
+  /*
+    Pipeline stages
+  */
+  stages {
+    stage("Init") {
+      steps {
+        cleanWs() // Cleanup workspace
+        // Settings
+        script {
+          // Credentials
+          env.GIT_USER_ID = "ssdl-carrier-git" // Jenkins credential ID for user with git repository access
+          env.VAULT_USER_ID = "ssdl-carrier-epam-vault" // Jenkins credential ID for user with vault access
+          // GIT repository with configuration
+          env.GIT_CONFIG_URL = "git@github.com:epam/clocks.git" // Git repository URL
+          env.GIT_CONFIG_BRANCH = "ssdl-configuration" // Branch in repository
+          // Carrier settings
+          env.CARRIER_DOCKER_IMAGE = "getcarrier/dast:2.0" // Carrier docker image
+        }
+        // Collect credentials
+        script {
+          CREDENTIALS_BINDINGS = [
+            usernamePassword(credentialsId: env.VAULT_USER_ID, usernameVariable: "VAULT_ROLE", passwordVariable: "VAULT_SECRET")
+          ]
+        }
+        // Enable debug if needed
+        script {
+          env.CARRIER_DEBUG_ENABLE = ""
+          if (params.CARRIER_DEBUG) {
+            env.CARRIER_DEBUG_ENABLE = "-d"
+          }
+        }
+        // Pull latest carrier image
+        script {
+          carrier = docker.image(env.CARRIER_DOCKER_IMAGE)
+          carrier.pull()
+        }
+        // Define vividus object
+        script {
+          vividus = null
+        }
+      }
+    }
+
+    stage("Get VIVIDUS config") {
+      steps {
+        git(
+          url: env.GIT_CONFIG_URL,
+          branch: env.GIT_CONFIG_BRANCH,
+          credentialsId: env.GIT_USER_ID,
+          changelog: true,
+          poll: true
+        )
+      }
+    }
+
+    stage("Run VIVIDUS test") {
+      when { expression { return fileExists("vividus-data/run.jenkinsfile") } }
+      steps {
+        script {
+          vividus = load("vividus-data/run.jenkinsfile")
+          vividus.test()
+        }
+      }
+    }
+  } // stages
+
+  post {
+    success {
+      script {
+        if (vividus != null) {
+          carrierReport("SUCCESS")
+          vividus.post_success()
+        }
+      }
+    }
+    failure {
+      script {
+        if (vividus != null) {
+          carrierReport("FAILURE")
+          vividus.post_failure()
+        }
+      }
+    }
+    unstable {
+      script {
+        if (vividus != null) {
+          carrierReport("UNSTABLE")
+          vividus.post_unstable()
+        }
+      }
+    }
+    changed {
+      script {
+        if (vividus != null) {
+          vividus.post_changed()
+        }
+      }
+    }
+    always {
+      script {
+        if (vividus != null) {
+          vividus.post_always()
+        }
+        // Prune unused docker images to save disk space
+        if (isUnix()) {
+          sh "docker image prune -f"
+        } else {
+          bat "docker image prune -f"
+        }
+      }
+    }
+  } // post
+} // pipeline
+
+void carrierReport(String buildResult) {
+  withCredentials(bindings: CREDENTIALS_BINDINGS) {
+    script {
+      try {
+        env.VIVIDUS_RESULT = buildResult
+        carrier.inside("--entrypoint=") {
+          sh "dusty run -c '${params.CARRIER_CONFIG}' -s '${params.CARRIER_SUITE}' ${env.CARRIER_DEBUG_ENABLE}"
+        }
+      } catch(e) {
+        echo "WARNING: Failed to report via Carrier"
+      }
+    }
+  }
+} // carrierReport

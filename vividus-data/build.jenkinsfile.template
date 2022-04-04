@@ -1,0 +1,19 @@
+void build() {
+}
+
+void post_success() {
+}
+
+void post_failure() {
+}
+
+void post_unstable() {
+}
+
+void post_changed() {
+}
+
+void post_always() {
+}
+
+return this
