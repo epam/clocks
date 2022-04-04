@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 
-import { setSnackbar } from '../redux/actions';
+import { setSnackbar } from '../../redux/actions';
 
 const useSnackbar = () => {
   const dispatch = useDispatch();
