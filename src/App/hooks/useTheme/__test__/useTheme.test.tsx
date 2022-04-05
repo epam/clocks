@@ -6,7 +6,6 @@ import useTheme from '../useTheme';
 import { THEME } from '../../../redux/constants';
 
 jest.mock('react-redux', () => ({
-  ...jest.requireActual('react-redux'),
   useSelector: jest.fn()
 }));
 
