@@ -1,13 +1,13 @@
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
 import { renderHook, act } from '@testing-library/react-hooks';
+import configureStore, { MockStore, MockStoreCreator } from 'redux-mock-store';
 
 import useAutoTheme from '../useAutoTheme';
-import reducer from '../../../redux/reducer';
 import { THEME } from '../../../redux/constants';
+import { setTheme } from '../../../redux/actions';
 
 jest.mock('react-i18next', () => ({
-  useTranslation: () => jest.fn()
+  useTranslation: () => ({ t: jest.fn() })
 }));
 
 let localStorageMock = (function () {
@@ -28,31 +28,16 @@ let localStorageMock = (function () {
   };
 })();
 
-const MockMatchMedia = (query: string) => {
-  switch (query) {
-    case '(prefers-color-scheme)':
-      return {
-        matches: true,
-        media: query
-      };
-    case `(prefers-color-scheme: ${THEME.dark})`:
-      return {
-        matches: true,
-        media: query
-      };
-    default:
-      return {
-        matches: false,
-        media: query
-      };
+let initialState = {
+  settings: {
+    theme: THEME.light,
+    autoTheme: undefined
   }
 };
-
-const store = createStore(reducer);
+const mockStore: MockStoreCreator = configureStore();
+const store: MockStore = mockStore(initialState);
 
 describe('useAutoTheme behaviour', () => {
-  let windowSpy: jest.SpyInstance;
-
   let {
     result: { current }
   } = renderHook(useAutoTheme, {
@@ -60,48 +45,74 @@ describe('useAutoTheme behaviour', () => {
   });
 
   beforeEach(() => {
-    windowSpy = jest.spyOn(window, 'window', 'get');
-    windowSpy.mockImplementation(() => ({
-      matchMedia: jest.fn(query => MockMatchMedia(query))
-    }));
-
     Object.defineProperty(window, 'localStorage', {
       value: localStorageMock
     });
   });
 
   afterEach(() => {
-    windowSpy.mockRestore();
     localStorage.clear();
   });
 
-  it('checks device mode support ', () => {
-    let modeSupports = window.matchMedia('(prefers-color-scheme)');
+  it('checks theme support & dark mode support/true', () => {
+    act(() => {
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        configurable: true,
+        value: jest.fn().mockImplementation(() => ({
+          matches: true,
+          media: `(prefers-color-scheme: ${THEME.dark})`
+        }))
+      });
+      current.setAutoTheme();
+    });
+
+    let modeSupports = window.matchMedia('(prefers-color-scheme)').media;
+    let currentModeMatches = window.matchMedia(`(prefers-color-scheme: ${THEME.dark})`).matches;
+    let { theme, autoTheme } = JSON.parse(localStorageMock.getItem('settings'));
+
     expect(modeSupports).not.toBe('not all');
-  });
-
-  it('checks dark mode support/true', () => {
-    let currentModeMatches;
-    act(() => {
-      currentModeMatches = window.matchMedia(`(prefers-color-scheme: ${THEME.dark})`).matches;
-      current.setAutoTheme();
-    });
-    let { theme } = JSON.parse(localStorage.getItem('settings')!);
-
-    expect(currentModeMatches).toBe(true);
-    expect(store.getState().settings.theme).toEqual(THEME.dark);
+    expect(currentModeMatches).toBeTruthy();
     expect(theme).toBe(THEME.dark);
+    expect(autoTheme).not.toBeDefined();
+    expect(store.getActions()[0]).toEqual(setTheme(THEME.dark));
   });
 
-  it('checks dark mode matches false', () => {
-    let currentModeMatches;
+  it('checks dark mode matches false || leave as default light mode', () => {
     act(() => {
-      currentModeMatches = window.matchMedia(`(prefer-colors-scheme: ${THEME.light})`).matches;
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        configurable: true,
+        value: jest.fn().mockImplementation(() => ({
+          matches: false,
+          media: `(prefers-color-scheme: ${THEME.dark})`
+        }))
+      });
       current.setAutoTheme();
     });
 
-    let { theme } = JSON.parse(localStorage.getItem('settings')!);
-    console.log('default', theme);
+    let currentModeMatches = window.matchMedia(`(prefer-colors-scheme: ${THEME.dark})`).matches;
+    let { theme, autoTheme } = JSON.parse(localStorageMock.getItem('settings'));
+
     expect(currentModeMatches).toBeFalsy();
+    expect(theme).toBe(THEME.light);
+    expect(autoTheme).not.toBeDefined();
+  });
+
+  it('checks theme does not support', () => {
+    act(() => {
+      Object.defineProperty(window, 'matchMedia', {
+        writable: true,
+        configurable: true,
+        value: jest.fn().mockImplementation(() => ({
+          matches: false,
+          media: 'not all'
+        }))
+      });
+      current.setAutoTheme();
+    });
+    let modeSupports = window.matchMedia('(prefers-color-scheme)').media;
+
+    expect(modeSupports).toBe('not all');
   });
 });
