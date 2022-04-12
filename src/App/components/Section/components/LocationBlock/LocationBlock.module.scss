@@ -124,7 +124,7 @@
   color: $darkColor;
 
   &:focus-within {
-    box-shadow: 0px 3px 10px 0px $darkGrayColor;
+    border: 2px solid $darkGrayColor;
   }
 }
 
@@ -135,7 +135,7 @@
   color: $lightColor;
 
   &:focus-within {
-    box-shadow: 0px 3px 10px 0px $lightGrayColor;
+    border: 2px solid $lightGrayColor;
   }
 }
 
