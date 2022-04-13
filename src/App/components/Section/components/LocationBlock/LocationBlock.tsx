@@ -67,8 +67,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     timezone: ''
   });
 
-  const locationRef = useRef<HTMLDivElement>(null);
-
   const isUserLocation = useMemo(() => {
     return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
   }, [userLocation?.city, userLocation?.lat, location?.city, location?.lat]);
@@ -91,12 +89,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     } else if (key === 'c' && altKey) {
       handleOpenCommentModal();
     }
-  }, []);
-
-  useEffect(() => {
-    locationRef.current?.addEventListener('keydown', locationBlockListener);
-
-    return () => window.removeEventListener('keydown', locationBlockListener);
   }, []);
 
   useEffect(() => {
@@ -239,7 +231,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
           tabIndex={deleteMode.isOn ? -1 : 0}
           onFocus={focusHandler}
           onBlur={focusHandler}
-          // ref={locationRef}
         >
           {deleteMode.isOn && (
             <IconButton className={style.deleteButton} size="small" onClick={handleDelete}>
@@ -299,7 +290,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
               </div>
               <div className={style.bottomInfo}>
                 <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
-                <div>{showTimezone && time.timezone}</div>
+                <div className={style.timezone}>{showTimezone && time.timezone}</div>
               </div>
             </div>
           </div>

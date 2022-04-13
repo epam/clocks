@@ -101,6 +101,7 @@
     }
 
     .leftSide {
+      flex: 1;
       display: flex;
       transition: 0.2s;
 
@@ -117,13 +118,22 @@
     }
 
     .rightSide {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: flex-end;
 
       .bottomInfo {
+        min-width: 0;
         color: $grayColor;
         text-align: end;
+
+        .timezone {
+          width: 10em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
 
