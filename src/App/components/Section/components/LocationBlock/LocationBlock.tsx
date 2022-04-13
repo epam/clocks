@@ -251,7 +251,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
                 })}
               >
                 <IconButton
-                  tabIndex={-1}
+                  tabIndex={0}
                   size="small"
                   onClick={handleSetUserLocation}
                   disabled={disabled}
@@ -265,7 +265,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
                   />
                 </IconButton>
                 <IconButton
-                  tabIndex={-1}
+                  tabIndex={0}
                   size="small"
                   onClick={handleOpenCommentModal}
                   disabled={disabled}
@@ -282,7 +282,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
             </div>
             <div className={style.rightSide}>
               <div
-                className={clsx(style.topInfo, {
+                className={clsx(style.timeInfo, {
                   [style.planningMode]: planningMode.isOn
                 })}
               >
