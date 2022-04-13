@@ -9,7 +9,7 @@ import { Add, Close } from '@mui/icons-material';
 import useTheme from '../../../../hooks/useTheme';
 import useLocations from '../../../../hooks/useLocations';
 import useSnackbar from '../../../../hooks/useSnackbar';
-import useDebounce from '../../../../hooks/useDebounce';
+import useDebounce from '../../../../hooks/useDebounce/useDebounce';
 import { ILocation, IInitialState, IUrlLocations, IUrlLocation } from '../../../../redux/types';
 
 import style from './AddLocation.module.scss';
@@ -27,7 +27,7 @@ const AddLocation: React.FC = () => {
 
   const { locations, setLocations, getLocationOffset } = useLocations();
 
-  const { deleteMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, dragDropMode, planningMode } = useSelector((state: IInitialState) => state);
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const [isPanelOpen, setPanel] = useState(false);
@@ -149,8 +149,16 @@ const AddLocation: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleOpenPanel} disabled={deleteMode.isOn}>
-          <Add className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })} />
+        <IconButton
+          onClick={handleOpenPanel}
+          disabled={deleteMode.isOn || dragDropMode.isOn || planningMode.isOn}
+        >
+          <Add
+            className={clsx({
+              [iconTheme]: true,
+              [style.disabledIcon]: deleteMode.isOn || dragDropMode.isOn || planningMode.isOn
+            })}
+          />
         </IconButton>
       </Tooltip>
 

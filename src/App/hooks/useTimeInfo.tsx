@@ -11,8 +11,12 @@ const useTimeInfo = (location?: ILocation) => {
 
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
   const { timeFormat } = useSelector((state: IInitialState) => state.settings);
+  const { planningMode } = useSelector((state: IInitialState) => state);
 
-  const date = new Date();
+  const currentDate = new Date();
+  const date = planningMode.isOn
+    ? new Date(currentDate.getTime() + planningMode.additionalHours * 3.6 * 1000000)
+    : currentDate;
 
   const timeObject: ITimeState = {
     hours: '',
@@ -60,21 +64,18 @@ const useTimeInfo = (location?: ILocation) => {
       ];
 
       const month = monthsDB[Number(widjetLocationDate[0]) - 1];
-      const today = new Date();
-      const tomorrow = new Date(today.setDate(today.getDate() + 1)).getDate();
-      const yesterday = new Date(today.setDate(today.getDate() - 1)).getDate();
 
       if (userLocationDate[0] > widjetLocationDate[0]) {
-        return `${yesterday} ${month}`;
+        return `${widjetLocationDate[1]} ${month}`;
       }
       if (userLocationDate[0] < widjetLocationDate[0]) {
-        return `${tomorrow} ${month}`;
+        return `${widjetLocationDate[1]} ${month}`;
       }
       if (userLocationDate[1] > widjetLocationDate[1]) {
-        return `${yesterday} ${month}`;
+        return `${widjetLocationDate[1]} ${month}`;
       }
       if (userLocationDate[1] < widjetLocationDate[1]) {
-        return `${tomorrow} ${month}`;
+        return `${widjetLocationDate[1]} ${month}`;
       }
       if (userLocation.city === location.city) {
         return `${widjetLocationDate[1]} ${month}`;

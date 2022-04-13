@@ -17,12 +17,12 @@
     margin-left: auto;
     margin-right: auto;
 
-    @include screenMax500 {
+    @include screenMax600 {
       flex-direction: column;
     }
 
     .credits {
-      @include screenMax500 {
+      @include screenMax600 {
         text-align: center;
         margin-top: $space-xs;
         margin-bottom: $space-xs;

@@ -1,6 +1,6 @@
 // SCREEN SIZE
-@mixin screenMax500 {
-  @media (max-width: 500px) {
+@mixin screenMax600 {
+  @media (max-width: 600px) {
     @content;
   }
 }
