@@ -70,7 +70,7 @@ pipeline {
         // Settings
         script {
           // Credentials
-          env.GIT_USER_ID = "ssdl-carrier-github-clocks" // Jenkins credential ID for user with git repository access
+          env.GIT_USER_ID = "ssdl-carrier-github-clocks-2" // Jenkins credential ID for user with git repository access
           env.VAULT_USER_ID = "ssdl-carrier-epam-vault" // Jenkins credential ID for user with vault access
           // GIT repository with configuration
           env.GIT_CONFIG_URL = "git@github.com:epam/clocks.git" // Git repository URL
