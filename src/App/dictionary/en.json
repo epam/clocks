@@ -7,7 +7,7 @@
   "PlanningMode.ButtonTooltip": "Planning mode",
   "EmptyState.Text": "No active locations",
   "DeleteMode.ButtonTooltip": "Delete mode",
-  "DragDropMode.ButtonTooltip": "Draf and Drop mode",
+  "DragDropMode.ButtonTooltip": "Drag and Drop mode",
   "Footer.Credits": "© {{date}} EPAM Systems, Inc.<br />All Rights Reserved.",
   "LocationBlock.CommentModalTitle": "Add comment",
   "LocationBlock.CommentModalInputPlaceholder": "Comment",
