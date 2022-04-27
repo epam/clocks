@@ -11,7 +11,7 @@ import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { IconButton, Dialog, Button } from '@mui/material';
+import { IconButton, Dialog, Button, Tooltip } from '@mui/material';
 import { FmdGoodOutlined, CommentOutlined, Remove } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
@@ -210,6 +210,9 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     setSelectedLocation(null);
   };
 
+  const locationTooltipText = useMemo((): string => t('LocationBlock.setCurrentLocation'), [t]);
+  const commentTooltipText = useMemo((): string => t('LocationBlock.Comment'), [t]);
+
   return (
     <div className={style.relativeBlock}>
       <div
@@ -250,30 +253,34 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
                   [style.opaccityBlock]: !isFocused && !isUserLocation
                 })}
               >
-                <IconButton
-                  tabIndex={0}
-                  size="small"
-                  onClick={handleSetUserLocation}
-                  disabled={disabled}
-                >
-                  <FmdGoodOutlined
-                    className={clsx({
-                      [iconTheme]: true,
-                      [style.blueIcon]: urlUserLocation || isUserLocation,
-                      [style.disabledIcon]: disabled
-                    })}
-                  />
-                </IconButton>
-                <IconButton
-                  tabIndex={0}
-                  size="small"
-                  onClick={handleOpenCommentModal}
-                  disabled={disabled}
-                >
-                  <CommentOutlined
-                    className={clsx({ [iconTheme]: true, [style.disabledIcon]: disabled })}
-                  />
-                </IconButton>
+                <Tooltip title={locationTooltipText} arrow>
+                  <IconButton
+                    tabIndex={0}
+                    size="small"
+                    onClick={handleSetUserLocation}
+                    disabled={disabled}
+                  >
+                    <FmdGoodOutlined
+                      className={clsx({
+                        [iconTheme]: true,
+                        [style.blueIcon]: urlUserLocation || isUserLocation,
+                        [style.disabledIcon]: disabled
+                      })}
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title={commentTooltipText} arrow>
+                  <IconButton
+                    tabIndex={0}
+                    size="small"
+                    onClick={handleOpenCommentModal}
+                    disabled={disabled}
+                  >
+                    <CommentOutlined
+                      className={clsx({ [iconTheme]: true, [style.disabledIcon]: disabled })}
+                    />
+                  </IconButton>
+                </Tooltip>
               </div>
               <div className={style.infoContainer}>
                 <div className={style.topInfo}>{location?.city}</div>

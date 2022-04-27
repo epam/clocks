@@ -10,6 +10,7 @@
   "DragDropMode.ButtonTooltip": "Draf and Drop mode",
   "Footer.Credits": "© {{date}} EPAM Systems, Inc.<br />All Rights Reserved.",
   "LocationBlock.CommentModalTitle": "Add comment",
+  "LocationBlock.setCurrentLocation": "Set current location",
   "LocationBlock.CommentModalInputPlaceholder": "Comment",
   "LocationBlock.CommentModalCancelButton": "Cancel",
   "LocationBlock.CommentModalSaveButton": "Save",
