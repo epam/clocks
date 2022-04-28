@@ -210,8 +210,11 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     setSelectedLocation(null);
   };
 
-  const locationTooltipText = useMemo((): string => t('LocationBlock.setCurrentLocation'), [t]);
-  const commentTooltipText = useMemo((): string => t('LocationBlock.Comment'), [t]);
+  const locationTooltipText = useMemo(
+    (): string => t('LocationBlock.TooltipSetCurrentLocation'),
+    [t]
+  );
+  const commentTooltipText = useMemo((): string => t('LocationBlock.TooltipComment'), [t]);
 
   return (
     <div className={style.relativeBlock}>
