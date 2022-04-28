@@ -34,10 +34,11 @@ const SettingsModal: React.FC = () => {
 
   const [isModalOpen, setModal] = useState(false);
 
-  const { autoTheme, theme, showDate, showCountry, showTimezone, timeFormat } = useSelector(
-    (state: IInitialState) => state.settings
+  const { autoTheme, theme, showDate, showCountry, showTimezone, timeFormat, autoSorting } =
+    useSelector((state: IInitialState) => state.settings);
+  const { deleteMode, counter, dragDropMode, planningMode } = useSelector(
+    (state: IInitialState) => state
   );
-  const { deleteMode, counter } = useSelector((state: IInitialState) => state);
 
   const dispatch = useDispatch();
 
@@ -47,7 +48,8 @@ const SettingsModal: React.FC = () => {
     showDate: true,
     showCountry: true,
     showTimezone: false,
-    timeFormat: TIME_FORMAT.H24
+    timeFormat: TIME_FORMAT.H24,
+    autoSorting: true
   });
 
   useEffect(() => {
@@ -57,9 +59,10 @@ const SettingsModal: React.FC = () => {
       showDate,
       showCountry,
       showTimezone,
-      timeFormat
+      timeFormat,
+      autoSorting
     });
-  }, [autoTheme, theme, showDate, showCountry, showTimezone, isModalOpen, timeFormat]);
+  }, [autoTheme, theme, showDate, showCountry, showTimezone, isModalOpen, timeFormat, autoSorting]);
 
   useEffect(() => {
     const localStorageSettings = localStorage.getItem('settings');
@@ -101,6 +104,9 @@ const SettingsModal: React.FC = () => {
         case SETTING_VALUE.auto:
           setLocalSettings({ ...localSettings, autoTheme: !localSettings.autoTheme });
           break;
+        case SETTING_VALUE.autoSorting:
+          setLocalSettings({ ...localSettings, autoSorting: !localSettings.autoSorting });
+          break;
         case SETTING_VALUE.H24:
           setLocalSettings({ ...localSettings, timeFormat: value });
           break;
@@ -126,13 +132,17 @@ const SettingsModal: React.FC = () => {
   };
 
   const tooltipText = useMemo((): string => t('Settings.ButtonTooltip'), [t]);
+  const disabled = useMemo(
+    () => deleteMode.isOn || dragDropMode.isOn || planningMode.isOn,
+    [deleteMode, planningMode, dragDropMode]
+  );
 
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleOpenModal} disabled={deleteMode.isOn}>
+        <IconButton onClick={handleOpenModal} disabled={disabled}>
           <SettingsOutlined
-            className={clsx({ [buttonTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
+            className={clsx({ [buttonTheme]: true, [style.disabledIcon]: disabled })}
           />
         </IconButton>
       </Tooltip>
@@ -177,6 +187,14 @@ const SettingsModal: React.FC = () => {
               <span>{t('Settings.12HourFormat')}</span>
             </div>
           </RadioGroup>
+          <div className={style.autoSorting}>
+            <Checkbox
+              checked={localSettings.autoSorting}
+              onChange={handleSetSettings}
+              value={SETTING_VALUE.autoSorting}
+            />
+            <span>{t('Settings.AutoSortWidget')}</span>
+          </div>
           <Divider
             className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
           />
