@@ -21,7 +21,9 @@ const ShareButton: React.FC = () => {
 
   const { t } = useTranslation();
 
-  const { deleteMode, onboarding } = useSelector((state: IInitialState) => state);
+  const { deleteMode, onboarding, dragDropMode, planningMode } = useSelector(
+    (state: IInitialState) => state
+  );
 
   const handleCopy = () => {
     const url: string = window?.location?.href;
@@ -32,14 +34,16 @@ const ShareButton: React.FC = () => {
   };
 
   const tooltipText = useMemo(() => t('ShareButton.ButtonTooltip'), [t]);
+  const disabled = useMemo(
+    () => deleteMode.isOn || dragDropMode.isOn || planningMode.isOn,
+    [deleteMode, planningMode, dragDropMode]
+  );
 
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton ref={anchorRef} onClick={handleCopy} disabled={deleteMode.isOn}>
-          <ShareOutlined
-            className={clsx({ [iconTheme]: true, [style.disabledIcon]: deleteMode.isOn })}
-          />
+        <IconButton ref={anchorRef} onClick={handleCopy} disabled={disabled}>
+          <ShareOutlined className={clsx({ [iconTheme]: true, [style.disabledIcon]: disabled })} />
         </IconButton>
       </Tooltip>
       {onboarding?.shareButton && anchorRef.current && (

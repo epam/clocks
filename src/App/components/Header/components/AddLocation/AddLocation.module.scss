@@ -5,7 +5,7 @@
   width: 400px;
   overflow: auto;
 
-  @include screenMax500 {
+  @include screenMax600 {
     width: 100vw;
   }
 

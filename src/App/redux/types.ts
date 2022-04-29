@@ -8,6 +8,9 @@ export interface IInitialState {
   deleteMode: {
     isOn: boolean;
   };
+  dragDropMode: {
+    isOn: boolean;
+  };
   settings: {
     theme: string;
     autoTheme?: boolean;
@@ -15,11 +18,16 @@ export interface IInitialState {
     showCountry: boolean;
     showTimezone: boolean;
     timeFormat: string;
+    autoSorting: boolean;
   };
   snackbar: {
     status: boolean;
     text?: string;
     color?: AlertColor;
+  };
+  planningMode: {
+    isOn: boolean;
+    additionalHours: number;
   };
   counter: number;
   onboarding?: IOnboarding;
@@ -37,6 +45,7 @@ export interface IActionSettingsPayload {
   showCountry: boolean;
   showTimezone: boolean;
   timeFormat: string;
+  autoSorting: boolean;
 }
 
 export interface IActionSnackbarPayload {
@@ -77,4 +86,8 @@ export interface IOnboarding {
   addCity: boolean;
   comment: boolean;
   myLocation: boolean;
+}
+export interface IActionPlanningModePayload {
+  isOn: boolean;
+  additionalHours?: number;
 }

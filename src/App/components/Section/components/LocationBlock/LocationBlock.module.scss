@@ -1,10 +1,39 @@
 @import '../../../../styles/index.scss';
 
+.rightBlock {
+  width: 400px;
+  top: 0;
+  bottom: 0;
+  right: -200px;
+  position: absolute;
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &.bgGray .innerBlock {
+    width: 2px;
+    height: 60%;
+    background-color: $blueColor;
+  }
+
+  @include screenMax600 {
+    display: none;
+  }
+}
+
+.container {
+  margin: $space-s;
+
+  @include screenMax600 {
+    margin-bottom: 0;
+  }
+}
+
 %body {
   width: 1fr;
   min-height: 100px;
   padding: $space-s;
-  margin: $space-s;
   position: relative;
   border: 2px solid transparent;
   transition: 0.2s;
@@ -97,6 +126,14 @@
       margin-right: $space-xxs;
     }
   }
+}
+
+.dragDropCursor {
+  cursor: grab;
+}
+
+.hide {
+  opacity: 0;
 }
 
 .lightBody {
@@ -213,5 +250,38 @@
 
   .moveLeftOrRight {
     left: 0px;
+  }
+}
+.relativeBlock {
+  position: relative;
+  background-color: transparent;
+  box-shadow: none;
+}
+
+.behind {
+  z-index: -1;
+}
+
+.planningMode {
+  animation-duration: 2s;
+  animation-name: planningMode;
+  animation-iteration-count: infinite;
+}
+
+@keyframes planningMode {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.marginRight {
+  @include screenMax600 {
+    margin-right: 70px;
   }
 }
