@@ -60,7 +60,7 @@ const Footer: React.FC = () => {
               target="_blank"
               rel="noreferrer"
             >
-              <IconButton>
+              <IconButton tabIndex={-1}>
                 <item.icon className={iconTheme} />
               </IconButton>
             </a>

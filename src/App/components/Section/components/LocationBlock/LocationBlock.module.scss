@@ -1,5 +1,9 @@
 @import '../../../../styles/index.scss';
 
+.active {
+  background-color: $redColor;
+  color: $whiteColor;
+}
 .rightBlock {
   width: 400px;
   top: 0;
@@ -40,6 +44,14 @@
   display: flex;
   flex-direction: column;
 
+  &:focus-within {
+    outline: none;
+
+    & .deleteButton {
+      @extend .active;
+    }
+  }
+
   .deleteButton {
     position: absolute;
     right: -10px;
@@ -48,8 +60,7 @@
     color: $darkGrayColor;
 
     &:hover {
-      background-color: $redColor;
-      color: $whiteColor;
+      @extend .active;
     }
 
     .icon {
@@ -92,6 +103,7 @@
     .leftSide {
       display: flex;
       transition: 0.2s;
+      flex-grow: 1;
 
       .infoContainer {
         display: flex;
@@ -110,9 +122,23 @@
       flex-direction: column;
       align-items: flex-end;
 
+      .timeInfo {
+        font-family: roboto-medium;
+        font-size: $fs18;
+        margin-bottom: $space-xxs;
+      }
+
       .bottomInfo {
+        min-width: 0;
         color: $grayColor;
         text-align: end;
+
+        .timezone {
+          width: 10em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
 
@@ -120,6 +146,11 @@
       font-family: roboto-medium;
       font-size: $fs18;
       margin-bottom: $space-xxs;
+      width: 7.1rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
   }
 
@@ -147,6 +178,10 @@
   @extend %body;
 
   color: $darkColor;
+
+  &:focus-within {
+    border: 2px solid $darkGrayColor;
+  }
 }
 
 .darkBody {
@@ -154,6 +189,10 @@
   @extend %body;
 
   color: $lightColor;
+
+  &:focus-within {
+    border: 2px solid $lightGrayColor;
+  }
 }
 
 .currentBody {
@@ -253,6 +292,7 @@
   position: relative;
   background-color: transparent;
   box-shadow: none;
+  overflow: hidden;
 }
 
 .behind {
