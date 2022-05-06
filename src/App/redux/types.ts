@@ -80,12 +80,14 @@ export interface IUrlLocation {
 }
 
 export interface IOnboarding {
+  planningMode: boolean;
   deleteButton: boolean;
   settingsModal: boolean;
   shareButton: boolean;
   addCity: boolean;
   comment: boolean;
   myLocation: boolean;
+  dragDropMode: boolean;
 }
 export interface IActionPlanningModePayload {
   isOn: boolean;

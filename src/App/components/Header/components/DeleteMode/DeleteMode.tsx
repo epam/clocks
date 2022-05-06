@@ -61,7 +61,7 @@ const DeleteMode: React.FC = () => {
         <Onboarding
           open={onboarding.deleteButton}
           anchorElement={anchorRef.current}
-          nextElement="myLocation"
+          nextElement="planningMode"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
           title={t('Onboarding.DeleteLocationTitle')}

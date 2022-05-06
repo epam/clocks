@@ -59,5 +59,9 @@
   "Onboarding.LocationTitle": "Location button",
   "Onboarding.LocationContent": "By clicking to this button you can set your current location",
   "Onboarding.AddCommentTitle": "Add comment button",
-  "Onboarding.AddCommentContent": "By clicking to this button you can add a comment for any location"
+  "Onboarding.AddCommentContent": "By clicking to this button you can add a comment for any location",
+  "Onboarding.PlanningModeTitle": "Planning mode button",
+  "Onboarding.PlanningModeContent": "By clicking to this button you can plan your time",
+  "Onboarding.DragDropModeTitle": "Drag drop mode button",
+  "Onboarding.DragDropModeContent": "By clicking to this button you can use drag and drop functionality. Initially this mode is turned off. You can turn it on by unchecking auto sorting in settings."
 }

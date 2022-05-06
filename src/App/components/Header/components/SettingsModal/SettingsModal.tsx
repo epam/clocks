@@ -52,7 +52,7 @@ const SettingsModal: React.FC = () => {
     showCountry: true,
     showTimezone: false,
     timeFormat: TIME_FORMAT.H24,
-    autoSorting: true
+    autoSorting: false
   });
 
   useEffect(() => {

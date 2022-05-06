@@ -1,7 +1,9 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setOnboarding } from '../redux/actions';
+import { setOnboarding, setSettings } from '../redux/actions';
 import { IOnboarding } from '../redux/types';
+
+import { THEME, TIME_FORMAT } from '../redux/constants';
 
 const onboardingInitialState: IOnboarding = {
   addCity: false,
@@ -9,7 +11,9 @@ const onboardingInitialState: IOnboarding = {
   comment: false,
   shareButton: false,
   deleteButton: false,
-  settingsModal: false
+  settingsModal: false,
+  planningMode: false,
+  dragDropMode: false
 };
 
 const useOnboarding = () => {
@@ -36,7 +40,20 @@ const useOnboarding = () => {
     }
   };
 
-  const finish = () => dispatch(setOnboarding(onboardingInitialState));
+  const finish = () => {
+    dispatch(setOnboarding(onboardingInitialState));
+    dispatch(
+      setSettings({
+        autoTheme: undefined,
+        theme: THEME.light,
+        showDate: true,
+        showCountry: true,
+        showTimezone: false,
+        timeFormat: TIME_FORMAT.H24,
+        autoSorting: true
+      })
+    );
+  };
 
   return {
     initialize,
