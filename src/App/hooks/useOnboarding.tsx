@@ -53,6 +53,18 @@ const useOnboarding = () => {
         autoSorting: true
       })
     );
+    localStorage.setItem(
+      'settings',
+      JSON.stringify({
+        autoTheme: undefined,
+        theme: THEME.light,
+        showDate: true,
+        showCountry: true,
+        showTimezone: false,
+        timeFormat: TIME_FORMAT.H24,
+        autoSorting: true
+      })
+    );
   };
 
   return {

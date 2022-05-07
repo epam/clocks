@@ -1,9 +1,9 @@
-import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, ChangeEvent, useRef } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
-import { IconButton, Drawer, Tooltip } from '@mui/material';
+import { IconButton, Drawer, Tooltip, MenuList, MenuItem } from '@mui/material';
 import { Add, Close } from '@mui/icons-material';
 import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
@@ -14,6 +14,7 @@ import useDebounce from '../../../../hooks/useDebounce/useDebounce';
 import { ILocation, IInitialState, IUrlLocations, IUrlLocation } from '../../../../redux/types';
 
 import style from './AddLocation.module.scss';
+import { KEYBOARD } from './AddLocation.constants';
 
 const AddLocation: React.FC = () => {
   const anchorRef = useRef(null);
@@ -60,12 +61,30 @@ const AddLocation: React.FC = () => {
     // eslint-disable-next-line
   }, []);
 
+  const listener = useCallback(({ key }: KeyboardEvent) => {
+    if (key === KEYBOARD.plus || key === KEYBOARD.plus) {
+      setPanel(true);
+    }
+  }, []);
+
   useEffect(() => {
     handleSearch(debounce);
   }, [debounce, handleSearch]);
 
+  useEffect(() => {
+    document.addEventListener('keydown', listener);
+
+    return () => window.removeEventListener('keydown', listener);
+  }, []);
+
   const handleOpenPanel = () => {
     setPanel(true);
+  };
+
+  const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value === KEYBOARD.plus || value === KEYBOARD.plus) return;
+    setSearchText(value);
   };
 
   const handleClosePanel = () => {
@@ -115,16 +134,17 @@ const AddLocation: React.FC = () => {
   const searchResultsRender = useMemo(
     () =>
       locationsFound.map((location: ILocation, index: number) => (
-        <div
+        <MenuItem
+          tabIndex={1}
           key={index + 'FOUND_LOCATION'}
           className={foundLocationTheme}
           onClick={() => handleSelectLocation(location)}
         >
           <div className={style.title}>{location.city}</div>
-          <div>
+          <div className={style.zone}>
             {location.country}, {location.province}
           </div>
-        </div>
+        </MenuItem>
       )),
     [locationsFound, foundLocationTheme, handleSelectLocation]
   );
@@ -161,18 +181,18 @@ const AddLocation: React.FC = () => {
               type="text"
               className={inputTheme}
               placeholder={t('AddLocation.InputPlaceholder')}
-              onChange={e => setSearchText(e.target.value)}
+              onChange={inputChangeHandler}
               value={searchText}
               autoFocus={true}
             />
           </div>
-          <div className={style.searchResultsContainer}>
+          <MenuList className={style.searchResultsContainer}>
             {!!locationsFound.length ? (
               searchResultsRender
             ) : (
               <div className={style.notFound}>{t('AddLocation.NotFound')}</div>
             )}
-          </div>
+          </MenuList>
         </div>
       </Drawer>
 

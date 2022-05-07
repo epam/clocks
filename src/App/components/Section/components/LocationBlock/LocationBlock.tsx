@@ -1,9 +1,17 @@
-import React, { useState, useEffect, useMemo, DragEvent, useRef, RefObject } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useMemo,
+  DragEvent,
+  useRef,
+  RefObject,
+  useCallback
+} from 'react';
 import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { IconButton, Dialog, Button } from '@mui/material';
+import { IconButton, Dialog, Button, Tooltip } from '@mui/material';
 import { FmdGoodOutlined, CommentOutlined, Remove } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
@@ -54,9 +62,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   const { locations, setLocations, dragAndDropLocation } = useLocations();
 
   const [commentModal, setCommentModal] = useState(false);
-
+  const [isFocused, setIsFocused] = useState<boolean>(false);
   const [inputText, setInputText] = useState<string>('');
-
   const [time, setTime] = useState<ITimeState>({
     hours: '',
     minutes: '',
@@ -80,6 +87,14 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     }
     // use it only when component mount
     // eslint-disable-next-line
+  }, []);
+
+  const locationBlockListener = useCallback(({ key, altKey }: KeyboardEvent) => {
+    if (key === ' ') {
+      handleSetUserLocation();
+    } else if (key === 'c' && altKey) {
+      handleOpenCommentModal();
+    }
   }, []);
 
   useEffect(() => {
@@ -160,6 +175,10 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     handleCloseCommentModal();
   };
 
+  const focusHandler = () => {
+    setIsFocused(isFocused => !isFocused);
+  };
+
   const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
     if (dragDropMode && location) {
       setTimeout(() => {
@@ -197,6 +216,12 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     setSelectedLocation(null);
   };
 
+  const locationTooltipText = useMemo(
+    (): string => t('LocationBlock.TooltipSetCurrentLocation'),
+    [t]
+  );
+  const commentTooltipText = useMemo((): string => t('LocationBlock.TooltipComment'), [t]);
+
   return (
     <div className={style.relativeBlock}>
       <div
@@ -220,6 +245,9 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
             [style.marginRight]: planningMode.isOn,
             [style.dragDropCursor]: dragDropMode.isOn
           })}
+          tabIndex={deleteMode.isOn ? -1 : 0}
+          onFocus={focusHandler}
+          onBlur={focusHandler}
         >
           {deleteMode.isOn && (
             <IconButton className={style.deleteButton} size="small" onClick={handleDelete}>
@@ -230,39 +258,48 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
             <div
               className={clsx({
                 [style.leftSide]: true,
-                [style.moveLeftOrRight]: !isUserLocation
+                [style.moveLeftOrRight]: !isFocused && !isUserLocation
               })}
             >
               <div
                 className={clsx({
                   [style.buttonContainer]: true,
-                  [style.opaccityBlock]: !isUserLocation
+                  [style.opaccityBlock]: !isFocused && !isUserLocation
                 })}
               >
-                <IconButton
-                  ref={anchorLocation}
-                  size="small"
-                  onClick={handleSetUserLocation}
-                  disabled={disabled}
-                >
-                  <FmdGoodOutlined
-                    className={clsx({
-                      [iconTheme]: true,
-                      [style.blueIcon]: urlUserLocation || isUserLocation,
-                      [style.disabledIcon]: disabled
-                    })}
-                  />
-                </IconButton>
-                <IconButton
-                  ref={anchorComment}
-                  size="small"
-                  onClick={handleOpenCommentModal}
-                  disabled={disabled}
-                >
-                  <CommentOutlined
-                    className={clsx({ [iconTheme]: true, [style.disabledIcon]: disabled })}
-                  />
-                </IconButton>
+                <Tooltip title={locationTooltipText} arrow>
+                  <IconButton
+                    ref={anchorLocation}
+                    tabIndex={0}
+                    size="small"
+                    onClick={handleSetUserLocation}
+                    disabled={disabled}
+                  >
+                    <FmdGoodOutlined
+                      className={clsx({
+                        [iconTheme]: true,
+                        [style.blueIcon]: urlUserLocation || isUserLocation,
+                        [style.disabledIcon]: disabled
+                      })}
+                    />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title={commentTooltipText} arrow>
+                  <IconButton
+                    ref={anchorComment}
+                    tabIndex={0}
+                    size="small"
+                    onClick={handleOpenCommentModal}
+                    disabled={disabled}
+                  >
+                    <CommentOutlined
+                      className={clsx({
+                        [iconTheme]: true,
+                        [style.disabledIcon]: disabled
+                      })}
+                    />
+                  </IconButton>
+                </Tooltip>
               </div>
               <div className={style.infoContainer}>
                 <div className={style.topInfo}>{location?.city}</div>
@@ -271,7 +308,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
             </div>
             <div className={style.rightSide}>
               <div
-                className={clsx(style.topInfo, {
+                className={clsx(style.timeInfo, {
                   [style.planningMode]: planningMode.isOn
                 })}
               >
@@ -279,7 +316,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
               </div>
               <div className={style.bottomInfo}>
                 <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
-                <div>{showTimezone && time.timezone}</div>
+                <div className={style.timezone}>{showTimezone && time.timezone}</div>
               </div>
             </div>
           </div>
