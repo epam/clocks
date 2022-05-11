@@ -89,14 +89,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     // eslint-disable-next-line
   }, []);
 
-  const locationBlockListener = useCallback(({ key, altKey }: KeyboardEvent) => {
-    if (key === ' ') {
-      handleSetUserLocation();
-    } else if (key === 'c' && altKey) {
-      handleOpenCommentModal();
-    }
-  }, []);
-
   useEffect(() => {
     setTime(timeInfo);
     // don't need as a dependency timeInfo
