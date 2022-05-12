@@ -229,7 +229,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
           [style.container]: true,
           [style.shaking]: deleteMode.isOn,
           [style.onboarding]:
-            !index && (onboarding?.deleteButton || onboarding?.myLocation || onboarding?.comment)
+            !index && (onboarding?.dragDropMode || onboarding?.myLocation || onboarding?.comment)
         })}
         draggable={dragDropMode.isOn}
         onDragOver={e => e.preventDefault()}
