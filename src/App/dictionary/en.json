@@ -49,5 +49,21 @@
   "ShareButton.SnackbarMessage": "URL copied to clipboard",
   "ShareButton.ButtonTooltip": "Copy url and share",
   "UseAutoTheme.SnackbarMessage": "Your device doesn't support auto theming",
-  "UseLocations.SnackbarMessage": "Something is wrong with the url!"
+  "UseLocations.SnackbarMessage": "Something is wrong with the url!",
+  "Onboarding.AddLocationTitle": "Add location button",
+  "Onboarding.AddLocationContent": "By clicking to this button you can open add location drawer and add any location you want",
+  "Onboarding.ShareUrlTitle": "Share url button",
+  "Onboarding.ShareUrlContent": "By clicking to this button you can copy your url to clipboard",
+  "Onboarding.SettingsModalTitle": "Settings modal button",
+  "Onboarding.SettingsModalContent": "By clicking to this button you can open settings modal and set your own setting",
+  "Onboarding.DeleteLocationTitle": "Delete location button",
+  "Onboarding.DeleteLocationContent": "By clicking to this button you can delete any location from your dashboard",
+  "Onboarding.LocationTitle": "Location button",
+  "Onboarding.LocationContent": "By clicking to this button you can set your current location",
+  "Onboarding.AddCommentTitle": "Add comment button",
+  "Onboarding.AddCommentContent": "By clicking to this button you can add a comment for any location",
+  "Onboarding.PlanningModeTitle": "Planning mode button",
+  "Onboarding.PlanningModeContent": "By clicking to this button you can plan your time",
+  "Onboarding.DragDropModeTitle": "Drag drop mode button",
+  "Onboarding.DragDropModeContent": "By clicking to this button you can use drag and drop functionality. Initially this mode is turned off. You can turn it on by unchecking auto sorting in settings."
 }

@@ -1,0 +1,20 @@
+@import '../../../../styles/index.scss';
+
+.paper {
+  width: 280px;
+  margin: 16px;
+
+  .buttonTextColor {
+    color: $blueColor;
+  }
+}
+
+.backdrop {
+  background-color: transparent !important;
+  .highlighter {
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: #00000033 0 3px 3px -2px, #00000024 0 3px 4px 0, #0000001f 0 1px 8px 0,
+      #00000080 0 0 0 50000px;
+  }
+}

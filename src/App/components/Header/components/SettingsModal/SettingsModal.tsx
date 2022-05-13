@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, ChangeEvent, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, ChangeEvent, useCallback, useRef } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
@@ -23,8 +23,10 @@ import { setSettings } from '../../../../redux/actions';
 
 import style from './SettingsModal.module.scss';
 import { SETTING_VALUE } from './SettingsModal.constants';
+import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 const SettingsModal: React.FC = () => {
+  const anchorRef = useRef(null);
   const buttonTheme = useTheme(style.lightIcon, style.darkIcon);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
@@ -36,7 +38,8 @@ const SettingsModal: React.FC = () => {
 
   const { autoTheme, theme, showDate, showCountry, showTimezone, timeFormat, autoSorting } =
     useSelector((state: IInitialState) => state.settings);
-  const { deleteMode, counter, dragDropMode, planningMode } = useSelector(
+
+  const { deleteMode, counter, onboarding, dragDropMode, planningMode } = useSelector(
     (state: IInitialState) => state
   );
 
@@ -49,7 +52,7 @@ const SettingsModal: React.FC = () => {
     showCountry: true,
     showTimezone: false,
     timeFormat: TIME_FORMAT.H24,
-    autoSorting: true
+    autoSorting: false
   });
 
   useEffect(() => {
@@ -140,7 +143,7 @@ const SettingsModal: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleOpenModal} disabled={disabled}>
+        <IconButton ref={anchorRef} onClick={handleOpenModal} disabled={disabled}>
           <SettingsOutlined
             className={clsx({ [buttonTheme]: true, [style.disabledIcon]: disabled })}
           />
@@ -238,6 +241,17 @@ const SettingsModal: React.FC = () => {
           </div>
         </div>
       </Dialog>
+      {onboarding?.settingsModal && anchorRef.current && (
+        <Onboarding
+          open={onboarding.settingsModal}
+          anchorElement={anchorRef.current}
+          nextElement="deleteButton"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+          title={t('Onboarding.SettingsModalTitle')}
+          text={t('Onboarding.SettingsModalContent')}
+        />
+      )}
     </>
   );
 };

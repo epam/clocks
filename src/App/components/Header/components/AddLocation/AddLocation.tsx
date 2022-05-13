@@ -1,10 +1,11 @@
-import React, { useState, useCallback, useMemo, useEffect, ChangeEvent } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, ChangeEvent, useRef } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
 import { IconButton, Drawer, Tooltip, MenuList, MenuItem } from '@mui/material';
 import { Add, Close } from '@mui/icons-material';
+import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 import useTheme from '../../../../hooks/useTheme';
 import useLocations from '../../../../hooks/useLocations';
@@ -16,6 +17,7 @@ import style from './AddLocation.module.scss';
 import { KEYBOARD } from './AddLocation.constants';
 
 const AddLocation: React.FC = () => {
+  const anchorRef = useRef(null);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const inputTheme = useTheme(style.lightInput, style.darkInput);
@@ -27,7 +29,10 @@ const AddLocation: React.FC = () => {
 
   const { locations, setLocations, getLocationOffset } = useLocations();
 
-  const { deleteMode, dragDropMode, planningMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, onboarding, dragDropMode, planningMode } = useSelector(
+    (state: IInitialState) => state
+  );
+
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const [isPanelOpen, setPanel] = useState(false);
@@ -150,6 +155,7 @@ const AddLocation: React.FC = () => {
     <>
       <Tooltip title={tooltipText} arrow>
         <IconButton
+          ref={anchorRef}
           onClick={handleOpenPanel}
           disabled={deleteMode.isOn || dragDropMode.isOn || planningMode.isOn}
         >
@@ -189,6 +195,18 @@ const AddLocation: React.FC = () => {
           </MenuList>
         </div>
       </Drawer>
+
+      {onboarding?.addCity && anchorRef.current && (
+        <Onboarding
+          open={onboarding.addCity}
+          anchorElement={anchorRef.current}
+          nextElement="shareButton"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          title={t('Onboarding.AddLocationTitle')}
+          text={t('Onboarding.AddLocationTitle')}
+        />
+      )}
     </>
   );
 };

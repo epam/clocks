@@ -22,6 +22,8 @@ import { IInitialState, IUrlLocation } from '../../../../redux/types';
 
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
+import Onboarding from '../Onboarding/Onboarding';
+
 import addClassName from '../../../../utils/addClassName';
 import removeClassName from '../../../../utils/removeClassName';
 import generateLocationKey from '../../../../utils/generateLocationKey';
@@ -30,9 +32,13 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   location,
   urlUserLocation,
   selectedLocation,
-  setSelectedLocation
+  setSelectedLocation,
+  index
 }) => {
   console.log('🚀 ~ file: LocationBlock.tsx ~ line 26 ~ selectedLocation', selectedLocation);
+  const anchorComment = useRef(null);
+  const anchorLocation = useRef(null);
+
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
   const commentModalTheme = useTheme(style.lightCommentModal, style.darkCommentModal);
@@ -44,7 +50,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   const { showDate, showCountry, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
-  const { deleteMode, counter, dragDropMode, planningMode } = useSelector(
+  const { deleteMode, counter, onboarding, dragDropMode, planningMode } = useSelector(
     (state: IInitialState) => state
   );
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
@@ -81,14 +87,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     }
     // use it only when component mount
     // eslint-disable-next-line
-  }, []);
-
-  const locationBlockListener = useCallback(({ key, altKey }: KeyboardEvent) => {
-    if (key === ' ') {
-      handleSetUserLocation();
-    } else if (key === 'c' && altKey) {
-      handleOpenCommentModal();
-    }
   }, []);
 
   useEffect(() => {
@@ -219,7 +217,12 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   return (
     <div className={style.relativeBlock}>
       <div
-        className={style.container}
+        className={clsx({
+          [style.container]: true,
+          [style.shaking]: deleteMode.isOn,
+          [style.onboarding]:
+            !index && (onboarding?.dragDropMode || onboarding?.myLocation || onboarding?.comment)
+        })}
         draggable={dragDropMode.isOn}
         onDragOver={e => e.preventDefault()}
         onDragStart={dragStartHandler}
@@ -258,6 +261,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
               >
                 <Tooltip title={locationTooltipText} arrow>
                   <IconButton
+                    ref={anchorLocation}
                     tabIndex={0}
                     size="small"
                     onClick={handleSetUserLocation}
@@ -274,13 +278,17 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
                 </Tooltip>
                 <Tooltip title={commentTooltipText} arrow>
                   <IconButton
+                    ref={anchorComment}
                     tabIndex={0}
                     size="small"
                     onClick={handleOpenCommentModal}
                     disabled={disabled}
                   >
                     <CommentOutlined
-                      className={clsx({ [iconTheme]: true, [style.disabledIcon]: disabled })}
+                      className={clsx({
+                        [iconTheme]: true,
+                        [style.disabledIcon]: disabled
+                      })}
                     />
                   </IconButton>
                 </Tooltip>
@@ -311,6 +319,54 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
           )}
         </div>
       </div>
+
+      {commentModal && (
+        <Dialog open={commentModal} onClose={handleCloseCommentModal}>
+          <div className={commentModalTheme}>
+            <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
+            <div>
+              <input
+                className={style.input}
+                maxLength={50}
+                placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
+                value={inputText}
+                onChange={e => setInputText(e.target.value)}
+                autoFocus={true}
+              />
+            </div>
+            <div className={style.buttonContainer}>
+              <Button className={style.button} onClick={handleCloseCommentModal}>
+                {t('Settings.CancelButton')}
+              </Button>
+              <Button className={style.button} onClick={handleSaveComment}>
+                {t('Settings.SaveButton')}
+              </Button>
+            </div>
+          </div>
+        </Dialog>
+      )}
+      {!index && onboarding?.myLocation && anchorLocation.current && (
+        <Onboarding
+          open={onboarding.myLocation}
+          anchorElement={anchorLocation.current}
+          nextElement="comment"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          title={t('Onboarding.LocationTitle')}
+          text={t('Onboarding.LocationContent')}
+        />
+      )}
+      {!index && onboarding?.comment && anchorComment.current && (
+        <Onboarding
+          open={onboarding.comment}
+          anchorElement={anchorComment.current}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          title={t('Onboarding.AddCommentTitle')}
+          text={t('Onboarding.AddCommentContent')}
+        />
+      )}
+
       <div
         ref={rightBlockRef}
         className={clsx({

@@ -12,6 +12,7 @@ import useAutoTheme from './hooks/useAutoTheme';
 import { IInitialState } from './redux/types';
 
 import style from './App.module.scss';
+import useOnboarding from './hooks/useOnboarding';
 
 const App: React.FC = () => {
   const theme = useTheme(style.lightBody, style.darkBody);
@@ -20,6 +21,8 @@ const App: React.FC = () => {
   const { closeSnackbar } = useSnackbar();
 
   const { setAutoTheme } = useAutoTheme();
+
+  const { initialize } = useOnboarding();
 
   const { autoTheme } = useSelector((state: IInitialState) => state.settings);
   const { counter, snackbar } = useSelector((state: IInitialState) => state);
@@ -31,6 +34,12 @@ const App: React.FC = () => {
     // don't need as a dependency autoTheme and setAutoTheme
     // eslint-disable-next-line
   }, [counter]);
+
+  useEffect(() => {
+    initialize();
+    // don't need initialize function as a dependency
+    // eslint-disable-next-line
+  }, []);
 
   const listener = ({ key }: KeyboardEvent) => {
     if (key === 'Escape') {
