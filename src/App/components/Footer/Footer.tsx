@@ -7,6 +7,7 @@ import { Instagram, Facebook, Twitter, LinkedIn, GitHub } from '@mui/icons-mater
 import useTheme from '../../hooks/useTheme';
 
 import style from './Footer.module.scss';
+import { VERSION } from './Footer.constants';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -50,6 +51,7 @@ const Footer: React.FC = () => {
             values={{ date: new Date().getFullYear() }}
             components={{ br: <br /> }}
           />
+          <div>{VERSION}</div>
         </div>
         <div className={style.iconContainer}>
           {social.map((item, index) => (
