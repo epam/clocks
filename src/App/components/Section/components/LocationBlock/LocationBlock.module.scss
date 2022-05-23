@@ -43,7 +43,7 @@
   transition: 0.2s;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  clip-path: inset(-100vw -100vw -100vw 0);
 
   &:focus-within {
     outline: none;
