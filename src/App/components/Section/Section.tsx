@@ -81,6 +81,7 @@ const Section: React.FC = () => {
         return (
           <LocationBlock
             key={index + 'LOCATION'}
+            index={index}
             location={find}
             urlUserLocation={urlLocation.userLocation}
             selectedLocation={selectedLocation}

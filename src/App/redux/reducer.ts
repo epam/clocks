@@ -21,7 +21,7 @@ const initialState: IInitialState = {
     showDate: true,
     showCountry: true,
     timeFormat: TIME_FORMAT.H24,
-    autoSorting: true,
+    autoSorting: false,
     showTimezone: false
   },
   snackbar: {
@@ -29,6 +29,7 @@ const initialState: IInitialState = {
     text: undefined,
     color: undefined
   },
+  onboarding: undefined,
   planningMode: {
     isOn: false,
     additionalHours: 0
@@ -93,6 +94,11 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
       return {
         ...state,
         counter: action.payload
+      };
+    case ACTION_TYPE.setOnboarding:
+      return {
+        ...state,
+        onboarding: action.payload
       };
 
     default:

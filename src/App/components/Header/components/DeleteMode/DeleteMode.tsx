@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useRef } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,15 +12,19 @@ import { IInitialState } from '../../../../redux/types';
 import { setDeleteMode } from '../../../../redux/actions';
 
 import style from './DeleteMode.module.scss';
+import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 const DeleteMode: React.FC = () => {
+  const anchorRef = useRef(null);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
 
   const { t } = useTranslation();
 
   const dispatch = useDispatch();
 
-  const { deleteMode, dragDropMode, planningMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, onboarding, dragDropMode, planningMode } = useSelector(
+    (state: IInitialState) => state
+  );
 
   const { locations } = useLocations();
 
@@ -39,7 +43,11 @@ const DeleteMode: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleSetDeleteMode} disabled={dragDropMode.isOn || planningMode.isOn}>
+        <IconButton
+          ref={anchorRef}
+          onClick={handleSetDeleteMode}
+          disabled={dragDropMode.isOn || planningMode.isOn}
+        >
           <DeleteOutline
             className={clsx({
               [iconTheme]: true,
@@ -49,6 +57,17 @@ const DeleteMode: React.FC = () => {
           />
         </IconButton>
       </Tooltip>
+      {onboarding?.deleteButton && anchorRef.current && (
+        <Onboarding
+          open={onboarding.deleteButton}
+          anchorElement={anchorRef.current}
+          nextElement="planningMode"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+          title={t('Onboarding.DeleteLocationTitle')}
+          text={t('Onboarding.DeleteLocationContent')}
+        />
+      )}
     </>
   );
 };
