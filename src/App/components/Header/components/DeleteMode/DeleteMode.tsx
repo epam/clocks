@@ -7,7 +7,7 @@ import { IconButton, Tooltip } from '@mui/material';
 import { DeleteOutline } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
-import useLocations from '../../../../hooks/useLocations';
+import useLocations from '../../../../hooks/useLocations/useLocations';
 import { IInitialState } from '../../../../redux/types';
 import { setDeleteMode } from '../../../../redux/actions';
 

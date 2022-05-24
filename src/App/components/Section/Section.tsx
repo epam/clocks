@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import useLocations from '../../hooks/useLocations';
+import useLocations from '../../hooks/useLocations/useLocations';
 import { IInitialState, IUrlLocations, IUrlLocation, ILocation } from '../../redux/types';
 import { setUserLocation, setCounter } from '../../redux/actions';
 import clsx from 'clsx';

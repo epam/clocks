@@ -16,7 +16,7 @@ import { FmdGoodOutlined, CommentOutlined, Remove } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
 import useTimeInfo from '../../../../hooks/useTimeInfo';
-import useLocations from '../../../../hooks/useLocations';
+import useLocations from '../../../../hooks/useLocations/useLocations';
 import { setUserLocation } from '../../../../redux/actions';
 import { IInitialState, IUrlLocation } from '../../../../redux/types';
 
