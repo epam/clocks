@@ -152,6 +152,7 @@ const AddLocation: React.FC = () => {
           <div className={style.zone}>
             {location.country}, {location.province}
           </div>
+          <div className={style.zone}>{location.timezone}</div>
         </MenuItem>
       )),
     [locationsFound, foundLocationTheme, handleSelectLocation]
