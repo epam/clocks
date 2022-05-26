@@ -1,9 +1,11 @@
 import { ACTION_TYPE } from './constants';
+
 import {
   IActionSettingsPayload,
   ILocation,
   IActionSnackbarPayload,
-  IActionPlanningModePayload
+  IActionPlanningModePayload,
+  IOnboarding
 } from './types';
 
 export const setTheme = (payload: string) => ({ type: ACTION_TYPE.setTheme, payload });
@@ -36,3 +38,8 @@ export const setUserLocation = (payload: ILocation) => ({
 });
 
 export const setCounter = (payload: number) => ({ type: ACTION_TYPE.setCounter, payload });
+
+export const setOnboarding = (payload: IOnboarding) => ({
+  type: ACTION_TYPE.setOnboarding,
+  payload
+});

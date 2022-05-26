@@ -31,6 +31,7 @@ export interface IInitialState {
     additionalHours: number;
   };
   counter: number;
+  onboarding?: IOnboarding;
 }
 
 export interface IActionPayload {
@@ -82,6 +83,16 @@ export interface IUrlLocation {
 export interface ITimezonesDB {
   abbreviations: string[];
   timezones: { abbreviation: string; values: string[] }[];
+}
+export interface IOnboarding {
+  planningMode: boolean;
+  deleteButton: boolean;
+  settingsModal: boolean;
+  shareButton: boolean;
+  addCity: boolean;
+  comment: boolean;
+  myLocation: boolean;
+  dragDropMode: boolean;
 }
 export interface IActionPlanningModePayload {
   isOn: boolean;

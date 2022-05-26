@@ -63,6 +63,7 @@
     padding: $space-s;
 
     %foundLocation {
+      display: block;
       border-bottom: 1px solid $lightGrayColor;
       padding-right: $space-s;
       padding-bottom: $space-s;
@@ -71,17 +72,25 @@
       transition: 0.2s;
       cursor: pointer;
 
+      &:focus {
+        background-color: $darkGrayColor;
+      }
+
       .title {
         font-size: $fs16;
         font-family: roboto-medium;
-        margin-bottom: $space-xxs;
+      }
+
+      .zone {
+        font-size: $fs14;
       }
     }
 
     .lightFoundLocation {
       @extend %foundLocation;
 
-      &:hover {
+      &:hover,
+      &:focus-within {
         background-color: $lightGrayColor;
       }
     }
@@ -89,7 +98,8 @@
     .darkFoundLocation {
       @extend %foundLocation;
 
-      &:hover {
+      &:hover,
+      &:focus-within {
         background-color: $darkGrayColor;
       }
     }
