@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -14,7 +14,10 @@ import { TSliderType } from './PlanningMode.types';
 import { SLIDER_TYPE } from './PlannigMode.constants';
 import style from './PlanningMode.module.scss';
 
+import Onboarding from '../../../Section/components/Onboarding/Onboarding';
+
 const PlanningMode: React.FC = () => {
+  const anchorRef = useRef(null);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
@@ -22,7 +25,7 @@ const PlanningMode: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const { planningMode, deleteMode } = useSelector((state: IInitialState) => state);
+  const { planningMode, deleteMode, onboarding } = useSelector((state: IInitialState) => state);
 
   const tooltipText = useMemo((): string => t('PlanningMode.ButtonTooltip'), [t]);
 
@@ -61,7 +64,7 @@ const PlanningMode: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton onClick={handleSetPlanningMode} disabled={deleteMode.isOn}>
+        <IconButton ref={anchorRef} onClick={handleSetPlanningMode} disabled={deleteMode.isOn}>
           <HistoryIcon
             className={clsx({
               [iconTheme]: true,
@@ -105,6 +108,18 @@ const PlanningMode: React.FC = () => {
             />
           </div>
         </div>
+      )}
+
+      {onboarding?.planningMode && anchorRef.current && (
+        <Onboarding
+          open={onboarding.planningMode}
+          anchorElement={anchorRef.current}
+          nextElement="dragDropMode"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+          title={t('Onboarding.PlanningModeTitle')}
+          text={t('Onboarding.PlanningModeContent')}
+        />
       )}
     </>
   );
