@@ -224,7 +224,7 @@
 }
 
 %commentModal {
-  width: 250px;
+  width: 500px;
   padding: $space-s;
 
   .modalTitle {
@@ -260,6 +260,10 @@
     .button {
       color: $blueColor;
     }
+  }
+
+  @include screenMax600 {
+    width: 250px;
   }
 }
 
