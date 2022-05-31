@@ -1,12 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  DragEvent,
-  useRef,
-  RefObject,
-  useCallback
-} from 'react';
+import React, { useState, useEffect, useMemo, DragEvent, useRef, RefObject } from 'react';
 import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
