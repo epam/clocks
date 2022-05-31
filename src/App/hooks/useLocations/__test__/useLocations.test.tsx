@@ -5,36 +5,12 @@ import { BrowserRouter as Router, useSearchParams } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import i18n from '../../../dictionary/i18n';
-
 import reducer from '../../../redux/reducer';
 import { act } from 'react-dom/test-utils';
 
+import { mockedCityKeys, mockedLocationsDB } from './mockData';
+
 const store = createStore(reducer);
-
-const cityKeys = {
-  Tashkent: 'Tashkent41.31170188',
-  Paris: 'Paris48.86669293',
-  London: 'London51.49999473'
-};
-
-const locationsDB = {
-  'Tashkent41.31170188': {
-    city: 'Tashkent',
-    lat: 41.31170188,
-    userLocation: true,
-    offset: -300
-  },
-  'Paris48.86669293': {
-    city: 'Paris',
-    lat: 48.86669293,
-    offset: -120
-  },
-  'London51.49999473': {
-    city: 'London',
-    lat: 51.49999473,
-    offset: -60
-  }
-};
 
 describe('useLocations tests', () => {
   const mockNavigator = {
@@ -70,100 +46,53 @@ describe('useLocations tests', () => {
     expect(useLocationsHook.locations).toBe(null);
     expect(searchParams.get('locations')).toEqual(null);
 
-    // setting userLocation to Tashkent and checking locations and searchParams;
+    // setting userLocation to "Tashkent" and checking locations and searchParams;
     act(() => {
-      useLocationsHook.setLocations({
-        'Tashkent41.31170188': {
-          city: 'Tashkent',
-          lat: 41.31170188,
-          userLocation: true,
-          offset: -300
-        }
-      });
+      useLocationsHook.setLocations(mockedLocationsDB['Tashkent']);
     });
 
-    expect(useLocationsHook.locations).toEqual({
-      'Tashkent41.31170188': {
-        city: 'Tashkent',
-        lat: 41.31170188,
-        userLocation: true,
-        offset: -300
-      }
-    });
+    expect(useLocationsHook.locations).toEqual(mockedLocationsDB['Tashkent']);
 
-    expect(JSON.parse(atob(searchParams.get('locations')))).toEqual({
-      'Tashkent41.31170188': {
-        city: 'Tashkent',
-        lat: 41.31170188,
-        userLocation: true,
-        offset: -300
-      }
-    });
+    expect(JSON.parse(atob(searchParams.get('locations')))).toEqual(mockedLocationsDB['Tashkent']);
 
-    // finding Paris from database and checking "country" property
-    const find = useLocationsHook.findLocation({
-      city: 'Paris',
-      lat: 48.86669293,
-      offset: -120,
-      userLocation: false
-    });
+    // finding "Paris" from database and checking "country" property
+    const find = useLocationsHook.findLocation(mockedLocationsDB['Paris']['Paris48.86669293']);
     expect(find['country']).toEqual('France');
 
-    // Getting location offset Paris and London and expecting to be equal -120 and -60;
+    // Getting location offset "Paris" and London and expecting to be equal -120 and -60;
     const ParisOffset = useLocationsHook.getLocationOffset('Europe/Paris');
     expect(ParisOffset).toEqual(-120);
     const LondonOffset = useLocationsHook.getLocationOffset('Europe/London');
     expect(LondonOffset).toEqual(-60);
 
-    // three locations added and dragged Tashkent and dropped into Paris and checked their orders
+    // three locations added and dragged "Tashkent" and dropped into "Paris" and checked their orders
     act(() => {
       useLocationsHook.setLocations({
-        'Tashkent41.31170188': {
-          city: 'Tashkent',
-          lat: 41.31170188,
-          userLocation: true,
-          offset: -300
-        },
-        'Paris48.86669293': {
-          city: 'Paris',
-          lat: 48.86669293,
-          offset: -120
-        },
-        'London51.49999473': {
-          city: 'London',
-          lat: 51.49999473,
-          offset: -60
-        }
+        ...mockedLocationsDB['Tashkent'],
+        ...mockedLocationsDB['Paris'],
+        ...mockedLocationsDB['London']
       });
     });
 
-    const Tashkent = useLocationsHook.findLocation({
-      city: 'Tashkent',
-      lat: 41.31170188,
-      userLocation: true,
-      offset: -300
-    });
+    const Tashkent = useLocationsHook.findLocation(
+      mockedLocationsDB['Tashkent']['Tashkent41.31170188']
+    );
 
-    const Paris = useLocationsHook.findLocation({
-      city: 'Paris',
-      lat: 48.86669293,
-      offset: -120,
-      userLocation: false
-    });
+    const Paris = useLocationsHook.findLocation(mockedLocationsDB['Paris']['Paris48.86669293']);
 
     expect(Object.keys(useLocationsHook.locations)).toEqual([
-      cityKeys['Tashkent'],
-      cityKeys['Paris'],
-      cityKeys['London']
+      mockedCityKeys['Tashkent'],
+      mockedCityKeys['Paris'],
+      mockedCityKeys['London']
     ]);
 
     let locationsKeysFromSearchParams = Object.keys(
       JSON.parse(atob(searchParams.get('locations')))
     );
     expect(locationsKeysFromSearchParams).toEqual([
-      cityKeys['Tashkent'],
-      cityKeys['Paris'],
-      cityKeys['London']
+      mockedCityKeys['Tashkent'],
+      mockedCityKeys['Paris'],
+      mockedCityKeys['London']
     ]);
 
     act(() => {
@@ -171,16 +100,17 @@ describe('useLocations tests', () => {
     });
 
     expect(Object.keys(useLocationsHook.locations)).toEqual([
-      cityKeys['Paris'],
-      cityKeys['Tashkent'],
-      cityKeys['London']
+      mockedCityKeys['Paris'],
+      mockedCityKeys['Tashkent'],
+      mockedCityKeys['London']
     ]);
 
     locationsKeysFromSearchParams = Object.keys(JSON.parse(atob(searchParams.get('locations'))));
+
     expect(locationsKeysFromSearchParams).toEqual([
-      cityKeys['Paris'],
-      cityKeys['Tashkent'],
-      cityKeys['London']
+      mockedCityKeys['Paris'],
+      mockedCityKeys['Tashkent'],
+      mockedCityKeys['London']
     ]);
   });
 });
