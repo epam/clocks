@@ -15,6 +15,7 @@ import { ILocation, IInitialState, IUrlLocations, IUrlLocation } from '../../../
 
 import style from './AddLocation.module.scss';
 import { KEYBOARD } from './AddLocation.constants';
+import { timezonesDB } from '../../../../redux/timezonesDB';
 
 const AddLocation: React.FC = () => {
   const anchorRef = useRef(null);
@@ -45,13 +46,20 @@ const AddLocation: React.FC = () => {
 
   const handleSearch = useCallback((text: string) => {
     if (!!text) {
-      const filter = locationsDB.filter(
-        location =>
-          !!location.city.match(new RegExp(text, 'gi')) ||
-          !!location.names.match(new RegExp(text, 'gi')) ||
-          !!location.city_ascii.match(new RegExp(text, 'gi')) ||
-          !!location.country.match(new RegExp(text, 'gi'))
-      );
+      const filter = timezonesDB.abbreviations.includes(text)
+        ? locationsDB.filter(location =>
+            timezonesDB.timezones[timezonesDB.abbreviations.indexOf(text)].values.includes(
+              location.timezone
+            )
+          )
+        : locationsDB.filter(
+            location =>
+              !!location.city.match(new RegExp(text, 'gi')) ||
+              !!location.names.match(new RegExp(text, 'gi')) ||
+              !!location.city_ascii.match(new RegExp(text, 'gi')) ||
+              !!location.country.match(new RegExp(text, 'gi')) ||
+              !!location.province.match(new RegExp(text, 'gi'))
+          );
 
       setLocationsFound(filter);
     } else {
