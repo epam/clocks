@@ -16,6 +16,7 @@ import { ILocation, IInitialState, IUrlLocations, IUrlLocation } from '../../../
 
 import style from './AddLocation.module.scss';
 import { KEYBOARD } from './AddLocation.constants';
+import { timezonesDB } from '../../../../redux/timezonesDB';
 
 const AddLocation: React.FC = () => {
   const anchorRef = useRef(null);

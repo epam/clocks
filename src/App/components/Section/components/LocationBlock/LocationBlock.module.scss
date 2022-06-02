@@ -168,6 +168,12 @@
   cursor: grab;
 }
 
+.dragDropCursor:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+
 .hide {
   opacity: 0;
 }
