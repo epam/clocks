@@ -1,12 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useMemo,
-  DragEvent,
-  useRef,
-  RefObject,
-  useCallback
-} from 'react';
+import React, { useState, useEffect, useMemo, DragEvent, useRef, RefObject } from 'react';
 import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -87,7 +79,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     }
     // use it only when component mount
     // eslint-disable-next-line
-  }, []);
+  }, [location]);
 
   useEffect(() => {
     setTime(timeInfo);
@@ -105,36 +97,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   const handleDelete = () => {
     location && delete locations[location?.city + location?.lat];
     setLocations(locations);
-  };
-
-  const renderCommentModal = () => {
-    return (
-      commentModal && (
-        <Dialog open={commentModal} onClose={handleCloseCommentModal}>
-          <div className={commentModalTheme}>
-            <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
-            <div>
-              <input
-                className={style.input}
-                maxLength={50}
-                placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
-                value={inputText}
-                onChange={e => setInputText(e.target.value)}
-                autoFocus={true}
-              />
-            </div>
-            <div className={style.buttonContainer}>
-              <Button className={style.button} onClick={handleCloseCommentModal}>
-                {t('Settings.CancelButton')}
-              </Button>
-              <Button className={style.button} onClick={handleSaveComment}>
-                {t('Settings.SaveButton')}
-              </Button>
-            </div>
-          </div>
-        </Dialog>
-      )
-    );
   };
 
   const handleSetUserLocation = () => {
@@ -157,7 +119,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     setCommentModal(false);
   };
 
-  const handleSaveComment = () => {
+  const handleSaveComment = (e: React.SyntheticEvent) => {
+    e.preventDefault();
     Object.values(locations).forEach((urlLocation: any) => {
       if (urlLocation.city === location?.city && urlLocation.lat === location?.lat) {
         urlLocation.comment = inputText;
@@ -322,7 +285,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
 
       {commentModal && (
         <Dialog open={commentModal} onClose={handleCloseCommentModal}>
-          <div className={commentModalTheme}>
+          <form className={commentModalTheme} onSubmit={handleSaveComment}>
             <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
             <div>
               <input
@@ -338,11 +301,11 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
               <Button className={style.button} onClick={handleCloseCommentModal}>
                 {t('Settings.CancelButton')}
               </Button>
-              <Button className={style.button} onClick={handleSaveComment}>
+              <Button className={style.button} type="submit">
                 {t('Settings.SaveButton')}
               </Button>
             </div>
-          </div>
+          </form>
         </Dialog>
       )}
       {!index && onboarding?.myLocation && anchorLocation.current && (
@@ -381,7 +344,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
       >
         <div className={style.innerBlock} />
       </div>
-      {renderCommentModal()}
     </div>
   );
 };

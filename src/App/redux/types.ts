@@ -4,6 +4,7 @@ export interface IInitialState {
   locations: {
     locationsDB: ILocation[];
     userLocation?: ILocation;
+    timezonesDB: ITimezonesDB;
   };
   deleteMode: {
     isOn: boolean;
@@ -79,6 +80,10 @@ export interface IUrlLocation {
   offset: number;
 }
 
+export interface ITimezonesDB {
+  abbreviations: string[];
+  timezones: { abbreviation: string; values: string[] }[];
+}
 export interface IOnboarding {
   planningMode: boolean;
   deleteButton: boolean;

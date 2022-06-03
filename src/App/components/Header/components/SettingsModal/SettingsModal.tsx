@@ -25,6 +25,8 @@ import style from './SettingsModal.module.scss';
 import { SETTING_VALUE } from './SettingsModal.constants';
 import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
+import { INPUT_IDS } from './SettingsModal.constants';
+
 const SettingsModal: React.FC = () => {
   const anchorRef = useRef(null);
   const buttonTheme = useTheme(style.lightIcon, style.darkIcon);
@@ -155,80 +157,111 @@ const SettingsModal: React.FC = () => {
           <div className={style.modalTitle}>{t('Settings.ModalTitle')}</div>
           <div>
             <Checkbox
+              id={INPUT_IDS.showDate}
               checked={localSettings.showDate}
               onChange={handleSetSettings}
               value={SETTING_VALUE.date}
             />
-            <span>{t('Settings.ShowDate')}</span>
+            <label className={style.cursorPointer} htmlFor={INPUT_IDS.showDate}>
+              {t('Settings.ShowDate')}
+            </label>
           </div>
           <div>
             <Checkbox
+              id={INPUT_IDS.showCountryName}
               checked={localSettings.showCountry}
               onChange={handleSetSettings}
               value={SETTING_VALUE.country}
             />
-            <span>{t('Settings.ShowCountry')}</span>
+            <label className={style.cursorPointer} htmlFor={INPUT_IDS.showCountryName}>
+              {t('Settings.ShowCountry')}
+            </label>
           </div>
           <div>
             <Checkbox
+              id={INPUT_IDS.showTimeZone}
               checked={localSettings.showTimezone}
               onChange={handleSetSettings}
               value={SETTING_VALUE.timezone}
             />
-            <span>{t('Settings.ShowTimezone')}</span>
+            <label className={style.cursorPointer} htmlFor={INPUT_IDS.showTimeZone}>
+              {t('Settings.ShowTimezone')}
+            </label>
           </div>
           <Divider
             className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
           />
           <RadioGroup value={localSettings.timeFormat} onChange={handleSetSettings}>
             <div>
-              <Radio value={TIME_FORMAT.H24} />
-              <span>{t('Settings.24HourFormat')}</span>
+              <Radio id={INPUT_IDS.hourFormat24} value={TIME_FORMAT.H24} />
+              <label className={style.cursorPointer} htmlFor={INPUT_IDS.hourFormat24}>
+                {t('Settings.24HourFormat')}
+              </label>
             </div>
             <div>
-              <Radio value={TIME_FORMAT.H12} />
-              <span>{t('Settings.12HourFormat')}</span>
+              <Radio id={INPUT_IDS.hourFormat12} value={TIME_FORMAT.H12} />
+              <label className={style.cursorPointer} htmlFor={INPUT_IDS.hourFormat12}>
+                {t('Settings.12HourFormat')}
+              </label>
             </div>
           </RadioGroup>
           <div className={style.autoSorting}>
             <Checkbox
+              id={INPUT_IDS.autoSorting}
               checked={localSettings.autoSorting}
               onChange={handleSetSettings}
               value={SETTING_VALUE.autoSorting}
             />
-            <span>{t('Settings.AutoSortWidget')}</span>
+            <label className={style.cursorPointer} htmlFor={INPUT_IDS.autoSorting}>
+              {t('Settings.AutoSortWidget')}
+            </label>
           </div>
           <Divider
             className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
           />
           <div>
             <Checkbox
+              id={INPUT_IDS.autoTheming}
               checked={localSettings.autoTheme}
               onChange={handleSetSettings}
               value={SETTING_VALUE.auto}
             />
-            <span>{t('Settings.AutoTheme')}</span>
+            <label className={style.cursorPointer} htmlFor={INPUT_IDS.autoTheming}>
+              {t('Settings.AutoTheme')}
+            </label>
           </div>
           <RadioGroup value={localSettings.theme} onChange={handleSetSettings}>
             <div>
               <Radio
+                id={INPUT_IDS.lightTheme}
                 className={clsx({ [style.disabled]: localSettings.autoTheme })}
                 value={THEME.light}
                 disabled={localSettings.autoTheme}
               />
-              <span className={clsx({ [style.disabled]: localSettings.autoTheme })}>
+              <label
+                htmlFor={INPUT_IDS.lightTheme}
+                className={
+                  (clsx({ [style.disabled]: localSettings.autoTheme }), style.cursorPointer)
+                }
+              >
                 {t('Settings.LightTheme')}
-              </span>
+              </label>
             </div>
             <div>
               <Radio
+                id={INPUT_IDS.darkTheme}
                 className={clsx({ [style.disabled]: localSettings.autoTheme })}
                 value={THEME.dark}
                 disabled={localSettings.autoTheme}
               />
-              <span className={clsx({ [style.disabled]: localSettings.autoTheme })}>
+              <label
+                htmlFor={INPUT_IDS.darkTheme}
+                className={
+                  (clsx({ [style.disabled]: localSettings.autoTheme }), style.cursorPointer)
+                }
+              >
                 {t('Settings.DarkTheme')}
-              </span>
+              </label>
             </div>
           </RadioGroup>
           <div className={style.buttonContainer}>
