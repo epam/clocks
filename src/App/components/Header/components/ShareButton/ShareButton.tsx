@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 import { IconButton, Tooltip } from '@mui/material';
 import { ShareOutlined } from '@mui/icons-material';
 
-import useSnackbar from '../../../../hooks/useSnackbar';
+import useSnackbar from '../../../../hooks/useSnackbar/useSnackbar';
 import useTheme from '../../../../hooks/useTheme';
 import { IInitialState } from '../../../../redux/types';
 
