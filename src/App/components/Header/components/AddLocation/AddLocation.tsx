@@ -44,24 +44,32 @@ const AddLocation: React.FC = () => {
 
   const debounce = useDebounce(searchText);
 
+  const searchByTimezone = (text: string) => {
+    let result = locationsDB.filter(location =>
+      timezonesDB.timezones[timezonesDB.abbreviations.indexOf(text)].values.includes(
+        location.timezone
+      )
+    );
+
+    setLocationsFound(result);
+  };
+
+  const searchByLocation = (text: string) => {
+    let result = locationsDB.filter(
+      location =>
+        !!location.city.match(new RegExp(text, 'gi')) ||
+        !!location.names.match(new RegExp(text, 'gi')) ||
+        !!location.city_ascii.match(new RegExp(text, 'gi')) ||
+        !!location.country.match(new RegExp(text, 'gi')) ||
+        !!location.province.match(new RegExp(text, 'gi'))
+    );
+
+    setLocationsFound(result);
+  };
+
   const handleSearch = useCallback((text: string) => {
     if (!!text) {
-      const filter = timezonesDB.abbreviations.includes(text)
-        ? locationsDB.filter(location =>
-            timezonesDB.timezones[timezonesDB.abbreviations.indexOf(text)].values.includes(
-              location.timezone
-            )
-          )
-        : locationsDB.filter(
-            location =>
-              !!location.city.match(new RegExp(text, 'gi')) ||
-              !!location.names.match(new RegExp(text, 'gi')) ||
-              !!location.city_ascii.match(new RegExp(text, 'gi')) ||
-              !!location.country.match(new RegExp(text, 'gi')) ||
-              !!location.province.match(new RegExp(text, 'gi'))
-          );
-
-      setLocationsFound(filter);
+      timezonesDB.abbreviations.includes(text) ? searchByTimezone(text) : searchByLocation(text);
     } else {
       setLocationsFound([]);
     }
@@ -152,6 +160,8 @@ const AddLocation: React.FC = () => {
           <div className={style.zone}>
             {location.country}, {location.province}
           </div>
+
+          <div className={style.timezone}>{location.timezone}</div>
         </MenuItem>
       )),
     [locationsFound, foundLocationTheme, handleSelectLocation]
