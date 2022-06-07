@@ -56,9 +56,20 @@ const AddLocation: React.FC = () => {
   };
 
   const searchByLocation = (text: string) => {
-    const filter = matchSorter(locationsDB, text, {
-      keys: ['city_ascii', 'city', 'province', 'country', 'timezone', 'names']
-    });
+    // Match sorter library searching very deep and listing to many countries
+    // const filter = matchSorter(locationsDB, text, {
+    //   keys: ['city_ascii', 'city', 'province', 'country', 'timezone', 'names']
+    // });
+
+    //Integrated version of Searching algorithm in alphabetical order
+    let filter = locationsDB.filter(
+      location =>
+        !!location.city.match(new RegExp(text, 'gi')) ||
+        !!location.names.match(new RegExp(text, 'gi')) ||
+        !!location.city_ascii.match(new RegExp(text, 'gi')) ||
+        !!location.country.match(new RegExp(text, 'gi')) ||
+        !!location.province.match(new RegExp(text, 'gi'))
+    );
 
     if (filter.length) {
       const bestMatch = filter[0];
