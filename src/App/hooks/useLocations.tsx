@@ -25,7 +25,7 @@ const useLocations = () => {
 
   const locations = useMemo((): IUrlLocations => {
     try {
-      return urlLocations && JSON.parse(atob(urlLocations));
+      return urlLocations && JSON.parse(decodeURIComponent(escape(window.atob(urlLocations))));
     } catch {
       setError(true);
       return {} as IUrlLocations;
@@ -44,7 +44,9 @@ const useLocations = () => {
 
   const setLocations = (newLocations: IUrlLocations) => {
     if (!!Object.keys(newLocations).length) {
-      setSearchParams({ locations: btoa(JSON.stringify(newLocations)) });
+      setSearchParams({
+        locations: btoa(unescape(encodeURIComponent(JSON.stringify(newLocations))))
+      });
     } else {
       setSearchParams({});
     }

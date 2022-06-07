@@ -16,6 +16,7 @@ import { ILocation, IInitialState, IUrlLocations, IUrlLocation } from '../../../
 
 import style from './AddLocation.module.scss';
 import { KEYBOARD } from './AddLocation.constants';
+import { timezonesDB } from '../../../../redux/timezonesDB';
 
 const AddLocation: React.FC = () => {
   const anchorRef = useRef(null);
@@ -44,24 +45,36 @@ const AddLocation: React.FC = () => {
 
   const debounce = useDebounce(searchText);
 
+  const searchByTimezone = (text: string) => {
+    let result = locationsDB.filter(location =>
+      timezonesDB.timezones[timezonesDB.abbreviations.indexOf(text)].values.includes(
+        location.timezone
+      )
+    );
+
+    setLocationsFound(result);
+  };
+
+  const searchByLocation = (text: string) => {
+    const filter = matchSorter(locationsDB, text, {
+      keys: ['city_ascii', 'city', 'province', 'country', 'timezone', 'names']
+    });
+
+    if (filter.length) {
+      const bestMatch = filter[0];
+      const rest = filter.slice(1, 50);
+      rest.sort((a, b) => {
+        if (a['city_ascii'] < b['city_ascii']) return -1;
+        if (a['city_ascii'] > b['city_ascii']) return 1;
+        return 0;
+      });
+      setLocationsFound([bestMatch, ...rest]);
+    }
+  };
+
   const handleSearch = useCallback((text: string) => {
     if (!!text) {
-      const filter = matchSorter(locationsDB, text, {
-        keys: ['city_ascii', 'city', 'province', 'country', 'timezone', 'names']
-      });
-
-      if (filter.length) {
-        const bestMatch = filter[0];
-        const rest = filter.slice(1, 50);
-        rest.sort((a, b) => {
-          if (a['city_ascii'] < b['city_ascii']) return -1;
-          if (a['city_ascii'] > b['city_ascii']) return 1;
-          return 0;
-        });
-        setLocationsFound([bestMatch, ...rest]);
-      } else {
-        setLocationsFound([]);
-      }
+      timezonesDB.abbreviations.includes(text) ? searchByTimezone(text) : searchByLocation(text);
     } else {
       setLocationsFound([]);
     }
@@ -152,6 +165,8 @@ const AddLocation: React.FC = () => {
           <div className={style.zone}>
             {location.country}, {location.province}
           </div>
+
+          <div className={style.timezone}>{location.timezone}</div>
         </MenuItem>
       )),
     [locationsFound, foundLocationTheme, handleSelectLocation]
