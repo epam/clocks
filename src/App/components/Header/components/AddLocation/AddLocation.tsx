@@ -56,12 +56,6 @@ const AddLocation: React.FC = () => {
   };
 
   const searchByLocation = (text: string) => {
-    // Match sorter library searching very deep and listing to many countries
-    // const filter = matchSorter(locationsDB, text, {
-    //   keys: ['city_ascii', 'city', 'province', 'country', 'timezone', 'names']
-    // });
-
-    //Integrated version of Searching algorithm in alphabetical order
     let filter = locationsDB.filter(
       location =>
         !!location.city.match(new RegExp(text, 'gi')) ||
@@ -71,9 +65,13 @@ const AddLocation: React.FC = () => {
         !!location.province.match(new RegExp(text, 'gi'))
     );
 
-    if (filter.length) {
-      const bestMatch = filter[0];
-      const rest = filter.slice(1, 50);
+    const result = matchSorter(filter, text, {
+      keys: ['city_ascii', 'city', 'province', 'country', 'names']
+    });
+
+    if (result.length) {
+      const bestMatch = result[0];
+      const rest = result.slice(1, 20);
       rest.sort((a, b) => {
         if (a['city_ascii'] < b['city_ascii']) return -1;
         if (a['city_ascii'] > b['city_ascii']) return 1;
