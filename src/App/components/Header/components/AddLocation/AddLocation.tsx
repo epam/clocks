@@ -2,6 +2,7 @@ import React, { useState, useCallback, useMemo, useEffect, ChangeEvent, useRef }
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
+import { matchSorter } from 'match-sorter';
 
 import { IconButton, Drawer, Tooltip, MenuList, MenuItem } from '@mui/material';
 import { Add, Close } from '@mui/icons-material';
@@ -55,7 +56,7 @@ const AddLocation: React.FC = () => {
   };
 
   const searchByLocation = (text: string) => {
-    let result = locationsDB.filter(
+    let filter = locationsDB.filter(
       location =>
         !!location.city.match(new RegExp(text, 'gi')) ||
         !!location.names.match(new RegExp(text, 'gi')) ||
@@ -64,7 +65,20 @@ const AddLocation: React.FC = () => {
         !!location.province.match(new RegExp(text, 'gi'))
     );
 
-    setLocationsFound(result);
+    const result = matchSorter(filter, text, {
+      keys: ['city_ascii', 'city', 'province', 'country', 'names']
+    });
+
+    if (result.length) {
+      const bestMatch = result[0];
+      const rest = result.slice(1, 20);
+      rest.sort((a, b) => {
+        if (a['city_ascii'] < b['city_ascii']) return -1;
+        if (a['city_ascii'] > b['city_ascii']) return 1;
+        return 0;
+      });
+      setLocationsFound([bestMatch, ...rest]);
+    }
   };
 
   const handleSearch = useCallback((text: string) => {
