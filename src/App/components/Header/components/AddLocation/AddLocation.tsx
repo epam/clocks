@@ -56,8 +56,14 @@ const AddLocation: React.FC = () => {
   };
 
   const searchByLocation = (text: string) => {
+    const isCityNameContainsMultipleValues = (text: string, location: ILocation) => {
+      const words = text.split(' ');
+      return words.every(word => new RegExp(word, 'gi').test(location.city));
+    };
+
     let filter = locationsDB.filter(
       location =>
+        isCityNameContainsMultipleValues(text, location) ||
         !!location.city.match(new RegExp(text, 'gi')) ||
         !!location.names.match(new RegExp(text, 'gi')) ||
         !!location.city_ascii.match(new RegExp(text, 'gi')) ||
