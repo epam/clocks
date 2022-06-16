@@ -172,7 +172,8 @@ const AddLocation: React.FC = () => {
         >
           <div className={style.title}>{location.city}</div>
           <div className={style.zone}>
-            {location.country}, {location.province}
+            {location.country}
+            {!!location.province && ','} {location.province}
           </div>
 
           <div className={style.timezone}>{location.timezone}</div>
