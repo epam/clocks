@@ -32,7 +32,18 @@
     .iconContainer {
       display: flex;
       align-items: center;
+      @include screenMax600 {
+        flex-direction: column;
+      }
     }
+
+    // .divider {
+    //   margin-top: $space-s;
+    //   margin-bottom: $space-s;
+    // }
+    // .darkDivider {
+    //   background-color: $lightColor;
+    // }
   }
 
   .lightBody {

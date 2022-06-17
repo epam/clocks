@@ -10,6 +10,7 @@
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.8",
     "@mui/styled-engine": "^5.2.6",
+    "@react-hook/window-size": "^3.0.7",
     "clsx": "^1.1.1",
     "i18next": "^21.6.6",
     "match-sorter": "^6.3.1",
