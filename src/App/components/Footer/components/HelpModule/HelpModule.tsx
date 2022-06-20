@@ -29,7 +29,7 @@ const HelpModule = () => {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {t('HelpModule.headerText')}
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography component="div" id="modal-modal-description" sx={{ mt: 2 }}>
             <p>{t('HelpModule.headerInfo')}</p>
             <p> {t('HelpModule.ItIs')}</p>
             <ul>
