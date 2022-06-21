@@ -47,11 +47,16 @@ const AddLocation: React.FC = () => {
 
   const searchByTimezone = (text: string) => {
     let result = locationsDB.filter(location =>
-      timezonesDB.timezones[timezonesDB.abbreviations.indexOf(text)].values.includes(
+      timezonesDB.timezones[timezonesDB.abbreviations.indexOf(text.toUpperCase())].values.includes(
         location.timezone
       )
     );
 
+    result.sort((a, b) => {
+      if (a['city_ascii'] < b['city_ascii']) return -1;
+      if (a['city_ascii'] > b['city_ascii']) return 1;
+      return 0;
+    });
     setLocationsFound(result);
   };
 
@@ -89,7 +94,9 @@ const AddLocation: React.FC = () => {
 
   const handleSearch = useCallback((text: string) => {
     if (!!text) {
-      timezonesDB.abbreviations.includes(text) ? searchByTimezone(text) : searchByLocation(text);
+      timezonesDB.abbreviations.includes(text.toUpperCase())
+        ? searchByTimezone(text)
+        : searchByLocation(text);
     } else {
       setLocationsFound([]);
     }
