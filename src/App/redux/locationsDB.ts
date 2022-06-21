@@ -1876,7 +1876,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -1887,7 +1887,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'America/Buenos_Aires',
     names: ''
   },
   {
@@ -1898,7 +1898,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'America/Buenos_Aires',
     names: ''
   },
   {
@@ -1909,7 +1909,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -1920,7 +1920,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'America/Buenos_Aires',
     names: ''
   },
   {
@@ -1931,7 +1931,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'America/Buenos_Aires',
     names: ''
   },
   {
@@ -1942,7 +1942,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -1953,7 +1953,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -1964,7 +1964,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'America/Buenos_Aires',
     names: ''
   },
   {
@@ -1975,7 +1975,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -1986,7 +1986,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'America/Buenos_Aires',
     names: ''
   },
   {
@@ -1997,7 +1997,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -2008,7 +2008,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -2019,7 +2019,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -2030,7 +2030,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Asia/Krasnoyarsk',
     names: ''
   },
   {
@@ -2041,7 +2041,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Asia/Almaty',
     names: ''
   },
   {
@@ -2052,7 +2052,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -2063,7 +2063,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Asia/Almaty',
     names: ''
   },
   {
@@ -2074,7 +2074,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Asia/Yekaterinburg',
     names: ''
   },
   {
@@ -2085,7 +2085,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -2096,7 +2096,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Asia/Irkutsk',
     names: ''
   },
   {
@@ -2107,7 +2107,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -2118,7 +2118,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -2129,7 +2129,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -2140,7 +2140,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Europe/Amsterdam',
     names: ''
   },
   {
@@ -2151,7 +2151,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Africa/Luanda',
     names: ''
   },
   {
@@ -2162,7 +2162,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Africa/Nairobi',
     names: ''
   },
   {
@@ -2173,7 +2173,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Africa/Dakar',
     names: ''
   },
   {
@@ -2184,7 +2184,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Africa/Nairobi',
     names: ''
   },
   {
@@ -2195,7 +2195,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Africa/Dakar',
     names: ''
   },
   {
@@ -2206,7 +2206,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -2217,7 +2217,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'America/Buenos_Aires',
     names: ''
   },
   {
@@ -2228,7 +2228,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Africa/Dakar',
     names: ''
   },
   {
@@ -2239,7 +2239,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'America/Buenos_Aires',
     names: ''
   },
   {
@@ -2250,7 +2250,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -2261,7 +2261,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'America/Buenos_Aires',
     names: ''
   },
   {
@@ -2272,7 +2272,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'America/Buenos_Aires',
     names: ''
   },
   {
@@ -2283,7 +2283,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'America/Buenos_Aires',
     names: ''
   },
   {
@@ -2294,7 +2294,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Pacific/Auckland',
     names: ''
   },
   {
@@ -2305,7 +2305,7 @@ export const locationsDB: ILocation[] = [
     country: 'Antarctica',
     iso2: 'AQ',
     province: '',
-    timezone: '',
+    timezone: 'Africa/Nairobi',
     names: ''
   },
   {
@@ -3412,7 +3412,7 @@ export const locationsDB: ILocation[] = [
     country: 'Argentina',
     iso2: 'AR',
     province: 'La Rioja',
-    timezone: '',
+    timezone: 'America/Argentina/La_Rioja',
     names:
       'Chilecito,Chilesito,Cilesitas,chylsytw,qi lai xi tuo,zylsytw,Čilesitas,Чилесито,Чілесіто,Չիլեսիտո,צילסיטו,چیلسیتو,奇萊西托'
   },
@@ -4048,7 +4048,7 @@ export const locationsDB: ILocation[] = [
     country: 'Argentina',
     iso2: 'AR',
     province: 'Chubut',
-    timezone: '',
+    timezone: 'America/Buenos Aires',
     names:
       'CRD,Comodoro,Comodoro Rivadavia,Komodoro Rivadavija,Komodoro-Rivadavija,Komorodo Rivadavia,komodololibadabia,kwmwdwrw ryfadafya,kwmwdwrw rywadawya,li wa da wei ya hai jun zhun jiang cheng,qwmwdwrw rybdbyh,Комодоро Ривадавия,Комодоро Ривадавија,Комодоро-Ривадавия,Комодоро-Рівадавія,Կոմորոդո Ռիվադավիա,קומודורו ריבדביה,كومودورو ريفادافيا,کومودورو ریواداویا,コモドーロ・リバダビア,里瓦达维亚海军准将城,코모도로리바다비아'
   },
@@ -17096,7 +17096,7 @@ export const locationsDB: ILocation[] = [
     country: 'Canada',
     iso2: 'CA',
     province: 'British Columbia',
-    timezone: '',
+    timezone: 'America/Dawson',
     names:
       'Fort Sent DZon,Fort-Sent-Dzhon,YXJ,fwrt sant jwn,fwrt snt jan,sheng yue han bao,Форт Сент Џон,Форт-Сент-Джон,فورت سانت جون,فورت سنت جان,فورٹ سینٹ جان، برٹش کولمبیا,聖約翰堡'
   },
@@ -36966,7 +36966,7 @@ export const locationsDB: ILocation[] = [
     country: 'Iran',
     iso2: 'IR',
     province: 'West Azarbaijan',
-    timezone: '',
+    timezone: 'Asia/Tehran',
     names:
       "OMH,Orumiyeh,Orūmīyeh,Ourmia,Reza'iyeh,Rezaeyeh,Rezaiyye,Rezâiyye,Rezā’īyeh,Rizaiyeh,Rizāiyeh,Urmia,Urmija,Urmiya,Urmiye,Urmía,Urumija,Urumiyeh,Urūmiyeh,arwmyh,arwmyt,shhrstan arwmyh,Úrmia,Ûrmiye,Урмия,Урумия,אורמיה,أرومية,ارومیه,ارومیّه,شهرستان ارومیه,ܐܘܪܡܝܐ"
   },
@@ -49323,7 +49323,7 @@ export const locationsDB: ILocation[] = [
     country: 'Nicaragua',
     iso2: 'NI',
     province: 'Nicaragua',
-    timezone: '',
+    timezone: 'America/Managua',
     names: ''
   },
   {
@@ -56342,7 +56342,7 @@ export const locationsDB: ILocation[] = [
     country: 'Russia',
     iso2: 'RU',
     province: 'Sakha (Yakutia)',
-    timezone: '',
+    timezone: 'Asia/Vladivostok',
     names: ''
   },
   {
@@ -61083,7 +61083,7 @@ export const locationsDB: ILocation[] = [
     country: 'Russia',
     iso2: 'RU',
     province: 'Penza',
-    timezone: '',
+    timezone: 'Europe/Moscow',
     names:
       'PEZ,Pensa,Penz,Penza,Penza osh,Penzae,Penze,ben sa,bynza,penja,penza,pnza,pnzh,pynza,Πένζα,Пензæ,Пенза,Пенза балһсн,Пенза ош,Пензе,Պենզա,פנזה,بينزا,پنزا,پینزا,ペンザ,奔萨,펜자'
   },
@@ -61807,7 +61807,7 @@ export const locationsDB: ILocation[] = [
     country: 'Russia',
     iso2: 'RU',
     province: "Perm'",
-    timezone: '',
+    timezone: 'Asia/Yekaterinburg',
     names:
       "Molotov,PEE,Perem,Perm,Perm',Perma,Perme,Permia,Permjo,Permė,Perym,bi er mu,byrm,parma,peiy rm,peleum,perumi,prm,pyrm,Περμ,Молотов,Перĕм,Перем,Перм,Пермь,Перым,Пєрмь,Պերմ,פרם,بيرم,پرم,پیرم,पर्म,เปียร์ม,პერმი,ペルミ,彼尔姆,페름"
   },
