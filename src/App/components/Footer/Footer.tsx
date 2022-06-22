@@ -3,14 +3,12 @@ import { useTranslation, Trans } from 'react-i18next';
 
 import { Divider, IconButton } from '@mui/material';
 import { Instagram, Facebook, Twitter, LinkedIn, GitHub } from '@mui/icons-material';
-
 import useTheme from '../../hooks/useTheme';
 
 import style from './Footer.module.scss';
 import { VERSION } from './Footer.constants';
 import HelpModule from './components/HelpModule/HelpModule';
 
-import { useWindowWidth } from '@react-hook/window-size';
 import { THEME } from '../../redux/constants';
 import { useSelector } from 'react-redux';
 import { IInitialState } from '../../redux/types';
@@ -18,7 +16,6 @@ import { IInitialState } from '../../redux/types';
 const Footer: React.FC = () => {
   const { theme } = useSelector((state: IInitialState) => state.settings);
   const { t } = useTranslation();
-  const screenWidth = useWindowWidth();
 
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
@@ -62,22 +59,20 @@ const Footer: React.FC = () => {
           <div>{VERSION}</div>
         </div>
         <div className={style.iconContainer}>
-          <div className={iconTheme} tabIndex={0}>
-            <HelpModule />
-          </div>
+          <HelpModule />
 
-          {screenWidth < 600 ? (
-            <Divider
-              sx={theme === THEME.dark ? { borderColor: 'white' } : { borderColor: 'lightgray' }}
-              flexItem
-            />
-          ) : (
-            <Divider
-              sx={theme === THEME.dark ? { borderColor: 'white' } : { borderColor: 'lightgray' }}
-              orientation="vertical"
-              flexItem
-            />
-          )}
+          <Divider
+            className={style.verticalDivider}
+            orientation={'vertical'}
+            sx={theme === THEME.dark ? { borderColor: 'white' } : { borderColor: 'lightgray' }}
+            flexItem
+          />
+
+          <Divider
+            className={style.horizontalDivider}
+            sx={theme === THEME.dark ? { borderColor: 'white' } : { borderColor: 'lightgray' }}
+            flexItem
+          />
 
           <div>
             {social.map((item, index) => (

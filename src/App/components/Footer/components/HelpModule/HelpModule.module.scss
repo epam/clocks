@@ -1,53 +1,44 @@
 @import '../../../../styles/index.scss';
 
-.container {
-  padding: 8px;
-  margin-bottom: -4px;
-  cursor: pointer;
-}
+%body {
+  max-width: 450px;
+  padding: $space-xl;
 
-.modal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 600px;
-  background-color: $whiteColor;
-  border: 1px solid $blueColor;
-  box-shadow: 24;
-  padding: 3rem;
-  border-radius: 5px;
-  outline: none !important;
-  @include screenMax600 {
-    width: 350px;
-    padding: 2rem 1.5rem;
+  .modalTitle {
+    font-family: roboto-bold;
+    font-size: $fs20;
+    margin-bottom: $space-l;
   }
 
   ul {
-    margin-left: 3rem;
-    margin-bottom: 1rem;
+    margin: $space-m;
   }
-}
 
-.buttonContainer {
-  margin-top: $space-m;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  li {
+    margin: $space-xs 0;
+  }
 
-  .button {
-    color: $blueColor;
+  .buttonContainer {
+    margin-top: $space-m;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .button {
+      color: $blueColor;
+    }
   }
 }
 
 .lightBody {
-  @extend .modal;
+  @extend %body;
   background-color: $lightColor;
   color: $darkColor;
 }
 
 .darkBody {
-  @extend .modal;
+  @extend %body;
+
   background-color: $darkColor;
   color: $lightColor;
 }
