@@ -3,16 +3,7 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
-import {
-  IconButton,
-  Dialog,
-  Button,
-  Checkbox,
-  RadioGroup,
-  Radio,
-  Divider,
-  Tooltip
-} from '@mui/material';
+import { IconButton, Dialog, Button, Divider, Tooltip } from '@mui/material';
 import { SettingsOutlined } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
@@ -20,12 +11,13 @@ import useAutoTheme from '../../../../hooks/useAutoTheme';
 import { IInitialState, IActionSettingsPayload } from '../../../../redux/types';
 import { THEME, TIME_FORMAT } from '../../../../redux/constants';
 import { setSettings } from '../../../../redux/actions';
+import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 import style from './SettingsModal.module.scss';
 import { SETTING_VALUE } from './SettingsModal.constants';
-import Onboarding from '../../../Section/components/Onboarding/Onboarding';
-
-import { INPUT_IDS } from './SettingsModal.constants';
+import DisplayBlock from './components/DisplayBlock/DisplayBlock';
+import HoursSortingBlock from './components/HoursSortingBlock/HoursSortingBlock';
+import ThemeBlock from './components/ThemeBlock/ThemeBlock';
 
 const SettingsModal: React.FC = () => {
   const anchorRef = useRef(null);
@@ -155,115 +147,15 @@ const SettingsModal: React.FC = () => {
       <Dialog open={isModalOpen} onClose={handleClose}>
         <div className={bodyTheme}>
           <div className={style.modalTitle}>{t('Settings.ModalTitle')}</div>
-          <div>
-            <Checkbox
-              id={INPUT_IDS.showDate}
-              checked={localSettings.showDate}
-              onChange={handleSetSettings}
-              value={SETTING_VALUE.date}
-            />
-            <label className={style.cursorPointer} htmlFor={INPUT_IDS.showDate}>
-              {t('Settings.ShowDate')}
-            </label>
-          </div>
-          <div>
-            <Checkbox
-              id={INPUT_IDS.showCountryName}
-              checked={localSettings.showCountry}
-              onChange={handleSetSettings}
-              value={SETTING_VALUE.country}
-            />
-            <label className={style.cursorPointer} htmlFor={INPUT_IDS.showCountryName}>
-              {t('Settings.ShowCountry')}
-            </label>
-          </div>
-          <div>
-            <Checkbox
-              id={INPUT_IDS.showTimeZone}
-              checked={localSettings.showTimezone}
-              onChange={handleSetSettings}
-              value={SETTING_VALUE.timezone}
-            />
-            <label className={style.cursorPointer} htmlFor={INPUT_IDS.showTimeZone}>
-              {t('Settings.ShowTimezone')}
-            </label>
-          </div>
+          <DisplayBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
           <Divider
             className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
           />
-          <RadioGroup value={localSettings.timeFormat} onChange={handleSetSettings}>
-            <div>
-              <Radio id={INPUT_IDS.hourFormat24} value={TIME_FORMAT.H24} />
-              <label className={style.cursorPointer} htmlFor={INPUT_IDS.hourFormat24}>
-                {t('Settings.24HourFormat')}
-              </label>
-            </div>
-            <div>
-              <Radio id={INPUT_IDS.hourFormat12} value={TIME_FORMAT.H12} />
-              <label className={style.cursorPointer} htmlFor={INPUT_IDS.hourFormat12}>
-                {t('Settings.12HourFormat')}
-              </label>
-            </div>
-          </RadioGroup>
-          <div className={style.autoSorting}>
-            <Checkbox
-              id={INPUT_IDS.autoSorting}
-              checked={localSettings.autoSorting}
-              onChange={handleSetSettings}
-              value={SETTING_VALUE.autoSorting}
-            />
-            <label className={style.cursorPointer} htmlFor={INPUT_IDS.autoSorting}>
-              {t('Settings.AutoSortWidget')}
-            </label>
-          </div>
+          <HoursSortingBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
           <Divider
             className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
           />
-          <div>
-            <Checkbox
-              id={INPUT_IDS.autoTheming}
-              checked={localSettings.autoTheme}
-              onChange={handleSetSettings}
-              value={SETTING_VALUE.auto}
-            />
-            <label className={style.cursorPointer} htmlFor={INPUT_IDS.autoTheming}>
-              {t('Settings.AutoTheme')}
-            </label>
-          </div>
-          <RadioGroup value={localSettings.theme} onChange={handleSetSettings}>
-            <div>
-              <Radio
-                id={INPUT_IDS.lightTheme}
-                className={clsx({ [style.disabled]: localSettings.autoTheme })}
-                value={THEME.light}
-                disabled={localSettings.autoTheme}
-              />
-              <label
-                htmlFor={INPUT_IDS.lightTheme}
-                className={
-                  (clsx({ [style.disabled]: localSettings.autoTheme }), style.cursorPointer)
-                }
-              >
-                {t('Settings.LightTheme')}
-              </label>
-            </div>
-            <div>
-              <Radio
-                id={INPUT_IDS.darkTheme}
-                className={clsx({ [style.disabled]: localSettings.autoTheme })}
-                value={THEME.dark}
-                disabled={localSettings.autoTheme}
-              />
-              <label
-                htmlFor={INPUT_IDS.darkTheme}
-                className={
-                  (clsx({ [style.disabled]: localSettings.autoTheme }), style.cursorPointer)
-                }
-              >
-                {t('Settings.DarkTheme')}
-              </label>
-            </div>
-          </RadioGroup>
+          <ThemeBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
           <div className={style.buttonContainer}>
             <Button className={style.button} onClick={handleClose}>
               {t('Settings.CancelButton')}
