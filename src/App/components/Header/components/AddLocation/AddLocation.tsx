@@ -1,35 +1,28 @@
-import React, { useState, useCallback, useMemo, useEffect, ChangeEvent, useRef } from 'react';
+import React, { useState, useCallback, useMemo, useEffect, useRef } from 'react';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { matchSorter } from 'match-sorter';
 
-import { IconButton, Drawer, Tooltip, MenuList, MenuItem } from '@mui/material';
-import { Add, Close } from '@mui/icons-material';
+import { IconButton, Tooltip } from '@mui/material';
+import { Add } from '@mui/icons-material';
 import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 import useTheme from '../../../../hooks/useTheme';
-import useLocations from '../../../../hooks/useLocations';
-import useSnackbar from '../../../../hooks/useSnackbar';
+
 import useDebounce from '../../../../hooks/useDebounce/useDebounce';
-import { ILocation, IInitialState, IUrlLocations, IUrlLocation } from '../../../../redux/types';
+import { ILocation, IInitialState } from '../../../../redux/types';
+import { timezonesDB } from '../../../../redux/timezonesDB';
 
 import style from './AddLocation.module.scss';
 import { KEYBOARD } from './AddLocation.constants';
-import { timezonesDB } from '../../../../redux/timezonesDB';
+import DrawerBlock from './components/DrawerBlock/DrawerBlock';
 
 const AddLocation: React.FC = () => {
   const anchorRef = useRef(null);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
-  const bodyTheme = useTheme(style.lightBody, style.darkBody);
-  const inputTheme = useTheme(style.lightInput, style.darkInput);
-  const foundLocationTheme = useTheme(style.lightFoundLocation, style.darkFoundLocation);
 
   const { t } = useTranslation();
-
-  const { snackbarError } = useSnackbar();
-
-  const { locations, setLocations, getLocationOffset } = useLocations();
 
   const { deleteMode, onboarding, dragDropMode, planningMode } = useSelector(
     (state: IInitialState) => state
@@ -116,84 +109,14 @@ const AddLocation: React.FC = () => {
 
   useEffect(() => {
     document.addEventListener('keydown', listener);
-
     return () => window.removeEventListener('keydown', listener);
+    // don't need as a dependancy listener
+    // eslint-disable-next-line
   }, []);
 
   const handleOpenPanel = () => {
     setPanel(true);
   };
-
-  const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    if (value === KEYBOARD.plus || value === KEYBOARD.plus) return;
-    setSearchText(value);
-  };
-
-  const handleClosePanel = () => {
-    setPanel(false);
-    setLocationsFound([]);
-    setSearchText('');
-  };
-
-  const handleSelectLocation = useCallback(
-    (location: ILocation) => {
-      if (locations) {
-        const find = Object.values(locations).find(
-          (urlLocation: IUrlLocation) =>
-            urlLocation.city === location.city && urlLocation.lat === location.lat
-        );
-
-        if (find) {
-          snackbarError(t('AddLocation.SnackbarMessage'));
-        } else {
-          const locationObj: IUrlLocations = {
-            ...locations,
-            [location.city + location.lat]: {
-              city: location.city,
-              lat: location.lat,
-              offset: getLocationOffset(location.timezone)
-            }
-          };
-
-          setLocations(locationObj);
-          handleClosePanel();
-        }
-      } else {
-        const locationObj: IUrlLocations = {
-          [location.city + location.lat]: {
-            city: location.city,
-            lat: location.lat,
-            offset: getLocationOffset(location.timezone)
-          }
-        };
-        setLocations(locationObj);
-        handleClosePanel();
-      }
-    },
-    [locations, setLocations, t, snackbarError, getLocationOffset]
-  );
-
-  const searchResultsRender = useMemo(
-    () =>
-      locationsFound.map((location: ILocation, index: number) => (
-        <MenuItem
-          tabIndex={1}
-          key={index + 'FOUND_LOCATION'}
-          className={foundLocationTheme}
-          onClick={() => handleSelectLocation(location)}
-        >
-          <div className={style.title}>{location.city}</div>
-          <div className={style.zone}>
-            {location.country}
-            {!!location.province && ','} {location.province}
-          </div>
-
-          <div className={style.timezone}>{location.timezone}</div>
-        </MenuItem>
-      )),
-    [locationsFound, foundLocationTheme, handleSelectLocation]
-  );
 
   const tooltipText = useMemo((): string => t('AddLocation.ButtonTooltip'), [t]);
 
@@ -214,33 +137,14 @@ const AddLocation: React.FC = () => {
         </IconButton>
       </Tooltip>
 
-      <Drawer anchor="right" open={isPanelOpen} onClose={handleClosePanel}>
-        <div className={bodyTheme}>
-          <div className={style.header}>
-            <div className={style.title}>{t('AddLocation.PanelTitle')}</div>
-            <IconButton onClick={handleClosePanel}>
-              <Close className={iconTheme} />
-            </IconButton>
-          </div>
-          <div className={style.inputContainer}>
-            <input
-              type="text"
-              className={inputTheme}
-              placeholder={t('AddLocation.InputPlaceholder')}
-              onChange={inputChangeHandler}
-              value={searchText}
-              autoFocus={true}
-            />
-          </div>
-          <MenuList className={style.searchResultsContainer}>
-            {!!locationsFound.length ? (
-              searchResultsRender
-            ) : (
-              <div className={style.notFound}>{t('AddLocation.NotFound')}</div>
-            )}
-          </MenuList>
-        </div>
-      </Drawer>
+      <DrawerBlock
+        setSearchText={setSearchText}
+        setPanel={setPanel}
+        setLocationsFound={setLocationsFound}
+        isPanelOpen={isPanelOpen}
+        searchText={searchText}
+        locationsFound={locationsFound}
+      />
 
       {onboarding?.addCity && anchorRef.current && (
         <Onboarding
