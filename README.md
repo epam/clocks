@@ -8,16 +8,19 @@ Clock is a small serverless web application that allows you to create a dashboar
 - No account registration needed.
 - Add as many widgets as you need, searching by location name or timezone.
 - See time difference between any of selected locations.
-- Add arbitrary comments to every widget.
-- Get a sharable link to send dashboard to other users.
-- Embed into another HTML page via <iframe>.
+- Add arbitrary comments to every widget, that are stored in your browser, not in our servers.
+- Get a sharable link to send dashboard as you see it (with comments) to other users.
+- Embed into another HTML page via <iframe> — with no restrictions from our side.
 - Use Planning mode to find corresponding times across all locations — useful for scheduling meetings.
+- Supports Dark or Light theme, or automatically switches between them.
+- Choose between 12h or 24h time representation.
+- Adjust widget details and re-order widgets on the dashboard. 
 
 ### How to use
 
-Ctrl Q - open "Add new city"\
-Esc - close "Add new city"\
-Tab - switching to next element\
+- Ctrl+Q: opens "Add new city"
+- Esc: lose "Add new city"
+- Tab: switching to next element
 
 ## For Contributors
 
