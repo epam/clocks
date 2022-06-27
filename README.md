@@ -2,7 +2,7 @@
 
 ## What is that?
 
-Clock is a small serverless web application that allows you to create a dashboard for keeping track of time anywhere in the world.
+`Clocks` is a small serverless web application that allows you to create a dashboard for keeping track of time anywhere in the world.
 
 - Free to use — no ads.
 - No account registration needed.
