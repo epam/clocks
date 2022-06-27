@@ -7,26 +7,13 @@ Clock is a small serverless web application that allows you to create a dashboar
 - Free to use — no ads.
 - No account registration needed.
 - Add as many widgets as you need, searching by location name or timezone.
+- See time difference between any of selected locations.
 - Add arbitrary comments to every widget.
 - Get a sharable link to send dashboard to other users.
 - Embed into another HTML page via <iframe>.
 - Use Planning mode to find corresponding times across all locations — useful for scheduling meetings.
 
-![изображение](https://user-images.githubusercontent.com/88092877/151424317-21fde88c-ef22-402d-ac77-88229ee97afc.png)
-
 ### How to use
-
-The application shows the time in the selected location, location name, country.
-When you go to the page to Clocks.lab.epam.com, the dashboard automatically creates a widget with information for the user's location.\
-
-![изображение](https://user-images.githubusercontent.com/88092877/151424721-645af42c-2483-4906-baf2-5a567d566f76.png)
-
-Users can add other locations through the "add city" button. It also displays information about the time difference between the user's location and the added location. users can delete widgets for locations on the dashboard.
-In addition, it is possible to add comments for locations. \
-
-![изображение](https://user-images.githubusercontent.com/88092877/151425498-5c9cf077-f347-47de-aaa5-fd0bc02e2e15.png)
-
-### Using hotkeys
 
 Ctrl Q - open "Add new city"\
 Esc - close "Add new city"\
