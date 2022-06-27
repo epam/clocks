@@ -1,22 +1,18 @@
-# Clocks.epam.com
+# clocks.lab.epam.com
 
-## Description
+## What is that?
 
-Clock is a small web application that allows you to create a dashboard for keeping track of time anywhere in the world.
+Clock is a small serverless web application that allows you to create a dashboard for keeping track of time anywhere in the world.
 
-Clocks:
-
-Free to use;\
-No account registration needed for every users to read previously configured data;\
-Produces a permanent sharable link that can be sent to third party users;\
-Allows to add arbitrary comments to time zones;\
-Minimalistic enough to embed it into another HTML page via <iframe> (no ads or spy software, etc.)\
+- Free to use — no ads.
+- No account registration needed.
+- Add as many widgets as you need, searching by location name or timezone.
+- Add arbitrary comments to every widget.
+- Get a sharable link to send dashboard to other users.
+- Embed into another HTML page via <iframe>.
+- Use Planning mode to find corresponding times across all locations — useful for scheduling meetings.
 
 ![изображение](https://user-images.githubusercontent.com/88092877/151424317-21fde88c-ef22-402d-ac77-88229ee97afc.png)
-
-### Environment
-
-Clocks.lab.epam.com
 
 ### How to use
 
