@@ -3,7 +3,7 @@ import React, { useMemo } from 'react';
 
 import HelpIcon from '@mui/icons-material/Help';
 import style from './HelpModule.module.scss';
-// import { t } from 'i18next';
+
 import useTheme from '../../../../hooks/useTheme';
 import { Trans, useTranslation } from 'react-i18next';
 import clsx from 'clsx';
@@ -30,11 +30,12 @@ const HelpModule = () => {
           <div className={style.modalTitle}>{t('HelpModule.headerText')}</div>
 
           <p>{t('HelpModule.headerInfo')}</p>
-          <p> {t('HelpModule.ItIs')}</p>
-          <ul>
-            <Trans t={t} i18nKey="HelpModule.info" components={{ li: <li /> }} />
-          </ul>
-          <p>{t('HelpModule.HappyUse')}</p>
+
+          <Trans
+            t={t}
+            i18nKey="HelpModule.info"
+            components={{ li: <li />, ul: <ul />, p: <p /> }}
+          />
 
           <div className={style.buttonContainer}>
             <Button className={style.button} onClick={handleClose}>
