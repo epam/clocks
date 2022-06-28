@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
-import { IconButton, Dialog, Button, Tooltip } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import { FmdGoodOutlined, CommentOutlined, Remove } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
@@ -11,14 +11,14 @@ import useTimeInfo from '../../../../hooks/useTimeInfo';
 import useLocations from '../../../../hooks/useLocations';
 import { setUserLocation } from '../../../../redux/actions';
 import { IInitialState, IUrlLocation } from '../../../../redux/types';
-
-import style from './LocationBlock.module.scss';
-import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
-import Onboarding from '../Onboarding/Onboarding';
-
 import addClassName from '../../../../utils/addClassName';
 import removeClassName from '../../../../utils/removeClassName';
 import generateLocationKey from '../../../../utils/generateLocationKey';
+import CommentModal from './Components/CommentModal/CommentModal';
+import Onboarding from '../Onboarding/Onboarding';
+
+import style from './LocationBlock.module.scss';
+import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({
   location,
@@ -33,7 +33,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
 
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
-  const commentModalTheme = useTheme(style.lightCommentModal, style.darkCommentModal);
 
   const { t } = useTranslation();
   const containerDivRef = useRef<HTMLDivElement>(null);
@@ -117,17 +116,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
 
   const handleCloseCommentModal = () => {
     setCommentModal(false);
-  };
-
-  const handleSaveComment = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-    Object.values(locations).forEach((urlLocation: any) => {
-      if (urlLocation.city === location?.city && urlLocation.lat === location?.lat) {
-        urlLocation.comment = inputText;
-      }
-    });
-    setLocations(locations);
-    handleCloseCommentModal();
   };
 
   const focusHandler = () => {
@@ -284,29 +272,11 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
       </div>
 
       {commentModal && (
-        <Dialog open={commentModal} onClose={handleCloseCommentModal}>
-          <form className={commentModalTheme} onSubmit={handleSaveComment}>
-            <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
-            <div>
-              <input
-                className={style.input}
-                maxLength={50}
-                placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
-                value={inputText}
-                onChange={e => setInputText(e.target.value)}
-                autoFocus={true}
-              />
-            </div>
-            <div className={style.buttonContainer}>
-              <Button className={style.button} onClick={handleCloseCommentModal}>
-                {t('Settings.CancelButton')}
-              </Button>
-              <Button className={style.button} type="submit">
-                {t('Settings.SaveButton')}
-              </Button>
-            </div>
-          </form>
-        </Dialog>
+        <CommentModal
+          commentModal={commentModal}
+          handleClose={handleCloseCommentModal}
+          location={location}
+        />
       )}
       {!index && onboarding?.myLocation && anchorLocation.current && (
         <Onboarding
