@@ -74,14 +74,17 @@ const AddLocation: React.FC = () => {
     });
 
     if (result.length) {
-      const bestMatch = result[0];
-      const rest = result.slice(1, 20);
-      rest.sort((a, b) => {
-        if (a['city_ascii'] < b['city_ascii']) return -1;
-        if (a['city_ascii'] > b['city_ascii']) return 1;
-        return 0;
-      });
-      setLocationsFound([bestMatch, ...rest]);
+      // const bestMatch = result[0];
+      // const rest = result.slice(1, 20);
+      // rest.sort((a, b) => {
+      //   if (a['city_ascii'] < b['city_ascii']) return -1;
+      //   if (a['city_ascii'] > b['city_ascii']) return 1;
+      //   return 0;
+      // });
+      // setLocationsFound([bestMatch, ...rest]);
+
+      result.sort((a, b) => b.population - a.population);
+      setLocationsFound(result.slice(0, 20));
     }
   };
 

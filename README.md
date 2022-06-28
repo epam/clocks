@@ -14,7 +14,7 @@
 - Use Planning mode to find corresponding times across all locations — useful for scheduling meetings.
 - Supports Dark or Light theme, or automatically switches between them.
 - Choose between 12h or 24h time representation.
-- Adjust widget details and re-order widgets on the dashboard. 
+- Adjust widget details and re-order widgets on the dashboard.
 
 ### How to use
 
