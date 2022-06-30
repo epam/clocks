@@ -35,20 +35,6 @@
       @include screenMax600 {
         flex-direction: column;
       }
-
-      .verticalDivider {
-        display: block;
-        @include screenMax600 {
-          display: none;
-        }
-      }
-
-      .horizontalDivider {
-        display: none;
-        @include screenMax600 {
-          display: block;
-        }
-      }
     }
   }
 

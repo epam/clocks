@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 
 import { Divider, IconButton } from '@mui/material';
@@ -59,35 +59,35 @@ const Footer: React.FC = () => {
           <div>{VERSION}</div>
         </div>
         <div className={style.iconContainer}>
-          <HelpModule />
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: window.innerWidth < 600 ? 'column' : 'row',
+              alignItems: 'center'
+            }}
+          >
+            <HelpModule />
+            <Divider
+              orientation={window.innerWidth < 600 ? 'horizontal' : 'vertical'}
+              sx={theme === THEME.dark ? { borderColor: 'white' } : { borderColor: 'lightgray' }}
+              flexItem
+            />
 
-          <Divider
-            className={style.verticalDivider}
-            orientation={'vertical'}
-            sx={theme === THEME.dark ? { borderColor: 'white' } : { borderColor: 'lightgray' }}
-            flexItem
-          />
-
-          <Divider
-            className={style.horizontalDivider}
-            sx={theme === THEME.dark ? { borderColor: 'white' } : { borderColor: 'lightgray' }}
-            flexItem
-          />
-
-          <div>
-            {social.map((item, index) => (
-              <a
-                key={index + 'SOCIAL'}
-                href={item.url}
-                data-testid="GitHubIconLink"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <IconButton tabIndex={-1}>
-                  <item.icon className={iconTheme} />
-                </IconButton>
-              </a>
-            ))}
+            <div>
+              {social.map((item, index) => (
+                <a
+                  key={index + 'SOCIAL'}
+                  href={item.url}
+                  data-testid="GitHubIconLink"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <IconButton tabIndex={-1}>
+                    <item.icon className={iconTheme} />
+                  </IconButton>
+                </a>
+              ))}
+            </div>
           </div>
         </div>
       </div>
