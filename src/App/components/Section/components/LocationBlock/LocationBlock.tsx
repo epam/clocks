@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { IconButton, Tooltip } from '@mui/material';
-import { FmdGoodOutlined, CommentOutlined, Remove } from '@mui/icons-material';
+import { FmdGoodOutlined, CommentOutlined } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
 import useTimeInfo from '../../../../hooks/useTimeInfo';
@@ -14,7 +14,8 @@ import { IInitialState, IUrlLocation } from '../../../../redux/types';
 import addClassName from '../../../../utils/addClassName';
 import removeClassName from '../../../../utils/removeClassName';
 import generateLocationKey from '../../../../utils/generateLocationKey';
-import CommentModal from './Components/CommentModal/CommentModal';
+import CommentModal from './components/CommentModal/CommentModal';
+import DeleteButton from './components/DeleteButton/DeleteButton';
 import Onboarding from '../Onboarding/Onboarding';
 
 import style from './LocationBlock.module.scss';
@@ -92,11 +93,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     planningMode.additionalHours,
     planningMode.isOn
   ]);
-
-  const handleDelete = () => {
-    location && delete locations[location?.city + location?.lat];
-    setLocations(locations);
-  };
 
   const handleSetUserLocation = () => {
     location && dispatch(setUserLocation(location));
@@ -192,11 +188,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
           onFocus={focusHandler}
           onBlur={focusHandler}
         >
-          {deleteMode.isOn && (
-            <IconButton className={style.deleteButton} size="small" onClick={handleDelete}>
-              <Remove className={style.icon} />
-            </IconButton>
-          )}
+          {deleteMode.isOn && <DeleteButton location={location} />}
+
           <div className={style.infoBlock}>
             <div
               className={clsx({
