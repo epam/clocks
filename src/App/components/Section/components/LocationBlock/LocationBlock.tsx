@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useMemo, DragEvent, useRef, RefObject } from 'react';
 import clsx from 'clsx';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
 import { IconButton, Tooltip } from '@mui/material';
-import { FmdGoodOutlined, CommentOutlined } from '@mui/icons-material';
+import { CommentOutlined } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
 import useTimeInfo from '../../../../hooks/useTimeInfo';
 import useLocations from '../../../../hooks/useLocations';
-import { setUserLocation } from '../../../../redux/actions';
-import { IInitialState, IUrlLocation } from '../../../../redux/types';
+
+import { IInitialState } from '../../../../redux/types';
 import addClassName from '../../../../utils/addClassName';
 import removeClassName from '../../../../utils/removeClassName';
 import generateLocationKey from '../../../../utils/generateLocationKey';
@@ -20,6 +20,7 @@ import Onboarding from '../Onboarding/Onboarding';
 
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
+import PinButton from './components/PinButton/PinButton';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({
   location,
@@ -49,9 +50,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
 
   const timeInfo = useTimeInfo(location);
 
-  const dispatch = useDispatch();
-
-  const { locations, setLocations, dragAndDropLocation } = useLocations();
+  const { locations, dragAndDropLocation } = useLocations();
 
   const [commentModal, setCommentModal] = useState(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -93,18 +92,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     planningMode.additionalHours,
     planningMode.isOn
   ]);
-
-  const handleSetUserLocation = () => {
-    location && dispatch(setUserLocation(location));
-    Object.values(locations).forEach((urlLocation: IUrlLocation) => {
-      if (urlLocation.city === location?.city && urlLocation.lat === location?.lat) {
-        urlLocation.userLocation = true;
-      } else {
-        urlLocation.userLocation = false;
-      }
-    });
-    setLocations(locations);
-  };
 
   const handleOpenCommentModal = () => {
     setCommentModal(true);
@@ -155,10 +142,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     setSelectedLocation(null);
   };
 
-  const locationTooltipText = useMemo(
-    (): string => t('LocationBlock.TooltipSetCurrentLocation'),
-    [t]
-  );
   const commentTooltipText = useMemo((): string => t('LocationBlock.TooltipComment'), [t]);
 
   return (
@@ -203,23 +186,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
                   [style.opaccityBlock]: !isFocused && !isUserLocation
                 })}
               >
-                <Tooltip title={locationTooltipText} arrow>
-                  <IconButton
-                    ref={anchorLocation}
-                    tabIndex={0}
-                    size="small"
-                    onClick={handleSetUserLocation}
-                    disabled={disabled}
-                  >
-                    <FmdGoodOutlined
-                      className={clsx({
-                        [iconTheme]: true,
-                        [style.blueIcon]: urlUserLocation || isUserLocation,
-                        [style.disabledIcon]: disabled
-                      })}
-                    />
-                  </IconButton>
-                </Tooltip>
+                <PinButton location={location} urlUserLocation={urlUserLocation} />
                 <Tooltip title={commentTooltipText} arrow>
                   <IconButton
                     ref={anchorComment}
