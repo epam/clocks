@@ -18,9 +18,9 @@ import Onboarding from '../Onboarding/Onboarding';
 
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
-import PinButton from './Components/PinButton/PinButton';
-import DeleteButton from './Components/DeleteButton/DeleteButton';
-import CommentModal from './Components/CommentModal/CommentModal';
+import PinButton from './components/PinButton/PinButton';
+import DeleteButton from './components/DeleteButton/DeleteButton';
+import CommentModal from './components/CommentModal/CommentModal';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({
   location,
