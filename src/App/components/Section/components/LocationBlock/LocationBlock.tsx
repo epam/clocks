@@ -14,13 +14,13 @@ import { IInitialState } from '../../../../redux/types';
 import addClassName from '../../../../utils/addClassName';
 import removeClassName from '../../../../utils/removeClassName';
 import generateLocationKey from '../../../../utils/generateLocationKey';
-import CommentModal from './components/CommentModal/CommentModal';
-import DeleteButton from './components/DeleteButton/DeleteButton';
 import Onboarding from '../Onboarding/Onboarding';
 
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
-import PinButton from './components/PinButton/PinButton';
+import PinButton from './Components/PinButton/PinButton';
+import DeleteButton from './Components/DeleteButton/DeleteButton';
+import CommentModal from './Components/CommentModal/CommentModal';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({
   location,
