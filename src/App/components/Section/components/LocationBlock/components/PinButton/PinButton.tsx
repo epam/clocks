@@ -1,14 +1,17 @@
+import React, { useMemo, useRef } from 'react';
+import clsx from 'clsx';
+import { t } from 'i18next';
+
 import { FmdGoodOutlined } from '@mui/icons-material';
 import { IconButton, Tooltip } from '@mui/material';
-import clsx from 'clsx';
-import React, { useMemo, useRef } from 'react';
+
 import { setUserLocation } from '../../../../../../redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import useLocations from '../../../../../../hooks/useLocations';
 import { IInitialState, IUrlLocation } from '../../../../../../redux/types';
-import { t } from 'i18next';
-import style from '../../LocationBlock.module.scss';
 import useTheme from '../../../../../../hooks/useTheme';
+
+import style from '../../LocationBlock.module.scss';
 import { IPinButtonProps } from './PinButton.types';
 
 const PinButton: React.FC<IPinButtonProps> = ({ location, urlUserLocation }) => {

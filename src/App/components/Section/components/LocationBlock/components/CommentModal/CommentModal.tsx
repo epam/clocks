@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { t } from 'i18next';
 
 import { Button, Dialog } from '@mui/material';
 
-import { t } from 'i18next';
 import useTheme from '../../../../../../hooks/useTheme';
 import useLocations from '../../../../../../hooks/useLocations';
 

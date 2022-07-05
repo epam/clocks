@@ -9,7 +9,6 @@ import { CommentOutlined } from '@mui/icons-material';
 import useTheme from '../../../../hooks/useTheme';
 import useTimeInfo from '../../../../hooks/useTimeInfo';
 import useLocations from '../../../../hooks/useLocations';
-
 import { IInitialState } from '../../../../redux/types';
 import addClassName from '../../../../utils/addClassName';
 import removeClassName from '../../../../utils/removeClassName';
