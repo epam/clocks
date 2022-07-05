@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { t } from 'i18next';
 
 import { Button, Dialog } from '@mui/material';
@@ -25,6 +25,15 @@ const CommentModal: React.FC<ICommentModuleProps> = ({ location, commentModal, h
     setLocations(locations);
     handleClose();
   };
+
+  useEffect(() => {
+    if (location && locations[location.city + location.lat].comment) {
+      setInputText(locations[location.city + location.lat].comment || '');
+    }
+    // use it only when component mount
+    // eslint-disable-next-line
+  }, [location]);
+
   return (
     <Dialog open={commentModal} onClose={handleClose}>
       <form className={commentModalTheme} onSubmit={handleSaveComment}>

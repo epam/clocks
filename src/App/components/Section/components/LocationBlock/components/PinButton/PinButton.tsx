@@ -10,16 +10,24 @@ import { useDispatch, useSelector } from 'react-redux';
 import useLocations from '../../../../../../hooks/useLocations';
 import { IInitialState, IUrlLocation } from '../../../../../../redux/types';
 import useTheme from '../../../../../../hooks/useTheme';
+import Onboarding from '../../../Onboarding/Onboarding';
 
 import style from '../../LocationBlock.module.scss';
 import { IPinButtonProps } from './PinButton.types';
 
-const PinButton: React.FC<IPinButtonProps> = ({ location, urlUserLocation }) => {
+const PinButton: React.FC<IPinButtonProps> = ({ location, urlUserLocation, index }) => {
   const anchorLocation = useRef(null);
+
+  const iconTheme = useTheme(style.lightIcon, style.darkIcon);
+
   const { locations, setLocations } = useLocations();
-  const { deleteMode, dragDropMode, planningMode } = useSelector((state: IInitialState) => state);
+
+  const { deleteMode, dragDropMode, planningMode, onboarding } = useSelector(
+    (state: IInitialState) => state
+  );
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
   const dispatch = useDispatch();
+
   const handleSetUserLocation = () => {
     location && dispatch(setUserLocation(location));
     Object.values(locations).forEach((urlLocation: IUrlLocation) => {
@@ -43,10 +51,8 @@ const PinButton: React.FC<IPinButtonProps> = ({ location, urlUserLocation }) => 
 
   const locationTooltipText = useMemo(
     (): string => t('LocationBlock.TooltipSetCurrentLocation'),
-    [t]
+    []
   );
-
-  const iconTheme = useTheme(style.lightIcon, style.darkIcon);
 
   return (
     <>
@@ -67,6 +73,18 @@ const PinButton: React.FC<IPinButtonProps> = ({ location, urlUserLocation }) => 
           />
         </IconButton>
       </Tooltip>
+
+      {!index && onboarding?.myLocation && anchorLocation.current && (
+        <Onboarding
+          open={onboarding.myLocation}
+          anchorElement={anchorLocation.current}
+          nextElement="comment"
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+          title={t('Onboarding.LocationTitle')}
+          text={t('Onboarding.LocationContent')}
+        />
+      )}
     </>
   );
 };
