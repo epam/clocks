@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 
 import { Divider, IconButton } from '@mui/material';
-import { Instagram, Facebook, Twitter, LinkedIn, GitHub } from '@mui/icons-material';
+import { Instagram, Facebook, Twitter, LinkedIn, GitHub, Margin } from '@mui/icons-material';
 import useTheme from '../../hooks/useTheme';
 
 import style from './Footer.module.scss';
@@ -68,6 +68,7 @@ const Footer: React.FC = () => {
           >
             <HelpModule />
             <Divider
+              className={style.divider}
               orientation={window.innerWidth < 600 ? 'horizontal' : 'vertical'}
               sx={theme === THEME.dark ? { borderColor: 'white' } : { borderColor: 'lightgray' }}
               flexItem

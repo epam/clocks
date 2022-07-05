@@ -35,6 +35,10 @@
       @include screenMax600 {
         flex-direction: column;
       }
+
+      .divider {
+        margin: 0 $space-xs;
+      }
     }
   }
 
