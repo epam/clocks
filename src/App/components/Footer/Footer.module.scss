@@ -37,7 +37,12 @@
       }
 
       .divider {
-        margin: 0 $space-xs;
+        margin-left: $space-s;
+        margin-right: $space-s;
+      }
+
+      .darkDivider {
+        border-color: $lightColor;
       }
     }
   }

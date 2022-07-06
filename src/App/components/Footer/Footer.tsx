@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
+import clsx from 'clsx';
 
 import { Divider, IconButton } from '@mui/material';
 import { Instagram, Facebook, Twitter, LinkedIn, GitHub, Margin } from '@mui/icons-material';
@@ -68,9 +69,8 @@ const Footer: React.FC = () => {
           >
             <HelpModule />
             <Divider
-              className={style.divider}
               orientation={window.innerWidth < 600 ? 'horizontal' : 'vertical'}
-              sx={theme === THEME.dark ? { borderColor: 'white' } : { borderColor: 'lightgray' }}
+              className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
               flexItem
             />
 

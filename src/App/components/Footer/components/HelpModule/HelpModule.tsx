@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
@@ -13,7 +13,7 @@ const HelpModule = () => {
   const { t } = useTranslation();
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const buttonTheme = useTheme(style.lightIcon, style.darkIcon);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
