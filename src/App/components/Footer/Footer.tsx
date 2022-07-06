@@ -1,19 +1,23 @@
 import React, { useMemo } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 
-import { IconButton } from '@mui/material';
-import { Instagram, Facebook, Twitter, LinkedIn, GitHub } from '@mui/icons-material';
-
+import { Divider, IconButton } from '@mui/material';
+import { Instagram, Facebook, Twitter, LinkedIn, GitHub, Margin } from '@mui/icons-material';
 import useTheme from '../../hooks/useTheme';
 
 import style from './Footer.module.scss';
 import { VERSION } from './Footer.constants';
+import HelpModule from './components/HelpModule/HelpModule';
+
+import { useSelector } from 'react-redux';
+import { IInitialState } from '../../redux/types';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
 
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
+  const dividerTheme = useTheme(style.divider, style.darkDivider);
 
   const social = useMemo(
     () => [
@@ -54,19 +58,36 @@ const Footer: React.FC = () => {
           <div>{VERSION}</div>
         </div>
         <div className={style.iconContainer}>
-          {social.map((item, index) => (
-            <a
-              key={index + 'SOCIAL'}
-              href={item.url}
-              data-testid="GitHubIconLink"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <IconButton tabIndex={-1}>
-                <item.icon className={iconTheme} />
-              </IconButton>
-            </a>
-          ))}
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: window.innerWidth < 600 ? 'column' : 'row',
+              alignItems: 'center'
+            }}
+          >
+            <HelpModule />
+            <Divider
+              orientation={window.innerWidth < 600 ? 'horizontal' : 'vertical'}
+              className={dividerTheme}
+              flexItem
+            />
+
+            <div>
+              {social.map((item, index) => (
+                <a
+                  key={index + 'SOCIAL'}
+                  href={item.url}
+                  data-testid="GitHubIconLink"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <IconButton tabIndex={-1}>
+                    <item.icon className={iconTheme} />
+                  </IconButton>
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>
