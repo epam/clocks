@@ -66,6 +66,7 @@ export interface ILocation {
   timezone: string;
   names: string;
   comment?: string;
+  population: number;
 }
 
 export interface IUrlLocations {
