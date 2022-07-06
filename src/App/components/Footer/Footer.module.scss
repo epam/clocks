@@ -42,6 +42,7 @@
       }
 
       .darkDivider {
+        @extend .divider;
         border-color: $lightColor;
       }
     }

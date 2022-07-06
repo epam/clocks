@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
-import clsx from 'clsx';
 
 import { Divider, IconButton } from '@mui/material';
 import { Instagram, Facebook, Twitter, LinkedIn, GitHub, Margin } from '@mui/icons-material';
@@ -10,16 +9,15 @@ import style from './Footer.module.scss';
 import { VERSION } from './Footer.constants';
 import HelpModule from './components/HelpModule/HelpModule';
 
-import { THEME } from '../../redux/constants';
 import { useSelector } from 'react-redux';
 import { IInitialState } from '../../redux/types';
 
 const Footer: React.FC = () => {
-  const { theme } = useSelector((state: IInitialState) => state.settings);
   const { t } = useTranslation();
 
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
+  const dividerTheme = useTheme(style.divider, style.darkDivider);
 
   const social = useMemo(
     () => [
@@ -70,7 +68,7 @@ const Footer: React.FC = () => {
             <HelpModule />
             <Divider
               orientation={window.innerWidth < 600 ? 'horizontal' : 'vertical'}
-              className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
+              className={dividerTheme}
               flexItem
             />
 
