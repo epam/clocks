@@ -14,7 +14,7 @@ import useTimeInfo from '../../../../../../hooks/useTimeInfo';
 import CommentModal from '../CommentButton/components/CommentModal/CommentModal';
 
 import style from '../../LocationBlock.module.scss';
-import { ILocationComponentProps } from './LocationComponent.types';
+import { ILocationComponentProps } from './LocationInfo.types';
 import { ITimeState } from '../../LocationBlock.types';
 
 const LocationComponent: React.FC<ILocationComponentProps> = ({

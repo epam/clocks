@@ -2,7 +2,7 @@ import React from 'react';
 
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps } from './LocationBlock.types';
-import LocationComponent from './components/LocationComponent/LocationComponent';
+import LocationInfo from './components/LocationInfo/LocationInfo';
 import RightBlock from './components/RightBlock/RightBlock';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({
@@ -16,7 +16,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
 
   return (
     <div className={style.relativeBlock}>
-      <LocationComponent
+      <LocationInfo
         index={index}
         location={location}
         urlUserLocation={urlUserLocation}
