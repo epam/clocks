@@ -10,8 +10,7 @@ import useTheme from '../../../../hooks/useTheme';
 import { IInitialState } from '../../../../redux/types';
 import { setPlanningMode } from '../../../../redux/actions';
 
-import { TSliderType } from './PlanningMode.types';
-import { SLIDER_TYPE } from './PlannigMode.constants';
+import { SLIDER_TYPE } from './PlannigMode.types';
 import style from './PlanningMode.module.scss';
 
 import Onboarding from '../../../Section/components/Onboarding/Onboarding';
@@ -29,7 +28,7 @@ const PlanningMode: React.FC = () => {
 
   const tooltipText = useMemo((): string => t('PlanningMode.ButtonTooltip'), [t]);
 
-  const [sliderType, setSliderType] = useState<TSliderType>(SLIDER_TYPE.HORIZONTAL);
+  const [sliderType, setSliderType] = useState<SLIDER_TYPE>(SLIDER_TYPE.HORIZONTAL);
 
   useEffect(() => {
     window.innerWidth < 601
