@@ -14,8 +14,17 @@ const useTimeInfo = (location?: ILocation) => {
   const { planningMode } = useSelector((state: IInitialState) => state);
 
   const currentDate = new Date();
+
+  function roundToQuarters(currentDate: Date) {
+    const difference = 15 - (currentDate.getMinutes() % 15);
+    const roundedDate = new Date(currentDate.getTime() + difference * 60000);
+    return roundedDate;
+  }
+
   const date = planningMode.isOn
-    ? new Date(currentDate.getTime() + planningMode.additionalHours * 3.6 * 1000000)
+    ? new Date(
+        roundToQuarters(currentDate).getTime() + planningMode.additionalHours * 3.6 * 1000000
+      )
     : currentDate;
 
   const timeObject: ITimeState = {
