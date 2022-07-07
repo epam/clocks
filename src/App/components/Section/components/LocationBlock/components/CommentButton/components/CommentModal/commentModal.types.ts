@@ -1,4 +1,4 @@
-import { ILocation } from '../../../../../../redux/types';
+import { ILocation } from '../../../../../../../../redux/types';
 
 export interface ICommentModuleProps {
   location?: ILocation;

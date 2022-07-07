@@ -3,8 +3,8 @@ import { t } from 'i18next';
 
 import { Button, Dialog } from '@mui/material';
 
-import useTheme from '../../../../../../hooks/useTheme';
-import useLocations from '../../../../../../hooks/useLocations';
+import useTheme from '../../../../../../../../hooks/useTheme';
+import useLocations from '../../../../../../../../hooks/useLocations';
 
 import style from './CommentModal.module.scss';
 import { ICommentModuleProps } from './commentModal.types';

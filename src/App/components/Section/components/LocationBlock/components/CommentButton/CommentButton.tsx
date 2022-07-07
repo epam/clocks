@@ -13,7 +13,7 @@ import Onboarding from '../../../Onboarding/Onboarding';
 import style from '../../LocationBlock.module.scss';
 import { ICommentButtonProps } from './CommentButton.types';
 
-const CommentButton: React.FC<ICommentButtonProps> = ({ index, openCommentModal }) => {
+const CommentButton: React.FC<ICommentButtonProps> = ({ index, openCommentModal, children }) => {
   const anchorComment = useRef(null);
 
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
@@ -45,6 +45,8 @@ const CommentButton: React.FC<ICommentButtonProps> = ({ index, openCommentModal 
           />
         </IconButton>
       </Tooltip>
+
+      <>{children}</>
 
       {!index && onboarding?.comment && anchorComment.current && (
         <Onboarding
