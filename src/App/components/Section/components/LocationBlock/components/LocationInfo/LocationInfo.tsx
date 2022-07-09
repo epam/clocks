@@ -1,23 +1,21 @@
-import React, { DragEvent, useEffect, useMemo, useRef, useState } from 'react';
+import React, { DragEvent, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 
-import CommentButton from '../CommentButton/CommentButton';
 import DeleteButton from '../DeleteButton/DeleteButton';
-import PinButton from '../PinButton/PinButton';
 import addClassName from '../../../../../../utils/addClassName';
 import removeClassName from '../../../../../../utils/removeClassName';
 import { IInitialState } from '../../../../../../redux/types';
 import useTheme from '../../../../../../hooks/useTheme';
 import useLocations from '../../../../../../hooks/useLocations';
-import useTimeInfo from '../../../../../../hooks/useTimeInfo';
-import CommentModal from '../CommentButton/components/CommentModal/CommentModal';
 
 import style from '../../LocationBlock.module.scss';
-import { ILocationComponentProps } from './LocationInfo.types';
-import { ITimeState } from '../../LocationBlock.types';
+import { ILocationInfoProps } from './LocationInfo.types';
+import ButtonContainer from './components/ButtonContainer/ButtonContainer';
+import LocationContainer from './components/LocationContainer/LocationContainer';
+import TimeContainer from './components/TimeContainer/TimeContainer';
 
-const LocationComponent: React.FC<ILocationComponentProps> = ({
+const LocationInfo: React.FC<ILocationInfoProps> = ({
   index,
   urlUserLocation,
   setSelectedLocation,
@@ -29,24 +27,9 @@ const LocationComponent: React.FC<ILocationComponentProps> = ({
 
   const { locations } = useLocations();
 
-  const timeInfo = useTimeInfo(location);
-
   const [isFocused, setIsFocused] = useState<boolean>(false);
-  const [time, setTime] = useState<ITimeState>({
-    hours: '',
-    minutes: '',
-    day: undefined,
-    offset: undefined,
-    suffix: '',
-    timezone: ''
-  });
-  const [commentModal, setCommentModal] = useState(false);
 
-  const { showDate, showCountry, showTimezone, timeFormat } = useSelector(
-    (state: IInitialState) => state.settings
-  );
-
-  const { deleteMode, counter, onboarding, dragDropMode, planningMode } = useSelector(
+  const { deleteMode, onboarding, dragDropMode, planningMode } = useSelector(
     (state: IInitialState) => state
   );
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
@@ -64,14 +47,6 @@ const LocationComponent: React.FC<ILocationComponentProps> = ({
     }
   };
 
-  const handleOpenCommentModal = () => {
-    setCommentModal(true);
-  };
-
-  const handleCloseCommentModal = () => {
-    setCommentModal(false);
-  };
-
   const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
     removeClassName(containerDivRef, style.hide);
     setSelectedLocation(null);
@@ -81,18 +56,6 @@ const LocationComponent: React.FC<ILocationComponentProps> = ({
     setIsFocused(isFocused => !isFocused);
   };
 
-  useEffect(() => {
-    setTime(timeInfo);
-    // don't need as a dependency timeInfo
-    // eslint-disable-next-line
-  }, [
-    counter,
-    userLocation,
-    locations,
-    timeFormat,
-    planningMode.additionalHours,
-    planningMode.isOn
-  ]);
   return (
     <>
       <div
@@ -129,43 +92,18 @@ const LocationComponent: React.FC<ILocationComponentProps> = ({
                 [style.moveLeftOrRight]: !isFocused && !isUserLocation
               })}
             >
-              <div
-                className={clsx({
-                  [style.buttonContainer]: true,
-                  [style.opaccityBlock]: !isFocused && !isUserLocation
-                })}
-              >
-                <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
-                <CommentButton
-                  children={
-                    <CommentModal
-                      commentModal={commentModal}
-                      handleClose={handleCloseCommentModal}
-                      location={location}
-                    />
-                  }
-                  index={index}
-                  openCommentModal={handleOpenCommentModal}
-                />
-              </div>
-              <div className={style.infoContainer}>
-                <div className={style.topInfo}>{location?.city}</div>
-                <div className={style.bottomInfo}>{showCountry && location?.country}</div>
-              </div>
+              <ButtonContainer
+                location={location}
+                index={index}
+                urlUserLocation={urlUserLocation}
+                isFocused={isFocused}
+                isUserLocation={isUserLocation}
+              />
+
+              <LocationContainer location={location} />
             </div>
-            <div className={style.rightSide}>
-              <div
-                className={clsx(style.timeInfo, {
-                  [style.planningMode]: planningMode.isOn
-                })}
-              >
-                {time.hours}:{time.minutes} {time.suffix}
-              </div>
-              <div className={style.bottomInfo}>
-                <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
-                <div className={style.timezone}>{showTimezone && time.timezone}</div>
-              </div>
-            </div>
+
+            <TimeContainer location={location} />
           </div>
           {location && locations[location.city + location.lat].comment && (
             <div className={style.commentBlock}>
@@ -178,4 +116,4 @@ const LocationComponent: React.FC<ILocationComponentProps> = ({
   );
 };
 
-export default LocationComponent;
+export default LocationInfo;

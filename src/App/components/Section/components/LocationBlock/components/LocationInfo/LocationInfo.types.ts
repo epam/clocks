@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 import { ILocation } from '../../../../../../redux/types';
 
-export interface ILocationComponentProps {
+export interface ILocationInfoProps {
   location?: ILocation;
   urlUserLocation?: boolean;
   index: number;
