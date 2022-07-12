@@ -11,6 +11,7 @@ import HelpModule from './components/HelpModule/HelpModule';
 
 import { useSelector } from 'react-redux';
 import { IInitialState } from '../../redux/types';
+import ReloadOnboarding from './components/ReloadOnboarding/ReloadOnboarding';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -65,7 +66,10 @@ const Footer: React.FC = () => {
               alignItems: 'center'
             }}
           >
-            <HelpModule />
+            <div>
+              <HelpModule />
+              <ReloadOnboarding />
+            </div>
             <Divider
               orientation={window.innerWidth < 600 ? 'horizontal' : 'vertical'}
               className={dividerTheme}
