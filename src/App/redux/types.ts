@@ -94,6 +94,8 @@ export interface IOnboarding {
   comment: boolean;
   myLocation: boolean;
   dragDropMode: boolean;
+  helpModule: boolean;
+  reloadOnboarding: boolean;
 }
 export interface IActionPlanningModePayload {
   isOn: boolean;

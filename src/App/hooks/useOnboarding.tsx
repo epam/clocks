@@ -13,7 +13,9 @@ const onboardingInitialState: IOnboarding = {
   deleteButton: false,
   settingsModal: false,
   planningMode: false,
-  dragDropMode: false
+  dragDropMode: false,
+  helpModule: false,
+  reloadOnboarding: false
 };
 
 const useOnboarding = () => {

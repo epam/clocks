@@ -323,6 +323,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
         <Onboarding
           open={onboarding.comment}
           anchorElement={anchorComment.current}
+          nextElement="helpModule"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           title={t('Onboarding.AddCommentTitle')}
