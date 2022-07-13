@@ -2,15 +2,13 @@ import React, { useMemo } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 
 import { Divider, IconButton } from '@mui/material';
-import { Instagram, Facebook, Twitter, LinkedIn, GitHub, Margin } from '@mui/icons-material';
+import { Instagram, Facebook, Twitter, LinkedIn, GitHub } from '@mui/icons-material';
 import useTheme from '../../hooks/useTheme';
 
 import style from './Footer.module.scss';
 import { VERSION } from './Footer.constants';
 import HelpModule from './components/HelpModule/HelpModule';
 
-import { useSelector } from 'react-redux';
-import { IInitialState } from '../../redux/types';
 import ReloadOnboarding from './components/ReloadOnboarding/ReloadOnboarding';
 
 const Footer: React.FC = () => {

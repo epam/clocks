@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import { Button, Dialog, IconButton, Tooltip } from '@mui/material';

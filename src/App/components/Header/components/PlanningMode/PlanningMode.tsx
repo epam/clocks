@@ -114,7 +114,7 @@ const PlanningMode: React.FC = () => {
         <Onboarding
           open={onboarding.planningMode}
           anchorElement={anchorRef.current}
-          nextElement="dragDropMode"
+          nextElement={window.innerWidth < 600 ? 'myLocation' : 'dragDropMode'}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
           title={t('Onboarding.PlanningModeTitle')}
