@@ -8,3 +8,12 @@ export interface ILocationBlockProps {
   selectedLocation: ILocation | null;
   setSelectedLocation: Dispatch<React.SetStateAction<ILocation | null>>;
 }
+
+export interface ITimeState {
+  hours: string;
+  minutes: string;
+  suffix: string;
+  day?: string;
+  offset?: string;
+  timezone?: string;
+}

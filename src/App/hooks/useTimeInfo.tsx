@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux';
 import moment from 'moment-timezone';
 
 import { TIME_FORMAT } from '../redux/constants';
-import { ITimeState } from '../components/Section/components/LocationBlock/components/LocationInfo/components/TimeContainer/TimeContainer.types';
 
 import { ILocation, IInitialState } from '../redux/types';
+import { ITimeState } from '../components/Section/components/LocationBlock/LocationBlock.types';
 
 const useTimeInfo = (location?: ILocation) => {
   const { t } = useTranslation();

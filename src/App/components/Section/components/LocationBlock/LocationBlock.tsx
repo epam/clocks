@@ -1,9 +1,11 @@
 import React from 'react';
 
-import style from './LocationBlock.module.scss';
 import { ILocationBlockProps } from './LocationBlock.types';
+import DragDropContainer from './components/DragDropContainer/DragDropContainer';
+import DeleteButton from './components/DeleteButton/DeleteButton';
+import PinButton from './components/PinButton/PinButton';
+import CommentButton from './components/CommentButton/CommentButton';
 import LocationInfo from './components/LocationInfo/LocationInfo';
-import RightBlock from './components/RightBlock/RightBlock';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({
   location,
@@ -15,16 +17,18 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   console.log('🚀 ~ file: LocationBlock.tsx ~ line 26 ~ selectedLocation', selectedLocation);
 
   return (
-    <div className={style.relativeBlock}>
-      <LocationInfo
-        index={index}
-        location={location}
-        urlUserLocation={urlUserLocation}
-        setSelectedLocation={setSelectedLocation}
-      />
-
-      <RightBlock selectedLocation={selectedLocation} location={location} />
-    </div>
+    <DragDropContainer
+      index={index}
+      location={location}
+      urlUserLocation={urlUserLocation}
+      setSelectedLocation={setSelectedLocation}
+      selectedLocation={selectedLocation}
+    >
+      <DeleteButton location={location} />
+      <PinButton location={location} urlUserLocation={urlUserLocation} index={index} />
+      <CommentButton location={location} index={index} />
+      <LocationInfo location={location} />
+    </DragDropContainer>
   );
 };
 

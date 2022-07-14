@@ -4,6 +4,11 @@
   background-color: $redColor;
   color: $whiteColor;
 }
+
+.blockContainer {
+  display: flex;
+}
+
 .rightBlock {
   width: 400px;
   top: 0;
@@ -84,20 +89,20 @@
     @extend .onboarding;
   }
 
+  .buttonContainer {
+    display: flex;
+    flex-direction: column;
+    margin-right: $space-s;
+
+    &:hover {
+      @extend .onboarding;
+    }
+  }
+
   .infoBlock {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
-    .buttonContainer {
-      display: flex;
-      flex-direction: column;
-      margin-right: $space-s;
-
-      &:hover {
-        @extend .onboarding;
-      }
-    }
 
     .leftSide {
       display: flex;

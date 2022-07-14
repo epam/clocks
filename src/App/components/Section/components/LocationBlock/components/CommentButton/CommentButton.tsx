@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { t } from 'i18next';
 
@@ -12,8 +12,18 @@ import Onboarding from '../../../Onboarding/Onboarding';
 
 import style from '../../LocationBlock.module.scss';
 import { ICommentButtonProps } from './CommentButton.types';
+import CommentModal from './components/CommentModal/CommentModal';
 
-const CommentButton: React.FC<ICommentButtonProps> = ({ index, openCommentModal, children }) => {
+const CommentButton: React.FC<ICommentButtonProps> = ({ location, index }) => {
+  const [commentModal, setCommentModal] = useState(false);
+
+  const handleOpenCommentModal = () => {
+    setCommentModal(true);
+  };
+
+  const handleCloseCommentModal = () => {
+    setCommentModal(false);
+  };
   const anchorComment = useRef(null);
 
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
@@ -34,7 +44,7 @@ const CommentButton: React.FC<ICommentButtonProps> = ({ index, openCommentModal,
           ref={anchorComment}
           tabIndex={0}
           size="small"
-          onClick={openCommentModal}
+          onClick={handleOpenCommentModal}
           disabled={disabled}
         >
           <CommentOutlined
@@ -46,7 +56,11 @@ const CommentButton: React.FC<ICommentButtonProps> = ({ index, openCommentModal,
         </IconButton>
       </Tooltip>
 
-      <>{children}</>
+      <CommentModal
+        commentModal={commentModal}
+        handleClose={handleCloseCommentModal}
+        location={location}
+      />
 
       {!index && onboarding?.comment && anchorComment.current && (
         <Onboarding
@@ -58,6 +72,7 @@ const CommentButton: React.FC<ICommentButtonProps> = ({ index, openCommentModal,
           text={t('Onboarding.AddCommentContent')}
         />
       )}
+      {/* <RightBlock selectedLocation={selectedLocation} location={location} /> */}
     </>
   );
 };
