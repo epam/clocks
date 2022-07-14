@@ -89,20 +89,20 @@
     @extend .onboarding;
   }
 
-  .buttonContainer {
-    display: flex;
-    flex-direction: column;
-    margin-right: $space-s;
-
-    &:hover {
-      @extend .onboarding;
-    }
-  }
-
   .infoBlock {
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    .buttonContainer {
+      display: flex;
+      flex-direction: column;
+      margin-right: $space-s;
+
+      &:hover {
+        @extend .onboarding;
+      }
+    }
 
     .leftSide {
       display: flex;
