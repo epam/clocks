@@ -72,7 +72,6 @@ const CommentButton: React.FC<ICommentButtonProps> = ({ location, index }) => {
           text={t('Onboarding.AddCommentContent')}
         />
       )}
-      {/* <RightBlock selectedLocation={selectedLocation} location={location} /> */}
     </>
   );
 };

@@ -22,7 +22,6 @@ const DragDropContainer: React.FC<IDragDropContainerProps> = ({
 }) => {
   const [DeleteButton, PinButton, CommentButton, LocationInfo] = children;
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
-  console.log(children);
 
   const containerDivRef = useRef<HTMLDivElement>(null);
 
