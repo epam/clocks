@@ -2,15 +2,14 @@ import React, { useMemo } from 'react';
 import { useTranslation, Trans } from 'react-i18next';
 
 import { Divider, IconButton } from '@mui/material';
-import { Instagram, Facebook, Twitter, LinkedIn, GitHub, Margin } from '@mui/icons-material';
+import { Instagram, Facebook, Twitter, LinkedIn, GitHub } from '@mui/icons-material';
+
 import useTheme from '../../hooks/useTheme';
 
+import HelpModule from './components/HelpModule/HelpModule';
+import ReloadOnboarding from './components/ReloadOnboarding/ReloadOnboarding';
 import style from './Footer.module.scss';
 import { VERSION } from './Footer.constants';
-import HelpModule from './components/HelpModule/HelpModule';
-
-import { useSelector } from 'react-redux';
-import { IInitialState } from '../../redux/types';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -65,7 +64,10 @@ const Footer: React.FC = () => {
               alignItems: 'center'
             }}
           >
-            <HelpModule />
+            <div>
+              <HelpModule />
+              <ReloadOnboarding />
+            </div>
             <Divider
               orientation={window.innerWidth < 600 ? 'horizontal' : 'vertical'}
               className={dividerTheme}
