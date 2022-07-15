@@ -3,13 +3,13 @@ import { useTranslation, Trans } from 'react-i18next';
 
 import { Divider, IconButton } from '@mui/material';
 import { Instagram, Facebook, Twitter, LinkedIn, GitHub } from '@mui/icons-material';
+
 import useTheme from '../../hooks/useTheme';
 
+import HelpModule from './components/HelpModule/HelpModule';
+import ReloadOnboarding from './components/ReloadOnboarding/ReloadOnboarding';
 import style from './Footer.module.scss';
 import { VERSION } from './Footer.constants';
-import HelpModule from './components/HelpModule/HelpModule';
-
-import ReloadOnboarding from './components/ReloadOnboarding/ReloadOnboarding';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
