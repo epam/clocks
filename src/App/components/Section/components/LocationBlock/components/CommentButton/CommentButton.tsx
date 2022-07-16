@@ -10,7 +10,7 @@ import useTheme from '../../../../../../hooks/useTheme';
 import { IInitialState } from '../../../../../../redux/types';
 import Onboarding from '../../../Onboarding/Onboarding';
 
-import style from '../../LocationBlock.module.scss';
+import style from '../DragDropContainer/DragDropContainer.module.scss';
 import { ICommentButtonProps } from './CommentButton.types';
 import CommentModal from './components/CommentModal/CommentModal';
 

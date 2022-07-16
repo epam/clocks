@@ -1,13 +1,4 @@
-@import '../../../../styles/index.scss';
-
-.active {
-  background-color: $redColor;
-  color: $whiteColor;
-}
-
-.blockContainer {
-  display: flex;
-}
+@import '../../../../../../styles/index.scss';
 
 .rightBlock {
   width: 400px;
@@ -49,30 +40,6 @@
   display: flex;
   flex-direction: column;
   clip-path: inset(-100vw -100vw -100vw 0);
-
-  &:focus-within {
-    outline: none;
-
-    & .deleteButton {
-      @extend .active;
-    }
-  }
-
-  .deleteButton {
-    position: absolute;
-    right: -10px;
-    top: -10px;
-    background-color: $lightGrayColor;
-    color: $darkGrayColor;
-
-    &:hover {
-      @extend .active;
-    }
-
-    .icon {
-      font-size: $fs16;
-    }
-  }
 
   .opaccityBlock {
     display: none;
@@ -121,31 +88,6 @@
       }
     }
 
-    .rightSide {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-
-      .timeInfo {
-        font-family: roboto-medium;
-        font-size: $fs18;
-        margin-bottom: $space-xxs;
-      }
-
-      .bottomInfo {
-        min-width: 0;
-        color: $grayColor;
-        text-align: end;
-
-        .timezone {
-          width: 10em;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      }
-    }
-
     .topInfo {
       font-family: roboto-medium;
       font-size: $fs18;
@@ -161,11 +103,6 @@
   .commentBlock {
     margin-top: $space-xs;
     margin-left: $space-xxs;
-
-    .commentText {
-      font-family: roboto-bold;
-      margin-right: $space-xxs;
-    }
   }
 }
 
@@ -252,24 +189,6 @@
 
 .behind {
   z-index: -1;
-}
-
-.planningMode {
-  animation-duration: 2s;
-  animation-name: planningMode;
-  animation-iteration-count: infinite;
-}
-
-@keyframes planningMode {
-  0% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.2;
-  }
-  100% {
-    opacity: 1;
-  }
 }
 
 .marginRight {

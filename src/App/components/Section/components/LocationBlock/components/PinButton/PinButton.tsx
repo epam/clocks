@@ -12,7 +12,7 @@ import { IInitialState, IUrlLocation } from '../../../../../../redux/types';
 import useTheme from '../../../../../../hooks/useTheme';
 import Onboarding from '../../../Onboarding/Onboarding';
 
-import style from '../../LocationBlock.module.scss';
+import style from '../DragDropContainer/DragDropContainer.module.scss';
 import { IPinButtonProps } from './PinButton.types';
 
 const PinButton: React.FC<IPinButtonProps> = ({ location, urlUserLocation, index }) => {

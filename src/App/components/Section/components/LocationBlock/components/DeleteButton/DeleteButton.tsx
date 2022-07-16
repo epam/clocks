@@ -5,7 +5,7 @@ import { IconButton } from '@mui/material';
 
 import useLocations from '../../../../../../hooks/useLocations';
 
-import style from '../../LocationBlock.module.scss';
+import style from './DeleteButton.module.scss';
 import { IDeleteButtonProps } from './DeleteButton.types';
 
 const DeleteButton: React.FC<IDeleteButtonProps> = ({ location }) => {

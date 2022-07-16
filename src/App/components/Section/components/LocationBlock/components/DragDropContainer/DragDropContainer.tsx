@@ -1,4 +1,4 @@
-import React, { DragEvent, useMemo, useRef, useState } from 'react';
+import React, { DragEvent, RefObject, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 
@@ -7,10 +7,10 @@ import useTheme from '../../../../../../hooks/useTheme';
 import { IInitialState } from '../../../../../../redux/types';
 import addClassName from '../../../../../../utils/addClassName';
 import removeClassName from '../../../../../../utils/removeClassName';
-import RightBlock from '../RightBlock/RightBlock';
 
-import style from '../../LocationBlock.module.scss';
+import style from './DragDropContainer.module.scss';
 import { IDragDropContainerProps } from './DragDropContainer.types';
+import generateLocationKey from '../../../../../../utils/generateLocationKey';
 
 const DragDropContainer: React.FC<IDragDropContainerProps> = ({
   index,
@@ -24,8 +24,9 @@ const DragDropContainer: React.FC<IDragDropContainerProps> = ({
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
   const containerDivRef = useRef<HTMLDivElement>(null);
+  const rightBlockRef = useRef<HTMLDivElement>(null);
 
-  const { locations } = useLocations();
+  const { locations, dragAndDropLocation } = useLocations();
 
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -55,6 +56,29 @@ const DragDropContainer: React.FC<IDragDropContainerProps> = ({
 
   const focusHandler = () => {
     setIsFocused(isFocused => !isFocused);
+  };
+
+  const blockDragEnterHandler = (blockRef: RefObject<HTMLDivElement>) => {
+    if (!selectedLocation || !location) {
+      throw new Error('Dragged location or dropped block location is null');
+    }
+    const selectedLocationKey = generateLocationKey(selectedLocation);
+    const currentLocationKey = generateLocationKey(location);
+    if (selectedLocationKey !== currentLocationKey) {
+      addClassName(blockRef, style.bgGray);
+    }
+  };
+
+  const dragLeaveHandler = (blockRef: RefObject<HTMLDivElement>) => {
+    removeClassName(blockRef, style.bgGray);
+  };
+
+  const dropHandler = (e: DragEvent<HTMLDivElement>) => {
+    removeClassName(rightBlockRef, style.bgGray);
+
+    if (selectedLocation && location) {
+      dragAndDropLocation(selectedLocation, location);
+    }
   };
 
   return (
@@ -116,7 +140,21 @@ const DragDropContainer: React.FC<IDragDropContainerProps> = ({
           )}
         </div>
       </div>
-      <RightBlock selectedLocation={selectedLocation} location={location} />
+      {/* <RightBlock selectedLocation={selectedLocation} location={location} /> */}
+      <div
+        ref={rightBlockRef}
+        className={clsx({
+          [style.rightBlock]: true,
+          [style.behind]: selectedLocation === null
+        })}
+        draggable={dragDropMode.isOn}
+        onDragEnter={_ => blockDragEnterHandler(rightBlockRef)}
+        onDragLeave={_ => dragLeaveHandler(rightBlockRef)}
+        onDragOver={e => e.preventDefault()}
+        onDrop={dropHandler}
+      >
+        <div className={style.innerBlock} />
+      </div>
     </div>
   );
 };

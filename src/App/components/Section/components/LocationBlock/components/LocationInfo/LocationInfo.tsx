@@ -6,7 +6,7 @@ import useLocations from '../../../../../../hooks/useLocations';
 import useTimeInfo from '../../../../../../hooks/useTimeInfo';
 import { IInitialState } from '../../../../../../redux/types';
 
-import style from '../../LocationBlock.module.scss';
+import style from './LocationInfo.module.scss';
 import { ITimeState } from '../../LocationBlock.types';
 import { ILocationInfoProps } from './LocationInfo.types';
 
