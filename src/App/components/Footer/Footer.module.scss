@@ -32,6 +32,19 @@
     .iconContainer {
       display: flex;
       align-items: center;
+      @include screenMax600 {
+        flex-direction: column;
+      }
+
+      .divider {
+        margin-left: $space-s;
+        margin-right: $space-s;
+      }
+
+      .darkDivider {
+        @extend .divider;
+        border-color: $lightColor;
+      }
     }
   }
 

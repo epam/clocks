@@ -66,6 +66,7 @@ export interface ILocation {
   timezone: string;
   names: string;
   comment?: string;
+  population: number;
 }
 
 export interface IUrlLocations {
@@ -93,6 +94,8 @@ export interface IOnboarding {
   comment: boolean;
   myLocation: boolean;
   dragDropMode: boolean;
+  helpModule: boolean;
+  reloadOnboarding: boolean;
 }
 export interface IActionPlanningModePayload {
   isOn: boolean;

@@ -13,7 +13,9 @@ const onboardingInitialState: IOnboarding = {
   deleteButton: false,
   settingsModal: false,
   planningMode: false,
-  dragDropMode: false
+  dragDropMode: false,
+  helpModule: false,
+  reloadOnboarding: false
 };
 
 const useOnboarding = () => {
@@ -28,8 +30,20 @@ const useOnboarding = () => {
     );
   };
 
+  let localSettings = localStorage.getItem('settings');
+  let parsedSettings: any, isAutoSortingOn: boolean;
+
+  if (localSettings) {
+    parsedSettings = JSON.parse(localSettings);
+    isAutoSortingOn = parsedSettings['autoSorting'];
+  }
+
   const initialize = () => {
     if (localStorage.getItem('onboarding') === null) {
+      if (localSettings) {
+        dispatch(setSettings({ ...parsedSettings, autoSorting: false }));
+      }
+
       localStorage.setItem('onboarding', 'false');
       dispatch(
         setOnboarding({
@@ -42,29 +56,40 @@ const useOnboarding = () => {
 
   const finish = () => {
     dispatch(setOnboarding(onboardingInitialState));
-    dispatch(
-      setSettings({
-        autoTheme: undefined,
-        theme: THEME.light,
-        showDate: true,
-        showCountry: true,
-        showTimezone: false,
-        timeFormat: TIME_FORMAT.H24,
-        autoSorting: true
-      })
-    );
-    localStorage.setItem(
-      'settings',
-      JSON.stringify({
-        autoTheme: undefined,
-        theme: THEME.light,
-        showDate: true,
-        showCountry: true,
-        showTimezone: false,
-        timeFormat: TIME_FORMAT.H24,
-        autoSorting: true
-      })
-    );
+
+    if (localSettings) {
+      if (isAutoSortingOn) {
+        dispatch(setSettings({ ...parsedSettings, autoSorting: true }));
+        localStorage.setItem('settings', JSON.stringify({ ...parsedSettings, autoSorting: true }));
+      } else {
+        dispatch(setSettings({ ...parsedSettings, autoSorting: false }));
+        localStorage.setItem('settings', JSON.stringify({ ...parsedSettings, autoSorting: false }));
+      }
+    } else {
+      dispatch(
+        setSettings({
+          autoTheme: undefined,
+          theme: THEME.light,
+          showDate: true,
+          showCountry: true,
+          showTimezone: false,
+          timeFormat: TIME_FORMAT.H24,
+          autoSorting: true
+        })
+      );
+      localStorage.setItem(
+        'settings',
+        JSON.stringify({
+          autoTheme: undefined,
+          theme: THEME.light,
+          showDate: true,
+          showCountry: true,
+          showTimezone: false,
+          timeFormat: TIME_FORMAT.H24,
+          autoSorting: true
+        })
+      );
+    }
   };
 
   return {

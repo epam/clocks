@@ -1,40 +1,26 @@
-# Clocks.epam.com
+# clocks.lab.epam.com
 
-## Description
+## What is that?
 
-Clock is a small web application that allows you to create a dashboard for keeping track of time anywhere in the world.
+`Clocks` is a small serverless web application that allows you to create a dashboard for keeping track of time anywhere in the world.
 
-Clocks:
-
-Free to use;\
-No account registration needed for every users to read previously configured data;\
-Produces a permanent sharable link that can be sent to third party users;\
-Allows to add arbitrary comments to time zones;\
-Minimalistic enough to embed it into another HTML page via <iframe> (no ads or spy software, etc.)\
-
-![изображение](https://user-images.githubusercontent.com/88092877/151424317-21fde88c-ef22-402d-ac77-88229ee97afc.png)
-
-### Environment
-
-Clocks.lab.epam.com
+- Free to use — no ads.
+- No account registration needed.
+- Add as many widgets as you need, searching by location name or timezone.
+- See time difference between any of selected locations.
+- Add arbitrary comments to every widget, that are stored in your browser, not in our servers.
+- Get a sharable link to send dashboard as you see it (with comments) to other users.
+- Embed into another HTML page via <iframe> — with no restrictions from our side.
+- Use Planning mode to find corresponding times across all locations — useful for scheduling meetings.
+- Supports Dark or Light theme, or automatically switches between them.
+- Choose between 12h or 24h time representation.
+- Adjust widget details and re-order widgets on the dashboard.
 
 ### How to use
 
-The application shows the time in the selected location, location name, country.
-When you go to the page to Clocks.lab.epam.com, the dashboard automatically creates a widget with information for the user's location.\
-
-![изображение](https://user-images.githubusercontent.com/88092877/151424721-645af42c-2483-4906-baf2-5a567d566f76.png)
-
-Users can add other locations through the "add city" button. It also displays information about the time difference between the user's location and the added location. users can delete widgets for locations on the dashboard.
-In addition, it is possible to add comments for locations. \
-
-![изображение](https://user-images.githubusercontent.com/88092877/151425498-5c9cf077-f347-47de-aaa5-fd0bc02e2e15.png)
-
-### Using hotkeys
-
-Ctrl Q - open "Add new city"\
-Esc - close "Add new city"\
-Tab - switching to next element\
+- Ctrl+Q: opens "Add new city"
+- Esc: lose "Add new city"
+- Tab: switching to next element
 
 ## For Contributors
 
