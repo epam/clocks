@@ -1,5 +1,6 @@
 import React, { useCallback, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import Flag from 'react-world-flags';
 
 import { IconButton, Drawer, MenuList, MenuItem, Box } from '@mui/material';
 import { Close } from '@mui/icons-material';
@@ -113,15 +114,16 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
               >
                 <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                   <Box
-                    component="img"
+                    component="div"
                     sx={{
                       height: 15,
                       width: 20,
-                      mr: '0.5rem'
+                      mr: '0.7rem'
                     }}
-                    alt="flag"
-                    src={require(`../../../../../../redux/flags/${location.iso2.toLowerCase()}.png`)}
-                  />
+
+                  >
+                    <Flag code={location.iso2.toLowerCase()} height="20" width="25" />
+                  </Box>
                   <div>
                     <div className={style.title}>{location.city}</div>
                     <div className={style.zone}>
