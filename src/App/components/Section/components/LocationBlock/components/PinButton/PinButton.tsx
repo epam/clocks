@@ -1,4 +1,5 @@
 import React, { useMemo, useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import clsx from 'clsx';
 import { t } from 'i18next';
 
@@ -6,7 +7,6 @@ import { FmdGoodOutlined } from '@mui/icons-material';
 import { IconButton, Tooltip } from '@mui/material';
 
 import { setUserLocation } from '../../../../../../redux/actions';
-import { useDispatch, useSelector } from 'react-redux';
 import useLocations from '../../../../../../hooks/useLocations';
 import { IInitialState, IUrlLocation } from '../../../../../../redux/types';
 import useTheme from '../../../../../../hooks/useTheme';

@@ -7,10 +7,10 @@ import useTheme from '../../../../../../hooks/useTheme';
 import { IInitialState } from '../../../../../../redux/types';
 import addClassName from '../../../../../../utils/addClassName';
 import removeClassName from '../../../../../../utils/removeClassName';
+import generateLocationKey from '../../../../../../utils/generateLocationKey';
 
 import style from './DragDropContainer.module.scss';
 import { IDragDropContainerProps } from './DragDropContainer.types';
-import generateLocationKey from '../../../../../../utils/generateLocationKey';
 
 const DragDropContainer: React.FC<IDragDropContainerProps> = ({
   index,

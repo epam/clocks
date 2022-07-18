@@ -1,5 +1,10 @@
 @import '../../../../../../styles/index.scss';
 
+.active {
+  background-color: $redColor;
+  color: $whiteColor;
+}
+
 .rightBlock {
   width: 400px;
   top: 0;
@@ -40,6 +45,30 @@
   display: flex;
   flex-direction: column;
   clip-path: inset(-100vw -100vw -100vw 0);
+
+  .deleteButton {
+    &:focus-within {
+      outline: none;
+
+      & .deleteButton {
+        @extend .active;
+      }
+    }
+
+    position: absolute;
+    right: -10px;
+    top: -10px;
+    background-color: $lightGrayColor;
+    color: $darkGrayColor;
+
+    &:hover {
+      @extend .active;
+    }
+
+    .icon {
+      font-size: $fs16;
+    }
+  }
 
   .opaccityBlock {
     display: none;

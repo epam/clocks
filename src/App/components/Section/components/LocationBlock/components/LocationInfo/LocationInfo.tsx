@@ -5,9 +5,9 @@ import { useSelector } from 'react-redux';
 import useLocations from '../../../../../../hooks/useLocations';
 import useTimeInfo from '../../../../../../hooks/useTimeInfo';
 import { IInitialState } from '../../../../../../redux/types';
+import { ITimeState } from '../../LocationBlock.types';
 
 import style from './LocationInfo.module.scss';
-import { ITimeState } from '../../LocationBlock.types';
 import { ILocationInfoProps } from './LocationInfo.types';
 
 const LocationInfo: React.FC<ILocationInfoProps> = ({ location }) => {
