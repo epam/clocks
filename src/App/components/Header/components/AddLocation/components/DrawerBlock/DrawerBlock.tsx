@@ -116,13 +116,13 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
                   <Box
                     component="div"
                     sx={{
-                      height: 15,
-                      width: 20,
+                      height: 20,
+                      width: 25,
                       mr: '0.7rem'
                     }}
 
                   >
-                    <Flag code={location.iso2.toLowerCase()} height="20" width="25" />
+                    <Flag code={location.iso2}/>
                   </Box>
                   <div>
                     <div className={style.title}>{location.city}</div>
