@@ -9,11 +9,10 @@ import HistoryIcon from '@mui/icons-material/History';
 import useTheme from '../../../../hooks/useTheme';
 import { IInitialState } from '../../../../redux/types';
 import { setPlanningMode } from '../../../../redux/actions';
+import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 import { SLIDER_TYPE } from './PlannigMode.types';
 import style from './PlanningMode.module.scss';
-
-import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 const PlanningMode: React.FC = () => {
   const anchorRef = useRef(null);
