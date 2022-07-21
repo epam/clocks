@@ -1,0 +1,30 @@
+@import '../../../../../../styles/index.scss';
+
+.body {
+  border-radius: 50%;
+  position: absolute;
+  right: -10px;
+  top: -10px;
+  background-color: $lightGrayColor;
+  color: $darkGrayColor;
+
+  &:focus-within {
+    background-color: $redColor;
+
+    svg {
+      color: $whiteColor;
+    }
+  }
+
+  &:hover {
+    background-color: $redColor;
+
+    svg {
+      color: $whiteColor;
+    }
+  }
+
+  svg {
+    font-size: $fs16;
+  }
+}
