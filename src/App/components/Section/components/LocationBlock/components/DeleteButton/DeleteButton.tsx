@@ -5,7 +5,7 @@ import { IconButton } from '@mui/material';
 
 import useLocations from '../../../../../../hooks/useLocations';
 
-import style from '../DragDropContainer/DragDropContainer.module.scss';
+import style from './DeleteButton.module.scss';
 import { IDeleteButtonProps } from './DeleteButton.types';
 
 const DeleteButton: React.FC<IDeleteButtonProps> = ({ location }) => {
@@ -17,8 +17,8 @@ const DeleteButton: React.FC<IDeleteButtonProps> = ({ location }) => {
   };
 
   return (
-    <div>
-      <IconButton className={style.deleteButton} size="small" onClick={handleDelete}>
+    <div className={style.body}>
+      <IconButton size="small" onClick={handleDelete}>
         <Remove className={style.icon} />
       </IconButton>
     </div>
