@@ -4,7 +4,7 @@ import { ILocationBlockProps } from './LocationBlock.types';
 import DragDropContainer from './components/DragDropContainer/DragDropContainer';
 import DeleteButton from './components/DeleteButton/DeleteButton';
 import PinButton from './components/PinButton/PinButton';
-import CommentButton from './components/CommentButton/CommentButton';
+import CommentModal from './components/CommentModal/CommentModal';
 import LocationInfo from './components/LocationInfo/LocationInfo';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({
@@ -26,7 +26,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     >
       <DeleteButton location={location} />
       <PinButton location={location} urlUserLocation={urlUserLocation} index={index} />
-      <CommentButton location={location} index={index} />
+      <CommentModal location={location} index={index} />
       <LocationInfo location={location} />
     </DragDropContainer>
   );

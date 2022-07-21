@@ -140,7 +140,6 @@ const DragDropContainer: React.FC<IDragDropContainerProps> = ({
           )}
         </div>
       </div>
-      {/* <RightBlock selectedLocation={selectedLocation} location={location} /> */}
       <div
         ref={rightBlockRef}
         className={clsx({
