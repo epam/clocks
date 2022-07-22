@@ -115,6 +115,18 @@
       font-family: roboto-medium;
     }
   }
+
+  .foundLocationDetailsContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .flagContainer {
+    margin-right: 0.7rem;
+    height: 1.3rem;
+    width: 1.7rem;
+  }
 }
 
 .lightBody {

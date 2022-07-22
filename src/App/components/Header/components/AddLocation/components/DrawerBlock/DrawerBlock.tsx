@@ -2,7 +2,7 @@ import React, { useCallback, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import Flag from 'react-world-flags';
 
-import { IconButton, Drawer, MenuList, MenuItem, Box } from '@mui/material';
+import { IconButton, Drawer, MenuList, MenuItem } from '@mui/material';
 import { Close } from '@mui/icons-material';
 
 import useSnackbar from '../../../../../../hooks/useSnackbar';
@@ -112,18 +112,10 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
                 className={foundLocationTheme}
                 onClick={() => handleSelectLocation(location)}
               >
-                <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                  <Box
-                    component="div"
-                    sx={{
-                      height: 20,
-                      width: 25,
-                      mr: '0.7rem'
-                    }}
-
-                  >
-                    <Flag code={location.iso2}/>
-                  </Box>
+                <div className={style.foundLocationDetailsContainer}>
+                  <div className={style.flagContainer}>
+                    <Flag code={location.iso2} />
+                  </div>
                   <div>
                     <div className={style.title}>{location.city}</div>
                     <div className={style.zone}>
@@ -132,7 +124,7 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
                     </div>
                     <div className={style.timezone}>{location.timezone}</div>
                   </div>
-                </Box>
+                </div>
               </MenuItem>
             ))
           ) : (
