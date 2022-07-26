@@ -10,8 +10,8 @@
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.8",
     "@mui/styled-engine": "^5.2.6",
-    "@types/react-world-flags": "^1.4.2",
     "clsx": "^1.1.1",
+    "country-code-emoji": "^2.3.0",
     "i18next": "^21.6.6",
     "match-sorter": "^6.3.1",
     "moment-timezone": "^0.5.34",
@@ -21,7 +21,6 @@
     "react-redux": "^7.2.6",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
-    "react-world-flags": "^1.5.0",
     "redux": "^4.1.2",
     "sass": "^1.48.0",
     "web-vitals": "^2.1.3"

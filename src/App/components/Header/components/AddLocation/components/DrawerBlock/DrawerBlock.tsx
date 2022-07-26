@@ -1,6 +1,6 @@
 import React, { useCallback, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import Flag from 'react-world-flags';
+import { countryCodeEmoji } from 'country-code-emoji';
 
 import { IconButton, Drawer, MenuList, MenuItem } from '@mui/material';
 import { Close } from '@mui/icons-material';
@@ -27,7 +27,7 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
   const inputTheme = useTheme(style.lightInput, style.darkInput);
   const foundLocationTheme = useTheme(style.lightFoundLocation, style.darkFoundLocation);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
-
+  
   const { t } = useTranslation();
 
   const { snackbarError } = useSnackbar();
@@ -114,7 +114,7 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
               >
                 <div className={style.foundLocationDetailsContainer}>
                   <div className={style.flagContainer}>
-                    <Flag code={location.iso2} />
+                    {countryCodeEmoji(location.iso2)}
                   </div>
                   <div>
                     <div className={style.title}>{location.city}</div>
