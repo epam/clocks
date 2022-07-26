@@ -1,27 +1,48 @@
 @import '../../../../../../styles/index.scss';
+
+.locationInfoContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topInfo {
+  font-family: roboto-medium;
+  font-size: $fs18;
+  margin-bottom: $space-xxs;
+  width: 7.1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.timeInfo {
+  font-family: roboto-medium;
+  font-size: $fs18;
+  margin-bottom: $space-xxs;
+}
+
+.timeContainer {
+  min-width: 0;
+  color: $grayColor;
+}
+
+.bottomInfo {
+  color: $grayColor;
+
+  .timezone {
+    width: 10em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
 .rightSide {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-
-  .timeInfo {
-    font-family: roboto-medium;
-    font-size: $fs18;
-    margin-bottom: $space-xxs;
-  }
-
-  .bottomInfo {
-    min-width: 0;
-    color: $grayColor;
-    text-align: end;
-
-    .timezone {
-      width: 10em;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-  }
 }
 
 .planningMode {

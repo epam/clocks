@@ -1,0 +1,29 @@
+@import '../../../../styles/index.scss';
+.blockContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .leftSide {
+    display: flex;
+    flex-direction: column;
+    transition: 0.2s;
+    margin-right: $space-s;
+  }
+
+  .rightSide {
+    flex: 1;
+  }
+}
+
+.opaccityBlock {
+  display: none;
+  opacity: 1;
+  transition: 0.2s;
+}
+
+.onboarding {
+  .opaccityBlock {
+    opacity: 1;
+  }
+}

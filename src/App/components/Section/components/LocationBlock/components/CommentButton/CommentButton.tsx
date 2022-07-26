@@ -12,10 +12,10 @@ import Onboarding from '../../../Onboarding/Onboarding';
 import useLocations from '../../../../../../hooks/useLocations';
 
 import style from '../DragDropContainer/DragDropContainer.module.scss';
-import modalStyle from './CommentModal.module.scss';
-import { ICommentButtonProps } from './CommentModal.types';
+import modalStyle from './CommentButton.module.scss';
+import { ICommentButtonProps } from './CommentButton.types';
 
-const CommentModal: React.FC<ICommentButtonProps> = ({ location, index }) => {
+const CommentButton: React.FC<ICommentButtonProps> = ({ location, index }) => {
   const [inputText, setInputText] = useState<string>('');
 
   const commentModalTheme = useTheme(modalStyle.lightCommentModal, modalStyle.darkCommentModal);
@@ -119,4 +119,4 @@ const CommentModal: React.FC<ICommentButtonProps> = ({ location, index }) => {
   );
 };
 
-export default CommentModal;
+export default CommentButton;

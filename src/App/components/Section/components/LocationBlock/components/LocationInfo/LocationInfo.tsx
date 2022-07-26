@@ -25,7 +25,7 @@ const LocationInfo: React.FC<ILocationInfoProps> = ({ location }) => {
 
   const { planningMode, counter } = useSelector((state: IInitialState) => state);
 
-  const { showDate, showTimezone, timeFormat } = useSelector(
+  const { showDate, showTimezone, timeFormat, showCountry } = useSelector(
     (state: IInitialState) => state.settings
   );
 
@@ -45,17 +45,23 @@ const LocationInfo: React.FC<ILocationInfoProps> = ({ location }) => {
   ]);
   return (
     <>
-      <div className={style.rightSide}>
-        <div
-          className={clsx(style.timeInfo, {
-            [style.planningMode]: planningMode.isOn
-          })}
-        >
-          {time.hours}:{time.minutes} {time.suffix}
+      <div className={style.locationInfoContainer}>
+        <div className={style.infoContainer}>
+          <div className={style.topInfo}>{location?.city}</div>
+          <div className={style.bottomInfo}>{showCountry && location?.country}</div>
         </div>
-        <div className={style.bottomInfo}>
-          <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
-          <div className={style.timezone}>{showTimezone && time.timezone}</div>
+        <div className={style.rightSide}>
+          <div
+            className={clsx(style.timeInfo, {
+              [style.planningMode]: planningMode.isOn
+            })}
+          >
+            {time.hours}:{time.minutes} {time.suffix}
+          </div>
+          <div className={style.timeContainer}>
+            <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
+            <div className={style.timezone}>{showTimezone && time.timezone}</div>
+          </div>
         </div>
       </div>
     </>

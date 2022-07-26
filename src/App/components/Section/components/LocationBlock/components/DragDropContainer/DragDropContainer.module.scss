@@ -41,8 +41,6 @@
   flex-direction: column;
   clip-path: inset(-100vw -100vw -100vw 0);
 
-
-
   .opaccityBlock {
     display: none;
     opacity: 0;
@@ -58,54 +56,49 @@
     @extend .onboarding;
   }
 
-  .infoBlock {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  // .infoBlock {
+  //   display: flex;
+  //   justify-content: space-between;
+  //   align-items: center;
 
-    .buttonContainer {
-      display: flex;
-      flex-direction: column;
-      margin-right: $space-s;
+  //   .buttonContainer {
+  //     display: flex;
+  //     flex-direction: column;
+  //     margin-right: $space-s;
 
-      &:hover {
-        @extend .onboarding;
-      }
-    }
+  //     &:hover {
+  //       @extend .onboarding;
+  //     }
+  //   }
 
-    .leftSide {
-      display: flex;
-      transition: 0.2s;
-      flex-grow: 1;
+  //   .leftSide {
+  //     display: flex;
+  //     transition: 0.2s;
+  //     flex-grow: 1;
 
-      .infoContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
+  //     .infoContainer {
+  //       display: flex;
+  //       flex-direction: column;
+  //       justify-content: center;
+  //     }
 
-      .bottomInfo {
-        color: $grayColor;
-        text-align: start;
-      }
-    }
+  //     .bottomInfo {
+  //       color: $grayColor;
+  //       text-align: start;
+  //     }
+  //   }
 
-    .topInfo {
-      font-family: roboto-medium;
-      font-size: $fs18;
-      margin-bottom: $space-xxs;
-      width: 7.1rem;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-    }
-  }
-
-  .commentBlock {
-    margin-top: $space-xs;
-    margin-left: $space-xxs;
-  }
+  //   .topInfo {
+  //     font-family: roboto-medium;
+  //     font-size: $fs18;
+  //     margin-bottom: $space-xxs;
+  //     width: 7.1rem;
+  //     display: -webkit-box;
+  //     -webkit-line-clamp: 2;
+  //     -webkit-box-orient: vertical;
+  //     overflow: hidden;
+  //   }
+  // }
 }
 
 .dragDropCursor {

@@ -20,13 +20,12 @@ const DragDropContainer: React.FC<IDragDropContainerProps> = ({
   selectedLocation,
   children
 }) => {
-  const [DeleteButton, PinButton, CommentButton, LocationInfo] = children;
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
   const containerDivRef = useRef<HTMLDivElement>(null);
   const rightBlockRef = useRef<HTMLDivElement>(null);
 
-  const { locations, dragAndDropLocation } = useLocations();
+  const { dragAndDropLocation } = useLocations();
 
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -34,7 +33,6 @@ const DragDropContainer: React.FC<IDragDropContainerProps> = ({
     (state: IInitialState) => state
   );
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
-  const { showCountry } = useSelector((state: IInitialState) => state.settings);
 
   const isUserLocation = useMemo(() => {
     return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
@@ -108,8 +106,10 @@ const DragDropContainer: React.FC<IDragDropContainerProps> = ({
           onFocus={focusHandler}
           onBlur={focusHandler}
         >
-          {deleteMode.isOn && <>{DeleteButton}</>}
-          <div className={style.infoBlock}>
+          {children}
+
+          {/* THIS PART OF CODE SHOULD BE CONSIDERED */}
+          {/* <div className={style.infoBlock}>
             <div
               className={clsx({
                 [style.leftSide]: true,
@@ -132,12 +132,8 @@ const DragDropContainer: React.FC<IDragDropContainerProps> = ({
               </div>
             </div>
             <>{LocationInfo}</>
-          </div>
-          {location && locations[location.city + location.lat].comment && (
-            <div className={style.commentBlock}>
-              {locations[location.city + location.lat].comment}
-            </div>
-          )}
+          </div> */}
+          {/* THIS PART OF CODE SHOULD BE CONSIDERED */}
         </div>
       </div>
       <div
