@@ -6,7 +6,7 @@ import { ILocationBlockProps } from './LocationBlock.types';
 import DragDropContainer from './components/DragDropContainer/DragDropContainer';
 import DeleteButton from './components/DeleteButton/DeleteButton';
 import PinButton from './components/PinButton/PinButton';
-import LocationInfo from './components/LocationInfo/LocationInfo';
+import TimeInfo from './components/TimeInfo/TimeInfo';
 import CommentButton from './components/CommentButton/CommentButton';
 import Comment from './components/Comment/Comment';
 import { IInitialState } from '../../../../redux/types';
@@ -24,7 +24,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
 
   const [isFocused, setIsFocused] = useState(false);
 
-  const { deleteMode, onboarding } = useSelector((state: IInitialState) => state);
+  const { deleteMode, onboarding, settings } = useSelector((state: IInitialState) => state);
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
   const isUserLocation = useMemo(() => {
@@ -43,7 +43,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
       selectedLocation={selectedLocation}
     >
       {deleteMode.isOn && <DeleteButton location={location} />}
-      <div
+      {/* <div
         className={clsx({
           [style.blockContainer]: true,
           [style.onboarding]:
@@ -53,19 +53,37 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
         onMouseEnter={focusHandler}
         onMouseLeave={focusHandler}
         onBlur={focusHandler}
+      > */}
+      {/* <div
+        className={clsx({
+          [style.leftSide]: true
+          // [style.opaccityBlock]: !isFocused && !isUserLocation
+        })}
       >
-        <div
-          className={clsx({
-            [style.leftSide]: true,
-            [style.opaccityBlock]: !isFocused && !isUserLocation
-          })}
-        >
-          <PinButton location={location} urlUserLocation={urlUserLocation} index={index} />
-          <CommentButton location={location} index={index} />
+        <PinButton location={location} urlUserLocation={urlUserLocation} index={index} />
+        <CommentButton location={location} index={index} />
+      </div>
+      <div className={style.rightSide}>
+        <LocationInfo location={location} />
+      </div> */}
+      {/* </div> */}
+
+      <div className={style.blockContainer}>
+        <div className={style.leftSide}>
+          <div
+            className={
+              isUserLocation ? style.regularButtonContainer : style.absoluteButtonContainer
+            }
+          >
+            <PinButton location={location} urlUserLocation={urlUserLocation} index={index} />
+            <CommentButton location={location} index={index} />
+          </div>
+          <div className={isUserLocation ? style.regularCityInfo : style.absoluteCityInfo}>
+            <div className={style.topInfo}>{location?.city}</div>
+            <div className={style.bottomInfo}>{settings.showCountry && location?.country}</div>
+          </div>
         </div>
-        <div className={style.rightSide}>
-          <LocationInfo location={location} />
-        </div>
+        <TimeInfo location={location} />
       </div>
       <Comment location={location} />
     </DragDropContainer>

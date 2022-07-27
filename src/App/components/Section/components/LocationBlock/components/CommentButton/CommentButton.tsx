@@ -61,25 +61,22 @@ const CommentButton: React.FC<ICommentButtonProps> = ({ location, index }) => {
     // eslint-disable-next-line
   }, [location]);
 
-  const commentTooltipText = useMemo((): string => t('LocationBlock.TooltipComment'), []);
   return (
     <>
-      <Tooltip title={commentTooltipText} arrow>
-        <IconButton
-          ref={anchorComment}
-          tabIndex={0}
-          size="small"
-          onClick={handleOpenCommentModal}
-          disabled={disabled}
-        >
-          <CommentOutlined
-            className={clsx({
-              [iconTheme]: true,
-              [style.disabledIcon]: disabled
-            })}
-          />
-        </IconButton>
-      </Tooltip>
+      <IconButton
+        ref={anchorComment}
+        tabIndex={0}
+        size="small"
+        onClick={handleOpenCommentModal}
+        disabled={disabled}
+      >
+        <CommentOutlined
+          className={clsx({
+            [iconTheme]: true,
+            [style.disabledIcon]: disabled
+          })}
+        />
+      </IconButton>
 
       <Dialog open={commentModal} onClose={handleCloseCommentModal}>
         <form className={commentModalTheme} onSubmit={handleSaveComment}>

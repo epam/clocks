@@ -1,5 +1,6 @@
+
 import { ILocation } from '../../../../../../redux/types';
 
-export interface ILocationInfoProps {
+export interface ITimeInfoProps {
   location?: ILocation;
 }

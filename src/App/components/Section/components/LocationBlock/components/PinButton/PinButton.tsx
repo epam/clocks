@@ -49,30 +49,23 @@ const PinButton: React.FC<IPinButtonProps> = ({ location, urlUserLocation, index
     return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
   }, [userLocation?.city, userLocation?.lat, location?.city, location?.lat]);
 
-  const locationTooltipText = useMemo(
-    (): string => t('LocationBlock.TooltipSetCurrentLocation'),
-    []
-  );
-
   return (
     <>
-      <Tooltip title={locationTooltipText} arrow>
-        <IconButton
-          ref={anchorLocation}
-          tabIndex={0}
-          size="small"
-          onClick={handleSetUserLocation}
-          disabled={disabled}
-        >
-          <FmdGoodOutlined
-            className={clsx({
-              [iconTheme]: true,
-              [style.blueIcon]: urlUserLocation || isUserLocation,
-              [style.disabledIcon]: disabled
-            })}
-          />
-        </IconButton>
-      </Tooltip>
+      <IconButton
+        ref={anchorLocation}
+        tabIndex={0}
+        size="small"
+        onClick={handleSetUserLocation}
+        disabled={disabled}
+      >
+        <FmdGoodOutlined
+          className={clsx({
+            [iconTheme]: true,
+            [style.blueIcon]: urlUserLocation || isUserLocation,
+            [style.disabledIcon]: disabled
+          })}
+        />
+      </IconButton>
 
       {!index && onboarding?.myLocation && anchorLocation.current && (
         <Onboarding

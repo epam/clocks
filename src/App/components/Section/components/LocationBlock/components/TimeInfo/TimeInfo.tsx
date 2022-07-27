@@ -7,10 +7,10 @@ import useTimeInfo from '../../../../../../hooks/useTimeInfo';
 import { IInitialState } from '../../../../../../redux/types';
 import { ITimeState } from '../../LocationBlock.types';
 
-import style from './LocationInfo.module.scss';
-import { ILocationInfoProps } from './LocationInfo.types';
+import style from './TimeInfo.module.scss';
+import { ITimeInfoProps } from './TimeInfo.types';
 
-const LocationInfo: React.FC<ILocationInfoProps> = ({ location }) => {
+const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
   const { locations } = useLocations();
   const timeInfo = useTimeInfo(location);
 
@@ -25,7 +25,7 @@ const LocationInfo: React.FC<ILocationInfoProps> = ({ location }) => {
 
   const { planningMode, counter } = useSelector((state: IInitialState) => state);
 
-  const { showDate, showTimezone, timeFormat, showCountry } = useSelector(
+  const { showDate, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
 
@@ -46,11 +46,7 @@ const LocationInfo: React.FC<ILocationInfoProps> = ({ location }) => {
   return (
     <>
       <div className={style.locationInfoContainer}>
-        <div className={style.infoContainer}>
-          <div className={style.topInfo}>{location?.city}</div>
-          <div className={style.bottomInfo}>{showCountry && location?.country}</div>
-        </div>
-        <div className={style.rightSide}>
+        <div>
           <div
             className={clsx(style.timeInfo, {
               [style.planningMode]: planningMode.isOn
@@ -68,4 +64,4 @@ const LocationInfo: React.FC<ILocationInfoProps> = ({ location }) => {
   );
 };
 
-export default LocationInfo;
+export default TimeInfo;
