@@ -1,6 +1,5 @@
 import React, { useCallback, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
-import { countryCodeEmoji } from 'country-code-emoji';
 
 import { IconButton, Drawer, MenuList, MenuItem } from '@mui/material';
 import { Close } from '@mui/icons-material';
@@ -9,6 +8,7 @@ import useSnackbar from '../../../../../../hooks/useSnackbar';
 import { ILocation, IUrlLocations, IUrlLocation } from '../../../../../../redux/types';
 import useLocations from '../../../../../../hooks/useLocations';
 import useTheme from '../../../../../../hooks/useTheme';
+import useFlag from '../../../../../../hooks/useFlag/useFlag';
 
 import { KEYBOARD } from '../../AddLocation.constants';
 
@@ -27,7 +27,8 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
   const inputTheme = useTheme(style.lightInput, style.darkInput);
   const foundLocationTheme = useTheme(style.lightFoundLocation, style.darkFoundLocation);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
-  
+  const codeToCountryFlag = useFlag();
+
   const { t } = useTranslation();
 
   const { snackbarError } = useSnackbar();
@@ -113,9 +114,7 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
                 onClick={() => handleSelectLocation(location)}
               >
                 <div className={style.foundLocationDetailsContainer}>
-                  <div className={style.flagContainer}>
-                    {countryCodeEmoji(location.iso2)}
-                  </div>
+                  <div className={style.flagContainer}>{codeToCountryFlag(location.iso2)}</div>
                   <div>
                     <div className={style.title}>{location.city}</div>
                     <div className={style.zone}>

@@ -11,7 +11,6 @@
     "@mui/material": "^5.2.8",
     "@mui/styled-engine": "^5.2.6",
     "clsx": "^1.1.1",
-    "country-code-emoji": "^2.3.0",
     "i18next": "^21.6.6",
     "match-sorter": "^6.3.1",
     "moment-timezone": "^0.5.34",
