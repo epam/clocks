@@ -1,15 +1,16 @@
 @import '../../../../../../styles/index.scss';
 
-
 .timeInfo {
   font-family: roboto-medium;
   font-size: $fs18;
   margin-bottom: $space-xxs;
+  text-align: end;
 }
 
 .timeContainer {
   min-width: 0;
   color: $grayColor;
+  text-align: end;
 }
 
 .cityCountryBlock {

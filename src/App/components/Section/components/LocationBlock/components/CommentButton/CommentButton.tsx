@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { t } from 'i18next';
 
 import { CommentOutlined } from '@mui/icons-material';
-import { Button, Dialog, IconButton, Tooltip } from '@mui/material';
+import { Button, Dialog, IconButton } from '@mui/material';
 
 import { useSelector } from 'react-redux';
 import useTheme from '../../../../../../hooks/useTheme';
@@ -106,6 +106,7 @@ const CommentButton: React.FC<ICommentButtonProps> = ({ location, index }) => {
         <Onboarding
           open={onboarding.comment}
           anchorElement={anchorComment.current}
+          nextElement="helpModule"
           anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           transformOrigin={{ vertical: 'top', horizontal: 'right' }}
           title={t('Onboarding.AddCommentTitle')}

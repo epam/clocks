@@ -1,4 +1,4 @@
-import React, { DragEvent, RefObject, useMemo, useRef, useState } from 'react';
+import React, { DragEvent, RefObject, useMemo, useRef } from 'react';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 
@@ -13,11 +13,11 @@ import style from './DragDropContainer.module.scss';
 import { IDragDropContainerProps } from './DragDropContainer.types';
 
 const DragDropContainer: React.FC<IDragDropContainerProps> = ({
-  index,
   location,
   urlUserLocation,
   setSelectedLocation,
   selectedLocation,
+  focusHandler,
   children
 }) => {
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
@@ -27,11 +27,7 @@ const DragDropContainer: React.FC<IDragDropContainerProps> = ({
 
   const { dragAndDropLocation } = useLocations();
 
-  const [isFocused, setIsFocused] = useState<boolean>(false);
-
-  const { deleteMode, onboarding, dragDropMode, planningMode } = useSelector(
-    (state: IInitialState) => state
-  );
+  const { deleteMode, dragDropMode, planningMode } = useSelector((state: IInitialState) => state);
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
   const isUserLocation = useMemo(() => {
@@ -50,10 +46,6 @@ const DragDropContainer: React.FC<IDragDropContainerProps> = ({
   const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
     removeClassName(containerDivRef, style.hide);
     setSelectedLocation(null);
-  };
-
-  const focusHandler = () => {
-    setIsFocused(isFocused => !isFocused);
   };
 
   const blockDragEnterHandler = (blockRef: RefObject<HTMLDivElement>) => {
@@ -84,9 +76,7 @@ const DragDropContainer: React.FC<IDragDropContainerProps> = ({
       <div
         className={clsx({
           [style.container]: true,
-          [style.shaking]: deleteMode.isOn,
-          [style.onboarding]:
-            !index && (onboarding?.dragDropMode || onboarding?.myLocation || onboarding?.comment)
+          [style.shaking]: deleteMode.isOn
         })}
         draggable={dragDropMode.isOn}
         onDragOver={e => e.preventDefault()}
@@ -106,34 +96,7 @@ const DragDropContainer: React.FC<IDragDropContainerProps> = ({
           onFocus={focusHandler}
           onBlur={focusHandler}
         >
-          {children}
-
-          {/* THIS PART OF CODE SHOULD BE CONSIDERED */}
-          {/* <div className={style.infoBlock}>
-            <div
-              className={clsx({
-                [style.leftSide]: true,
-                [style.moveLeftOrRight]: !isFocused && !isUserLocation
-              })}
-            >
-              <div
-                className={clsx({
-                  [style.buttonContainer]: true,
-                  [style.opaccityBlock]: !isFocused && !isUserLocation
-                })}
-              >
-                <>{PinButton}</>
-
-                <>{CommentButton}</>
-              </div>
-              <div className={style.infoContainer}>
-                <div className={style.topInfo}>{location?.city}</div>
-                <div className={style.bottomInfo}>{showCountry && location?.country}</div>
-              </div>
-            </div>
-            <>{LocationInfo}</>
-          </div> */}
-          {/* THIS PART OF CODE SHOULD BE CONSIDERED */}
+          <> {children} </>
         </div>
       </div>
       <div

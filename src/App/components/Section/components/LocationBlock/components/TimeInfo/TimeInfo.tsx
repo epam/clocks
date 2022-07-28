@@ -45,19 +45,17 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
   ]);
   return (
     <>
-      <div className={style.locationInfoContainer}>
-        <div>
-          <div
-            className={clsx(style.timeInfo, {
-              [style.planningMode]: planningMode.isOn
-            })}
-          >
-            {time.hours}:{time.minutes} {time.suffix}
-          </div>
-          <div className={style.timeContainer}>
-            <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
-            <div className={style.timezone}>{showTimezone && time.timezone}</div>
-          </div>
+      <div>
+        <div
+          className={clsx(style.timeInfo, {
+            [style.planningMode]: planningMode.isOn
+          })}
+        >
+          {time.hours}:{time.minutes} {time.suffix}
+        </div>
+        <div className={style.timeContainer}>
+          <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
+          <div className={style.timezone}>{showTimezone && time.timezone}</div>
         </div>
       </div>
     </>
