@@ -27,7 +27,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   setSelectedLocation,
   index
 }) => {
-  console.log('🚀 ~ file: LocationBlock.tsx ~ line 26 ~ selectedLocation', selectedLocation);
   const anchorComment = useRef(null);
   const anchorLocation = useRef(null);
 
