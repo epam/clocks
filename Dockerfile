@@ -1,4 +1,4 @@
-FROM paas-images.epam.com/proxy/library/node:14-alpine AS build
+FROM node:14-alpine AS build
 WORKDIR /App
 COPY package* ./
 RUN npm ci
@@ -7,7 +7,7 @@ COPY src ./src
 COPY tsconfig.json ./
 RUN npm run build
 
-FROM paas-images.epam.com/proxy/library/nginx:alpine
+FROM nginx:alpine
 COPY nginx.conf /etc/nginx/nginx.conf
 WORKDIR /code
 COPY --from=build /App/build .
