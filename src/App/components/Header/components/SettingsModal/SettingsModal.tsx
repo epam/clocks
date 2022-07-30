@@ -33,7 +33,7 @@ const SettingsModal: React.FC = () => {
   const { autoTheme, theme, showDate, showCountry, showTimezone, timeFormat, autoSorting } =
     useSelector((state: IInitialState) => state.settings);
 
-  const { deleteMode, counter, onboarding, dragDropMode, planningMode } = useSelector(
+  const { deleteMode, counter, onboarding, planningMode } = useSelector(
     (state: IInitialState) => state
   );
 
@@ -101,9 +101,6 @@ const SettingsModal: React.FC = () => {
         case SETTING_VALUE.auto:
           setLocalSettings({ ...localSettings, autoTheme: !localSettings.autoTheme });
           break;
-        case SETTING_VALUE.autoSorting:
-          setLocalSettings({ ...localSettings, autoSorting: !localSettings.autoSorting });
-          break;
         case SETTING_VALUE.H24:
           setLocalSettings({ ...localSettings, timeFormat: value });
           break;
@@ -129,10 +126,7 @@ const SettingsModal: React.FC = () => {
   };
 
   const tooltipText = useMemo((): string => t('Settings.ButtonTooltip'), [t]);
-  const disabled = useMemo(
-    () => deleteMode.isOn || dragDropMode.isOn || planningMode.isOn,
-    [deleteMode, planningMode, dragDropMode]
-  );
+  const disabled = useMemo(() => deleteMode.isOn || planningMode.isOn, [deleteMode, planningMode]);
 
   return (
     <>

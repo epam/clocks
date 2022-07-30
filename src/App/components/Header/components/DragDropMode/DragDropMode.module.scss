@@ -1,7 +1,0 @@
-@import '../../../../styles/index.scss';
-
-.body {
-  @include screenMax600 {
-    display: none;
-  }
-}

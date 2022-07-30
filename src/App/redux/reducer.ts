@@ -12,9 +12,6 @@ const initialState: IInitialState = {
   deleteMode: {
     isOn: false
   },
-  dragDropMode: {
-    isOn: false
-  },
   settings: {
     theme: THEME.light,
     autoTheme: undefined,
@@ -51,13 +48,6 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
       return {
         ...state,
         deleteMode: {
-          isOn: action.payload
-        }
-      };
-    case ACTION_TYPE.setDragDropMode:
-      return {
-        ...state,
-        dragDropMode: {
           isOn: action.payload
         }
       };

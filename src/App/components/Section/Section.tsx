@@ -12,7 +12,7 @@ import EmptyState from './components/EmptyState/EmptyState';
 
 const Section: React.FC = () => {
   const [selectedLocation, setSelectedLocation] = useState<ILocation | null>(null);
-  const { counter, dragDropMode, planningMode } = useSelector((state: IInitialState) => state);
+  const { counter, planningMode } = useSelector((state: IInitialState) => state);
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
   const { autoSorting } = useSelector((state: IInitialState) => state.settings);
 
@@ -94,7 +94,7 @@ const Section: React.FC = () => {
     return <EmptyState />;
     // don't need as a dependency findLocation
     // eslint-disable-next-line
-  }, [locations, selectedLocation, autoSorting, dragDropMode]);
+  }, [locations, selectedLocation, autoSorting]);
 
   return (
     <div

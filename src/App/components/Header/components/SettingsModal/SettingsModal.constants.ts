@@ -15,7 +15,6 @@ export const INPUT_IDS = {
   showTimeZone: 'showTimeZone',
   hourFormat24: 'hourFormat24',
   hourFormat12: 'hourFormat12',
-  autoSorting: 'autoSorting',
   autoTheming: 'autoTheming',
   lightTheme: 'lightTheme',
   darkTheme: 'darkTheme'

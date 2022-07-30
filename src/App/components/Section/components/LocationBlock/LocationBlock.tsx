@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, DragEvent, useRef, RefObject } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import clsx from 'clsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
@@ -16,10 +16,6 @@ import style from './LocationBlock.module.scss';
 import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
 import Onboarding from '../Onboarding/Onboarding';
 
-import addClassName from '../../../../utils/addClassName';
-import removeClassName from '../../../../utils/removeClassName';
-import generateLocationKey from '../../../../utils/generateLocationKey';
-
 const LocationBlock: React.FC<ILocationBlockProps> = ({
   location,
   urlUserLocation,
@@ -35,13 +31,13 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   const commentModalTheme = useTheme(style.lightCommentModal, style.darkCommentModal);
 
   const { t } = useTranslation();
-  const containerDivRef = useRef<HTMLDivElement>(null);
-  const rightBlockRef = useRef<HTMLDivElement>(null);
+  // const containerDivRef = useRef<HTMLDivElement>(null);
+  // const rightBlockRef = useRef<HTMLDivElement>(null);
 
   const { showDate, showCountry, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
-  const { deleteMode, counter, onboarding, dragDropMode, planningMode } = useSelector(
+  const { deleteMode, counter, onboarding, planningMode } = useSelector(
     (state: IInitialState) => state
   );
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
@@ -50,7 +46,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
 
   const dispatch = useDispatch();
 
-  const { locations, setLocations, dragAndDropLocation } = useLocations();
+  const { locations, setLocations } = useLocations();
 
   const [commentModal, setCommentModal] = useState(false);
   const [isFocused, setIsFocused] = useState<boolean>(false);
@@ -67,10 +63,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   const isUserLocation = useMemo(() => {
     return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
   }, [userLocation?.city, userLocation?.lat, location?.city, location?.lat]);
-  const disabled = useMemo(
-    () => deleteMode.isOn || dragDropMode.isOn || planningMode.isOn,
-    [planningMode, deleteMode, dragDropMode]
-  );
+  const disabled = useMemo(() => deleteMode.isOn || planningMode.isOn, [planningMode, deleteMode]);
 
   useEffect(() => {
     if (location && locations[location.city + location.lat].comment) {
@@ -133,43 +126,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     setIsFocused(isFocused => !isFocused);
   };
 
-  const dragStartHandler = (e: DragEvent<HTMLDivElement>) => {
-    if (dragDropMode && location) {
-      setTimeout(() => {
-        setSelectedLocation(location);
-        addClassName(containerDivRef, style.hide);
-      });
-    }
-  };
-
-  const dropHandler = (e: DragEvent<HTMLDivElement>) => {
-    removeClassName(rightBlockRef, style.bgGray);
-
-    if (selectedLocation && location) {
-      dragAndDropLocation(selectedLocation, location);
-    }
-  };
-
-  const blockDragEnterHandler = (blockRef: RefObject<HTMLDivElement>) => {
-    if (!selectedLocation || !location) {
-      throw new Error('Dragged location or dropped block location is null');
-    }
-    const selectedLocationKey = generateLocationKey(selectedLocation);
-    const currentLocationKey = generateLocationKey(location);
-    if (selectedLocationKey !== currentLocationKey) {
-      addClassName(blockRef, style.bgGray);
-    }
-  };
-
-  const dragLeaveHandler = (blockRef: RefObject<HTMLDivElement>) => {
-    removeClassName(blockRef, style.bgGray);
-  };
-
-  const dragEndHandler = (e: DragEvent<HTMLDivElement>) => {
-    removeClassName(containerDivRef, style.hide);
-    setSelectedLocation(null);
-  };
-
   const locationTooltipText = useMemo(
     (): string => t('LocationBlock.TooltipSetCurrentLocation'),
     [t]
@@ -185,19 +141,13 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
           [style.onboarding]:
             !index && (onboarding?.dragDropMode || onboarding?.myLocation || onboarding?.comment)
         })}
-        draggable={dragDropMode.isOn}
-        onDragOver={e => e.preventDefault()}
-        onDragStart={dragStartHandler}
-        onDragEnd={dragEndHandler}
       >
         <div
-          ref={containerDivRef}
           className={clsx({
             [bodyTheme]: true,
-            [style.shaking]: deleteMode.isOn || dragDropMode.isOn,
+            [style.shaking]: deleteMode.isOn,
             [style.currentBody]: urlUserLocation || isUserLocation,
-            [style.marginRight]: planningMode.isOn,
-            [style.dragDropCursor]: dragDropMode.isOn
+            [style.marginRight]: planningMode.isOn
           })}
           tabIndex={deleteMode.isOn ? -1 : 0}
           onFocus={focusHandler}
@@ -329,21 +279,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
           text={t('Onboarding.AddCommentContent')}
         />
       )}
-
-      <div
-        ref={rightBlockRef}
-        className={clsx({
-          [style.rightBlock]: true,
-          [style.behind]: selectedLocation === null
-        })}
-        draggable={dragDropMode.isOn}
-        onDragEnter={_ => blockDragEnterHandler(rightBlockRef)}
-        onDragLeave={_ => dragLeaveHandler(rightBlockRef)}
-        onDragOver={e => e.preventDefault()}
-        onDrop={dropHandler}
-      >
-        <div className={style.innerBlock} />
-      </div>
     </div>
   );
 };

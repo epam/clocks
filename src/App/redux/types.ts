@@ -9,9 +9,6 @@ export interface IInitialState {
   deleteMode: {
     isOn: boolean;
   };
-  dragDropMode: {
-    isOn: boolean;
-  };
   settings: {
     theme: string;
     autoTheme?: boolean;

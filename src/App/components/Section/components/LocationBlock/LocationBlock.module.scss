@@ -4,27 +4,27 @@
   background-color: $redColor;
   color: $whiteColor;
 }
-.rightBlock {
-  width: 400px;
-  top: 0;
-  bottom: 0;
-  right: -200px;
-  position: absolute;
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+// .rightBlock {
+//   width: 400px;
+//   top: 0;
+//   bottom: 0;
+//   right: -200px;
+//   position: absolute;
+//   z-index: 100;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
 
-  &.bgGray .innerBlock {
-    width: 2px;
-    height: 60%;
-    background-color: $blueColor;
-  }
+//   &.bgGray .innerBlock {
+//     width: 2px;
+//     height: 60%;
+//     background-color: $blueColor;
+//   }
 
-  @include screenMax600 {
-    display: none;
-  }
-}
+//   @include screenMax600 {
+//     display: none;
+//   }
+// }
 
 .container {
   margin: $space-s;
@@ -164,15 +164,15 @@
   }
 }
 
-.dragDropCursor {
-  cursor: grab;
-}
+// .dragDropCursor {
+//   cursor: grab;
+// }
 
-.dragDropCursor:active {
-  cursor: grabbing;
-  cursor: -moz-grabbing;
-  cursor: -webkit-grabbing;
-}
+// .dragDropCursor:active {
+//   cursor: grabbing;
+//   cursor: -moz-grabbing;
+//   cursor: -webkit-grabbing;
+// }
 
 .hide {
   opacity: 0;
@@ -306,16 +306,16 @@
     left: 0px;
   }
 }
-.relativeBlock {
-  position: relative;
-  background-color: transparent;
-  box-shadow: none;
-  overflow: hidden;
-}
+// .relativeBlock {
+//   position: relative;
+//   background-color: transparent;
+//   box-shadow: none;
+//   overflow: hidden;
+// }
 
-.behind {
-  z-index: -1;
-}
+// .behind {
+//   z-index: -1;
+// }
 
 .planningMode {
   animation-duration: 2s;
