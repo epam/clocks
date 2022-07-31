@@ -27,7 +27,7 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
   const inputTheme = useTheme(style.lightInput, style.darkInput);
   const foundLocationTheme = useTheme(style.lightFoundLocation, style.darkFoundLocation);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
-  const codeToCountryFlag = useFlag();
+  const flag = useFlag();
 
   const { t } = useTranslation();
 
@@ -114,7 +114,7 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
                 onClick={() => handleSelectLocation(location)}
               >
                 <div className={style.foundLocationDetailsContainer}>
-                  <div className={style.flagContainer}>{codeToCountryFlag(location.iso2)}</div>
+                  <div className={style.flagContainer}>{flag(location.iso2)}</div>
                   <div>
                     <div className={style.title}>{location.city}</div>
                     <div className={style.zone}>
