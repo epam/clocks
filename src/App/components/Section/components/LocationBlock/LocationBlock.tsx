@@ -41,7 +41,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   const { showDate, showCountry, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
-  const { deleteMode, counter, onboarding, dragDropMode, planningMode } = useSelector(
+  const { deleteMode, counter, onboarding, dragDropMode } = useSelector(
     (state: IInitialState) => state
   );
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
@@ -67,10 +67,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   const isUserLocation = useMemo(() => {
     return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
   }, [userLocation?.city, userLocation?.lat, location?.city, location?.lat]);
-  const disabled = useMemo(
-    () => deleteMode.isOn || dragDropMode.isOn || planningMode.isOn,
-    [planningMode, deleteMode, dragDropMode]
-  );
+  const disabled = useMemo(() => deleteMode.isOn || dragDropMode.isOn, [deleteMode, dragDropMode]);
 
   useEffect(() => {
     if (location && locations[location.city + location.lat].comment) {
@@ -84,14 +81,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
     setTime(timeInfo);
     // don't need as a dependency timeInfo
     // eslint-disable-next-line
-  }, [
-    counter,
-    userLocation,
-    locations,
-    timeFormat,
-    planningMode.additionalHours,
-    planningMode.isOn
-  ]);
+  }, [counter, userLocation, locations, timeFormat]);
 
   const handleDelete = () => {
     location && delete locations[location?.city + location?.lat];
@@ -196,7 +186,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
             [bodyTheme]: true,
             [style.shaking]: deleteMode.isOn || dragDropMode.isOn,
             [style.currentBody]: urlUserLocation || isUserLocation,
-            [style.marginRight]: planningMode.isOn,
             [style.dragDropCursor]: dragDropMode.isOn
           })}
           tabIndex={deleteMode.isOn ? -1 : 0}
@@ -261,11 +250,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
               </div>
             </div>
             <div className={style.rightSide}>
-              <div
-                className={clsx(style.timeInfo, {
-                  [style.planningMode]: planningMode.isOn
-                })}
-              >
+              <div className={clsx(style.timeInfo)}>
                 {time.hours}:{time.minutes} {time.suffix}
               </div>
               <div className={style.bottomInfo}>

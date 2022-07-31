@@ -24,9 +24,7 @@ const AddLocation: React.FC = () => {
 
   const { t } = useTranslation();
 
-  const { deleteMode, onboarding, dragDropMode, planningMode } = useSelector(
-    (state: IInitialState) => state
-  );
+  const { deleteMode, onboarding, dragDropMode } = useSelector((state: IInitialState) => state);
 
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
@@ -120,12 +118,12 @@ const AddLocation: React.FC = () => {
         <IconButton
           ref={anchorRef}
           onClick={handleOpenPanel}
-          disabled={deleteMode.isOn || dragDropMode.isOn || planningMode.isOn}
+          disabled={deleteMode.isOn || dragDropMode.isOn}
         >
           <Add
             className={clsx({
               [iconTheme]: true,
-              [style.disabledIcon]: deleteMode.isOn || dragDropMode.isOn || planningMode.isOn
+              [style.disabledIcon]: deleteMode.isOn || dragDropMode.isOn
             })}
           />
         </IconButton>

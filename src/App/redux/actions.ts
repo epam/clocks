@@ -1,12 +1,6 @@
 import { ACTION_TYPE } from './constants';
 
-import {
-  IActionSettingsPayload,
-  ILocation,
-  IActionSnackbarPayload,
-  IActionPlanningModePayload,
-  IOnboarding
-} from './types';
+import { IActionSettingsPayload, ILocation, IActionSnackbarPayload, IOnboarding } from './types';
 
 export const setTheme = (payload: string) => ({ type: ACTION_TYPE.setTheme, payload });
 
@@ -19,11 +13,6 @@ export const setSettings = (payload: IActionSettingsPayload) => ({
 
 export const setDragDropMode = (payload: boolean) => ({
   type: ACTION_TYPE.setDragDropMode,
-  payload
-});
-
-export const setPlanningMode = (payload: IActionPlanningModePayload) => ({
-  type: ACTION_TYPE.setPlanningMode,
   payload
 });
 

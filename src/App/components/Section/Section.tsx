@@ -12,7 +12,7 @@ import EmptyState from './components/EmptyState/EmptyState';
 
 const Section: React.FC = () => {
   const [selectedLocation, setSelectedLocation] = useState<ILocation | null>(null);
-  const { counter, dragDropMode, planningMode } = useSelector((state: IInitialState) => state);
+  const { counter, dragDropMode } = useSelector((state: IInitialState) => state);
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
   const { autoSorting } = useSelector((state: IInitialState) => state.settings);
 
@@ -100,9 +100,7 @@ const Section: React.FC = () => {
     <div
       className={clsx({
         [style.body]: locations,
-        [style.emptyBody]: !locations,
-        [style.marginBottom]: planningMode.isOn,
-        [style.paddingLeft]: planningMode.isOn
+        [style.emptyBody]: !locations
       })}
     >
       {locationsRender}

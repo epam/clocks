@@ -12,7 +12,6 @@ const onboardingInitialState: IOnboarding = {
   shareButton: false,
   deleteButton: false,
   settingsModal: false,
-  planningMode: false,
   dragDropMode: false,
   helpModule: false,
   reloadOnboarding: false
