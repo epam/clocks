@@ -139,7 +139,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
           [style.container]: true,
           [style.shaking]: deleteMode.isOn,
           [style.onboarding]:
-            !index && (onboarding?.dragDropMode || onboarding?.myLocation || onboarding?.comment)
+            !index && (onboarding?.planningMode || onboarding?.myLocation || onboarding?.comment)
         })}
       >
         <div

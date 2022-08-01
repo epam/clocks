@@ -11,8 +11,9 @@ const useAutoTheme = () => {
 
   const { t } = useTranslation();
 
-  const { showDate, showCountry, showTimezone, theme, autoTheme, timeFormat, autoSorting } =
-    useSelector((state: IInitialState) => state.settings);
+  const { showDate, showCountry, showTimezone, theme, autoTheme, timeFormat } = useSelector(
+    (state: IInitialState) => state.settings
+  );
 
   const { snackbarError } = useSnackbar();
 
@@ -32,7 +33,6 @@ const useAutoTheme = () => {
             autoTheme,
             theme: THEME.dark,
             timeFormat,
-            autoSorting,
             showTimezone
           })
         );
@@ -46,8 +46,7 @@ const useAutoTheme = () => {
             showTimezone,
             autoTheme,
             theme: THEME.light,
-            timeFormat,
-            autoSorting
+            timeFormat
           })
         );
       }
@@ -59,8 +58,7 @@ const useAutoTheme = () => {
           showTimezone,
           theme,
           timeFormat,
-          autoTheme: false,
-          autoSorting
+          autoTheme: false
         })
       );
       snackbarError(t('UseAutoTheme.SnackbarMessage'));

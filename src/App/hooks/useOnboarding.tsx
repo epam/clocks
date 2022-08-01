@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setOnboarding, setSettings } from '../redux/actions';
 import { IOnboarding } from '../redux/types';
@@ -13,7 +12,6 @@ const onboardingInitialState: IOnboarding = {
   deleteButton: false,
   settingsModal: false,
   planningMode: false,
-  dragDropMode: false,
   helpModule: false,
   reloadOnboarding: false
 };
@@ -31,17 +29,17 @@ const useOnboarding = () => {
   };
 
   let localSettings = localStorage.getItem('settings');
-  let parsedSettings: any, isAutoSortingOn: boolean;
+  let parsedSettings: any;
 
   if (localSettings) {
     parsedSettings = JSON.parse(localSettings);
-    isAutoSortingOn = parsedSettings['autoSorting'];
+    // isAutoSortingOn = parsedSettings['autoSorting'];
   }
 
   const initialize = () => {
     if (localStorage.getItem('onboarding') === null) {
       if (localSettings) {
-        dispatch(setSettings({ ...parsedSettings, autoSorting: false }));
+        dispatch(setSettings({ ...parsedSettings }));
       }
 
       localStorage.setItem('onboarding', 'false');
@@ -56,40 +54,27 @@ const useOnboarding = () => {
 
   const finish = () => {
     dispatch(setOnboarding(onboardingInitialState));
-
-    if (localSettings) {
-      if (isAutoSortingOn) {
-        dispatch(setSettings({ ...parsedSettings, autoSorting: true }));
-        localStorage.setItem('settings', JSON.stringify({ ...parsedSettings, autoSorting: true }));
-      } else {
-        dispatch(setSettings({ ...parsedSettings, autoSorting: false }));
-        localStorage.setItem('settings', JSON.stringify({ ...parsedSettings, autoSorting: false }));
-      }
-    } else {
-      dispatch(
-        setSettings({
-          autoTheme: undefined,
-          theme: THEME.light,
-          showDate: true,
-          showCountry: true,
-          showTimezone: false,
-          timeFormat: TIME_FORMAT.H24,
-          autoSorting: true
-        })
-      );
-      localStorage.setItem(
-        'settings',
-        JSON.stringify({
-          autoTheme: undefined,
-          theme: THEME.light,
-          showDate: true,
-          showCountry: true,
-          showTimezone: false,
-          timeFormat: TIME_FORMAT.H24,
-          autoSorting: true
-        })
-      );
-    }
+    dispatch(
+      setSettings({
+        autoTheme: undefined,
+        theme: THEME.light,
+        showDate: true,
+        showCountry: true,
+        showTimezone: false,
+        timeFormat: TIME_FORMAT.H24
+      })
+    );
+    localStorage.setItem(
+      'settings',
+      JSON.stringify({
+        autoTheme: undefined,
+        theme: THEME.light,
+        showDate: true,
+        showCountry: true,
+        showTimezone: false,
+        timeFormat: TIME_FORMAT.H24
+      })
+    );
   };
 
   return {

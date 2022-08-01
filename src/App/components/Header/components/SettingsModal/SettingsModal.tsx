@@ -30,8 +30,9 @@ const SettingsModal: React.FC = () => {
 
   const [isModalOpen, setModal] = useState(false);
 
-  const { autoTheme, theme, showDate, showCountry, showTimezone, timeFormat, autoSorting } =
-    useSelector((state: IInitialState) => state.settings);
+  const { autoTheme, theme, showDate, showCountry, showTimezone, timeFormat } = useSelector(
+    (state: IInitialState) => state.settings
+  );
 
   const { deleteMode, counter, onboarding, planningMode } = useSelector(
     (state: IInitialState) => state
@@ -45,8 +46,7 @@ const SettingsModal: React.FC = () => {
     showDate: true,
     showCountry: true,
     showTimezone: false,
-    timeFormat: TIME_FORMAT.H24,
-    autoSorting: false
+    timeFormat: TIME_FORMAT.H24
   });
 
   useEffect(() => {
@@ -56,10 +56,9 @@ const SettingsModal: React.FC = () => {
       showDate,
       showCountry,
       showTimezone,
-      timeFormat,
-      autoSorting
+      timeFormat
     });
-  }, [autoTheme, theme, showDate, showCountry, showTimezone, isModalOpen, timeFormat, autoSorting]);
+  }, [autoTheme, theme, showDate, showCountry, showTimezone, isModalOpen, timeFormat]);
 
   useEffect(() => {
     const localStorageSettings = localStorage.getItem('settings');
