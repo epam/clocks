@@ -123,9 +123,9 @@
   }
 
   .flagContainer {
-    margin-right: 10px;
-    height: 15px;
-    width: 20px;
+    margin-right: $space-xs;
+    height: $space-s;
+    width: $space-m;
   }
 
   .flagContainer img {
