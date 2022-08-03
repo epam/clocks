@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setOnboarding, setSettings } from '../redux/actions';
 import { IOnboarding } from '../redux/types';
