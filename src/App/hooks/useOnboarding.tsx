@@ -33,7 +33,6 @@ const useOnboarding = () => {
 
   if (localSettings) {
     parsedSettings = JSON.parse(localSettings);
-    // isAutoSortingOn = parsedSettings['autoSorting'];
   }
 
   const initialize = () => {

@@ -15,13 +15,7 @@ import CommentButton from './components/CommentButton/CommentButton';
 import PinButton from './components/PinButton/PinButton';
 import TimeInfo from './components/TimeInfo/TimeInfo';
 
-const LocationBlock: React.FC<ILocationBlockProps> = ({
-  location,
-  urlUserLocation,
-  selectedLocation,
-  setSelectedLocation,
-  index
-}) => {
+const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
   const { showCountry } = useSelector((state: IInitialState) => state.settings);

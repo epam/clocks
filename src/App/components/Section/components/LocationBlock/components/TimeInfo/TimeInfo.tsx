@@ -31,7 +31,6 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
 
   useEffect(() => {
     setTime(timeInfo);
-    // don't need as a dependency timeInfo
     // eslint-disable-next-line
   }, [
     counter,

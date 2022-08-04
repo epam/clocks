@@ -52,7 +52,6 @@ const CommentButton: React.FC<ICommentButtonProps> = ({ location, index }) => {
     if (location && locations[location.city + location.lat].comment) {
       setInputText(locations[location.city + location.lat].comment || '');
     }
-    // use it only when component mount
     // eslint-disable-next-line
   }, [location]);
 
