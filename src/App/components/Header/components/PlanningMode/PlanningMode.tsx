@@ -9,12 +9,11 @@ import HistoryIcon from '@mui/icons-material/History';
 import useTheme from '../../../../hooks/useTheme';
 import { IInitialState } from '../../../../redux/types';
 import { setPlanningMode } from '../../../../redux/actions';
+import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 import { TSliderType } from './PlanningMode.types';
 import { SLIDER_TYPE } from './PlannigMode.constants';
 import style from './PlanningMode.module.scss';
-
-import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 const PlanningMode: React.FC = () => {
   const anchorRef = useRef(null);
@@ -114,7 +113,7 @@ const PlanningMode: React.FC = () => {
         <Onboarding
           open={onboarding.planningMode}
           anchorElement={anchorRef.current}
-          nextElement={window.innerWidth < 600 ? 'myLocation' : 'dragDropMode'}
+          nextElement={'myLocation'}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
           title={t('Onboarding.PlanningModeTitle')}

@@ -30,10 +30,11 @@ const SettingsModal: React.FC = () => {
 
   const [isModalOpen, setModal] = useState(false);
 
-  const { autoTheme, theme, showDate, showCountry, showTimezone, timeFormat, autoSorting } =
-    useSelector((state: IInitialState) => state.settings);
+  const { autoTheme, theme, showDate, showCountry, showTimezone, timeFormat } = useSelector(
+    (state: IInitialState) => state.settings
+  );
 
-  const { deleteMode, counter, onboarding, dragDropMode, planningMode } = useSelector(
+  const { deleteMode, counter, onboarding, planningMode } = useSelector(
     (state: IInitialState) => state
   );
 
@@ -45,8 +46,7 @@ const SettingsModal: React.FC = () => {
     showDate: true,
     showCountry: true,
     showTimezone: false,
-    timeFormat: TIME_FORMAT.H24,
-    autoSorting: false
+    timeFormat: TIME_FORMAT.H24
   });
 
   useEffect(() => {
@@ -56,10 +56,9 @@ const SettingsModal: React.FC = () => {
       showDate,
       showCountry,
       showTimezone,
-      timeFormat,
-      autoSorting
+      timeFormat
     });
-  }, [autoTheme, theme, showDate, showCountry, showTimezone, isModalOpen, timeFormat, autoSorting]);
+  }, [autoTheme, theme, showDate, showCountry, showTimezone, isModalOpen, timeFormat]);
 
   useEffect(() => {
     const localStorageSettings = localStorage.getItem('settings');
@@ -101,9 +100,6 @@ const SettingsModal: React.FC = () => {
         case SETTING_VALUE.auto:
           setLocalSettings({ ...localSettings, autoTheme: !localSettings.autoTheme });
           break;
-        case SETTING_VALUE.autoSorting:
-          setLocalSettings({ ...localSettings, autoSorting: !localSettings.autoSorting });
-          break;
         case SETTING_VALUE.H24:
           setLocalSettings({ ...localSettings, timeFormat: value });
           break;
@@ -129,10 +125,7 @@ const SettingsModal: React.FC = () => {
   };
 
   const tooltipText = useMemo((): string => t('Settings.ButtonTooltip'), [t]);
-  const disabled = useMemo(
-    () => deleteMode.isOn || dragDropMode.isOn || planningMode.isOn,
-    [deleteMode, planningMode, dragDropMode]
-  );
+  const disabled = useMemo(() => deleteMode.isOn || planningMode.isOn, [deleteMode, planningMode]);
 
   return (
     <>

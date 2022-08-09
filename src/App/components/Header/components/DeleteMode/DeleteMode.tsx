@@ -22,9 +22,7 @@ const DeleteMode: React.FC = () => {
 
   const dispatch = useDispatch();
 
-  const { deleteMode, onboarding, dragDropMode, planningMode } = useSelector(
-    (state: IInitialState) => state
-  );
+  const { deleteMode, onboarding, planningMode } = useSelector((state: IInitialState) => state);
 
   const { locations } = useLocations();
 
@@ -43,16 +41,12 @@ const DeleteMode: React.FC = () => {
   return (
     <>
       <Tooltip title={tooltipText} arrow>
-        <IconButton
-          ref={anchorRef}
-          onClick={handleSetDeleteMode}
-          disabled={dragDropMode.isOn || planningMode.isOn}
-        >
+        <IconButton ref={anchorRef} onClick={handleSetDeleteMode} disabled={planningMode.isOn}>
           <DeleteOutline
             className={clsx({
               [iconTheme]: true,
               [style.redIcon]: deleteMode.isOn,
-              [style.disabledIcon]: dragDropMode.isOn || planningMode.isOn
+              [style.disabledIcon]: planningMode.isOn
             })}
           />
         </IconButton>

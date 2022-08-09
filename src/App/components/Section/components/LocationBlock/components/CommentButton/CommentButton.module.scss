@@ -1,0 +1,69 @@
+@import '../../../../../../styles/index.scss';
+
+%commentModal {
+  width: 500px;
+  padding: $space-s;
+
+  .modalTitle {
+    font-family: roboto-bold;
+    font-size: $fs20;
+    margin-bottom: $space-l;
+  }
+
+  .input {
+    width: 100%;
+    border: 1px solid $blueColor;
+    border-radius: $space-xxs;
+    height: calc($space-l + $space-l);
+    padding: $space-s;
+    font-size: $fs14;
+    transition: 0.2s;
+
+    &:focus {
+      outline: 1.5px solid $blueColor;
+    }
+
+    &::placeholder {
+      color: $grayColor;
+    }
+  }
+
+  .buttonContainer {
+    margin-top: $space-s;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .button {
+      color: $blueColor;
+    }
+  }
+
+  @include screenMax600 {
+    width: 250px;
+  }
+}
+
+.lightCommentModal {
+  @extend %commentModal;
+
+  background-color: $lightColor;
+  color: $darkColor;
+
+  .input {
+    background-color: $lightColor;
+    color: $darkColor;
+  }
+}
+
+.darkCommentModal {
+  @extend %commentModal;
+
+  background-color: $darkColor;
+  color: $lightColor;
+
+  .input {
+    background-color: $darkColor;
+    color: $lightColor;
+  }
+}
