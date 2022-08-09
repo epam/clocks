@@ -16,6 +16,7 @@ import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 import style from './SettingsModal.module.scss';
 import { SETTING_VALUE } from './SettingsModal.constants';
 import DisplayBlock from './components/DisplayBlock/DisplayBlock';
+import TimezoneBlock from './components/TimezoneBlock/TimezoneBlock';
 import HoursSortingBlock from './components/HoursSortingBlock/HoursSortingBlock';
 import ThemeBlock from './components/ThemeBlock/ThemeBlock';
 
