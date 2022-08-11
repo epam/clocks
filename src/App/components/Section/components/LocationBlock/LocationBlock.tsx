@@ -11,14 +11,15 @@ import useTimeInfo from '../../../../hooks/useTimeInfo';
 import useLocations from '../../../../hooks/useLocations';
 import { setUserLocation } from '../../../../redux/actions';
 import { IInitialState, IUrlLocation } from '../../../../redux/types';
-
-import style from './LocationBlock.module.scss';
-import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
-import Onboarding from '../Onboarding/Onboarding';
-
 import addClassName from '../../../../utils/addClassName';
 import removeClassName from '../../../../utils/removeClassName';
 import generateLocationKey from '../../../../utils/generateLocationKey';
+import countryToAbbreviationTimezone from '../../../../utils/countryToAbbreviationTimezone';
+import { TIMEZONE } from '../../../../redux/constants';
+import Onboarding from '../Onboarding/Onboarding';
+
+import style from './LocationBlock.module.scss';
+import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({
   location,
@@ -176,6 +177,18 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
   );
   const commentTooltipText = useMemo((): string => t('LocationBlock.TooltipComment'), [t]);
 
+  function displayTimezone(showTimezone: string) {
+    if (showTimezone === TIMEZONE.disableTimezone) {
+      return;
+    } else if (showTimezone === TIMEZONE.abbreviationTimezone) {
+      return countryToAbbreviationTimezone(location?.timezone);
+    } else if (showTimezone === TIMEZONE.countryTimezone) {
+      return location?.timezone;
+    } else if (showTimezone === TIMEZONE.abbreviationAndCountryTimezone) {
+      return `${countryToAbbreviationTimezone(location?.timezone)} ${location?.timezone}`;
+    }
+  }
+
   return (
     <div className={style.relativeBlock}>
       <div
@@ -270,7 +283,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({
               </div>
               <div className={style.bottomInfo}>
                 <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
-                <div className={style.timezone}>{showTimezone && time.timezone}</div>
+                <div className={style.timezone}>{displayTimezone(showTimezone)}</div>
               </div>
             </div>
           </div>

@@ -1,22 +1,25 @@
-import { TIME_FORMAT } from '../../../../redux/constants';
+import { TIME_FORMAT, TIMEZONE } from '../../../../redux/constants';
 
 export const SETTING_VALUE = {
   date: 'date',
   country: 'country',
   auto: 'auto',
   autoSorting: 'autoSorting',
-  timezone: 'timezone',
+  ...TIMEZONE,
   ...TIME_FORMAT
 };
 
 export const INPUT_IDS = {
   showDate: 'showDate',
   showCountryName: 'showCountryName',
-  showTimeZone: 'showTimeZone',
   hourFormat24: 'hourFormat24',
   hourFormat12: 'hourFormat12',
   autoSorting: 'autoSorting',
   autoTheming: 'autoTheming',
   lightTheme: 'lightTheme',
-  darkTheme: 'darkTheme'
+  darkTheme: 'darkTheme',
+  disableTimezone: 'disableTimezone',
+  abbreviationTimezone: 'abbreviationTimezone',
+  countryTimezone: 'countryTimezone',
+  abbreviationAndCountryTimezone: 'abbreviationAndCountryTimezone'
 };

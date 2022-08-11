@@ -17,7 +17,7 @@ export interface IInitialState {
     autoTheme?: boolean;
     showDate: boolean;
     showCountry: boolean;
-    showTimezone: boolean;
+    showTimezone: string;
     timeFormat: string;
     autoSorting: boolean;
   };
@@ -44,7 +44,7 @@ export interface IActionSettingsPayload {
   autoTheme?: boolean;
   showDate: boolean;
   showCountry: boolean;
-  showTimezone: boolean;
+  showTimezone: string;
   timeFormat: string;
   autoSorting: boolean;
 }

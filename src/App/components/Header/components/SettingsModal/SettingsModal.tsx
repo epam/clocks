@@ -9,7 +9,7 @@ import { SettingsOutlined } from '@mui/icons-material';
 import useTheme from '../../../../hooks/useTheme';
 import useAutoTheme from '../../../../hooks/useAutoTheme';
 import { IInitialState, IActionSettingsPayload } from '../../../../redux/types';
-import { THEME, TIME_FORMAT } from '../../../../redux/constants';
+import { THEME, TIME_FORMAT, TIMEZONE } from '../../../../redux/constants';
 import { setSettings } from '../../../../redux/actions';
 import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
@@ -45,7 +45,7 @@ const SettingsModal: React.FC = () => {
     theme: THEME.light,
     showDate: true,
     showCountry: true,
-    showTimezone: false,
+    showTimezone: TIMEZONE.disableTimezone,
     timeFormat: TIME_FORMAT.H24,
     autoSorting: false
   });
@@ -96,8 +96,17 @@ const SettingsModal: React.FC = () => {
         case SETTING_VALUE.country:
           setLocalSettings({ ...localSettings, showCountry: !localSettings.showCountry });
           break;
-        case SETTING_VALUE.timezone:
-          setLocalSettings({ ...localSettings, showTimezone: !localSettings.showTimezone });
+        case SETTING_VALUE.disableTimezone:
+          setLocalSettings({ ...localSettings, showTimezone: value });
+          break;
+        case SETTING_VALUE.abbreviationTimezone:
+          setLocalSettings({ ...localSettings, showTimezone: value });
+          break;
+        case SETTING_VALUE.countryTimezone:
+          setLocalSettings({ ...localSettings, showTimezone: value });
+          break;
+        case SETTING_VALUE.abbreviationAndCountryTimezone:
+          setLocalSettings({ ...localSettings, showTimezone: value });
           break;
         case SETTING_VALUE.auto:
           setLocalSettings({ ...localSettings, autoTheme: !localSettings.autoTheme });
@@ -149,6 +158,10 @@ const SettingsModal: React.FC = () => {
         <div className={bodyTheme}>
           <div className={style.modalTitle}>{t('Settings.ModalTitle')}</div>
           <DisplayBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
+          <Divider
+            className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
+          />
+          <TimezoneBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
           <Divider
             className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
           />

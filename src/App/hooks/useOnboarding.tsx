@@ -1,8 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { setOnboarding, setSettings } from '../redux/actions';
 import { IOnboarding } from '../redux/types';
-
-import { THEME, TIME_FORMAT } from '../redux/constants';
+import { THEME, TIMEZONE, TIME_FORMAT } from '../redux/constants';
 
 const onboardingInitialState: IOnboarding = {
   addCity: false,
@@ -71,7 +70,7 @@ const useOnboarding = () => {
           theme: THEME.light,
           showDate: true,
           showCountry: true,
-          showTimezone: false,
+          showTimezone: TIMEZONE.disableTimezone,
           timeFormat: TIME_FORMAT.H24,
           autoSorting: true
         })
@@ -83,7 +82,7 @@ const useOnboarding = () => {
           theme: THEME.light,
           showDate: true,
           showCountry: true,
-          showTimezone: false,
+          showTimezone: TIMEZONE.disableTimezone,
           timeFormat: TIME_FORMAT.H24,
           autoSorting: true
         })
