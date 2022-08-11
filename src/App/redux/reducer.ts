@@ -12,16 +12,12 @@ const initialState: IInitialState = {
   deleteMode: {
     isOn: false
   },
-  dragDropMode: {
-    isOn: false
-  },
   settings: {
     theme: THEME.light,
     autoTheme: undefined,
     showDate: true,
     showCountry: true,
     timeFormat: TIME_FORMAT.H24,
-    autoSorting: false,
     showTimezone: TIMEZONE.disableTimezone
   },
   snackbar: {
@@ -51,13 +47,6 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
       return {
         ...state,
         deleteMode: {
-          isOn: action.payload
-        }
-      };
-    case ACTION_TYPE.setDragDropMode:
-      return {
-        ...state,
-        dragDropMode: {
           isOn: action.payload
         }
       };

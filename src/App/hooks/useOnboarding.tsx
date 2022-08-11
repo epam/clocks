@@ -11,7 +11,6 @@ const onboardingInitialState: IOnboarding = {
   deleteButton: false,
   settingsModal: false,
   planningMode: false,
-  dragDropMode: false,
   helpModule: false,
   reloadOnboarding: false
 };
@@ -29,19 +28,14 @@ const useOnboarding = () => {
   };
 
   let localSettings = localStorage.getItem('settings');
-  let parsedSettings: any, isAutoSortingOn: boolean;
+  let parsedSettings: any;
 
   if (localSettings) {
     parsedSettings = JSON.parse(localSettings);
-    isAutoSortingOn = parsedSettings['autoSorting'];
   }
 
   const initialize = () => {
     if (localStorage.getItem('onboarding') === null) {
-      if (localSettings) {
-        dispatch(setSettings({ ...parsedSettings, autoSorting: false }));
-      }
-
       localStorage.setItem('onboarding', 'false');
       dispatch(
         setOnboarding({
@@ -54,15 +48,9 @@ const useOnboarding = () => {
 
   const finish = () => {
     dispatch(setOnboarding(onboardingInitialState));
-
-    if (localSettings) {
-      if (isAutoSortingOn) {
-        dispatch(setSettings({ ...parsedSettings, autoSorting: true }));
-        localStorage.setItem('settings', JSON.stringify({ ...parsedSettings, autoSorting: true }));
-      } else {
-        dispatch(setSettings({ ...parsedSettings, autoSorting: false }));
-        localStorage.setItem('settings', JSON.stringify({ ...parsedSettings, autoSorting: false }));
-      }
+    if (parsedSettings) {
+      dispatch(setSettings(parsedSettings));
+      localStorage.setItem('settings', JSON.stringify(parsedSettings));
     } else {
       dispatch(
         setSettings({
@@ -71,8 +59,7 @@ const useOnboarding = () => {
           showDate: true,
           showCountry: true,
           showTimezone: TIMEZONE.disableTimezone,
-          timeFormat: TIME_FORMAT.H24,
-          autoSorting: true
+          timeFormat: TIME_FORMAT.H24
         })
       );
       localStorage.setItem(
@@ -83,8 +70,7 @@ const useOnboarding = () => {
           showDate: true,
           showCountry: true,
           showTimezone: TIMEZONE.disableTimezone,
-          timeFormat: TIME_FORMAT.H24,
-          autoSorting: true
+          timeFormat: TIME_FORMAT.H24
         })
       );
     }

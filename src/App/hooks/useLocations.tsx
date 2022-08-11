@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next';
 
 import useSnackbar from './useSnackbar';
 import { IUrlLocations, IUrlLocation, ILocation, IInitialState } from '../redux/types';
-import generateLocationKey from '../utils/generateLocationKey';
 
 const useLocations = () => {
   const [error, setError] = useState(false);
@@ -61,32 +60,6 @@ const useLocations = () => {
     return found;
   };
 
-  const dragAndDropLocation = (draggedLocation: ILocation, droppedBlockLocation: ILocation) => {
-    const locationObj: IUrlLocation = {
-      city: draggedLocation.city,
-      lat: draggedLocation.lat,
-      offset: getLocationOffset(draggedLocation.timezone)
-    };
-
-    const selectedLocationKey: string = generateLocationKey(draggedLocation);
-    const currentLocationKey: string = generateLocationKey(droppedBlockLocation);
-
-    const newLocations = Object.entries(locations).reduce(
-      (newLocations: IUrlLocations, [key, item]) => {
-        if (key !== selectedLocationKey) {
-          newLocations[`${key}`] = item;
-        }
-        if (key === currentLocationKey) {
-          newLocations[selectedLocationKey] = locationObj;
-        }
-        return newLocations;
-      },
-      {}
-    );
-
-    setLocations(newLocations);
-  };
-
   const getLocationOffset = (timezone: string) => {
     const timeArray: any = new Date().toLocaleString('ja', { timeZone: timezone }).split(/[/\s:]/);
     timeArray.splice(1, 1, --timeArray[1]);
@@ -95,7 +68,7 @@ const useLocations = () => {
     return (t2 - t1) / 60 / 1000;
   };
 
-  return { locations, setLocations, findLocation, getLocationOffset, dragAndDropLocation };
+  return { locations, setLocations, findLocation, getLocationOffset };
 };
 
 export default useLocations;
