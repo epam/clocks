@@ -25,12 +25,24 @@ const useLocations = () => {
 
   const locations = useMemo((): IUrlLocations => {
     try {
-      return urlLocations && JSON.parse(decodeURIComponent(escape(window.atob(urlLocations))));
+      if (localStorage.getItem('locations')) {
+        return JSON.parse(
+          decodeURIComponent(escape(window.atob(localStorage.getItem('locations') as string)))
+        );
+      } else {
+        return urlLocations && JSON.parse(decodeURIComponent(escape(window.atob(urlLocations))));
+      }
     } catch {
       setError(true);
       return {} as IUrlLocations;
     }
   }, [urlLocations]);
+
+  useEffect(() => {
+    if (localStorage.getItem('locations')) {
+      setSearchParams({ locations: localStorage.getItem('locations') as string });
+    }
+  }, []);
 
   useEffect(() => {
     if (error) {
@@ -44,6 +56,10 @@ const useLocations = () => {
 
   const setLocations = (newLocations: IUrlLocations) => {
     if (!!Object.keys(newLocations).length) {
+      localStorage.setItem(
+        'locations',
+        btoa(unescape(encodeURIComponent(JSON.stringify(newLocations))))
+      );
       setSearchParams({
         locations: btoa(unescape(encodeURIComponent(JSON.stringify(newLocations))))
       });
