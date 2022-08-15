@@ -9,7 +9,6 @@ import useTheme from '../../hooks/useTheme';
 import HelpModule from './components/HelpModule/HelpModule';
 import ReloadOnboarding from './components/ReloadOnboarding/ReloadOnboarding';
 import style from './Footer.module.scss';
-import { VERSION } from './Footer.constants';
 
 const Footer: React.FC = () => {
   const { t } = useTranslation();
@@ -54,7 +53,6 @@ const Footer: React.FC = () => {
             values={{ date: new Date().getFullYear() }}
             components={{ br: <br /> }}
           />
-          <div>{VERSION}</div>
         </div>
         <div className={style.iconContainer}>
           <div

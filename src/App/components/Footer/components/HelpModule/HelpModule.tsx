@@ -9,6 +9,7 @@ import HelpIcon from '@mui/icons-material/Help';
 import useTheme from '../../../../hooks/useTheme';
 import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 import { IInitialState } from '../../../../redux/types';
+import pckg from '../../../../../../package.json';
 
 import style from './HelpModule.module.scss';
 
@@ -24,7 +25,7 @@ const HelpModule = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
-  const tooltipText = useMemo((): string => t('HelpModule.buttonTooltip'), [t]);
+  const tooltipText = useMemo((): string => t('HelpModule.ButtonTooltip'), [t]);
   return (
     <>
       <Tooltip placement="top" title={tooltipText} arrow>
@@ -35,16 +36,18 @@ const HelpModule = () => {
 
       <Dialog open={open} onClose={handleClose}>
         <div className={bodyTheme}>
-          <div className={style.modalTitle}>{t('HelpModule.headerText')}</div>
+          <div className={style.modalTitle}>{t('HelpModule.HeaderText')}</div>
 
-          <p>{t('HelpModule.headerInfo')}</p>
+          <p>{t('HelpModule.HeaderInfo')}</p>
 
           <Trans
             t={t}
-            i18nKey="HelpModule.info"
+            i18nKey="HelpModule.Info"
             components={{ li: <li />, ul: <ul />, p: <p /> }}
           />
-
+          <div className={style.versionContainer}>
+            <Trans t={t} i18nKey="HelpModule.Version" values={{ version: pckg.version }} />
+          </div>
           <div className={style.buttonContainer}>
             <Button className={style.button} onClick={handleClose}>
               {t('Settings.CancelButton')}
