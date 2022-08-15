@@ -23,24 +23,28 @@ const useLocations = () => {
 
   const { t } = useTranslation();
 
+  let parsedLocations = localStorage.getItem('locations') as string;
+
   const locations = useMemo((): IUrlLocations => {
     try {
-      if (localStorage.getItem('locations')) {
-        return JSON.parse(
-          decodeURIComponent(escape(window.atob(localStorage.getItem('locations') as string)))
-        );
+      if (urlLocations) {
+        localStorage.setItem('locations', urlLocations);
+        return JSON.parse(decodeURIComponent(escape(window.atob(urlLocations))));
+      } else if (parsedLocations) {
+        setSearchParams({ locations: parsedLocations });
+        return JSON.parse(decodeURIComponent(escape(window.atob(parsedLocations))));
       } else {
-        return urlLocations && JSON.parse(decodeURIComponent(escape(window.atob(urlLocations))));
+        return {} as IUrlLocations;
       }
     } catch {
       setError(true);
       return {} as IUrlLocations;
     }
-  }, [urlLocations]);
+  }, [urlLocations, setSearchParams, parsedLocations]);
 
   useEffect(() => {
-    if (localStorage.getItem('locations')) {
-      setSearchParams({ locations: localStorage.getItem('locations') as string });
+    if (parsedLocations) {
+      setSearchParams({ locations: parsedLocations });
     }
   }, []);
 
