@@ -44,14 +44,17 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
   ]);
 
   const displayTimezone = (showTimezone: string) => {
-    if (showTimezone === TIMEZONE.disableTimezone) {
-      return;
-    } else if (showTimezone === TIMEZONE.abbreviationTimezone) {
-      return countryToAbbreviationTimezone(time.timezone);
-    } else if (showTimezone === TIMEZONE.countryTimezone) {
-      return time.timezone;
-    } else if (showTimezone === TIMEZONE.abbreviationAndCountryTimezone) {
-      return `${countryToAbbreviationTimezone(time.timezone)} ${time.timezone}`;
+    switch (showTimezone) {
+      case TIMEZONE.disableTimezone:
+        return;
+      case TIMEZONE.abbreviationTimezone:
+        return countryToAbbreviationTimezone(time.timezone);
+      case TIMEZONE.countryTimezone:
+        return time.timezone;
+      case TIMEZONE.abbreviationAndCountryTimezone:
+        return `${countryToAbbreviationTimezone(time.timezone)} ${time.timezone}`;
+      default:
+        return;
     }
   };
 
