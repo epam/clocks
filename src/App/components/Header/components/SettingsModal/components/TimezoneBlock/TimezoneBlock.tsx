@@ -15,28 +15,25 @@ const TimezoneBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSetting
     <>
       <RadioGroup value={localSettings.showTimezone} onChange={handleSetSettings}>
         <div>
-          <Radio id={INPUT_IDS.disableTimezone} value={TIMEZONE.disableTimezone} />
+          <Radio id={INPUT_IDS.disableTimezone} value={TIMEZONE.disabled} />
           <label className={style.cursorPointer} htmlFor={INPUT_IDS.disableTimezone}>
             {t('Settings.DisableTimezone')}
           </label>
         </div>
         <div>
-          <Radio id={INPUT_IDS.abbreviationTimezone} value={TIMEZONE.abbreviationTimezone} />
+          <Radio id={INPUT_IDS.abbreviationTimezone} value={TIMEZONE.abbrv} />
           <label className={style.cursorPointer} htmlFor={INPUT_IDS.abbreviationTimezone}>
             {t('Settings.AbbrvTimezone')}
           </label>
         </div>
         <div>
-          <Radio id={INPUT_IDS.countryTimezone} value={TIMEZONE.countryTimezone} />
+          <Radio id={INPUT_IDS.countryTimezone} value={TIMEZONE.country} />
           <label className={style.cursorPointer} htmlFor={INPUT_IDS.countryTimezone}>
             {t('Settings.CountryTimezone')}
           </label>
         </div>
         <div>
-          <Radio
-            id={INPUT_IDS.abbreviationAndCountryTimezone}
-            value={TIMEZONE.abbreviationAndCountryTimezone}
-          />
+          <Radio id={INPUT_IDS.abbreviationAndCountryTimezone} value={TIMEZONE.abbrvCountry} />
           <label className={style.cursorPointer} htmlFor={INPUT_IDS.abbreviationAndCountryTimezone}>
             {t('Settings.AbbrvAndCountryTimezone')}
           </label>

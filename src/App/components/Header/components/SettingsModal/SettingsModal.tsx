@@ -46,7 +46,7 @@ const SettingsModal: React.FC = () => {
     theme: THEME.light,
     showDate: true,
     showCountry: true,
-    showTimezone: TIMEZONE.disableTimezone,
+    showTimezone: TIMEZONE.disabled,
     timeFormat: TIME_FORMAT.H24
   });
 
@@ -95,16 +95,16 @@ const SettingsModal: React.FC = () => {
         case SETTING_VALUE.country:
           setLocalSettings({ ...localSettings, showCountry: !localSettings.showCountry });
           break;
-        case TIMEZONE.disableTimezone:
+        case TIMEZONE.disabled:
           setLocalSettings({ ...localSettings, showTimezone: value });
           break;
-        case TIMEZONE.abbreviationTimezone:
+        case TIMEZONE.abbrv:
           setLocalSettings({ ...localSettings, showTimezone: value });
           break;
-        case TIMEZONE.countryTimezone:
+        case TIMEZONE.country:
           setLocalSettings({ ...localSettings, showTimezone: value });
           break;
-        case TIMEZONE.abbreviationAndCountryTimezone:
+        case TIMEZONE.abbrvCountry:
           setLocalSettings({ ...localSettings, showTimezone: value });
           break;
         case SETTING_VALUE.auto:

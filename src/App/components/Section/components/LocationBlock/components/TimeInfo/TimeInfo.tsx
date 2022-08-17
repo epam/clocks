@@ -45,13 +45,13 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
 
   const displayTimezone = (showTimezone: string) => {
     switch (showTimezone) {
-      case TIMEZONE.disableTimezone:
+      case TIMEZONE.disabled:
         return;
-      case TIMEZONE.abbreviationTimezone:
+      case TIMEZONE.abbrv:
         return countryToAbbreviationTimezone(time.timezone);
-      case TIMEZONE.countryTimezone:
+      case TIMEZONE.country:
         return time.timezone;
-      case TIMEZONE.abbreviationAndCountryTimezone:
+      case TIMEZONE.abbrvCountry:
         return `${countryToAbbreviationTimezone(time.timezone)} ${time.timezone}`;
       default:
         return;

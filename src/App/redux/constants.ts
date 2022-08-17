@@ -20,8 +20,8 @@ export const TIME_FORMAT = {
 };
 
 export const TIMEZONE = {
-  disableTimezone: 'disableTimezone',
-  abbreviationTimezone: 'abbreviationTimezone',
-  countryTimezone: 'countryTimezone',
-  abbreviationAndCountryTimezone: 'abbreviationAndCountryTimezone'
+  disabled: 'disableTimezone',
+  abbrv: 'abbreviationTimezone',
+  country: 'countryTimezone',
+  abbrvCountry: 'abbreviationAndCountryTimezone'
 };

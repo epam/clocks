@@ -18,7 +18,7 @@ const initialState: IInitialState = {
     showDate: true,
     showCountry: true,
     timeFormat: TIME_FORMAT.H24,
-    showTimezone: TIMEZONE.disableTimezone
+    showTimezone: TIMEZONE.disabled
   },
   snackbar: {
     status: false,

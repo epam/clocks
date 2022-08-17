@@ -58,7 +58,7 @@ const useOnboarding = () => {
           theme: THEME.light,
           showDate: true,
           showCountry: true,
-          showTimezone: TIMEZONE.disableTimezone,
+          showTimezone: TIMEZONE.disabled,
           timeFormat: TIME_FORMAT.H24
         })
       );
@@ -69,7 +69,7 @@ const useOnboarding = () => {
           theme: THEME.light,
           showDate: true,
           showCountry: true,
-          showTimezone: TIMEZONE.disableTimezone,
+          showTimezone: TIMEZONE.disabled,
           timeFormat: TIME_FORMAT.H24
         })
       );
