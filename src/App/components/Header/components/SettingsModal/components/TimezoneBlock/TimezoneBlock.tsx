@@ -23,7 +23,7 @@ const TimezoneBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSetting
         <div>
           <Radio id={INPUT_IDS.abbreviationTimezone} value={TIMEZONE.abbreviationTimezone} />
           <label className={style.cursorPointer} htmlFor={INPUT_IDS.abbreviationTimezone}>
-            {t('Settings.AbbreviationTimezone')}
+            {t('Settings.AbbrvTimezone')}
           </label>
         </div>
         <div>
@@ -38,7 +38,7 @@ const TimezoneBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSetting
             value={TIMEZONE.abbreviationAndCountryTimezone}
           />
           <label className={style.cursorPointer} htmlFor={INPUT_IDS.abbreviationAndCountryTimezone}>
-            {t('Settings.AbbreviationAndCountryTimezone')}
+            {t('Settings.AbbrvAndCountryTimezone')}
           </label>
         </div>
       </RadioGroup>
