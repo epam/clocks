@@ -7,7 +7,7 @@ import useTimeInfo from '../../../../../../hooks/useTimeInfo';
 import { IInitialState } from '../../../../../../redux/types';
 import { ITimeState } from '../../LocationBlock.types';
 import { TIMEZONE } from '../../../../../../redux/constants';
-import countryToAbbreviationTimezone from '../../../../../../utils/countryToAbbreviationTimezone';
+import useCountryToAbbreviation from '../../../../../../hooks/useCountryToAbbreviation';
 
 import style from './TimeInfo.module.scss';
 import { ITimeInfoProps } from './TimeInfo.types';
@@ -22,6 +22,7 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
     timezone: ''
   });
 
+  const abbreviation = useCountryToAbbreviation(time.timezone);
   const timeInfo = useTimeInfo(location);
   const { locations } = useLocations();
 
@@ -48,11 +49,11 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
       case TIMEZONE.disabled:
         return;
       case TIMEZONE.abbrv:
-        return countryToAbbreviationTimezone(time.timezone);
+        return abbreviation;
       case TIMEZONE.country:
         return time.timezone;
       case TIMEZONE.abbrvCountry:
-        return `${countryToAbbreviationTimezone(time.timezone)} ${time.timezone}`;
+        return `${abbreviation} ${time.timezone}`;
       default:
         return;
     }

@@ -1,6 +1,6 @@
 import { timezonesDB } from '../redux/timezonesDB';
 
-export default function countryToAbbreviationTimezone(countryTimezone: string | undefined) {
+const useCountryToAbbreviation = (countryTimezone: string | undefined) => {
   let foundTimezone: any;
   if (countryTimezone) {
     foundTimezone = timezonesDB.timezones.find(timezone => {
@@ -13,4 +13,6 @@ export default function countryToAbbreviationTimezone(countryTimezone: string | 
   } else {
     return '';
   }
-}
+};
+
+export default useCountryToAbbreviation;
