@@ -8,6 +8,7 @@ import useSnackbar from '../../../../../../hooks/useSnackbar';
 import { ILocation, IUrlLocations, IUrlLocation } from '../../../../../../redux/types';
 import useLocations from '../../../../../../hooks/useLocations';
 import useTheme from '../../../../../../hooks/useTheme';
+import useFlag from '../../../../../../hooks/useFlag/useFlag';
 
 import { KEYBOARD } from '../../AddLocation.constants';
 
@@ -26,6 +27,7 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
   const inputTheme = useTheme(style.lightInput, style.darkInput);
   const foundLocationTheme = useTheme(style.lightFoundLocation, style.darkFoundLocation);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
+  const flag = useFlag();
 
   const { t } = useTranslation();
 
@@ -111,13 +113,17 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
                 className={foundLocationTheme}
                 onClick={() => handleSelectLocation(location)}
               >
-                <div className={style.title}>{location.city}</div>
-                <div className={style.zone}>
-                  {location.country}
-                  {!!location.province && ','} {location.province}
+                <div className={style.foundLocationDetailsContainer}>
+                  <div className={style.flagContainer}>{flag(location.iso2)}</div>
+                  <div>
+                    <div className={style.title}>{location.city}</div>
+                    <div className={style.zone}>
+                      {location.country}
+                      {!!location.province && ','} {location.province}
+                    </div>
+                    <div className={style.timezone}>{location.timezone}</div>
+                  </div>
                 </div>
-
-                <div className={style.timezone}>{location.timezone}</div>
               </MenuItem>
             ))
           ) : (

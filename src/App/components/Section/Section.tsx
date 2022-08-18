@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import useLocations from '../../hooks/useLocations';
-import { IInitialState, IUrlLocations, IUrlLocation, ILocation } from '../../redux/types';
+import { IInitialState, IUrlLocations, IUrlLocation } from '../../redux/types';
 import { setUserLocation, setCounter } from '../../redux/actions';
 import clsx from 'clsx';
 
@@ -11,10 +11,8 @@ import LocationBlock from './components/LocationBlock/LocationBlock';
 import EmptyState from './components/EmptyState/EmptyState';
 
 const Section: React.FC = () => {
-  const [selectedLocation, setSelectedLocation] = useState<ILocation | null>(null);
-  const { counter, dragDropMode } = useSelector((state: IInitialState) => state);
+  const { counter } = useSelector((state: IInitialState) => state);
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
-  const { autoSorting } = useSelector((state: IInitialState) => state.settings);
 
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
 
@@ -65,15 +63,7 @@ const Section: React.FC = () => {
 
   const locationsRender = useMemo(() => {
     if (locations) {
-      const sortFoo = (a: IUrlLocation, b: IUrlLocation) => {
-        if (a.offset < b.offset) return 1;
-        if (a.offset > b.offset) return -1;
-        return 0;
-      };
-
-      const locationsArray = autoSorting
-        ? Object.values(locations).sort(sortFoo)
-        : Object.values(locations);
+      const locationsArray = Object.values(locations);
 
       return locationsArray.map((urlLocation: IUrlLocation, index: number) => {
         const find = findLocation(urlLocation);
@@ -84,8 +74,6 @@ const Section: React.FC = () => {
             index={index}
             location={find}
             urlUserLocation={urlLocation.userLocation}
-            selectedLocation={selectedLocation}
-            setSelectedLocation={setSelectedLocation}
           />
         );
       });
@@ -94,7 +82,7 @@ const Section: React.FC = () => {
     return <EmptyState />;
     // don't need as a dependency findLocation
     // eslint-disable-next-line
-  }, [locations, selectedLocation, autoSorting, dragDropMode]);
+  }, [locations]);
 
   return (
     <div

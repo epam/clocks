@@ -4,27 +4,6 @@
   background-color: $redColor;
   color: $whiteColor;
 }
-.rightBlock {
-  width: 400px;
-  top: 0;
-  bottom: 0;
-  right: -200px;
-  position: absolute;
-  z-index: 100;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  &.bgGray .innerBlock {
-    width: 2px;
-    height: 60%;
-    background-color: $blueColor;
-  }
-
-  @include screenMax600 {
-    display: none;
-  }
-}
 
 .container {
   margin: $space-s;
@@ -116,31 +95,6 @@
       }
     }
 
-    .rightSide {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-
-      .timeInfo {
-        font-family: roboto-medium;
-        font-size: $fs18;
-        margin-bottom: $space-xxs;
-      }
-
-      .bottomInfo {
-        min-width: 0;
-        color: $grayColor;
-        text-align: end;
-
-        .timezone {
-          width: 10em;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      }
-    }
-
     .topInfo {
       font-family: roboto-medium;
       font-size: $fs18;
@@ -162,16 +116,6 @@
       margin-right: $space-xxs;
     }
   }
-}
-
-.dragDropCursor {
-  cursor: grab;
-}
-
-.dragDropCursor:active {
-  cursor: grabbing;
-  cursor: -moz-grabbing;
-  cursor: -webkit-grabbing;
 }
 
 .hide {
@@ -229,74 +173,6 @@
   }
 }
 
-%commentModal {
-  width: 500px;
-  padding: $space-s;
-
-  .modalTitle {
-    font-family: roboto-bold;
-    font-size: $fs20;
-    margin-bottom: $space-l;
-  }
-
-  .input {
-    width: 100%;
-    border: 1px solid $blueColor;
-    border-radius: 5px;
-    height: 50px;
-    padding: $space-s;
-    font-size: $fs14;
-    transition: 0.2s;
-
-    &:focus {
-      outline: 1.5px solid $blueColor;
-    }
-
-    &::placeholder {
-      color: $grayColor;
-    }
-  }
-
-  .buttonContainer {
-    margin-top: $space-s;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
-    .button {
-      color: $blueColor;
-    }
-  }
-
-  @include screenMax600 {
-    width: 250px;
-  }
-}
-
-.lightCommentModal {
-  @extend %commentModal;
-
-  background-color: $lightColor;
-  color: $darkColor;
-
-  .input {
-    background-color: $lightColor;
-    color: $darkColor;
-  }
-}
-
-.darkCommentModal {
-  @extend %commentModal;
-
-  background-color: $darkColor;
-  color: $lightColor;
-
-  .input {
-    background-color: $darkColor;
-    color: $lightColor;
-  }
-}
-
 .onboarding {
   .opaccityBlock {
     opacity: 1;
@@ -305,16 +181,6 @@
   .moveLeftOrRight {
     left: 0px;
   }
-}
-.relativeBlock {
-  position: relative;
-  background-color: transparent;
-  box-shadow: none;
-  overflow: hidden;
-}
-
-.behind {
-  z-index: -1;
 }
 
 .marginRight {

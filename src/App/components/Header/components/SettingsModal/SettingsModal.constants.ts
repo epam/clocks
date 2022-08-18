@@ -4,7 +4,6 @@ export const SETTING_VALUE = {
   date: 'date',
   country: 'country',
   auto: 'auto',
-  autoSorting: 'autoSorting',
   timezone: 'timezone',
   ...TIME_FORMAT
 };
@@ -15,7 +14,6 @@ export const INPUT_IDS = {
   showTimeZone: 'showTimeZone',
   hourFormat24: 'hourFormat24',
   hourFormat12: 'hourFormat12',
-  autoSorting: 'autoSorting',
   autoTheming: 'autoTheming',
   lightTheme: 'lightTheme',
   darkTheme: 'darkTheme'
