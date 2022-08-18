@@ -15,6 +15,7 @@ const useLocations = () => {
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const urlLocations = searchParams.get('locations');
+  const savedLocation = localStorage.getItem('locations');
 
   const navigate = useNavigate();
 
@@ -22,30 +23,18 @@ const useLocations = () => {
 
   const { t } = useTranslation();
 
-  let parsedLocations = localStorage.getItem('locations') as string;
-
   const locations = useMemo((): IUrlLocations => {
     try {
-      if (urlLocations) {
-        localStorage.setItem('locations', urlLocations);
-        return JSON.parse(decodeURIComponent(escape(window.atob(urlLocations))));
-      } else if (parsedLocations) {
-        setSearchParams({ locations: parsedLocations });
-        return JSON.parse(decodeURIComponent(escape(window.atob(parsedLocations))));
-      } else {
-        return {} as IUrlLocations;
+      if (!urlLocations && savedLocation) {
+        return JSON.parse(decodeURIComponent(escape(window.atob(savedLocation))));
       }
+
+      return urlLocations && JSON.parse(decodeURIComponent(escape(window.atob(urlLocations))));
     } catch {
       setError(true);
       return {} as IUrlLocations;
     }
-  }, [urlLocations, setSearchParams, parsedLocations]);
-
-  useEffect(() => {
-    if (parsedLocations) {
-      setSearchParams({ locations: parsedLocations });
-    }
-  }, []);
+  }, [urlLocations, savedLocation]);
 
   useEffect(() => {
     if (error) {
@@ -59,15 +48,15 @@ const useLocations = () => {
 
   const setLocations = (newLocations: IUrlLocations) => {
     if (!!Object.keys(newLocations).length) {
-      localStorage.setItem(
-        'locations',
-        btoa(unescape(encodeURIComponent(JSON.stringify(newLocations))))
-      );
+      const encodedNewLocation = btoa(unescape(encodeURIComponent(JSON.stringify(newLocations))));
+
+      localStorage.setItem('locations', encodedNewLocation);
       setSearchParams({
-        locations: btoa(unescape(encodeURIComponent(JSON.stringify(newLocations))))
+        locations: encodedNewLocation
       });
     } else {
-      setSearchParams({});
+      localStorage.removeItem('locations');
+      setSearchParams('');
     }
   };
 
