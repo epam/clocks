@@ -62,7 +62,7 @@ const Section: React.FC = () => {
   }, [counter, dispatch]);
 
   const locationsRender = useMemo(() => {
-    if (locations) {
+    if (locations && !!Object.keys(locations).length) {
       const locationsArray = Object.values(locations);
 
       return locationsArray.map((urlLocation: IUrlLocation, index: number) => {
