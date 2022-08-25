@@ -30,7 +30,8 @@ const initialState: IInitialState = {
     isOn: false,
     additionalHours: 0
   },
-  counter: 0
+  counter: 0,
+  version: '2.4.3'
 };
 
 const reducer = (state = initialState, action: IActionPayload): IInitialState => {
@@ -83,6 +84,11 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
       return {
         ...state,
         counter: action.payload
+      };
+    case ACTION_TYPE.setVersion:
+      return {
+        ...state,
+        version: action.payload
       };
     case ACTION_TYPE.setOnboarding:
       return {

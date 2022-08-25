@@ -73,5 +73,6 @@
   "Onboarding.ReloadOnboardingContent": "By clicking to this button you can reload onboarding process.",
   "ReloadOnboarding.ReloadButton": "Reload",
   "ReloadOnboarding.HeaderText": "Do you want to reload the onboarding process?",
-  "ReloadOnboarding.ButtonTooltip": "Reload Onboarding"
+  "ReloadOnboarding.ButtonTooltip": "Reload Onboarding",
+  "AnnounceModule.announceTitle": "The information about new verion of app !"
 }

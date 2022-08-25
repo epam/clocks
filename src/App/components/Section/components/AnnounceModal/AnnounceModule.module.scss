@@ -1,0 +1,36 @@
+@import '../../../../styles//index.scss';
+
+%body {
+  max-width: 450px;
+  padding: $space-xl;
+
+  .modalTitle {
+    font-family: roboto-bold;
+    font-size: $fs20;
+    margin-bottom: $space-l;
+  }
+
+  .buttonContainer {
+    margin-top: $space-m;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .button {
+      color: $blueColor;
+    }
+  }
+}
+
+.lightBody {
+  @extend %body;
+  background-color: $lightColor;
+  color: $darkColor;
+}
+
+.darkBody {
+  @extend %body;
+
+  background-color: $darkColor;
+  color: $lightColor;
+}

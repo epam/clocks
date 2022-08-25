@@ -9,6 +9,7 @@ import clsx from 'clsx';
 import style from './Section.module.scss';
 import LocationBlock from './components/LocationBlock/LocationBlock';
 import EmptyState from './components/EmptyState/EmptyState';
+import AnnounceModule from './components/AnnounceModal/AnnounceModule';
 
 const Section: React.FC = () => {
   const { counter, planningMode } = useSelector((state: IInitialState) => state);
@@ -94,6 +95,7 @@ const Section: React.FC = () => {
       })}
     >
       {locationsRender}
+      <AnnounceModule />
     </div>
   );
 };
