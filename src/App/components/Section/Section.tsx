@@ -11,7 +11,7 @@ import LocationBlock from './components/LocationBlock/LocationBlock';
 import EmptyState from './components/EmptyState/EmptyState';
 
 const Section: React.FC = () => {
-  const { counter, planningMode } = useSelector((state: IInitialState) => state);
+  const { counter } = useSelector((state: IInitialState) => state);
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
@@ -88,9 +88,7 @@ const Section: React.FC = () => {
     <div
       className={clsx({
         [style.body]: locations,
-        [style.emptyBody]: !locations,
-        [style.marginBottom]: planningMode.isOn,
-        [style.paddingLeft]: planningMode.isOn
+        [style.emptyBody]: !locations
       })}
     >
       {locationsRender}

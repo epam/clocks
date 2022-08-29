@@ -11,15 +11,14 @@ import { IInitialState } from '../../../../redux/types';
 
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps } from './LocationBlock.types';
-import CommentButton from './components/CommentButton/CommentButton';
 import PinButton from './components/PinButton/PinButton';
-import TimeInfo from './components/TimeInfo/TimeInfo';
+import CommentButton from './components/CommentButton/CommentButton';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
   const { showCountry } = useSelector((state: IInitialState) => state.settings);
-  const { deleteMode, onboarding, planningMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, onboarding } = useSelector((state: IInitialState) => state);
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
   const { locations, setLocations } = useLocations();
@@ -45,16 +44,14 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
         className={clsx({
           [style.container]: true,
           [style.shaking]: deleteMode.isOn,
-          [style.onboarding]:
-            !index && (onboarding?.planningMode || onboarding?.myLocation || onboarding?.comment)
+          [style.onboarding]: !index && (onboarding?.myLocation || onboarding?.comment)
         })}
       >
         <div
           className={clsx({
             [bodyTheme]: true,
             [style.shaking]: deleteMode.isOn,
-            [style.currentBody]: urlUserLocation || isUserLocation,
-            [style.marginRight]: planningMode.isOn
+            [style.currentBody]: urlUserLocation || isUserLocation
           })}
           tabIndex={deleteMode.isOn ? -1 : 0}
           onFocus={focusHandler}
@@ -86,7 +83,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
                 <div className={style.bottomInfo}>{showCountry && location?.country}</div>
               </div>
             </div>
-            <TimeInfo location={location} />
           </div>
           {location && locations[location.city + location.lat].comment && (
             <div className={style.commentBlock}>

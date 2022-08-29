@@ -34,9 +34,7 @@ const SettingsModal: React.FC = () => {
     (state: IInitialState) => state.settings
   );
 
-  const { deleteMode, counter, onboarding, planningMode } = useSelector(
-    (state: IInitialState) => state
-  );
+  const { deleteMode, counter, onboarding } = useSelector((state: IInitialState) => state);
 
   const dispatch = useDispatch();
 
@@ -125,7 +123,7 @@ const SettingsModal: React.FC = () => {
   };
 
   const tooltipText = useMemo((): string => t('Settings.ButtonTooltip'), [t]);
-  const disabled = useMemo(() => deleteMode.isOn || planningMode.isOn, [deleteMode, planningMode]);
+  const disabled = useMemo(() => deleteMode.isOn, [deleteMode]);
 
   return (
     <>

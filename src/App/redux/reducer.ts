@@ -26,10 +26,6 @@ const initialState: IInitialState = {
     color: undefined
   },
   onboarding: undefined,
-  planningMode: {
-    isOn: false,
-    additionalHours: 0
-  },
   counter: 0
 };
 
@@ -48,13 +44,6 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
         ...state,
         deleteMode: {
           isOn: action.payload
-        }
-      };
-    case ACTION_TYPE.setPlanningMode:
-      return {
-        ...state,
-        planningMode: {
-          ...action.payload
         }
       };
     case ACTION_TYPE.setSettings:
