@@ -71,5 +71,7 @@
   "ReloadOnboarding.ReloadButton": "Reload",
   "ReloadOnboarding.HeaderText": "Do you want to reload the onboarding process?",
   "ReloadOnboarding.ButtonTooltip": "Reload Onboarding",
-  "AnnounceModule.announceTitle": "The information about new verion of app !"
+  "AnnounceModule.announceTitle": "What's new ",
+  "AnnounceModule.close": "Close",
+  "AnnounceModule.release": "Release {{version}}"
 }

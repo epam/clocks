@@ -1,6 +1,6 @@
-import { Button, Dialog } from '@mui/material';
+import { Button, Dialog, Divider } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 import style from './AnnounceModule.module.scss';
 import pckg from '../../../../../../package.json';
@@ -34,6 +34,11 @@ const AnnounceModule = () => {
         <Dialog open={openAnnounceModal} onClose={handleClose}>
           <div className={bodyTheme}>
             <div className={style.modalTitle}>{t('AnnounceModule.announceTitle')}</div>
+            <Divider />
+
+            <h1 className={style.release}>
+              <Trans t={t} i18nKey="AnnounceModule.release" values={{ version: pckg.version }} />
+            </h1>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus enim ab iusto
               facilis fugiat vero, corporis odit. Lorem ipsum dolor sit amet consectetur adipisicing
@@ -42,7 +47,7 @@ const AnnounceModule = () => {
 
             <div className={style.buttonContainer}>
               <Button className={style.button} onClick={handleClose}>
-                {t('Settings.CancelButton')}
+                {t('AnnounceModule.close')}
               </Button>
             </div>
           </div>
