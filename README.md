@@ -11,7 +11,6 @@
 - Add arbitrary comments to every widget, that are stored in your browser, not in our servers.
 - Get a sharable link to send dashboard as you see it (with comments) to other users.
 - Embed into another HTML page via <iframe> — with no restrictions from our side.
-- Use Planning mode to find corresponding times across all locations — useful for scheduling meetings.
 - Supports Dark or Light theme, or automatically switches between them.
 - Choose between 12h or 24h time representation.
 - Adjust widget details and re-order widgets on the dashboard.

@@ -11,21 +11,8 @@ const useTimeInfo = (location?: ILocation) => {
 
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
   const { timeFormat } = useSelector((state: IInitialState) => state.settings);
-  const { planningMode } = useSelector((state: IInitialState) => state);
 
   const currentDate = new Date();
-
-  function roundToQuarters(currentDate: Date) {
-    const difference = 15 - (currentDate.getMinutes() % 15);
-    const roundedDate = new Date(currentDate.getTime() + difference * 60000);
-    return roundedDate;
-  }
-
-  const date = planningMode.isOn
-    ? new Date(
-        roundToQuarters(currentDate).getTime() + planningMode.additionalHours * 3.6 * 1000000
-      )
-    : currentDate;
 
   const timeObject: ITimeState = {
     hours: '',
@@ -37,7 +24,7 @@ const useTimeInfo = (location?: ILocation) => {
   };
   const isHour12Format = timeFormat === TIME_FORMAT.H12;
 
-  const visiableTime = date
+  const visiableTime = currentDate
     .toLocaleTimeString('ru-RU', {
       timeZone: location?.timezone,
       hour12: isHour12Format
@@ -49,10 +36,10 @@ const useTimeInfo = (location?: ILocation) => {
   timeObject.suffix = visiableTime[2].substring(3);
 
   if (userLocation && location) {
-    const userLocationDate = date
+    const userLocationDate = currentDate
       .toLocaleDateString('en-US', { timeZone: userLocation?.timezone })
       .split('/');
-    const widjetLocationDate = date
+    const widjetLocationDate = currentDate
       .toLocaleDateString('en-US', { timeZone: location?.timezone })
       .split('/');
 

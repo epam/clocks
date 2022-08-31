@@ -26,7 +26,7 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
   const timeInfo = useTimeInfo(location);
   const { locations } = useLocations();
 
-  const { counter, planningMode } = useSelector((state: IInitialState) => state);
+  const { counter } = useSelector((state: IInitialState) => state);
   const { showDate, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
@@ -35,14 +35,7 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
   useEffect(() => {
     setTime(timeInfo);
     // eslint-disable-next-line
-  }, [
-    counter,
-    userLocation,
-    locations,
-    timeFormat,
-    planningMode.additionalHours,
-    planningMode.isOn
-  ]);
+  }, [counter, userLocation, locations, timeFormat]);
 
   const displayTimezone = (showTimezone: string) => {
     switch (showTimezone) {
@@ -62,11 +55,7 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
   return (
     <>
       <div className={style.rightSide}>
-        <div
-          className={clsx(style.timeInfo, {
-            [style.planningMode]: planningMode.isOn
-          })}
-        >
+        <div className={clsx(style.timeInfo)}>
           {time.hours}:{time.minutes} {time.suffix}
         </div>
         <div className={style.bottomInfo}>

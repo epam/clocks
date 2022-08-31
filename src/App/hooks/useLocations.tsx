@@ -15,6 +15,7 @@ const useLocations = () => {
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const urlLocations = searchParams.get('locations');
+  const savedLocation = localStorage.getItem('locations');
 
   const navigate = useNavigate();
 
@@ -24,12 +25,16 @@ const useLocations = () => {
 
   const locations = useMemo((): IUrlLocations => {
     try {
+      if (!urlLocations && savedLocation) {
+        return JSON.parse(decodeURIComponent(escape(window.atob(savedLocation))));
+      }
+
       return urlLocations && JSON.parse(decodeURIComponent(escape(window.atob(urlLocations))));
     } catch {
       setError(true);
       return {} as IUrlLocations;
     }
-  }, [urlLocations]);
+  }, [urlLocations, savedLocation]);
 
   useEffect(() => {
     if (error) {
@@ -43,11 +48,15 @@ const useLocations = () => {
 
   const setLocations = (newLocations: IUrlLocations) => {
     if (!!Object.keys(newLocations).length) {
+      const encodedNewLocation = btoa(unescape(encodeURIComponent(JSON.stringify(newLocations))));
+
+      localStorage.setItem('locations', encodedNewLocation);
       setSearchParams({
-        locations: btoa(unescape(encodeURIComponent(JSON.stringify(newLocations))))
+        locations: encodedNewLocation
       });
     } else {
-      setSearchParams({});
+      localStorage.removeItem('locations');
+      setSearchParams('');
     }
   };
 
