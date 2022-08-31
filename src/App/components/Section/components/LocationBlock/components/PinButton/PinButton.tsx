@@ -28,10 +28,10 @@ const PinButton: React.FC<IPinButtonProps> = ({ location, index, urlUserLocation
     []
   );
 
-  const { deleteMode, onboarding } = useSelector((state: IInitialState) => state);
+  const { deleteMode, planningMode, onboarding } = useSelector((state: IInitialState) => state);
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
-  const disabled = useMemo(() => deleteMode.isOn, [deleteMode]);
+  const disabled = useMemo(() => deleteMode.isOn || planningMode.isOn, [planningMode, deleteMode]);
 
   const isUserLocation = useMemo(() => {
     return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
