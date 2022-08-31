@@ -22,10 +22,6 @@ export interface IInitialState {
     text?: string;
     color?: AlertColor;
   };
-  planningMode: {
-    isOn: boolean;
-    additionalHours: number;
-  };
   counter: number;
   onboarding?: IOnboarding;
   version: string;
@@ -82,7 +78,6 @@ export interface ITimezonesDB {
   timezones: { abbreviation: string; values: string[] }[];
 }
 export interface IOnboarding {
-  planningMode: boolean;
   deleteButton: boolean;
   settingsModal: boolean;
   shareButton: boolean;
@@ -91,8 +86,4 @@ export interface IOnboarding {
   myLocation: boolean;
   helpModule: boolean;
   reloadOnboarding: boolean;
-}
-export interface IActionPlanningModePayload {
-  isOn: boolean;
-  additionalHours?: number;
 }
