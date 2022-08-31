@@ -25,6 +25,7 @@ const AnnounceModule = () => {
       handleOpen();
       dispatch(setVersion(pckg.version));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
