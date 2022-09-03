@@ -39,11 +39,7 @@ const AnnounceModule = () => {
             <h1 className={style.release}>
               <Trans t={t} i18nKey="AnnounceModule.release" values={{ version: pckg.version }} />
             </h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus enim ab iusto
-              facilis fugiat vero, corporis odit. Lorem ipsum dolor sit amet consectetur adipisicing
-              elit. Neque, aliquid!
-            </p>
+            <Trans t={t} i18nKey="AnnounceModule.info" components={{ li: <li />, ul: <ul /> }} />
 
             <div className={style.buttonContainer}>
               <Button className={style.button} onClick={handleClose}>
