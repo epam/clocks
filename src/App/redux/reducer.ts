@@ -26,7 +26,12 @@ const initialState: IInitialState = {
     color: undefined
   },
   onboarding: undefined,
-  counter: 0
+  planningMode: {
+    isOn: false,
+    additionalHours: 0
+  },
+  counter: 0,
+  version: '2.4.3'
 };
 
 const reducer = (state = initialState, action: IActionPayload): IInitialState => {
@@ -44,6 +49,13 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
         ...state,
         deleteMode: {
           isOn: action.payload
+        }
+      };
+    case ACTION_TYPE.setPlanningMode:
+      return {
+        ...state,
+        planningMode: {
+          ...action.payload
         }
       };
     case ACTION_TYPE.setSettings:
@@ -72,6 +84,11 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
       return {
         ...state,
         counter: action.payload
+      };
+    case ACTION_TYPE.setVersion:
+      return {
+        ...state,
+        version: action.payload
       };
     case ACTION_TYPE.setOnboarding:
       return {

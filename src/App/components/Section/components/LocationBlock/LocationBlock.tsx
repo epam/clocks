@@ -11,15 +11,15 @@ import { IInitialState } from '../../../../redux/types';
 
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps } from './LocationBlock.types';
-import PinButton from './components/PinButton/PinButton';
 import CommentButton from './components/CommentButton/CommentButton';
 import TimeInfo from './components/TimeInfo/TimeInfo';
+import PinButton from './components/PinButton/PinButton';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
   const { showCountry } = useSelector((state: IInitialState) => state.settings);
-  const { deleteMode, onboarding } = useSelector((state: IInitialState) => state);
+  const { deleteMode, onboarding, planningMode } = useSelector((state: IInitialState) => state);
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
   const { locations, setLocations } = useLocations();
@@ -45,14 +45,16 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
         className={clsx({
           [style.container]: true,
           [style.shaking]: deleteMode.isOn,
-          [style.onboarding]: !index && (onboarding?.myLocation || onboarding?.comment)
+          [style.onboarding]:
+            !index && (onboarding?.planningMode || onboarding?.myLocation || onboarding?.comment)
         })}
       >
         <div
           className={clsx({
             [bodyTheme]: true,
             [style.shaking]: deleteMode.isOn,
-            [style.currentBody]: urlUserLocation || isUserLocation
+            [style.currentBody]: urlUserLocation || isUserLocation,
+            [style.marginRight]: planningMode.isOn
           })}
           tabIndex={deleteMode.isOn ? -1 : 0}
           onFocus={focusHandler}

@@ -1,0 +1,50 @@
+@import '../../../../styles//index.scss';
+
+%body {
+  max-width: 450px;
+  padding: $space-xl;
+
+  .modalTitle {
+    font-family: roboto-bold;
+    font-size: $fs20;
+    margin-bottom: $space-s;
+  }
+
+  ul {
+    margin: $space-m;
+  }
+
+  li {
+    margin: $space-xs 0;
+  }
+
+  .release {
+    margin-top: $space-s;
+    margin-bottom: $space-s;
+    font-size: $fs20;
+  }
+
+  .buttonContainer {
+    margin-top: $space-m;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    .button {
+      color: $blueColor;
+    }
+  }
+}
+
+.lightBody {
+  @extend %body;
+  background-color: $lightColor;
+  color: $darkColor;
+}
+
+.darkBody {
+  @extend %body;
+
+  background-color: $darkColor;
+  color: $lightColor;
+}
