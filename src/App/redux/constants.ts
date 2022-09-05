@@ -6,7 +6,8 @@ export const ACTION_TYPE = {
   setSnackbar: '/set-snackbar',
   setUserLocation: '/set-user-location',
   setCounter: '/set-counter',
-  setOnboarding: '/set-onboarding'
+  setOnboarding: '/set-onboarding',
+  setVersion: '/set-version'
 };
 
 export const THEME = {

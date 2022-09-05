@@ -73,5 +73,9 @@
   "Onboarding.ReloadOnboardingContent": "By clicking to this button you can reload onboarding process.",
   "ReloadOnboarding.ReloadButton": "Reload",
   "ReloadOnboarding.HeaderText": "Do you want to reload the onboarding process?",
-  "ReloadOnboarding.ButtonTooltip": "Reload Onboarding"
+  "ReloadOnboarding.ButtonTooltip": "Reload Onboarding",
+  "AnnounceModule.announceTitle": "What's new ",
+  "AnnounceModule.close": "Close",
+  "AnnounceModule.release": "Release {{version}}",
+  "AnnounceModule.info": "<ul><li>Improved location search</li><li>added search using time zone abbreviations</li><li>added country flags for dropdown list entries</li><li>Improved search algorithm.</li><li>Added new time zone display options in Settings.</li></ul>"
 }

@@ -28,6 +28,7 @@ export interface IInitialState {
   };
   counter: number;
   onboarding?: IOnboarding;
+  version?: string;
 }
 
 export interface IActionPayload {

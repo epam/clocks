@@ -34,6 +34,8 @@ export const setUserLocation = (payload: ILocation) => ({
 
 export const setCounter = (payload: number) => ({ type: ACTION_TYPE.setCounter, payload });
 
+export const setVersion = (payload: string) => ({ type: ACTION_TYPE.setVersion, payload });
+
 export const setOnboarding = (payload: IOnboarding) => ({
   type: ACTION_TYPE.setOnboarding,
   payload
