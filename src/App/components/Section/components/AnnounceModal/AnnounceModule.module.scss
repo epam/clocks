@@ -7,7 +7,7 @@
   .modalTitle {
     font-family: roboto-bold;
     font-size: $fs20;
-    margin-bottom: $space-m;
+    margin-bottom: $space-s;
   }
 
   ul {
@@ -19,8 +19,9 @@
   }
 
   .release {
-    margin-top: $space-m;
-    margin-bottom: $space-m;
+    margin-top: $space-s;
+    margin-bottom: $space-s;
+    font-size: $fs20;
   }
 
   .buttonContainer {
