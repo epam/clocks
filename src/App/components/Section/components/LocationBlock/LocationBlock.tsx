@@ -12,8 +12,8 @@ import { IInitialState } from '../../../../redux/types';
 import style from './LocationBlock.module.scss';
 import { ILocationBlockProps } from './LocationBlock.types';
 import CommentButton from './components/CommentButton/CommentButton';
-import PinButton from './components/PinButton/PinButton';
 import TimeInfo from './components/TimeInfo/TimeInfo';
+import PinButton from './components/PinButton/PinButton';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
   const bodyTheme = useTheme(style.lightBody, style.darkBody);

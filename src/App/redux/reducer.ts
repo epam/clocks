@@ -1,7 +1,7 @@
 import { locationsDB } from './locationsDB';
 import { timezonesDB } from './timezonesDB';
 import { IInitialState, IActionPayload } from './types';
-import { ACTION_TYPE, THEME, TIME_FORMAT } from './constants';
+import { ACTION_TYPE, THEME, TIMEZONE, TIME_FORMAT } from './constants';
 
 const initialState: IInitialState = {
   locations: {
@@ -18,7 +18,7 @@ const initialState: IInitialState = {
     showDate: true,
     showCountry: true,
     timeFormat: TIME_FORMAT.H24,
-    showTimezone: false
+    showTimezone: TIMEZONE.disabled
   },
   snackbar: {
     status: false,

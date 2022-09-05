@@ -1,8 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { setOnboarding, setSettings } from '../redux/actions';
 import { IOnboarding } from '../redux/types';
-
-import { THEME, TIME_FORMAT } from '../redux/constants';
+import { THEME, TIMEZONE, TIME_FORMAT } from '../redux/constants';
 
 const onboardingInitialState: IOnboarding = {
   addCity: false,
@@ -37,10 +36,6 @@ const useOnboarding = () => {
 
   const initialize = () => {
     if (localStorage.getItem('onboarding') === null) {
-      if (localSettings) {
-        dispatch(setSettings({ ...parsedSettings }));
-      }
-
       localStorage.setItem('onboarding', 'false');
       dispatch(
         setOnboarding({
@@ -53,27 +48,32 @@ const useOnboarding = () => {
 
   const finish = () => {
     dispatch(setOnboarding(onboardingInitialState));
-    dispatch(
-      setSettings({
-        autoTheme: undefined,
-        theme: THEME.light,
-        showDate: true,
-        showCountry: true,
-        showTimezone: false,
-        timeFormat: TIME_FORMAT.H24
-      })
-    );
-    localStorage.setItem(
-      'settings',
-      JSON.stringify({
-        autoTheme: undefined,
-        theme: THEME.light,
-        showDate: true,
-        showCountry: true,
-        showTimezone: false,
-        timeFormat: TIME_FORMAT.H24
-      })
-    );
+    if (parsedSettings) {
+      dispatch(setSettings(parsedSettings));
+      localStorage.setItem('settings', JSON.stringify(parsedSettings));
+    } else {
+      dispatch(
+        setSettings({
+          autoTheme: undefined,
+          theme: THEME.light,
+          showDate: true,
+          showCountry: true,
+          showTimezone: TIMEZONE.disabled,
+          timeFormat: TIME_FORMAT.H24
+        })
+      );
+      localStorage.setItem(
+        'settings',
+        JSON.stringify({
+          autoTheme: undefined,
+          theme: THEME.light,
+          showDate: true,
+          showCountry: true,
+          showTimezone: TIMEZONE.disabled,
+          timeFormat: TIME_FORMAT.H24
+        })
+      );
+    }
   };
 
   return {

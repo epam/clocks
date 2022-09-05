@@ -9,13 +9,14 @@ import { SettingsOutlined } from '@mui/icons-material';
 import useTheme from '../../../../hooks/useTheme';
 import useAutoTheme from '../../../../hooks/useAutoTheme';
 import { IInitialState, IActionSettingsPayload } from '../../../../redux/types';
-import { THEME, TIME_FORMAT } from '../../../../redux/constants';
+import { THEME, TIME_FORMAT, TIMEZONE } from '../../../../redux/constants';
 import { setSettings } from '../../../../redux/actions';
 import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 import style from './SettingsModal.module.scss';
 import { SETTING_VALUE } from './SettingsModal.constants';
 import DisplayBlock from './components/DisplayBlock/DisplayBlock';
+import TimezoneBlock from './components/TimezoneBlock/TimezoneBlock';
 import HoursSortingBlock from './components/HoursSortingBlock/HoursSortingBlock';
 import ThemeBlock from './components/ThemeBlock/ThemeBlock';
 
@@ -45,7 +46,7 @@ const SettingsModal: React.FC = () => {
     theme: THEME.light,
     showDate: true,
     showCountry: true,
-    showTimezone: false,
+    showTimezone: TIMEZONE.disabled,
     timeFormat: TIME_FORMAT.H24
   });
 
@@ -94,16 +95,25 @@ const SettingsModal: React.FC = () => {
         case SETTING_VALUE.country:
           setLocalSettings({ ...localSettings, showCountry: !localSettings.showCountry });
           break;
-        case SETTING_VALUE.timezone:
-          setLocalSettings({ ...localSettings, showTimezone: !localSettings.showTimezone });
+        case TIMEZONE.disabled:
+          setLocalSettings({ ...localSettings, showTimezone: value });
+          break;
+        case TIMEZONE.abbrv:
+          setLocalSettings({ ...localSettings, showTimezone: value });
+          break;
+        case TIMEZONE.country:
+          setLocalSettings({ ...localSettings, showTimezone: value });
+          break;
+        case TIMEZONE.abbrvCountry:
+          setLocalSettings({ ...localSettings, showTimezone: value });
           break;
         case SETTING_VALUE.auto:
           setLocalSettings({ ...localSettings, autoTheme: !localSettings.autoTheme });
           break;
-        case SETTING_VALUE.H24:
+        case TIME_FORMAT.H24:
           setLocalSettings({ ...localSettings, timeFormat: value });
           break;
-        case SETTING_VALUE.H12:
+        case TIME_FORMAT.H12:
           setLocalSettings({ ...localSettings, timeFormat: value });
           break;
         default:
@@ -141,6 +151,10 @@ const SettingsModal: React.FC = () => {
         <div className={bodyTheme}>
           <div className={style.modalTitle}>{t('Settings.ModalTitle')}</div>
           <DisplayBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
+          <Divider
+            className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
+          />
+          <TimezoneBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
           <Divider
             className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
           />

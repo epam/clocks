@@ -19,3 +19,10 @@ export const TIME_FORMAT = {
   H24: 'H24',
   H12: 'H12'
 };
+
+export const TIMEZONE = {
+  disabled: 'disableTimezone',
+  abbrv: 'abbreviationTimezone',
+  country: 'countryTimezone',
+  abbrvCountry: 'abbreviationAndCountryTimezone'
+};
