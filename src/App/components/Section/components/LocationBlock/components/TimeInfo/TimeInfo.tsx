@@ -30,6 +30,7 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
   const { showDate, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
+
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
   useEffect(() => {
