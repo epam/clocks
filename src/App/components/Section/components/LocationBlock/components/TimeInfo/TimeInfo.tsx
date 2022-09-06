@@ -34,8 +34,15 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
 
   useEffect(() => {
     setTime(timeInfo);
-    // eslint-disable-next-line
-  }, [counter, userLocation, locations, timeFormat]);
+  }, [
+    counter,
+    userLocation,
+    locations,
+    timeFormat,
+    timeInfo,
+    planningMode.additionalHours,
+    planningMode.isOn
+  ]);
 
   const displayTimezone = (showTimezone: string) => {
     switch (showTimezone) {
