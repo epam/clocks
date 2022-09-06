@@ -34,6 +34,7 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
 
   useEffect(() => {
     setTime(timeInfo);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     counter,
     userLocation,
