@@ -126,6 +126,8 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
                 </div>
               </MenuItem>
             ))
+          ) : searchText === '' ? (
+            <div></div>
           ) : (
             <div className={style.notFound}>{t('AddLocation.NotFound')}</div>
           )}
