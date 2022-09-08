@@ -10,6 +10,7 @@ import useTheme from './hooks/useTheme';
 import useSnackbar from './hooks/useSnackbar';
 import useAutoTheme from './hooks/useAutoTheme';
 import { IInitialState } from './redux/types';
+import pckg from '../../package.json';
 
 import style from './App.module.scss';
 import useOnboarding from './hooks/useOnboarding';
@@ -36,6 +37,8 @@ const App: React.FC = () => {
   }, [counter]);
 
   useEffect(() => {
+    localStorage.setItem('version', pckg.version);
+
     initialize();
     // don't need initialize function as a dependency
     // eslint-disable-next-line
