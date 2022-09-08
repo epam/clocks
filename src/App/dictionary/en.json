@@ -5,6 +5,7 @@
   "AddLocation.SnackbarMessage": "This location already added!",
   "AddLocation.ButtonTooltip": "Add new location",
   "PlanningMode.ButtonTooltip": "Planning mode",
+  "LaneMode.ButtonTooltip": "Lane Mode",
   "EmptyState.Text": "No active locations",
   "DeleteMode.ButtonTooltip": "Delete mode",
   "Footer.Credits": "© {{date}} EPAM Systems, Inc.<br />All Rights Reserved.",

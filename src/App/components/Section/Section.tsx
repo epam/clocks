@@ -12,8 +12,8 @@ import EmptyState from './components/EmptyState/EmptyState';
 import AnnounceModule from './components/AnnounceModal/AnnounceModule';
 
 const Section: React.FC = () => {
-  const { counter, planningMode } = useSelector((state: IInitialState) => state);
-  const { locationsDB } = useSelector((state: IInitialState) => state.locations);
+  const { counter, planningMode, laneMode } = useSelector((state: IInitialState) => state);
+  const { locationsDB, userLocation } = useSelector((state: IInitialState) => state.locations);
 
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
 
@@ -66,6 +66,11 @@ const Section: React.FC = () => {
     if (locations && !!Object.keys(locations).length) {
       const locationsArray = Object.values(locations);
 
+      locationsArray?.sort((a: IUrlLocation): any => {
+        return a.userLocation ? -1 : 1;
+      });
+
+      console.log(locationsArray);
       return locationsArray.map((urlLocation: IUrlLocation, index: number) => {
         const find = findLocation(urlLocation);
 
@@ -91,7 +96,8 @@ const Section: React.FC = () => {
         [style.body]: locations,
         [style.emptyBody]: !locations,
         [style.marginBottom]: planningMode.isOn,
-        [style.paddingLeft]: planningMode.isOn
+        [style.paddingLeft]: planningMode.isOn,
+        [style.laneModeView]: laneMode.isOn
       })}
     >
       {locationsRender}

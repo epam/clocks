@@ -16,6 +16,10 @@
   }
 }
 
+.laneModeView {
+  grid-template-columns: 1fr;
+}
+
 .emptyBody {
   display: flex;
   justify-content: center;

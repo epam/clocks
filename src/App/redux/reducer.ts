@@ -30,6 +30,9 @@ const initialState: IInitialState = {
     isOn: false,
     additionalHours: 0
   },
+  laneMode: {
+    isOn: false
+  },
   counter: 0,
   version: '2.4.3'
 };
@@ -58,6 +61,14 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
           ...action.payload
         }
       };
+    case ACTION_TYPE.setLaneMode: {
+      return {
+        ...state,
+        laneMode: {
+          ...action.payload
+        }
+      };
+    }
     case ACTION_TYPE.setSettings:
       return {
         ...state,
