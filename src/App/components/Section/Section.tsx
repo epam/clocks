@@ -12,7 +12,7 @@ import EmptyState from './components/EmptyState/EmptyState';
 import AnnounceModule from './components/AnnounceModal/AnnounceModule';
 
 const Section: React.FC = () => {
-  const { counter, planningMode } = useSelector((state: IInitialState) => state);
+  const { counter, planningMode, laneMode } = useSelector((state: IInitialState) => state);
   const { locationsDB } = useSelector((state: IInitialState) => state.locations);
 
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
@@ -71,15 +71,15 @@ const Section: React.FC = () => {
         .map((urlLocation: IUrlLocation, index: number) => {
           const find = findLocation(urlLocation);
 
-          return (
-            <LocationBlock
-              key={index + 'LOCATION'}
-              index={index}
-              location={find}
-              urlUserLocation={urlLocation.userLocation}
-            />
-          );
-        });
+        return (
+          <LocationBlock
+            key={index + 'LOCATION'}
+            index={index}
+            location={find}
+            urlUserLocation={urlLocation.userLocation}
+          />
+        );
+      });
     }
 
     return <EmptyState />;
@@ -93,7 +93,8 @@ const Section: React.FC = () => {
         [style.body]: locations,
         [style.emptyBody]: !locations,
         [style.marginBottom]: planningMode.isOn,
-        [style.paddingLeft]: planningMode.isOn
+        [style.paddingLeft]: planningMode.isOn,
+        [style.laneModeView]: laneMode.isOn
       })}
     >
       {locationsRender}

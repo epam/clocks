@@ -11,6 +11,7 @@ import SettingsModal from './components/SettingsModal/SettingsModal';
 import ShareButton from './components/ShareButton/ShareButton';
 import AddLocation from './components/AddLocation/AddLocation';
 import { EPAM_LOGO } from './Header.constants';
+import LaneMode from './components/LaneMode/LaneMode';
 
 const Header: React.FC = () => {
   const logoTheme = useTheme(style.lightLogo, style.darkLogo);
@@ -22,6 +23,7 @@ const Header: React.FC = () => {
         <span className={logoTheme}>{EPAM_LOGO}</span>
       </div>
       <div className={style.controlsContainer}>
+        <LaneMode />
         <PlanningMode />
         <DeleteMode />
         <SettingsModal />

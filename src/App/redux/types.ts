@@ -27,6 +27,9 @@ export interface IInitialState {
     isOn: boolean;
     additionalHours: number;
   };
+  laneMode: {
+    isOn: boolean;
+  };
   counter: number;
   onboarding?: IOnboarding;
 }
@@ -96,4 +99,8 @@ export interface IOnboarding {
 export interface IActionPlanningModePayload {
   isOn: boolean;
   additionalHours?: number;
+}
+
+export interface IActionLaneModePayload {
+  isOn: boolean;
 }
