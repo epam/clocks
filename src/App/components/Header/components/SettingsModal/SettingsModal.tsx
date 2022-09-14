@@ -24,7 +24,6 @@ const SettingsModal: React.FC = () => {
   const anchorRef = useRef(null);
   const buttonTheme = useTheme(style.lightIcon, style.darkIcon);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
-  const iconTheme = useTheme(style.lightIcon, style.darkIcon);
 
   const { t } = useTranslation();
 
@@ -153,7 +152,7 @@ const SettingsModal: React.FC = () => {
           <div className={style.header}>
             <div className={style.modalTitle}>{t('Settings.ModalTitle')}</div>
             <IconButton onClick={handleClose}>
-              <Close className={iconTheme} />
+              <Close className={buttonTheme} />
             </IconButton>
           </div>
           <DisplayBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
