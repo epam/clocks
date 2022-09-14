@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Trans, useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
-import { Button, Dialog, IconButton, Tooltip } from '@mui/material';
+import { Dialog, IconButton, Tooltip } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 
 import useTheme from '../../../../hooks/useTheme';
