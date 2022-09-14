@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { t } from 'i18next';
 import { useSelector } from 'react-redux';
 
-import { CommentOutlined } from '@mui/icons-material';
+import { Close, CommentOutlined } from '@mui/icons-material';
 import { Button, Dialog, IconButton, Tooltip } from '@mui/material';
 
 import useLocations from '../../../../../../hooks/useLocations';
@@ -77,7 +77,12 @@ const CommentButton: React.FC<ICommentButtonProps> = ({ location, index }) => {
       {commentModal && (
         <Dialog open={commentModal} onClose={handleCloseCommentModal}>
           <form className={commentModalTheme} onSubmit={handleSaveComment}>
-            <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
+            <div className={style.header}>
+              <div className={style.modalTitle}>{t('LocationBlock.CommentModalTitle')}</div>
+              <IconButton onClick={handleCloseCommentModal}>
+                <Close className={iconTheme} />
+              </IconButton>
+            </div>
             <div>
               <input
                 className={style.input}
@@ -89,9 +94,6 @@ const CommentButton: React.FC<ICommentButtonProps> = ({ location, index }) => {
               />
             </div>
             <div className={style.buttonContainer}>
-              <Button className={style.button} onClick={handleCloseCommentModal}>
-                {t('Settings.CancelButton')}
-              </Button>
               <Button className={style.button} type="submit">
                 {t('Settings.SaveButton')}
               </Button>
