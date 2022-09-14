@@ -105,7 +105,7 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
           />
         </div>
         <MenuList className={style.searchResultsContainer}>
-          {!!locationsFound.length ? (
+          {!!locationsFound.length &&
             locationsFound.map((location: ILocation, index: number) => (
               <MenuItem
                 tabIndex={1}
@@ -125,8 +125,8 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
                   </div>
                 </div>
               </MenuItem>
-            ))
-          ) : (
+            ))}
+          {locationsFound.length === 0 && searchText !== '' && (
             <div className={style.notFound}>{t('AddLocation.NotFound')}</div>
           )}
         </MenuList>

@@ -82,7 +82,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
                 <CommentButton location={location} index={index} />
               </div>
               <div className={style.infoContainer}>
-                <div className={style.topInfo}>{location?.city}</div>
+                <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
                 <div className={style.bottomInfo}>{showCountry && location?.country}</div>
               </div>
             </div>

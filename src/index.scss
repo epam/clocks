@@ -23,3 +23,9 @@ body {
   font-family: roboto-regular;
   font-size: 14px;
 }
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
