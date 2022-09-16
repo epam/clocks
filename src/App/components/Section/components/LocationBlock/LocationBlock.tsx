@@ -69,13 +69,13 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
             <div
               className={clsx({
                 [style.leftSide]: true,
-                [style.moveLeftOrRight]: !isFocused && !isUserLocation
+                [style.moveLeftOrRight]: !isFocused
               })}
             >
               <div
                 className={clsx({
                   [style.buttonContainer]: true,
-                  [style.opaccityBlock]: !isFocused && !isUserLocation
+                  [style.opaccityBlock]: !isFocused
                 })}
               >
                 <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
