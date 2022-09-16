@@ -1,6 +1,7 @@
 export const SETTING_VALUE = {
   date: 'date',
   country: 'country',
+  footer: 'footer',
   auto: 'auto'
 };
 
