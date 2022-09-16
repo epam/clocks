@@ -25,7 +25,7 @@ const App: React.FC = () => {
 
   const { initialize } = useOnboarding();
 
-  const { autoTheme } = useSelector((state: IInitialState) => state.settings);
+  const { autoTheme, showFooter } = useSelector((state: IInitialState) => state.settings);
   const { counter, snackbar } = useSelector((state: IInitialState) => state);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const App: React.FC = () => {
           <Header />
           <Section />
         </div>
-        <Footer />
+        {showFooter && <Footer />}
       </div>
       {snackbar.status && (
         <Snackbar
