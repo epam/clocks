@@ -14,6 +14,7 @@ export interface IInitialState {
     autoTheme?: boolean;
     showDate: boolean;
     showCountry: boolean;
+    showFooter: boolean;
     showTimezone: string;
     timeFormat: string;
   };
