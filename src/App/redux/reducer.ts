@@ -17,6 +17,7 @@ const initialState: IInitialState = {
     autoTheme: undefined,
     showDate: true,
     showCountry: true,
+    showFooter: true,
     timeFormat: TIME_FORMAT.H24,
     showTimezone: TIMEZONE.disabled
   },
