@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 
@@ -10,19 +10,34 @@ import useLocations from '../../../../hooks/useLocations';
 import { IInitialState } from '../../../../redux/types';
 
 import style from './LocationBlock.module.scss';
-import { ILocationBlockProps } from './LocationBlock.types';
+import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
 import CommentButton from './components/CommentButton/CommentButton';
 import TimeInfo from './components/TimeInfo/TimeInfo';
 import PinButton from './components/PinButton/PinButton';
+import generateTime from '../../../../utils/generateTime';
+import useTimeInfo from '../../../../hooks/useTimeInfo';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
+  const [time, setTime] = useState<ITimeState>({
+    hours: '',
+    minutes: '',
+    day: undefined,
+    offset: undefined,
+    suffix: '',
+    timezone: ''
+  });
+  const timeInfo = useTimeInfo(location);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
   const { showCountry } = useSelector((state: IInitialState) => state.settings);
-  const { deleteMode, onboarding, planningMode } = useSelector((state: IInitialState) => state);
+  const { deleteMode, onboarding, planningMode, laneMode } = useSelector(
+    (state: IInitialState) => state
+  );
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
   const { locations, setLocations } = useLocations();
+
+  const times = generateTime(24, 30, +time.hours + 1, 23);
 
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -39,6 +54,11 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     setIsFocused(isFocused => !isFocused);
   };
 
+  useEffect(() => {
+    setTime(timeInfo);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className={style.relativeBlock}>
       <div
@@ -46,7 +66,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           [style.container]: true,
           [style.shaking]: deleteMode.isOn,
           [style.onboarding]:
-            !index && (onboarding?.planningMode || onboarding?.myLocation || onboarding?.comment)
+            !index && (onboarding?.planningMode || onboarding?.myLocation || onboarding?.comment),
+          [style.zeromargin]: laneMode.isOn
         })}
       >
         <div
@@ -65,32 +86,57 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
               <Remove className={style.icon} />
             </IconButton>
           )}
-          <div className={style.infoBlock}>
+          <div
+            className={clsx({
+              [style.wrapper]: true
+            })}
+          >
             <div
               className={clsx({
-                [style.leftSide]: true,
-                [style.moveLeftOrRight]: !isFocused && !isUserLocation
+                [style.infoBlock]: true
               })}
             >
               <div
                 className={clsx({
-                  [style.buttonContainer]: true,
-                  [style.opaccityBlock]: !isFocused && !isUserLocation
+                  [style.leftSide]: true,
+                  [style.moveLeftOrRight]: !isFocused && !isUserLocation
                 })}
               >
-                <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
-                <CommentButton location={location} index={index} />
+                <div
+                  className={clsx({
+                    [style.buttonContainer]: true,
+                    [style.opaccityBlock]: !isFocused && !isUserLocation
+                  })}
+                >
+                  <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
+                  <CommentButton location={location} index={index} />
+                </div>
+                <div className={style.infoContainer}>
+                  <div className={style.topInfo}>{location?.city}</div>
+                  <div className={style.bottomInfo}>{showCountry && location?.country}</div>
+                </div>
               </div>
-              <div className={style.infoContainer}>
-                <div className={style.topInfo}>{location?.city}</div>
-                <div className={style.bottomInfo}>{showCountry && location?.country}</div>
-              </div>
+
+              <TimeInfo location={location} />
             </div>
-            <TimeInfo location={location} />
+            {location && locations[location.city + location.lat].comment && (
+              <div className={style.commentBlock}>
+                {locations[location.city + location.lat].comment}
+              </div>
+            )}
           </div>
-          {location && locations[location.city + location.lat].comment && (
-            <div className={style.commentBlock}>
-              {locations[location.city + location.lat].comment}
+          {laneMode.isOn && (
+            <div className={style.timeTable}>
+              {times.map((time, index) => (
+                <div
+                  key={index}
+                  className={clsx({
+                    [style.time]: true
+                  })}
+                >
+                  {time}
+                </div>
+              ))}
             </div>
           )}
         </div>
