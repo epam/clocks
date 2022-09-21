@@ -13,6 +13,10 @@
   }
 }
 
+.zeromargin {
+  margin: 0;
+}
+
 %body {
   width: 1fr;
   min-height: 100px;
@@ -21,7 +25,8 @@
   border: 2px solid transparent;
   transition: 0.2s;
   display: flex;
-  flex-direction: column;
+
+  // flex-direction: column;
   clip-path: inset(-100vw -100vw -100vw 0);
 
   &:focus-within {
@@ -204,5 +209,26 @@
 .marginRight {
   @include screenMax600 {
     margin-right: 70px;
+  }
+}
+
+.wrapper {
+  width: 350px;
+}
+
+.timeTable {
+  display: flex;
+  margin-left: $space-m;
+
+  .time {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: $space-s $space-m;
+
+    &:hover {
+      background-color: $darkColor;
+      cursor: pointer;
+    }
   }
 }
