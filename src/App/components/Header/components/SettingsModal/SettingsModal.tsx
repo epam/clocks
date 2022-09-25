@@ -31,9 +31,8 @@ const SettingsModal: React.FC = () => {
 
   const [isModalOpen, setModal] = useState(false);
 
-  const { autoTheme, theme, showDate, showCountry, showTimezone, timeFormat } = useSelector(
-    (state: IInitialState) => state.settings
-  );
+  const { autoTheme, theme, showDate, showCountry, showFooter, showTimezone, timeFormat } =
+    useSelector((state: IInitialState) => state.settings);
 
   const { deleteMode, counter, onboarding, planningMode } = useSelector(
     (state: IInitialState) => state
@@ -46,6 +45,7 @@ const SettingsModal: React.FC = () => {
     theme: THEME.light,
     showDate: true,
     showCountry: true,
+    showFooter: true,
     showTimezone: TIMEZONE.disabled,
     timeFormat: TIME_FORMAT.H24
   });
@@ -56,10 +56,11 @@ const SettingsModal: React.FC = () => {
       theme,
       showDate,
       showCountry,
+      showFooter,
       showTimezone,
       timeFormat
     });
-  }, [autoTheme, theme, showDate, showCountry, showTimezone, isModalOpen, timeFormat]);
+  }, [autoTheme, theme, showDate, showCountry, showFooter, showTimezone, isModalOpen, timeFormat]);
 
   useEffect(() => {
     const localStorageSettings = localStorage.getItem('settings');
@@ -94,6 +95,9 @@ const SettingsModal: React.FC = () => {
           break;
         case SETTING_VALUE.country:
           setLocalSettings({ ...localSettings, showCountry: !localSettings.showCountry });
+          break;
+        case SETTING_VALUE.footer:
+          setLocalSettings({ ...localSettings, showFooter: !localSettings.showFooter });
           break;
         case TIMEZONE.disabled:
           setLocalSettings({ ...localSettings, showTimezone: value });
