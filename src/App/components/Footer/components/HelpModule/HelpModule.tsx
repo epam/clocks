@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Trans, useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
-import { Button, Dialog, IconButton, Tooltip } from '@mui/material';
+import { Dialog, IconButton, Tooltip } from '@mui/material';
 import HelpIcon from '@mui/icons-material/Help';
 
 import useTheme from '../../../../hooks/useTheme';
@@ -12,6 +12,7 @@ import { IInitialState } from '../../../../redux/types';
 import pckg from '../../../../../../package.json';
 
 import style from './HelpModule.module.scss';
+import { Close } from '@mui/icons-material';
 
 const HelpModule = () => {
   const anchorHelpModule = useRef(null);
@@ -36,7 +37,12 @@ const HelpModule = () => {
 
       <Dialog open={open} onClose={handleClose}>
         <div className={bodyTheme}>
-          <div className={style.modalTitle}>{t('HelpModule.HeaderText')}</div>
+          <div className={style.header}>
+            <div className={style.modalTitle}>{t('HelpModule.HeaderText')}</div>
+            <IconButton onClick={handleClose}>
+              <Close className={buttonTheme} />
+            </IconButton>
+          </div>
 
           <p>{t('HelpModule.HeaderInfo')}</p>
 
@@ -47,11 +53,6 @@ const HelpModule = () => {
           />
           <div className={style.versionContainer}>
             <Trans t={t} i18nKey="HelpModule.Version" values={{ version: pckg.version }} />
-          </div>
-          <div className={style.buttonContainer}>
-            <Button className={style.button} onClick={handleClose}>
-              {t('Settings.CancelButton')}
-            </Button>
           </div>
         </div>
       </Dialog>

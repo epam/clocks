@@ -4,10 +4,16 @@
   width: 500px;
   padding: $space-s;
 
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: $space-l;
+  }
+
   .modalTitle {
     font-family: roboto-bold;
     font-size: $fs20;
-    margin-bottom: $space-l;
   }
 
   .input {

@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { IconButton, Dialog, Button, Divider, Tooltip } from '@mui/material';
-import { SettingsOutlined } from '@mui/icons-material';
+import { Close, SettingsOutlined } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
 import useAutoTheme from '../../../../hooks/useAutoTheme';
@@ -149,7 +149,12 @@ const SettingsModal: React.FC = () => {
 
       <Dialog open={isModalOpen} onClose={handleClose}>
         <div className={bodyTheme}>
-          <div className={style.modalTitle}>{t('Settings.ModalTitle')}</div>
+          <div className={style.header}>
+            <div className={style.modalTitle}>{t('Settings.ModalTitle')}</div>
+            <IconButton onClick={handleClose}>
+              <Close className={buttonTheme} />
+            </IconButton>
+          </div>
           <DisplayBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
           <Divider
             className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
@@ -164,9 +169,6 @@ const SettingsModal: React.FC = () => {
           />
           <ThemeBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
           <div className={style.buttonContainer}>
-            <Button className={style.button} onClick={handleClose}>
-              {t('Settings.CancelButton')}
-            </Button>
             <Button className={style.button} onClick={handleSave}>
               {t('Settings.SaveButton')}
             </Button>
