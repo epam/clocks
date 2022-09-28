@@ -17,5 +17,9 @@ export const INPUT_IDS = {
   disableTimezone: 'disableTimezone',
   abbreviationTimezone: 'abbreviationTimezone',
   countryTimezone: 'countryTimezone',
-  abbreviationAndCountryTimezone: 'abbreviationAndCountryTimezone'
+  abbreviationAndCountryTimezone: 'abbreviationAndCountryTimezone',
+  hideCountryFlag: 'hideCountryFlag',
+  displayFlag: 'displayFlag',
+  displayCountry: 'displayCountry',
+  displayFlagAndCountry: 'displayFlagAndCountry'
 };

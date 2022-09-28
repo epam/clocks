@@ -14,6 +14,7 @@ import { ILocationBlockProps } from './LocationBlock.types';
 import CommentButton from './components/CommentButton/CommentButton';
 import TimeInfo from './components/TimeInfo/TimeInfo';
 import PinButton from './components/PinButton/PinButton';
+import useFlag from '../../../../hooks/useFlag/useFlag';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
@@ -21,6 +22,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   const { showCountry } = useSelector((state: IInitialState) => state.settings);
   const { deleteMode, onboarding, planningMode } = useSelector((state: IInitialState) => state);
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
+  const flag = useFlag();
 
   const { locations, setLocations } = useLocations();
 
@@ -81,6 +83,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
                 <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
                 <CommentButton location={location} index={index} />
               </div>
+              <div>{flag(location?.iso2 || '')}</div>
               <div className={style.infoContainer}>
                 <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
                 <div className={style.bottomInfo}>{showCountry && location?.country}</div>

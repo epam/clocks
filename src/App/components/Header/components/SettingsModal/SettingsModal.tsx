@@ -19,6 +19,7 @@ import DisplayBlock from './components/DisplayBlock/DisplayBlock';
 import TimezoneBlock from './components/TimezoneBlock/TimezoneBlock';
 import HoursSortingBlock from './components/HoursSortingBlock/HoursSortingBlock';
 import ThemeBlock from './components/ThemeBlock/ThemeBlock';
+import CountryFlagBlock from './components/CountryFlagBlock/CountryFlagBlock';
 
 const SettingsModal: React.FC = () => {
   const anchorRef = useRef(null);
@@ -160,6 +161,10 @@ const SettingsModal: React.FC = () => {
             </IconButton>
           </div>
           <DisplayBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
+          <Divider
+            className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
+          />
+          <CountryFlagBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
           <Divider
             className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
           />
