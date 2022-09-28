@@ -4,13 +4,8 @@ import { Trans, useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 import style from './AnnounceModule.module.scss';
 import pckg from '../../../../../../package.json';
-import { useDispatch, useSelector } from 'react-redux';
-import { IInitialState } from '../../../../redux/types';
-import { setVersion } from '../../../../redux/actions';
 
 const AnnounceModule = () => {
-  const dispatch = useDispatch();
-  const version = useSelector((state: IInitialState) => state.version);
   const { t } = useTranslation();
 
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
@@ -21,11 +16,10 @@ const AnnounceModule = () => {
   const handleOpen = () => setOpenAnnounceModal(true);
 
   useEffect(() => {
-    if (pckg.version !== version) {
+    if (pckg.version !== localStorage.getItem('version')) {
       handleOpen();
-      dispatch(setVersion(pckg.version));
+      // dispatch(setVersion(pckg.version));
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

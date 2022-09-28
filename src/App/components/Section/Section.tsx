@@ -65,12 +65,19 @@ const Section: React.FC = () => {
   const locationsRender = useMemo(() => {
     if (locations && !!Object.keys(locations).length) {
       const locationsArray = Object.values(locations);
+      let indexOfUserLocation = 0;
 
-      locationsArray?.sort((a: IUrlLocation): any => {
-        return a.userLocation ? -1 : 1;
+      const sortedLocations = locationsArray.sort((a, b) => b.offset - a.offset);
+
+      const userLocation = sortedLocations.find((i, idx) => {
+        indexOfUserLocation = idx;
+        return i.userLocation;
       });
 
-      return locationsArray.map((urlLocation: IUrlLocation, index: number) => {
+      sortedLocations.splice(indexOfUserLocation, 1);
+      sortedLocations.unshift(userLocation as IUrlLocation);
+
+      return sortedLocations.map((urlLocation: IUrlLocation, index: number) => {
         const find = findLocation(urlLocation);
 
         return (

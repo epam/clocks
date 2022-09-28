@@ -59,6 +59,11 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    setTime(timeInfo);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className={style.relativeBlock}>
       <div
@@ -67,6 +72,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           [style.shaking]: deleteMode.isOn,
           [style.onboarding]:
             !index && (onboarding?.planningMode || onboarding?.myLocation || onboarding?.comment),
+          [style.zeromargin]: laneMode.isOn,
           [style.zeromargin]: laneMode.isOn
         })}
       >
@@ -112,7 +118,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
                   <CommentButton location={location} index={index} />
                 </div>
                 <div className={style.infoContainer}>
-                  <div className={style.topInfo}>{location?.city}</div>
+                  <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
                   <div className={style.bottomInfo}>{showCountry && location?.country}</div>
                 </div>
               </div>

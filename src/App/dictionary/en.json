@@ -41,6 +41,7 @@
   "Settings.ModalTitle": "Settings",
   "Settings.ShowDate": "Display date",
   "Settings.ShowCountry": "Display country name",
+  "Settings.ShowFooter": "Display footer",
   "Settings.ShowTimezone": "Display timezone",
   "Settings.12HourFormat": "12 hour format",
   "Settings.24HourFormat": "24 hour format",

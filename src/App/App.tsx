@@ -10,9 +10,10 @@ import useTheme from './hooks/useTheme';
 import useSnackbar from './hooks/useSnackbar';
 import useAutoTheme from './hooks/useAutoTheme';
 import { IInitialState } from './redux/types';
-
+import pckg from '../../package.json';
 import style from './App.module.scss';
 import useOnboarding from './hooks/useOnboarding';
+import { useSearchParams } from 'react-router-dom';
 
 const App: React.FC = () => {
   const theme = useTheme(style.lightBody, style.darkBody);
@@ -24,7 +25,9 @@ const App: React.FC = () => {
 
   const { initialize } = useOnboarding();
 
-  const { autoTheme } = useSelector((state: IInitialState) => state.settings);
+  const [, setSearchParams] = useSearchParams();
+
+  const { autoTheme, showFooter } = useSelector((state: IInitialState) => state.settings);
   const { counter, snackbar } = useSelector((state: IInitialState) => state);
 
   useEffect(() => {
@@ -36,6 +39,8 @@ const App: React.FC = () => {
   }, [counter]);
 
   useEffect(() => {
+    localStorage.setItem('version', pckg.version);
+
     initialize();
     // don't need initialize function as a dependency
     // eslint-disable-next-line
@@ -53,6 +58,16 @@ const App: React.FC = () => {
     return () => window.removeEventListener('keydown', listener);
   }, []);
 
+  useEffect(() => {
+    const savedLocations = localStorage.getItem('locations') || '';
+
+    setSearchParams({
+      locations: savedLocations
+    });
+    // don't need as a dependency setSearchParams
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <div ref={screenRef} tabIndex={0}>
       <div className={theme}>
@@ -60,7 +75,7 @@ const App: React.FC = () => {
           <Header />
           <Section />
         </div>
-        <Footer />
+        {showFooter && <Footer />}
       </div>
       {snackbar.status && (
         <Snackbar

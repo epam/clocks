@@ -58,6 +58,7 @@ const useOnboarding = () => {
           theme: THEME.light,
           showDate: true,
           showCountry: true,
+          showFooter: true,
           showTimezone: TIMEZONE.disabled,
           timeFormat: TIME_FORMAT.H24
         })
