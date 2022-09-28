@@ -66,18 +66,20 @@ const Section: React.FC = () => {
     if (locations && !!Object.keys(locations).length) {
       const locationsArray = Object.values(locations);
 
-      return locationsArray.map((urlLocation: IUrlLocation, index: number) => {
-        const find = findLocation(urlLocation);
+      return locationsArray
+        .sort((a, b) => b.offset - a.offset)
+        .map((urlLocation: IUrlLocation, index: number) => {
+          const find = findLocation(urlLocation);
 
-        return (
-          <LocationBlock
-            key={index + 'LOCATION'}
-            index={index}
-            location={find}
-            urlUserLocation={urlLocation.userLocation}
-          />
-        );
-      });
+          return (
+            <LocationBlock
+              key={index + 'LOCATION'}
+              index={index}
+              location={find}
+              urlUserLocation={urlLocation.userLocation}
+            />
+          );
+        });
     }
 
     return <EmptyState />;
