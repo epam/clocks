@@ -84,11 +84,9 @@
       flex-grow: 1;
       width: 60%;
 
-      .flagContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding-right: $space-xs;
+      .flagContainer img {
+        padding-right: $space-xxs;
+        width: $space-l;
       }
 
       .infoContainer {
