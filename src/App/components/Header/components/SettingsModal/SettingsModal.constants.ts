@@ -7,7 +7,6 @@ export const SETTING_VALUE = {
 
 export const INPUT_IDS = {
   showDate: 'showDate',
-  showCountryName: 'showCountryName',
   showFooter: 'showFooter',
   hourFormat24: 'hourFormat24',
   hourFormat12: 'hourFormat12',

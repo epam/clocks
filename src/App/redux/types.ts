@@ -13,8 +13,8 @@ export interface IInitialState {
     theme: string;
     autoTheme?: boolean;
     showDate: boolean;
-    showCountry: boolean;
     showFooter: boolean;
+    showFlagAndCountry: string;
     showTimezone: string;
     timeFormat: string;
   };
@@ -40,8 +40,8 @@ export interface IActionSettingsPayload {
   theme: string;
   autoTheme?: boolean;
   showDate: boolean;
-  showCountry: boolean;
   showFooter: boolean;
+  showFlagAndCountry: string;
   showTimezone: string;
   timeFormat: string;
 }

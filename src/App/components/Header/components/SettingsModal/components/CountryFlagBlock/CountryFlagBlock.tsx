@@ -36,7 +36,7 @@ const CountryFlagBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSett
   ));
   return (
     <>
-      <RadioGroup value={localSettings.showTimezone} onChange={handleSetSettings}>
+      <RadioGroup value={localSettings.showFlagAndCountry} onChange={handleSetSettings}>
         {radio}
       </RadioGroup>
     </>
