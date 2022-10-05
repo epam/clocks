@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import clsx from 'clsx';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { IconButton } from '@mui/material';
 import { Remove } from '@mui/icons-material';
@@ -10,34 +10,28 @@ import useLocations from '../../../../hooks/useLocations';
 import { IInitialState } from '../../../../redux/types';
 
 import style from './LocationBlock.module.scss';
-import { ILocationBlockProps, ITimeState } from './LocationBlock.types';
+import { ILocationBlockProps } from './LocationBlock.types';
 import CommentButton from './components/CommentButton/CommentButton';
 import TimeInfo from './components/TimeInfo/TimeInfo';
 import PinButton from './components/PinButton/PinButton';
-import generateTime from '../../../../utils/generateTime';
 import useTimeInfo from '../../../../hooks/useTimeInfo';
+import { setTimeTable } from '../../../../redux/actions';
+import { nanoid } from 'nanoid';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
-  const [time, setTime] = useState<ITimeState>({
-    hours: '',
-    minutes: '',
-    day: undefined,
-    offset: undefined,
-    suffix: '',
-    timezone: ''
-  });
+  const dispatch = useDispatch();
   const timeInfo = useTimeInfo(location);
+  const { locations, setLocations } = useLocations();
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
-  const { showCountry } = useSelector((state: IInitialState) => state.settings);
-  const { deleteMode, onboarding, planningMode, laneMode } = useSelector(
-    (state: IInitialState) => state
-  );
-  const { userLocation } = useSelector((state: IInitialState) => state.locations);
-
-  const { locations, setLocations } = useLocations();
-
-  const times = generateTime(24, 30, +time.hours + 1, 23);
+  const {
+    deleteMode,
+    onboarding,
+    planningMode,
+    laneMode,
+    settings: { showCountry },
+    locations: { userLocation }
+  } = useSelector((state: IInitialState) => state);
 
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
@@ -55,12 +49,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   };
 
   useEffect(() => {
-    setTime(timeInfo);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    setTime(timeInfo);
+    dispatch(setTimeTable(timeInfo));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -131,23 +120,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
               </div>
             )}
           </div>
-          {laneMode.isOn && (
-            <div className={style.timeTable}>
-              {times.map((time, index) => {
-                console.log(+time.split('').slice(0, 2).join(''));
-                return (
-                  <div
-                    key={index}
-                    className={clsx({
-                      [style.time]: true
-                    })}
-                  >
-                    {time}
-                  </div>
-                );
-              })}
-            </div>
-          )}
         </div>
       </div>
     </div>

@@ -21,6 +21,40 @@
   }
 }
 
+.laneModeViewContainer {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+  border: 1px solid red;
+
+  > div {
+    width: 20%;
+  }
+
+  .timeTable {
+    width: 80%;
+
+    display: flex;
+    flex-direction: column;
+
+    overflow: auto;
+    //border: 1px solid black;
+
+    .timeRow {
+      display: flex;
+      height: 100%;
+      //border: 1px solid red;
+
+      .timeColumn {
+        display: flex;
+        align-items: center;
+        padding: $space-s $space-m;
+        //border: 1px solid yellow;
+      }
+    }
+  }
+}
+
 .laneModeView {
   grid-template-columns: 1fr;
 }

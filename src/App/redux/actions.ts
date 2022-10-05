@@ -8,6 +8,7 @@ import {
   IOnboarding,
   IActionLaneModePayload
 } from './types';
+import { ITimeState } from '../components/Section/components/LocationBlock/LocationBlock.types';
 
 export const setTheme = (payload: string) => ({ type: ACTION_TYPE.setTheme, payload });
 
@@ -42,5 +43,10 @@ export const setCounter = (payload: number) => ({ type: ACTION_TYPE.setCounter, 
 
 export const setOnboarding = (payload: IOnboarding) => ({
   type: ACTION_TYPE.setOnboarding,
+  payload
+});
+
+export const setTimeTable = (payload: ITimeState) => ({
+  type: ACTION_TYPE.setTimeTable,
   payload
 });

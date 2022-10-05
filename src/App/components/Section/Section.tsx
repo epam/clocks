@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import useLocations from '../../hooks/useLocations';
@@ -10,14 +10,20 @@ import style from './Section.module.scss';
 import LocationBlock from './components/LocationBlock/LocationBlock';
 import EmptyState from './components/EmptyState/EmptyState';
 import AnnounceModule from './components/AnnounceModal/AnnounceModule';
+import generateTime from '../../utils/generateTime';
 
 const Section: React.FC = () => {
-  const { counter, planningMode, laneMode } = useSelector((state: IInitialState) => state);
-  const { locationsDB } = useSelector((state: IInitialState) => state.locations);
-
+  const dispatch = useDispatch();
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
 
-  const dispatch = useDispatch();
+  const {
+    counter,
+    planningMode,
+    laneMode,
+    locations: { locationsDB }
+  } = useSelector((state: IInitialState) => state);
+
+  const [timeTable, setTimeTable] = useState<any[]>([]);
 
   useEffect(() => {
     const userLocation: IUrlLocation | undefined =
@@ -57,7 +63,6 @@ const Section: React.FC = () => {
     // use it only when component mount
     // eslint-disable-next-line
   }, []);
-
   useEffect(() => {
     setTimeout(() => dispatch(setCounter(counter + 1)), 60000);
   }, [counter, dispatch]);
@@ -94,7 +99,35 @@ const Section: React.FC = () => {
     return <EmptyState />;
     // don't need as a dependency findLocation
     // eslint-disable-next-line
-  }, [locations]);
+  }, [locations, laneMode]);
+
+  useEffect(() => {
+    const timeTables = laneMode.timeTable.map(i => generateTime(24, 30, +i.hours + 1, 23));
+    const res: any[] = [];
+    let counter = 0;
+
+    // while (timeTables.length > 0 && timeTables[0].length > 0) {
+    timeTables.forEach(i => {
+      res.push(...i.splice(0, 1));
+      // @ts-ignore
+      // if (Array.isArray(res[counter])) {
+      //   // @ts-ignore
+      //   res[counter].push(...i.splice(0, 1));
+      // } else {
+      //   // @ts-ignore
+      //   res[counter] = [...i.splice(0, 1)];
+      // }
+      //
+      //     counter++;
+    });
+    // }
+
+    console.log('res', res);
+
+    setTimeTable(timeTables);
+  }, [laneMode]);
+
+  // console.log(timeTable);
 
   return (
     <div
@@ -106,7 +139,27 @@ const Section: React.FC = () => {
         [style.laneModeView]: laneMode.isOn
       })}
     >
-      {locationsRender}
+      {laneMode.isOn ? (
+        <div className={style.laneModeViewContainer}>
+          <div>{locationsRender}</div>
+          <div className={style.timeTable}>
+            {timeTable.map((timeRow, idx) => (
+              <div key={idx} className={style.timeRow}>
+                {/* @ts-ignore */}
+                {timeRow.map((timeColumn, index) => {
+                  return (
+                    <div key={index} className={style.timeColumn}>
+                      {timeColumn}
+                    </div>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        </div>
+      ) : (
+        locationsRender
+      )}
       <AnnounceModule />
     </div>
   );

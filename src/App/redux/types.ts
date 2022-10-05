@@ -1,4 +1,5 @@
 import { AlertColor } from '@mui/material';
+import { ITimeState } from '../components/Section/components/LocationBlock/LocationBlock.types';
 
 export interface IInitialState {
   locations: {
@@ -29,6 +30,7 @@ export interface IInitialState {
   };
   laneMode: {
     isOn: boolean;
+    timeTable: ITimeState[];
   };
   counter: number;
   onboarding?: IOnboarding;

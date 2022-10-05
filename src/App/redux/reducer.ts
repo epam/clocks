@@ -32,9 +32,25 @@ const initialState: IInitialState = {
     additionalHours: 0
   },
   laneMode: {
-    isOn: false
+    isOn: false,
+    timeTable: []
   },
   counter: 0
+};
+
+const setTimeTable = (state = initialState, action: IActionPayload) => {
+  const doesCityInclude = state.laneMode.timeTable.findIndex(i => i.city === action.payload.city);
+  if (doesCityInclude === -1) {
+    return {
+      ...state,
+      laneMode: {
+        ...state.laneMode,
+        timeTable: [...state.laneMode.timeTable, action.payload]
+      }
+    };
+  }
+
+  return state;
 };
 
 const reducer = (state = initialState, action: IActionPayload): IInitialState => {
@@ -65,6 +81,7 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
       return {
         ...state,
         laneMode: {
+          ...state.laneMode,
           ...action.payload
         }
       };
@@ -96,12 +113,13 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
         ...state,
         counter: action.payload
       };
-
     case ACTION_TYPE.setOnboarding:
       return {
         ...state,
         onboarding: action.payload
       };
+    case ACTION_TYPE.setTimeTable:
+      return setTimeTable(state, action);
 
     default:
       return state;
