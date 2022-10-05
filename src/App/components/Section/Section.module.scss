@@ -9,7 +9,7 @@
   margin-right: auto;
   padding-right: $space-s;
   padding-left: $space-s;
-  overflow-x: scroll;
+  overflow-x: hidden;
 
   &::-webkit-scrollbar {
     display: none;

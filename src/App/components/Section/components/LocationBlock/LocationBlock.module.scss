@@ -219,16 +219,16 @@
 .timeTable {
   display: flex;
   margin-left: $space-m;
+  width: 1100px;
+  overflow-x: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .time {
     height: 100%;
     display: flex;
     align-items: center;
     padding: $space-s $space-m;
-
-    &:hover {
-      background-color: $darkColor;
-      cursor: pointer;
-    }
   }
 }

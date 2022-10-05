@@ -133,16 +133,19 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           </div>
           {laneMode.isOn && (
             <div className={style.timeTable}>
-              {times.map((time, index) => (
-                <div
-                  key={index}
-                  className={clsx({
-                    [style.time]: true
-                  })}
-                >
-                  {time}
-                </div>
-              ))}
+              {times.map((time, index) => {
+                console.log(+time.split('').slice(0, 2).join(''));
+                return (
+                  <div
+                    key={index}
+                    className={clsx({
+                      [style.time]: true
+                    })}
+                  >
+                    {time}
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>

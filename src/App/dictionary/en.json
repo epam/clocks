@@ -83,5 +83,6 @@
   "AnnounceModule.announceTitle": "What's new ",
   "AnnounceModule.close": "Close",
   "AnnounceModule.release": "Release {{version}}",
-  "AnnounceModule.info": "<ul><li>Improved location search</li><li>added search using time zone abbreviations</li><li>added country flags for dropdown list entries</li><li>Improved search algorithm.</li><li>Added new time zone display options in Settings.</li></ul>"
+  "AnnounceModule.info": "<ul><li>Improved location search</li><li>added search using time zone abbreviations</li><li>added country flags for dropdown list entries</li><li>Improved search algorithm.</li><li>Added new time zone display options in Settings.</li></ul>",
+  "LaneMode": "Lane Mode"
 }

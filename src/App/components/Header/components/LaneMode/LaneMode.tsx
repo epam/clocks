@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from 'react';
 import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
-import { IconButton, Tooltip } from '@mui/material';
+import { Button, IconButton, Tooltip } from '@mui/material';
 import clsx from 'clsx';
 import style from './LaneMode.module.scss';
 import { t } from 'i18next';
@@ -19,27 +19,35 @@ const LaneMode = () => {
 
   const tooltipText = useMemo((): string => t('LaneMode.ButtonTooltip'), [t]);
 
-  const handleSetLaneMode = () => {
+  const handleOnLaneMode = () => {
     dispatch(
       setLaneMode({
-        isOn: !laneMode.isOn
+        isOn: true
+      })
+    );
+  };
+
+  const handleOffLaneMode = () => {
+    dispatch(
+      setLaneMode({
+        isOn: false
       })
     );
   };
 
   return (
     <div>
-      <Tooltip title={tooltipText} arrow>
-        <IconButton ref={anchorRef} onClick={handleSetLaneMode} disabled={deleteMode.isOn}>
-          <HistoryToggleOffIcon
-            className={clsx({
-              [iconTheme]: true,
-              [style.disabledIcon]: deleteMode.isOn,
-              [style.blueIcon]: planningMode.isOn
-            })}
-          />
-        </IconButton>
-      </Tooltip>
+      <div className={style.buttonContainer}>
+        <Tooltip title={tooltipText} arrow>
+          <Button className={style.buttonly} onClick={handleOnLaneMode}>
+            {t('LaneMode')}
+          </Button>
+        </Tooltip>
+
+        <Button className={style.buttonly} onClick={handleOffLaneMode}>
+          {t('Custom Mode')}
+        </Button>
+      </div>
     </div>
   );
 };
