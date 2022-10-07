@@ -11,6 +11,8 @@ import LocationBlock from './components/LocationBlock/LocationBlock';
 import EmptyState from './components/EmptyState/EmptyState';
 import AnnounceModule from './components/AnnounceModal/AnnounceModule';
 import generateTime from '../../utils/generateTime';
+import useTimeInfo from '../../hooks/useTimeInfo';
+import { nanoid } from 'nanoid';
 
 const Section: React.FC = () => {
   const dispatch = useDispatch();
@@ -20,15 +22,16 @@ const Section: React.FC = () => {
     counter,
     planningMode,
     laneMode,
+    timeTable,
     locations: { locationsDB }
   } = useSelector((state: IInitialState) => state);
 
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
 
-  console.log('locationsDB', locationsDB);
-  console.log('UserLocation', userLocation);
+  // console.log('locationsDB', locationsDB);
+  // console.log('UserLocation', userLocation);
 
-  const [timeTable, setTimeTable] = useState<any[]>([]);
+  const [generatedTimeTable, setGeneratedTimeTable] = useState<any[]>([]);
 
   useEffect(() => {
     const userLocation: IUrlLocation | undefined =
@@ -92,7 +95,7 @@ const Section: React.FC = () => {
 
         return (
           <LocationBlock
-            key={index + 'LOCATION'}
+            key={nanoid()}
             index={index}
             location={find}
             urlUserLocation={urlLocation.userLocation}
@@ -107,7 +110,8 @@ const Section: React.FC = () => {
   }, [locations, laneMode]);
 
   useEffect(() => {
-    const timeTables = laneMode.timeTable.map(i => generateTime(24, 30, +i.hours + 1, 23));
+    console.log('timeTable', timeTable);
+    const timeTables = timeTable.map(i => generateTime(24, 30, +i.hours + 1, 23));
     const res: any[] = [];
     let loopCount = 0;
     timeTables.forEach(time => {
@@ -115,38 +119,16 @@ const Section: React.FC = () => {
         loopCount = time.length;
       }
     });
-    console.log(loopCount);
 
     const arrayColumn = (arr: any[], n: number) => arr.map(x => x[n]);
 
     for (let i = 0; i < loopCount; i++) {
-      console.log('timatables length', i);
       let column = arrayColumn(timeTables, i);
       res.push(column);
     }
-    // while (timeTables.length > 0 && timeTables[0].length > 0) {
-    //   timeTables.forEach(i => {
-    //     res.push(...i.splice(0, 1));
-    //     // @ts-ignore
-    //     if (Array.isArray(res[counter])) {
-    //       // @ts-ignore
-    //       res[counter].push(...i.splice(0, 1));
-    //     } else {
-    //       // @ts-ignore
-    //       res[counter] = [...i.splice(0, 1)];
-    //     }
 
-    //     counter++;
-    //   });
-    // }
-
-    console.log('res', res);
-    console.log('timetables', timeTables);
-
-    setTimeTable(res);
-  }, [laneMode, userLocation]);
-
-  // console.log(timeTable);
+    setGeneratedTimeTable(res);
+  }, [laneMode, timeTable]);
 
   return (
     <div
@@ -175,10 +157,14 @@ const Section: React.FC = () => {
             {/* </div> */}
             {/* ))} */}
 
-            {timeTable.map((timeCol, idx) => (
-              <div className={style.timeCol}>
+            {generatedTimeTable.map((timeCol, idx) => (
+              <div key={nanoid()} className={style.timeCol}>
                 {timeCol.map((time: any) => {
-                  return <div className={style.timeCell}>{time}</div>;
+                  return (
+                    <div key={nanoid()} className={style.timeCell}>
+                      {time}
+                    </div>
+                  );
                 })}
               </div>
             ))}

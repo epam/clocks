@@ -30,8 +30,8 @@ export interface IInitialState {
   };
   laneMode: {
     isOn: boolean;
-    timeTable: ITimeState[];
   };
+  timeTable: ITimeState[];
   counter: number;
   onboarding?: IOnboarding;
 }

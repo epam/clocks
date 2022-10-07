@@ -15,4 +15,5 @@ export interface ITimeState {
   offset?: string;
   timezone?: string;
   city?: string;
+  userLocation?: boolean;
 }

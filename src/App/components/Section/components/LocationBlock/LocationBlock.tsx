@@ -16,7 +16,6 @@ import TimeInfo from './components/TimeInfo/TimeInfo';
 import PinButton from './components/PinButton/PinButton';
 import useTimeInfo from '../../../../hooks/useTimeInfo';
 import { setTimeTable } from '../../../../redux/actions';
-import { nanoid } from 'nanoid';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
   const dispatch = useDispatch();
@@ -49,9 +48,9 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   };
 
   useEffect(() => {
-    dispatch(setTimeTable(timeInfo));
+    dispatch(setTimeTable({ ...timeInfo, userLocation: urlUserLocation }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [index]);
 
   return (
     <div className={style.relativeBlock}>

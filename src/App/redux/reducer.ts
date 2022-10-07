@@ -2,6 +2,7 @@ import { locationsDB } from './locationsDB';
 import { timezonesDB } from './timezonesDB';
 import { IInitialState, IActionPayload } from './types';
 import { ACTION_TYPE, THEME, TIMEZONE, TIME_FORMAT } from './constants';
+import { ITimeState } from '../components/Section/components/LocationBlock/LocationBlock.types';
 
 const initialState: IInitialState = {
   locations: {
@@ -32,25 +33,60 @@ const initialState: IInitialState = {
     additionalHours: 0
   },
   laneMode: {
-    isOn: false,
-    timeTable: []
+    isOn: false
   },
+  timeTable: [],
   counter: 0
 };
 
 const setTimeTable = (state = initialState, action: IActionPayload) => {
-  const doesCityInclude = state.laneMode.timeTable.findIndex(i => i.city === action.payload.city);
-  if (doesCityInclude === -1) {
-    return {
-      ...state,
-      laneMode: {
-        ...state.laneMode,
-        timeTable: [...state.laneMode.timeTable, action.payload]
-      }
-    };
+  let timeTable: ITimeState[] = JSON.parse(JSON.stringify(state.timeTable));
+  const doesCityInclude = state.timeTable.findIndex(i => i.city === action.payload.city);
+
+  if (doesCityInclude === -1 && action.payload.userLocation) {
+    timeTable.unshift(action.payload);
   }
 
-  return state;
+  if (doesCityInclude === -1 && !action.payload.userLocation) {
+    timeTable.push(action.payload);
+  }
+
+  if (
+    doesCityInclude !== -1 &&
+    state.timeTable[doesCityInclude].userLocation !== action.payload.userLocation
+  ) {
+    if (action.payload.userLocation) {
+      console.log('true', action.payload);
+      const idx = timeTable.findIndex(i => i.city === action.payload.city);
+      timeTable.splice(idx, 1);
+      // @ts-ignore
+      timeTable = timeTable.sort((a, b) => a.hours - b.hours);
+      timeTable.unshift(action.payload);
+    }
+
+    if (!action.payload.userLocation) {
+      // console.log('false', action.payload);
+    }
+    console.log('sorted', timeTable);
+  }
+
+  // if (
+  //   doesCityInclude !== -1 &&
+  //   state.timeTable[doesCityInclude].userLocation !== action.payload.userLocation
+  // ) {
+  //   // @ts-ignore
+  //   // timeTable = timeTable.sort((a, b) => a.hours - b.hours);
+  //   const idx = timeTable.findIndex(i => i.city === action.payload.city);
+  //   timeTable.splice(idx, 1);
+  //   timeTable.unshift(action.payload);
+  // }
+
+  // console.log('>>', timeTable);
+
+  return {
+    ...state,
+    timeTable
+  };
 };
 
 const reducer = (state = initialState, action: IActionPayload): IInitialState => {
