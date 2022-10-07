@@ -25,7 +25,6 @@
   width: 100%;
   display: flex;
   overflow: auto;
-  border: 1px solid red;
 
   > div {
     width: 20%;
@@ -33,23 +32,37 @@
 
   .timeTable {
     width: 80%;
-
+    background-color: $whiteColor;
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
 
     overflow: auto;
-    //border: 1px solid black;
 
-    .timeRow {
+    // .timeRow {
+    //   display: flex;
+    //   height: 100%;
+
+    //   .timeColumn {
+    //     display: flex;
+    //     align-items: center;
+    //     padding: $space-s $space-m;
+    //   }
+    // }
+
+    .timeCol {
       display: flex;
-      height: 100%;
-      //border: 1px solid red;
+      flex-direction: column;
+      cursor: pointer;
 
-      .timeColumn {
-        display: flex;
-        align-items: center;
+      &:hover {
+        background-color: $lightGrayColor;
+      }
+
+      .timeCell {
         padding: $space-s $space-m;
-        //border: 1px solid yellow;
+        height: 100%;
+        display: grid;
+        place-items: center;
       }
     }
   }

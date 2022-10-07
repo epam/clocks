@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from 'react';
 import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
-import { Button, IconButton, Tooltip } from '@mui/material';
+import { Button, ButtonGroup, IconButton, Tooltip } from '@mui/material';
 import clsx from 'clsx';
 import style from './LaneMode.module.scss';
 import { t } from 'i18next';
@@ -8,8 +8,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { IInitialState } from '../../../../redux/types';
 import useTheme from '../../../../hooks/useTheme';
 import { setLaneMode } from '../../../../redux/actions';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
 
 const LaneMode = () => {
+  const theme = createTheme({
+    palette: {
+      primary: {
+        main: '#000000'
+      }
+    }
+  });
+
   const anchorRef = useRef(null);
   const dispatch = useDispatch();
 
@@ -38,15 +47,25 @@ const LaneMode = () => {
   return (
     <div>
       <div className={style.buttonContainer}>
-        <Tooltip title={tooltipText} arrow>
-          <Button className={style.buttonly} onClick={handleOnLaneMode}>
-            {t('LaneMode')}
-          </Button>
-        </Tooltip>
+        <ThemeProvider theme={theme}>
+          <ButtonGroup
+            color="primary"
+            size="small"
+            disableElevation
+            variant="contained"
+            aria-label="Disabled elevation buttons"
+          >
+            <Tooltip title={tooltipText} arrow>
+              <Button className={style.buttonly} onClick={handleOnLaneMode}>
+                {t('LaneMode')}
+              </Button>
+            </Tooltip>
 
-        <Button className={style.buttonly} onClick={handleOffLaneMode}>
-          {t('Custom Mode')}
-        </Button>
+            <Button className={style.buttonly} onClick={handleOffLaneMode}>
+              {t('Custom Mode')}
+            </Button>
+          </ButtonGroup>
+        </ThemeProvider>
       </div>
     </div>
   );

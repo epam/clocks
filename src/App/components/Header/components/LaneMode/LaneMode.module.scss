@@ -15,7 +15,11 @@
 // }
 .buttonContainer {
   .buttonly {
-    color: $blueColor;
     font-size: $fs12;
+    background-color: $darkGrayColor;
+
+    &:hover {
+      background-color: $darkColor;
+    }
   }
 }
