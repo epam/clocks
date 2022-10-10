@@ -11,7 +11,7 @@ const useAutoTheme = () => {
 
   const { t } = useTranslation();
 
-  const { showDate, showCountry, showFooter, showTimezone, theme, autoTheme, timeFormat } =
+  const { showDate, showFooter, showFlagAndCountry, showTimezone, theme, autoTheme, timeFormat } =
     useSelector((state: IInitialState) => state.settings);
 
   const { snackbarError } = useSnackbar();
@@ -28,7 +28,6 @@ const useAutoTheme = () => {
           'settings',
           JSON.stringify({
             showDate,
-            showCountry,
             autoTheme,
             theme: THEME.dark,
             timeFormat,
@@ -41,7 +40,6 @@ const useAutoTheme = () => {
           'settings',
           JSON.stringify({
             showDate,
-            showCountry,
             showTimezone,
             autoTheme,
             theme: THEME.light,
@@ -53,8 +51,8 @@ const useAutoTheme = () => {
       dispatch(
         setSettings({
           showDate,
-          showCountry,
           showFooter,
+          showFlagAndCountry,
           showTimezone,
           theme,
           timeFormat,

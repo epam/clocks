@@ -14,13 +14,16 @@ import { ILocationBlockProps } from './LocationBlock.types';
 import CommentButton from './components/CommentButton/CommentButton';
 import TimeInfo from './components/TimeInfo/TimeInfo';
 import PinButton from './components/PinButton/PinButton';
+import useFlag from '../../../../hooks/useFlag/useFlag';
+import { COUNTRYFLAG } from '../../../../redux/constants';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
-  const { showCountry } = useSelector((state: IInitialState) => state.settings);
+  const { showFlagAndCountry } = useSelector((state: IInitialState) => state.settings);
   const { deleteMode, onboarding, planningMode } = useSelector((state: IInitialState) => state);
   const { userLocation } = useSelector((state: IInitialState) => state.locations);
+  const flag = useFlag();
 
   const { locations, setLocations } = useLocations();
 
@@ -29,6 +32,26 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   const isUserLocation = useMemo(() => {
     return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
   }, [userLocation?.city, userLocation?.lat, location?.city, location?.lat]);
+
+  const displayFladAndCountry = (showFlagAndCountry: string) => {
+    switch (showFlagAndCountry) {
+      case COUNTRYFLAG.hide:
+        return;
+      case COUNTRYFLAG.flag:
+        return <span className={style.flagContainer}>{flag(location?.iso2 || '')}</span>;
+      case COUNTRYFLAG.country:
+        return location?.country;
+      case COUNTRYFLAG.flagAndCountry:
+        return (
+          <>
+            <span className={style.flagContainer}>{flag(location?.iso2 || '')}</span>
+            <span>{location?.country}</span>
+          </>
+        );
+      default:
+        return;
+    }
+  };
 
   const handleDelete = () => {
     location && delete locations[location?.city + location?.lat];
@@ -81,9 +104,10 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
                 <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
                 <CommentButton location={location} index={index} />
               </div>
+              {/* <div className={style.flagContainer}>{displayFlag(showFlagAndCountry)}</div> */}
               <div className={style.infoContainer}>
                 <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
-                <div className={style.bottomInfo}>{showCountry && location?.country}</div>
+                <div className={style.bottomInfo}>{displayFladAndCountry(showFlagAndCountry)}</div>
               </div>
             </div>
             <TimeInfo location={location} />
