@@ -13,6 +13,7 @@ import AnnounceModule from './components/AnnounceModal/AnnounceModule';
 import generateTime from '../../utils/generateTime';
 import useTimeInfo from '../../hooks/useTimeInfo';
 import { nanoid } from 'nanoid';
+import useTheme from '../../hooks/useTheme';
 
 const Section: React.FC = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const Section: React.FC = () => {
     locations: { locationsDB }
   } = useSelector((state: IInitialState) => state);
 
-  const { userLocation } = useSelector((state: IInitialState) => state.locations);
+  const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
   // console.log('locationsDB', locationsDB);
   // console.log('UserLocation', userLocation);
@@ -143,7 +144,11 @@ const Section: React.FC = () => {
       {laneMode.isOn ? (
         <div className={style.laneModeViewContainer}>
           <div>{locationsRender}</div>
-          <div className={style.timeTable}>
+          <div
+            className={clsx({
+              [bodyTheme]: true
+            })}
+          >
             {/* {timeTable.map((timeRow, idx) => ( */}
             {/* <div key={idx} className={style.timeRow}> */}
             {/* @ts-ignore */}

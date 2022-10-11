@@ -32,7 +32,7 @@
 
   .timeTable {
     width: 80%;
-    background-color: $whiteColor;
+    // background-color: $whiteColor;
     display: flex;
     // flex-direction: column;
 
@@ -54,9 +54,9 @@
       flex-direction: column;
       cursor: pointer;
 
-      &:hover {
-        background-color: $lightGrayColor;
-      }
+      // &:hover {
+      //   background-color: $lightGrayColor;
+      // }
 
       .timeCell {
         padding: $space-s $space-m;
@@ -88,5 +88,36 @@
 .paddingLeft {
   @include screenMax600 {
     padding-left: 0;
+  }
+}
+
+.lightBody {
+  @extend .timeTable;
+  @extend .timeCol;
+  @include lightBlock;
+
+  background-color: $lightColor;
+  color: $darkColor;
+
+  .timeCol {
+    &:hover {
+      background-color: $lightGrayColor;
+    }
+  }
+}
+
+.darkBody {
+  @extend .timeTable;
+  @extend .timeCol;
+  @include darkBlock;
+
+  background-color: $darkGrayColor;
+  color: $whiteColor;
+
+  .timeCol {
+    &:hover {
+      color: $whiteColor;
+      background-color: $darkColor;
+    }
   }
 }
