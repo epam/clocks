@@ -109,9 +109,33 @@ const Section: React.FC = () => {
     // eslint-disable-next-line
   }, [locations, laneMode]);
 
+  const cityArray = useMemo(() => {
+    if (locations && !!Object.keys(locations).length) {
+      const locationsArray = Object.values(locations);
+      let indexOfUserLocation = 0;
+
+      const sortedLocations = locationsArray.sort((a, b) => b.offset - a.offset);
+
+      const userLocation = sortedLocations.find((i, idx) => {
+        indexOfUserLocation = idx;
+        return i.userLocation;
+      });
+
+      sortedLocations.splice(indexOfUserLocation, 1);
+      sortedLocations.unshift(userLocation as IUrlLocation);
+
+      return sortedLocations.map(i => i.city);
+    }
+
+    return [''];
+  }, [locations]);
+
   useEffect(() => {
     console.log('timeTable', timeTable);
-    const timeTables = timeTable.map(i => generateTime(24, 30, +i.hours + 1, 23));
+    const sortedTimeTable = timeTable.sort(
+      (a, b) => cityArray.indexOf(a.city as string) - cityArray.indexOf(b.city as string)
+    );
+    const timeTables = sortedTimeTable.map(i => generateTime(24, 30, +i.hours + 1, 23));
     const res: any[] = [];
     let loopCount = 0;
     timeTables.forEach(time => {
@@ -128,7 +152,7 @@ const Section: React.FC = () => {
     }
 
     setGeneratedTimeTable(res);
-  }, [laneMode, timeTable]);
+  }, [laneMode, timeTable, cityArray]);
 
   return (
     <div
