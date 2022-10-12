@@ -133,9 +133,9 @@ const Section: React.FC = () => {
 
   useEffect(() => {
     console.log('timeTable', timeTable);
-    const sortedTimeTable = timeTable.sort(
-      (a, b) => cityArray.indexOf(a.city as string) - cityArray.indexOf(b.city as string)
-    );
+    const sortedTimeTable = timeTable
+      .filter(i => cityArray.includes(i.city as string))
+      .sort((a, b) => cityArray.indexOf(a.city as string) - cityArray.indexOf(b.city as string));
     const timeTables = sortedTimeTable.map(i => generateTime(24, 30, +i.hours + 1, 23));
     const res: any[] = [];
     let loopCount = 0;
