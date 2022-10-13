@@ -82,7 +82,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           [style.shaking]: deleteMode.isOn,
           [style.onboarding]:
             !index && (onboarding?.planningMode || onboarding?.myLocation || onboarding?.comment),
-          [style.zeromargin]: laneMode.isOn,
           [style.zeromargin]: laneMode.isOn
         })}
       >
@@ -102,47 +101,39 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
               <Remove className={style.icon} />
             </IconButton>
           )}
-          <div
-            className={clsx({
-              [style.wrapper]: true
-            })}
-          >
-            <div
-              className={clsx({
-                [style.infoBlock]: true
-              })}
-            >
+          <div className={style.wrapper}>
+            <div className={style.infoBlock}>
               <div
                 className={clsx({
                   [style.leftSide]: true,
-                  [style.moveLeftOrRight]: !isFocused && !isUserLocation
+                  [style.moveLeftOrRight]: !isFocused
                 })}
               >
                 <div
                   className={clsx({
                     [style.buttonContainer]: true,
-                    [style.opaccityBlock]: !isFocused && !isUserLocation
+                    [style.opaccityBlock]: !isFocused
                   })}
                 >
                   <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
                   <CommentButton location={location} index={index} />
                 </div>
+                {/* <div className={style.flagContainer}>{displayFlag(showFlagAndCountry)}</div> */}
                 <div className={style.infoContainer}>
                   <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
                   <div className={style.bottomInfo}>
                     {displayFladAndCountry(showFlagAndCountry)}
                   </div>
                 </div>
-
-                <TimeInfo location={location} />
               </div>
-              {location && locations[location.city + location.lat].comment && (
-                <div className={style.commentBlock}>
-                  {locations[location.city + location.lat].comment}
-                </div>
-              )}
+              <TimeInfo location={location} />
             </div>
           </div>
+          {location && locations[location.city + location.lat].comment && (
+            <div className={style.commentBlock}>
+              {locations[location.city + location.lat].comment}
+            </div>
+          )}
         </div>
       </div>
     </div>

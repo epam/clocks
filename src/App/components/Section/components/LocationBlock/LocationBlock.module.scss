@@ -72,6 +72,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    width: 100%;
+    // border: 1px solid red;
 
     .buttonContainer {
       display: flex;
@@ -218,7 +220,7 @@
 }
 
 .wrapper {
-  width: 350px;
+  width: 100%;
 }
 
 .timeTable {
