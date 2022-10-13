@@ -30,17 +30,10 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     onboarding,
     planningMode,
     laneMode,
-    settings: { showCountry },
     locations: { userLocation }
   } = useSelector((state: IInitialState) => state);
   const { showFlagAndCountry } = useSelector((state: IInitialState) => state.settings);
-  const { deleteMode, onboarding, planningMode } = useSelector((state: IInitialState) => state);
-  const { userLocation } = useSelector((state: IInitialState) => state.locations);
   const flag = useFlag();
-
-  const { locations, setLocations } = useLocations();
-
-
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const isUserLocation = useMemo(() => {
@@ -131,22 +124,24 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
                     [style.opaccityBlock]: !isFocused && !isUserLocation
                   })}
                 >
-                <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
-                <CommentButton location={location} index={index} />
-              </div>
-              {/* <div className={style.flagContainer}>{displayFlag(showFlagAndCountry)}</div> */}
-              <div className={style.infoContainer}>
-                <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
-                <div className={style.bottomInfo}>{displayFladAndCountry(showFlagAndCountry)}</div>
-              </div>
+                  <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
+                  <CommentButton location={location} index={index} />
+                </div>
+                <div className={style.infoContainer}>
+                  <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
+                  <div className={style.bottomInfo}>
+                    {displayFladAndCountry(showFlagAndCountry)}
+                  </div>
+                </div>
 
-              <TimeInfo location={location} />
-            </div>
-            {location && locations[location.city + location.lat].comment && (
-              <div className={style.commentBlock}>
-                {locations[location.city + location.lat].comment}
+                <TimeInfo location={location} />
               </div>
-            )}
+              {location && locations[location.city + location.lat].comment && (
+                <div className={style.commentBlock}>
+                  {locations[location.city + location.lat].comment}
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
