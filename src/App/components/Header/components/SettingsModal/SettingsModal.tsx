@@ -32,8 +32,16 @@ const SettingsModal: React.FC = () => {
 
   const [isModalOpen, setModal] = useState(false);
 
-  const { autoTheme, theme, showDate, showFooter, showFlagAndCountry, showTimezone, timeFormat } =
-    useSelector((state: IInitialState) => state.settings);
+  const {
+    autoTheme,
+    theme,
+    showDate,
+    showFooter,
+    displayFlagInSearch,
+    showFlagAndCountry,
+    showTimezone,
+    timeFormat
+  } = useSelector((state: IInitialState) => state.settings);
 
   const { deleteMode, counter, onboarding, planningMode } = useSelector(
     (state: IInitialState) => state
@@ -46,6 +54,7 @@ const SettingsModal: React.FC = () => {
     theme: THEME.light,
     showDate: true,
     showFooter: true,
+    displayFlagInSearch: true,
     showFlagAndCountry: COUNTRYFLAG.hide,
     showTimezone: TIMEZONE.disabled,
     timeFormat: TIME_FORMAT.H24
@@ -57,6 +66,7 @@ const SettingsModal: React.FC = () => {
       theme,
       showDate,
       showFooter,
+      displayFlagInSearch,
       showFlagAndCountry,
       showTimezone,
       timeFormat
@@ -66,6 +76,7 @@ const SettingsModal: React.FC = () => {
     theme,
     showDate,
     showFooter,
+    displayFlagInSearch,
     showFlagAndCountry,
     showTimezone,
     isModalOpen,
@@ -138,6 +149,12 @@ const SettingsModal: React.FC = () => {
           break;
         case TIME_FORMAT.H12:
           setLocalSettings({ ...localSettings, timeFormat: value });
+          break;
+        case SETTING_VALUE.searchFlag:
+          setLocalSettings({
+            ...localSettings,
+            displayFlagInSearch: !localSettings.displayFlagInSearch
+          });
           break;
         default:
           setLocalSettings({ ...localSettings, theme: value });

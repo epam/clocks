@@ -17,6 +17,7 @@ const initialState: IInitialState = {
     autoTheme: undefined,
     showDate: true,
     showFooter: true,
+    displayFlagInSearch: true,
     showFlagAndCountry: COUNTRYFLAG.hide,
     timeFormat: TIME_FORMAT.H24,
     showTimezone: TIMEZONE.disabled

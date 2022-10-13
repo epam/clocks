@@ -5,7 +5,12 @@ import { IconButton, Drawer, MenuList, MenuItem } from '@mui/material';
 import { Close } from '@mui/icons-material';
 
 import useSnackbar from '../../../../../../hooks/useSnackbar';
-import { ILocation, IUrlLocations, IUrlLocation } from '../../../../../../redux/types';
+import {
+  ILocation,
+  IUrlLocations,
+  IUrlLocation,
+  IInitialState
+} from '../../../../../../redux/types';
 import useLocations from '../../../../../../hooks/useLocations';
 import useTheme from '../../../../../../hooks/useTheme';
 import useFlag from '../../../../../../hooks/useFlag/useFlag';
@@ -14,6 +19,7 @@ import { KEYBOARD } from '../../AddLocation.constants';
 
 import style from './DrawerBlock.module.scss';
 import { IDrawerBlockProps } from './DrawerBlock.types';
+import { useSelector } from 'react-redux';
 
 const DrawerBlock: React.FC<IDrawerBlockProps> = ({
   setSearchText,
@@ -23,6 +29,8 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
   searchText,
   locationsFound
 }) => {
+  const { displayFlagInSearch } = useSelector((state: IInitialState) => state.settings);
+
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const inputTheme = useTheme(style.lightInput, style.darkInput);
   const foundLocationTheme = useTheme(style.lightFoundLocation, style.darkFoundLocation);
@@ -114,7 +122,9 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
                 onClick={() => handleSelectLocation(location)}
               >
                 <div className={style.foundLocationDetailsContainer}>
-                  <div className={style.flagContainer}>{flag(location.iso2)}</div>
+                  <div className={displayFlagInSearch ? style.flagContainer : ''}>
+                    {displayFlagInSearch && flag(location.iso2)}
+                  </div>
                   <div>
                     <div className={style.title}>{location.city}</div>
                     <div className={style.zone}>
