@@ -14,7 +14,7 @@ const RadioList = ({ id, value, translate }: radioListProps) => {
 
   return (
     <div onMouseEnter={() => setIsTruncate(false)} onMouseLeave={() => setIsTruncate(true)}>
-      <Radio id={id} value={value} />
+      <Radio id={id} value={value} size="small" />
       <label className={style.cursorPointer} htmlFor={id}>
         {isTruncate ? truncate(translate, 24) : translate}
       </label>

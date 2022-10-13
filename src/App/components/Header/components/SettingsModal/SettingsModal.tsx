@@ -178,23 +178,49 @@ const SettingsModal: React.FC = () => {
               <Close className={buttonTheme} />
             </IconButton>
           </div>
-          <DisplayBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
-          <Divider
-            className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
-          />
-          <CountryFlagBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
-          <Divider
-            className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
-          />
-          <TimezoneBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
-          <Divider
-            className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
-          />
-          <HoursSortingBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
-          <Divider
-            className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
-          />
-          <ThemeBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
+          <div className={style.optionsContainer}>
+            <div className={style.optionsColumn}>
+              <DisplayBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
+              <Divider
+                className={clsx({
+                  [style.divider]: true,
+                  [style.darkDivider]: theme === THEME.dark
+                })}
+              />
+              <CountryFlagBlock
+                localSettings={localSettings}
+                handleSetSettings={handleSetSettings}
+              />
+              <Divider
+                className={clsx({
+                  [style.divider]: true,
+                  [style.darkDivider]: theme === THEME.dark
+                })}
+              />
+              <ThemeBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
+            </div>
+            <Divider
+              orientation="vertical"
+              flexItem
+              className={clsx({
+                [style.divider]: true,
+                [style.darkDivider]: theme === THEME.dark
+              })}
+            />
+            <div className={style.optionsColumn}>
+              <HoursSortingBlock
+                localSettings={localSettings}
+                handleSetSettings={handleSetSettings}
+              />
+              <Divider
+                className={clsx({
+                  [style.divider]: true,
+                  [style.darkDivider]: theme === THEME.dark
+                })}
+              />
+              <TimezoneBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
+            </div>
+          </div>
           <div className={style.buttonContainer}>
             <Button className={style.button} onClick={handleSave}>
               {t('Settings.SaveButton')}

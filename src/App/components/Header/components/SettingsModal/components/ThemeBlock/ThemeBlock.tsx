@@ -20,6 +20,7 @@ const ThemeBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSettings }
           checked={localSettings.autoTheme}
           onChange={handleSetSettings}
           value={SETTING_VALUE.auto}
+          size="small"
         />
         <label className={style.cursorPointer} htmlFor={INPUT_IDS.autoTheming}>
           {t('Settings.AutoTheme')}
@@ -32,6 +33,7 @@ const ThemeBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSettings }
             className={clsx({ [style.disabled]: localSettings.autoTheme })}
             value={THEME.light}
             disabled={localSettings.autoTheme}
+            size="small"
           />
           <label
             htmlFor={INPUT_IDS.lightTheme}
@@ -46,6 +48,7 @@ const ThemeBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSettings }
             className={clsx({ [style.disabled]: localSettings.autoTheme })}
             value={THEME.dark}
             disabled={localSettings.autoTheme}
+            size="small"
           />
           <label
             htmlFor={INPUT_IDS.darkTheme}

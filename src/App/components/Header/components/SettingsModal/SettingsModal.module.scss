@@ -1,8 +1,8 @@
 @import '../../../../styles/index.scss';
 
 %body {
-  width: 250px;
-  padding: $space-s;
+  width: 455px;
+  padding: $space-xxs;
   overflow-x: hidden;
 
   svg {
@@ -13,7 +13,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: $space-s;
+    margin-bottom: $space-xxs;
+    padding-left: $space-s;
   }
 
   .modalTitle {
@@ -21,9 +22,18 @@
     font-size: $fs20;
   }
 
+  .optionsContainer {
+    display: flex;
+
+    .optionsColumn {
+      margin-right: $space-xxs;
+      margin-left: $space-xxs;
+    }
+  }
+
   .divider {
-    margin-top: $space-s;
-    margin-bottom: $space-s;
+    margin-top: $space-xxs;
+    margin-bottom: $space-xxs;
   }
 
   .darkDivider {
@@ -39,7 +49,7 @@
   }
 
   .buttonContainer {
-    margin-top: $space-s;
+    margin-top: $space-xxs;
     display: flex;
     align-items: center;
     justify-content: flex-end;
