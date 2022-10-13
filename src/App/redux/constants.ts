@@ -27,3 +27,10 @@ export const TIMEZONE = {
   country: 'countryTimezone',
   abbrvCountry: 'abbreviationAndCountryTimezone'
 };
+
+export const COUNTRYFLAG = {
+  hide: 'hideCountryFlag',
+  flag: 'DisplayFlag',
+  country: 'DisplayCountry',
+  flagAndCountry: 'DisplayFlagAndCountry'
+};

@@ -25,17 +25,6 @@ const DisplayBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSettings
       </div>
       <div>
         <Checkbox
-          id={INPUT_IDS.showCountryName}
-          checked={localSettings.showCountry}
-          onChange={handleSetSettings}
-          value={SETTING_VALUE.country}
-        />
-        <label className={style.cursorPointer} htmlFor={INPUT_IDS.showCountryName}>
-          {t('Settings.ShowCountry')}
-        </label>
-      </div>
-      <div>
-        <Checkbox
           id={INPUT_IDS.showFooter}
           checked={localSettings.showFooter}
           onChange={handleSetSettings}

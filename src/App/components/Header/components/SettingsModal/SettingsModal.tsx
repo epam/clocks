@@ -9,7 +9,7 @@ import { Close, SettingsOutlined } from '@mui/icons-material';
 import useTheme from '../../../../hooks/useTheme';
 import useAutoTheme from '../../../../hooks/useAutoTheme';
 import { IInitialState, IActionSettingsPayload } from '../../../../redux/types';
-import { THEME, TIME_FORMAT, TIMEZONE } from '../../../../redux/constants';
+import { THEME, TIME_FORMAT, TIMEZONE, COUNTRYFLAG } from '../../../../redux/constants';
 import { setSettings } from '../../../../redux/actions';
 import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
@@ -19,6 +19,7 @@ import DisplayBlock from './components/DisplayBlock/DisplayBlock';
 import TimezoneBlock from './components/TimezoneBlock/TimezoneBlock';
 import HoursSortingBlock from './components/HoursSortingBlock/HoursSortingBlock';
 import ThemeBlock from './components/ThemeBlock/ThemeBlock';
+import CountryFlagBlock from './components/CountryFlagBlock/CountryFlagBlock';
 
 const SettingsModal: React.FC = () => {
   const anchorRef = useRef(null);
@@ -31,7 +32,7 @@ const SettingsModal: React.FC = () => {
 
   const [isModalOpen, setModal] = useState(false);
 
-  const { autoTheme, theme, showDate, showCountry, showFooter, showTimezone, timeFormat } =
+  const { autoTheme, theme, showDate, showFooter, showFlagAndCountry, showTimezone, timeFormat } =
     useSelector((state: IInitialState) => state.settings);
 
   const { deleteMode, counter, onboarding, planningMode } = useSelector(
@@ -44,8 +45,8 @@ const SettingsModal: React.FC = () => {
     autoTheme: undefined,
     theme: THEME.light,
     showDate: true,
-    showCountry: true,
     showFooter: true,
+    showFlagAndCountry: COUNTRYFLAG.hide,
     showTimezone: TIMEZONE.disabled,
     timeFormat: TIME_FORMAT.H24
   });
@@ -55,12 +56,21 @@ const SettingsModal: React.FC = () => {
       autoTheme,
       theme,
       showDate,
-      showCountry,
       showFooter,
+      showFlagAndCountry,
       showTimezone,
       timeFormat
     });
-  }, [autoTheme, theme, showDate, showCountry, showFooter, showTimezone, isModalOpen, timeFormat]);
+  }, [
+    autoTheme,
+    theme,
+    showDate,
+    showFooter,
+    showFlagAndCountry,
+    showTimezone,
+    isModalOpen,
+    timeFormat
+  ]);
 
   useEffect(() => {
     const localStorageSettings = localStorage.getItem('settings');
@@ -93,11 +103,20 @@ const SettingsModal: React.FC = () => {
         case SETTING_VALUE.date:
           setLocalSettings({ ...localSettings, showDate: !localSettings.showDate });
           break;
-        case SETTING_VALUE.country:
-          setLocalSettings({ ...localSettings, showCountry: !localSettings.showCountry });
-          break;
         case SETTING_VALUE.footer:
           setLocalSettings({ ...localSettings, showFooter: !localSettings.showFooter });
+          break;
+        case COUNTRYFLAG.hide:
+          setLocalSettings({ ...localSettings, showFlagAndCountry: value });
+          break;
+        case COUNTRYFLAG.flag:
+          setLocalSettings({ ...localSettings, showFlagAndCountry: value });
+          break;
+        case COUNTRYFLAG.country:
+          setLocalSettings({ ...localSettings, showFlagAndCountry: value });
+          break;
+        case COUNTRYFLAG.flagAndCountry:
+          setLocalSettings({ ...localSettings, showFlagAndCountry: value });
           break;
         case TIMEZONE.disabled:
           setLocalSettings({ ...localSettings, showTimezone: value });
@@ -160,6 +179,10 @@ const SettingsModal: React.FC = () => {
             </IconButton>
           </div>
           <DisplayBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
+          <Divider
+            className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
+          />
+          <CountryFlagBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
           <Divider
             className={clsx({ [style.divider]: true, [style.darkDivider]: theme === THEME.dark })}
           />
