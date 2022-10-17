@@ -1,6 +1,6 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import clsx from 'clsx';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { IconButton } from '@mui/material';
 import { Remove } from '@mui/icons-material';
@@ -14,19 +14,26 @@ import { ILocationBlockProps } from './LocationBlock.types';
 import CommentButton from './components/CommentButton/CommentButton';
 import TimeInfo from './components/TimeInfo/TimeInfo';
 import PinButton from './components/PinButton/PinButton';
+import useTimeInfo from '../../../../hooks/useTimeInfo';
+import { setTimeTable } from '../../../../redux/actions';
 import useFlag from '../../../../hooks/useFlag/useFlag';
 import { COUNTRYFLAG } from '../../../../redux/constants';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
+  const dispatch = useDispatch();
+  const timeInfo = useTimeInfo(location);
+  const { locations, setLocations } = useLocations();
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
 
+  const {
+    deleteMode,
+    onboarding,
+    planningMode,
+    laneMode,
+    locations: { userLocation }
+  } = useSelector((state: IInitialState) => state);
   const { showFlagAndCountry } = useSelector((state: IInitialState) => state.settings);
-  const { deleteMode, onboarding, planningMode } = useSelector((state: IInitialState) => state);
-  const { userLocation } = useSelector((state: IInitialState) => state.locations);
   const flag = useFlag();
-
-  const { locations, setLocations } = useLocations();
-
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const isUserLocation = useMemo(() => {
@@ -62,6 +69,11 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     setIsFocused(isFocused => !isFocused);
   };
 
+  useEffect(() => {
+    dispatch(setTimeTable({ ...timeInfo, userLocation: urlUserLocation }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [index]);
+
   return (
     <div className={style.relativeBlock}>
       <div
@@ -69,7 +81,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           [style.container]: true,
           [style.shaking]: deleteMode.isOn,
           [style.onboarding]:
-            !index && (onboarding?.planningMode || onboarding?.myLocation || onboarding?.comment)
+            !index && (onboarding?.planningMode || onboarding?.myLocation || onboarding?.comment),
+          [style.zeromargin]: laneMode.isOn
         })}
       >
         <div
@@ -88,29 +101,32 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
               <Remove className={style.icon} />
             </IconButton>
           )}
-          <div className={style.infoBlock}>
-            <div
-              className={clsx({
-                [style.leftSide]: true,
-                [style.moveLeftOrRight]: !isFocused
-              })}
-            >
+          <div className={style.wrapper}>
+            <div className={style.infoBlock}>
               <div
                 className={clsx({
-                  [style.buttonContainer]: true,
-                  [style.opaccityBlock]: !isFocused
+                  [style.leftSide]: true,
+                  [style.moveLeftOrRight]: !isFocused
                 })}
               >
-                <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
-                <CommentButton location={location} index={index} />
+                <div
+                  className={clsx({
+                    [style.buttonContainer]: true,
+                    [style.opaccityBlock]: !isFocused
+                  })}
+                >
+                  <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
+                  <CommentButton location={location} index={index} />
+                </div>
+                <div className={style.infoContainer}>
+                  <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
+                  <div className={style.bottomInfo}>
+                    {displayFladAndCountry(showFlagAndCountry)}
+                  </div>
+                </div>
               </div>
-              {/* <div className={style.flagContainer}>{displayFlag(showFlagAndCountry)}</div> */}
-              <div className={style.infoContainer}>
-                <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
-                <div className={style.bottomInfo}>{displayFladAndCountry(showFlagAndCountry)}</div>
-              </div>
+              <TimeInfo location={location} />
             </div>
-            <TimeInfo location={location} />
           </div>
           {location && locations[location.city + location.lat].comment && (
             <div className={style.commentBlock}>

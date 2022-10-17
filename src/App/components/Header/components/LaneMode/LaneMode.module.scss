@@ -1,0 +1,26 @@
+@import '../../../../styles/index.scss';
+
+// %body {
+//   .buttonContainer {
+//     margin-top: $space-s;
+//     display: flex;
+//     align-items: center;
+//     justify-content: flex-end;
+//     color: $blueColor;
+
+//     .button {
+//       color: $blueColor !important;
+//     }
+//   }
+// }
+.buttonContainer {
+  .buttonly {
+    font-size: $fs12;
+    background-color: $lightColor;
+    color: $darkColor;
+
+    &:hover {
+      background-color: $lightGrayColor;
+    }
+  }
+}

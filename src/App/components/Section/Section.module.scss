@@ -9,11 +9,67 @@
   margin-right: auto;
   padding-right: $space-s;
   padding-left: $space-s;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   @include screenMax600 {
     padding-right: 0;
     padding-left: 0;
   }
+}
+
+.laneModeViewContainer {
+  width: 100%;
+  display: flex;
+  overflow: auto;
+
+  > div {
+    width: 20%;
+  }
+
+  .timeTable {
+    width: 80%;
+    // background-color: $whiteColor;
+    display: flex;
+    // flex-direction: column;
+
+    overflow: auto;
+
+    // .timeRow {
+    //   display: flex;
+    //   height: 100%;
+
+    //   .timeColumn {
+    //     display: flex;
+    //     align-items: center;
+    //     padding: $space-s $space-m;
+    //   }
+    // }
+
+    .timeCol {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+
+      // &:hover {
+      //   background-color: $lightGrayColor;
+      // }
+
+      .timeCell {
+        padding: $space-s $space-m;
+        height: 100%;
+        display: grid;
+        place-items: center;
+      }
+    }
+  }
+}
+
+.laneModeView {
+  grid-template-columns: 1fr;
 }
 
 .emptyBody {
@@ -32,5 +88,36 @@
 .paddingLeft {
   @include screenMax600 {
     padding-left: 0;
+  }
+}
+
+.lightBody {
+  @extend .timeTable;
+  @extend .timeCol;
+  @include lightBlock;
+
+  background-color: $lightColor;
+  color: $darkColor;
+
+  .timeCol {
+    &:hover {
+      background-color: $lightGrayColor;
+    }
+  }
+}
+
+.darkBody {
+  @extend .timeTable;
+  @extend .timeCol;
+  @include darkBlock;
+
+  background-color: $darkGrayColor;
+  color: $whiteColor;
+
+  .timeCol {
+    &:hover {
+      color: $whiteColor;
+      background-color: $darkColor;
+    }
   }
 }

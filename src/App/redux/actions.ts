@@ -5,8 +5,10 @@ import {
   ILocation,
   IActionSnackbarPayload,
   IActionPlanningModePayload,
-  IOnboarding
+  IOnboarding,
+  IActionLaneModePayload
 } from './types';
+import { ITimeState } from '../components/Section/components/LocationBlock/LocationBlock.types';
 
 export const setTheme = (payload: string) => ({ type: ACTION_TYPE.setTheme, payload });
 
@@ -19,6 +21,11 @@ export const setSettings = (payload: IActionSettingsPayload) => ({
 
 export const setPlanningMode = (payload: IActionPlanningModePayload) => ({
   type: ACTION_TYPE.setPlanningMode,
+  payload
+});
+
+export const setLaneMode = (payload: IActionLaneModePayload) => ({
+  type: ACTION_TYPE.setLaneMode,
   payload
 });
 
@@ -36,5 +43,10 @@ export const setCounter = (payload: number) => ({ type: ACTION_TYPE.setCounter, 
 
 export const setOnboarding = (payload: IOnboarding) => ({
   type: ACTION_TYPE.setOnboarding,
+  payload
+});
+
+export const setTimeTable = (payload: ITimeState) => ({
+  type: ACTION_TYPE.setTimeTable,
   payload
 });

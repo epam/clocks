@@ -7,10 +7,13 @@ export interface ILocationBlockProps {
 }
 
 export interface ITimeState {
+  id?: string;
   hours: string;
   minutes: string;
   suffix: string;
   day?: string;
   offset?: string;
   timezone?: string;
+  city?: string;
+  userLocation?: boolean;
 }

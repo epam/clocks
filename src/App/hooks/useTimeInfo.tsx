@@ -33,7 +33,8 @@ const useTimeInfo = (location?: ILocation) => {
     day: '',
     offset: '',
     suffix: '',
-    timezone: location?.timezone
+    timezone: location?.timezone,
+    city: location?.city
   };
   const isHour12Format = timeFormat === TIME_FORMAT.H12;
 
