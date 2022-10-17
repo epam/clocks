@@ -56,32 +56,12 @@ const setTimeTable = (state = initialState, action: IActionPayload) => {
     state.timeTable[doesCityInclude].userLocation !== action.payload.userLocation
   ) {
     if (action.payload.userLocation) {
-      console.log('true', action.payload);
       const idx = timeTable.findIndex(i => i.city === action.payload.city);
       timeTable.splice(idx, 1);
-      // @ts-ignore
-      timeTable = timeTable.sort((a, b) => a.hours - b.hours);
+      timeTable = timeTable.sort((a, b) => a.hours.localeCompare(b.hours));
       timeTable.unshift(action.payload);
     }
-
-    if (!action.payload.userLocation) {
-      // console.log('false', action.payload);
-    }
-    console.log('sorted', timeTable);
   }
-
-  // if (
-  //   doesCityInclude !== -1 &&
-  //   state.timeTable[doesCityInclude].userLocation !== action.payload.userLocation
-  // ) {
-  //   // @ts-ignore
-  //   // timeTable = timeTable.sort((a, b) => a.hours - b.hours);
-  //   const idx = timeTable.findIndex(i => i.city === action.payload.city);
-  //   timeTable.splice(idx, 1);
-  //   timeTable.unshift(action.payload);
-  // }
-
-  // console.log('>>', timeTable);
 
   return {
     ...state,

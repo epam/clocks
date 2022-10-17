@@ -11,7 +11,6 @@ import LocationBlock from './components/LocationBlock/LocationBlock';
 import EmptyState from './components/EmptyState/EmptyState';
 import AnnounceModule from './components/AnnounceModal/AnnounceModule';
 import generateTime from '../../utils/generateTime';
-import useTimeInfo from '../../hooks/useTimeInfo';
 import { nanoid } from 'nanoid';
 import useTheme from '../../hooks/useTheme';
 
@@ -28,9 +27,6 @@ const Section: React.FC = () => {
   } = useSelector((state: IInitialState) => state);
 
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
-
-  // console.log('locationsDB', locationsDB);
-  // console.log('UserLocation', userLocation);
 
   const [generatedTimeTable, setGeneratedTimeTable] = useState<any[]>([]);
 
@@ -132,7 +128,6 @@ const Section: React.FC = () => {
   }, [locations]);
 
   useEffect(() => {
-    console.log('timeTable', timeTable);
     const sortedTimeTable = timeTable
       .filter(i => cityArray.includes(i.city as string))
       .sort((a, b) => cityArray.indexOf(a.city as string) - cityArray.indexOf(b.city as string));

@@ -118,7 +118,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
                   <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
                   <CommentButton location={location} index={index} />
                 </div>
-                {/* <div className={style.flagContainer}>{displayFlag(showFlagAndCountry)}</div> */}
                 <div className={style.infoContainer}>
                   <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
                   <div className={style.bottomInfo}>
