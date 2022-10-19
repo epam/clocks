@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { INPUT_IDS } from '../../SettingsModal.constants';
+import { RadioGroup, Checkbox } from '@mui/material';
+
+import { INPUT_IDS, SETTING_VALUE } from '../../SettingsModal.constants';
 import { IBlocksProps } from '../../SettingsModal.types';
 import { COUNTRYFLAG } from '../../../../../../redux/constants';
-import { RadioGroup } from '@mui/material';
 import RadioList from '../TimezoneBlock/components/RadioList/RadioList';
+
+import style from '../../SettingsModal.module.scss';
+import { truncate } from '../../../../../../utils/truncate';
 
 const CountryFlagBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSettings }) => {
   const { t } = useTranslation();
@@ -34,11 +38,26 @@ const CountryFlagBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSett
   const radio = radioGroupData.map(({ id, value, translate }) => (
     <RadioList key={id} id={id} value={value} translate={translate} />
   ));
+  const [isTruncate, setIsTruncate] = useState(true);
+
   return (
     <>
       <RadioGroup value={localSettings.showFlagAndCountry} onChange={handleSetSettings}>
         {radio}
       </RadioGroup>
+      <div onMouseEnter={() => setIsTruncate(false)} onMouseLeave={() => setIsTruncate(true)}>
+        <Checkbox
+          id={INPUT_IDS.displayFlagInSearch}
+          checked={localSettings.displayFlagInSearch}
+          onChange={handleSetSettings}
+          value={SETTING_VALUE.searchFlag}
+        />
+        <label className={style.cursorPointer} htmlFor={INPUT_IDS.displayFlagInSearch}>
+          {isTruncate
+            ? truncate(t('Settings.DisplayFlagInSearch'), 24)
+            : t('Settings.DisplayFlagInSearch')}
+        </label>
+      </div>
     </>
   );
 };

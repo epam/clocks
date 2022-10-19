@@ -2,6 +2,7 @@ export const SETTING_VALUE = {
   date: 'date',
   country: 'country',
   footer: 'footer',
+  searchFlag: 'searchFlag',
   auto: 'auto'
 };
 
@@ -20,5 +21,6 @@ export const INPUT_IDS = {
   hideCountryFlag: 'hideCountryFlag',
   displayFlag: 'displayFlag',
   displayCountry: 'displayCountry',
-  displayFlagAndCountry: 'displayFlagAndCountry'
+  displayFlagAndCountry: 'displayFlagAndCountry',
+  displayFlagInSearch: 'displayFlagInSearch'
 };

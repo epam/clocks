@@ -58,6 +58,7 @@ const useOnboarding = () => {
           theme: THEME.light,
           showDate: true,
           showFooter: true,
+          displayFlagInSearch: true,
           showFlagAndCountry: COUNTRYFLAG.hide,
           showTimezone: TIMEZONE.disabled,
           timeFormat: TIME_FORMAT.H24

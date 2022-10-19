@@ -15,6 +15,7 @@ export interface IInitialState {
     autoTheme?: boolean;
     showDate: boolean;
     showFooter: boolean;
+    displayFlagInSearch: boolean;
     showFlagAndCountry: string;
     showTimezone: string;
     timeFormat: string;
@@ -46,6 +47,7 @@ export interface IActionSettingsPayload {
   autoTheme?: boolean;
   showDate: boolean;
   showFooter: boolean;
+  displayFlagInSearch: boolean;
   showFlagAndCountry: string;
   showTimezone: string;
   timeFormat: string;
