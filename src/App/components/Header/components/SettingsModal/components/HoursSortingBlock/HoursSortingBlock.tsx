@@ -15,13 +15,13 @@ const HoursSortingBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSet
     <>
       <RadioGroup value={localSettings.timeFormat} onChange={handleSetSettings}>
         <div>
-          <Radio id={INPUT_IDS.hourFormat24} value={TIME_FORMAT.H24} />
+          <Radio id={INPUT_IDS.hourFormat24} value={TIME_FORMAT.H24} size="small" />
           <label className={style.cursorPointer} htmlFor={INPUT_IDS.hourFormat24}>
             {t('Settings.24HourFormat')}
           </label>
         </div>
         <div>
-          <Radio id={INPUT_IDS.hourFormat12} value={TIME_FORMAT.H12} />
+          <Radio id={INPUT_IDS.hourFormat12} value={TIME_FORMAT.H12} size="small" />
           <label className={style.cursorPointer} htmlFor={INPUT_IDS.hourFormat12}>
             {t('Settings.12HourFormat')}
           </label>

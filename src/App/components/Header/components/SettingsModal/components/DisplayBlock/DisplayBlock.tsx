@@ -18,6 +18,7 @@ const DisplayBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSettings
           checked={localSettings.showDate}
           onChange={handleSetSettings}
           value={SETTING_VALUE.date}
+          size="small"
         />
         <label className={style.cursorPointer} htmlFor={INPUT_IDS.showDate}>
           {t('Settings.ShowDate')}
@@ -29,6 +30,7 @@ const DisplayBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSettings
           checked={localSettings.showFooter}
           onChange={handleSetSettings}
           value={SETTING_VALUE.footer}
+          size="small"
         />
         <label className={style.cursorPointer} htmlFor={INPUT_IDS.showFooter}>
           {t('Settings.ShowFooter')}
