@@ -5,6 +5,10 @@
   padding: $space-xxs;
   overflow-x: hidden;
 
+  @include screenMax600 {
+    width: 100%;
+  }
+
   svg {
     color: $blueColor;
   }
@@ -28,6 +32,9 @@
     .optionsColumn {
       margin-right: $space-xxs;
       margin-left: $space-xxs;
+    }
+    @include screenMax600 {
+      display: block;
     }
   }
 

@@ -207,6 +207,12 @@ const SettingsModal: React.FC = () => {
                 [style.darkDivider]: theme === THEME.dark
               })}
             />
+            <Divider
+              className={clsx({
+                [style.divider]: true,
+                [style.darkDivider]: theme === THEME.dark
+              })}
+            />
             <div className={style.optionsColumn}>
               <HoursSortingBlock
                 localSettings={localSettings}
