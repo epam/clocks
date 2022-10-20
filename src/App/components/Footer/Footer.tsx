@@ -58,7 +58,6 @@ const Footer: React.FC = () => {
           <div
             style={{
               display: 'flex',
-              flexDirection: window.innerWidth < 600 ? 'column' : 'row',
               alignItems: 'center'
             }}
           >
@@ -66,11 +65,7 @@ const Footer: React.FC = () => {
               <HelpModule />
               <ReloadOnboarding />
             </div>
-            <Divider
-              orientation={window.innerWidth < 600 ? 'horizontal' : 'vertical'}
-              className={dividerTheme}
-              flexItem
-            />
+            <Divider orientation="vertical" className={dividerTheme} flexItem />
 
             <div>
               {social.map((item, index) => (
