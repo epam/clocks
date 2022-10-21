@@ -1,5 +1,4 @@
 import React, { useMemo } from 'react';
-import { useTranslation, Trans } from 'react-i18next';
 
 import { Divider, IconButton } from '@mui/material';
 import { Instagram, Facebook, Twitter, LinkedIn, GitHub } from '@mui/icons-material';
@@ -11,8 +10,6 @@ import ReloadOnboarding from './components/ReloadOnboarding/ReloadOnboarding';
 import style from './Footer.module.scss';
 
 const Footer: React.FC = () => {
-  const { t } = useTranslation();
-
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
   const dividerTheme = useTheme(style.divider, style.darkDivider);
@@ -46,14 +43,6 @@ const Footer: React.FC = () => {
   return (
     <div className={style.container}>
       <div className={bodyTheme}>
-        <div className={style.credits}>
-          <Trans
-            t={t}
-            i18nKey="Footer.Credits"
-            values={{ date: new Date().getFullYear() }}
-            components={{ br: <br /> }}
-          />
-        </div>
         <div className={style.iconContainer}>
           <div
             style={{
