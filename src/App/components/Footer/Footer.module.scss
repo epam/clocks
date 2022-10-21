@@ -5,15 +5,19 @@
   margin-top: $space-xxs;
 
   %body {
-    min-height: 64px;
+    //min-height: 64px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: $space-xxs;
+    padding-bottom: $space-xxs;
     max-width: $parentMaxWidth;
     margin-left: auto;
     margin-right: auto;
     flex-direction: column;
+
+    @include screenMax600 {
+      padding-bottom: 0;
+    }
 
     .credits {
       text-align: center;
