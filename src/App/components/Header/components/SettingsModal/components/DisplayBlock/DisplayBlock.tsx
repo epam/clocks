@@ -36,6 +36,18 @@ const DisplayBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSettings
           {t('Settings.ShowFooter')}
         </label>
       </div>
+      <div>
+        <Checkbox
+          id={INPUT_IDS.showTimezone}
+          checked={localSettings.showTimezone}
+          onChange={handleSetSettings}
+          value={SETTING_VALUE.timezone}
+          size="small"
+        />
+        <label className={style.cursorPointer} htmlFor={INPUT_IDS.showTimezone}>
+          {t('Settings.ShowTimezone')}
+        </label>
+      </div>
     </>
   );
 };

@@ -2,7 +2,7 @@ import { locationsDB } from './locationsDB';
 import { timezonesDB } from './timezonesDB';
 import { IInitialState, IActionPayload } from './types';
 import { ITimeState } from '../components/Section/components/LocationBlock/LocationBlock.types';
-import { ACTION_TYPE, COUNTRYFLAG, THEME, TIMEZONE, TIME_FORMAT } from './constants';
+import { ACTION_TYPE, COUNTRYFLAG, THEME, TIME_FORMAT } from './constants';
 
 const initialState: IInitialState = {
   locations: {
@@ -18,10 +18,10 @@ const initialState: IInitialState = {
     autoTheme: undefined,
     showDate: true,
     showFooter: true,
+    showTimezone: true,
     displayFlagInSearch: true,
     showFlagAndCountry: COUNTRYFLAG.hide,
-    timeFormat: TIME_FORMAT.H24,
-    showTimezone: TIMEZONE.disabled
+    timeFormat: TIME_FORMAT.H24
   },
   snackbar: {
     status: false,

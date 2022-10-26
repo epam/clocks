@@ -6,10 +6,10 @@ import { RadioGroup, Checkbox } from '@mui/material';
 import { INPUT_IDS, SETTING_VALUE } from '../../SettingsModal.constants';
 import { IBlocksProps } from '../../SettingsModal.types';
 import { COUNTRYFLAG } from '../../../../../../redux/constants';
-import RadioList from '../TimezoneBlock/components/RadioList/RadioList';
 
 import style from '../../SettingsModal.module.scss';
 import { truncate } from '../../../../../../utils/truncate';
+import RadioList from '../TimezoneBlock/components/RadioList/RadioList';
 
 const CountryFlagBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSettings }) => {
   const { t } = useTranslation();

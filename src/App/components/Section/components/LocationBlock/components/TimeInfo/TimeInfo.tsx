@@ -6,7 +6,6 @@ import useLocations from '../../../../../../hooks/useLocations';
 import useTimeInfo from '../../../../../../hooks/useTimeInfo';
 import { IInitialState } from '../../../../../../redux/types';
 import { ITimeState } from '../../LocationBlock.types';
-import { TIMEZONE } from '../../../../../../redux/constants';
 import useCountryToAbbreviation from '../../../../../../hooks/useCountryToAbbreviation';
 
 import style from './TimeInfo.module.scss';
@@ -44,21 +43,6 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
     planningMode.additionalHours
   ]);
 
-  const displayTimezone = (showTimezone: string) => {
-    switch (showTimezone) {
-      case TIMEZONE.disabled:
-        return;
-      case TIMEZONE.abbrv:
-        return abbreviation;
-      case TIMEZONE.country:
-        return time.timezone;
-      case TIMEZONE.abbrvCountry:
-        return `${abbreviation} ${time.timezone}`;
-      default:
-        return;
-    }
-  };
-
   return (
     <>
       <div className={style.rightSide}>
@@ -70,8 +54,10 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
           {time.hours}:{time.minutes} {time.suffix}
         </div>
         <div className={style.bottomInfo}>
-          <div>{showDate && time.offset && `${time.day} ${time.offset}`}</div>
-          <div className={style.timezone}>{displayTimezone(showTimezone)}</div>
+          <div>
+            {showDate && time.offset && `${time.day} ${time.offset}`}
+            <span>{showTimezone && ` ${abbreviation}`}</span>
+          </div>
         </div>
       </div>
     </>
