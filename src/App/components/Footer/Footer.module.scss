@@ -1,40 +1,32 @@
 @import '../../styles/index.scss';
 
 .container {
-  padding: $space-s;
-  margin-top: $space-s;
+  padding: $space-xs;
+  margin-top: $space-xxs;
 
   %body {
-    min-height: 64px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-top: $space-s;
-    padding-right: $space-s;
-    padding-bottom: $space-s;
-    padding-left: $space-s;
     max-width: $parentMaxWidth;
     margin-left: auto;
     margin-right: auto;
-
-    @include screenMax600 {
-      flex-direction: column;
-    }
+    flex-direction: column;
 
     .credits {
+      text-align: center;
+      margin-top: $space-xxs;
+      margin-bottom: $space-xxs;
+
       @include screenMax600 {
-        text-align: center;
-        margin-top: $space-xs;
-        margin-bottom: $space-xs;
+        display: none;
       }
     }
 
     .iconContainer {
       display: flex;
       align-items: center;
-      @include screenMax600 {
-        flex-direction: column;
-      }
+      flex-direction: column;
 
       .divider {
         margin-left: $space-s;
@@ -52,6 +44,7 @@
     @include lightBlock;
     @extend %body;
 
+    box-shadow: none;
     color: $darkColor;
   }
 

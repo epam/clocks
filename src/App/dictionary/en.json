@@ -8,7 +8,7 @@
   "LaneMode.ButtonTooltip": "Lane Mode",
   "EmptyState.Text": "No active locations",
   "DeleteMode.ButtonTooltip": "Delete mode",
-  "Footer.Credits": "© {{date}} EPAM Systems, Inc.<br />All Rights Reserved.",
+  "Footer.Credits": "© {{date}} EPAM Systems, Inc. All Rights Reserved.",
   "HelpModule.Info": "<p>It is:</p><ul><li>Free to use — no ads.</li> <li>No account registration needed.</li> <li>Add as many widgets as you need, searching by location name or timezone.</li> <li>Add arbitrary comments to every widget.</li> <li>Get a sharable link to send dashboard to other users.</li> <li>Embed into another HTML page via <iframe/>.</li> <li>Use Planning mode to find corresponding times across all locations — useful for scheduling meetings.</li></ul><p>Happy use!</p>",
   "HelpModule.ButtonTooltip": "Help",
   "HelpModule.HeaderText": "Welcome to clocks.lab.epam.com",
