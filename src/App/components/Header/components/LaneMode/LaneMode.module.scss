@@ -1,19 +1,10 @@
 @import '../../../../styles/index.scss';
 
-// %body {
-//   .buttonContainer {
-//     margin-top: $space-s;
-//     display: flex;
-//     align-items: center;
-//     justify-content: flex-end;
-//     color: $blueColor;
-
-//     .button {
-//       color: $blueColor !important;
-//     }
-//   }
-// }
 .buttonContainer {
+  @include screenMax600 {
+    text-align: center;
+    margin-bottom: $space-s;
+  }
   .buttonly {
     font-size: $fs12;
     background-color: $lightColor;
@@ -21,6 +12,9 @@
 
     &:hover {
       background-color: $lightGrayColor;
+    }
+    @include screenMax600 {
+      font-size: $fs16;
     }
   }
 }

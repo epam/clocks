@@ -26,43 +26,48 @@
   display: flex;
   overflow: auto;
 
+  @include screenMax600 {
+    flex-direction: column;
+  }
+
   > div {
     width: 20%;
   }
 
+  .laneModeLocations {
+    @include screenMax600 {
+      display: flex;
+    }
+  }
+
   .timeTable {
     width: 80%;
-    // background-color: $whiteColor;
     display: flex;
-    // flex-direction: column;
-
     overflow: auto;
 
-    // .timeRow {
-    //   display: flex;
-    //   height: 100%;
-
-    //   .timeColumn {
-    //     display: flex;
-    //     align-items: center;
-    //     padding: $space-s $space-m;
-    //   }
-    // }
+    @include screenMax600 {
+      width: min-content;
+      flex-direction: column;
+    }
 
     .timeCol {
       display: flex;
       flex-direction: column;
       cursor: pointer;
 
-      // &:hover {
-      //   background-color: $lightGrayColor;
-      // }
+      @include screenMax600 {
+        flex-direction: row;
+      }
 
       .timeCell {
         padding: $space-s $space-m;
         height: 100%;
         display: grid;
         place-items: center;
+
+        @include screenMax600 {
+          width: 150px;
+        }
       }
     }
   }

@@ -12,9 +12,12 @@ import ShareButton from './components/ShareButton/ShareButton';
 import AddLocation from './components/AddLocation/AddLocation';
 import { EPAM_LOGO } from './Header.constants';
 import LaneMode from './components/LaneMode/LaneMode';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 
 const Header: React.FC = () => {
   const logoTheme = useTheme(style.lightLogo, style.darkLogo);
+  const { width } = useWindowDimensions();
+  const isMobileView = width <= 600;
 
   return (
     <div className={style.body}>
@@ -23,7 +26,7 @@ const Header: React.FC = () => {
         <span className={logoTheme}>{EPAM_LOGO}</span>
       </div>
       <div className={style.controlsContainer}>
-        <LaneMode />
+        {!isMobileView && <LaneMode />}
         <PlanningMode />
         <DeleteMode />
         <SettingsModal />
