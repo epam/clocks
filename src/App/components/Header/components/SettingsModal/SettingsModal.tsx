@@ -198,23 +198,16 @@ const SettingsModal: React.FC = () => {
                 localSettings={localSettings}
                 handleSetSettings={handleSetSettings}
               />
-              <Divider
-                className={clsx({
-                  [style.divider]: true,
-                  [style.darkDivider]: theme === THEME.dark
-                })}
-              />
-              <ThemeBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
             </div>
             <Divider
-              orientation="vertical"
-              flexItem
               className={clsx({
                 [style.divider]: true,
                 [style.darkDivider]: theme === THEME.dark
               })}
             />
             <Divider
+              orientation="vertical"
+              flexItem
               className={clsx({
                 [style.divider]: true,
                 [style.darkDivider]: theme === THEME.dark
@@ -231,6 +224,7 @@ const SettingsModal: React.FC = () => {
                   [style.darkDivider]: theme === THEME.dark
                 })}
               />
+              <ThemeBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
             </div>
           </div>
           <div className={style.buttonContainer}>
