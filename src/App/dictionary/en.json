@@ -88,5 +88,8 @@
   "AnnounceModule.close": "Close",
   "AnnounceModule.release": "Release {{version}}",
   "AnnounceModule.info": "<ul><li>Improved location search</li><li>added search using time zone abbreviations</li><li>added country flags for dropdown list entries</li><li>Improved search algorithm.</li><li>Added new time zone display options in Settings.</li></ul>",
-  "LaneMode": "Lane Mode"
+  "LaneMode": "Lane Mode",
+  "NotFound.Paragraph1": "Page not found",
+  "NotFound.Paragraph2": "Sorry but the page you are looking for does not exist",
+  "NotFound.Paragraph3": "Click the button to go back to your dashboard"
 }
