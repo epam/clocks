@@ -25,3 +25,43 @@
     }
   }
 }
+
+.laneModeRightSide {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 40%;
+
+  @include screenMax600 {
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+
+  .timeInfo {
+    font-family: roboto-medium;
+    font-size: $fs18;
+    margin-bottom: $space-xxs;
+
+    @include screenMax600 {
+      font-size: $fs14;
+    }
+  }
+
+  .bottomInfo {
+    min-width: 0;
+    color: $grayColor;
+    text-align: end;
+
+    @include screenMax600 {
+      display: none;
+    }
+
+    .timezone {
+      width: 10em;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

@@ -18,12 +18,15 @@ import useTimeInfo from '../../../../hooks/useTimeInfo';
 import { setTimeTable } from '../../../../redux/actions';
 import useFlag from '../../../../hooks/useFlag/useFlag';
 import { COUNTRYFLAG } from '../../../../redux/constants';
+import useWindowDimensions from '../../../../hooks/useWindowDimensions';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
   const dispatch = useDispatch();
   const timeInfo = useTimeInfo(location);
   const { locations, setLocations } = useLocations();
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
+  const { width } = useWindowDimensions();
+  const isMobileView = width <= 600;
 
   const {
     deleteMode,
@@ -40,7 +43,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
   }, [userLocation?.city, userLocation?.lat, location?.city, location?.lat]);
 
-  const displayFladAndCountry = (showFlagAndCountry: string) => {
+  const displayFlagAndCountry = (showFlagAndCountry: string) => {
     switch (showFlagAndCountry) {
       case COUNTRYFLAG.hide:
         return;
@@ -74,11 +77,64 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index]);
 
+  const leftSideView = (
+    <>
+      <div
+        className={clsx({
+          [style.leftSide]: true,
+          [style.moveLeftOrRight]: !isFocused
+        })}
+      >
+        <div
+          className={clsx({
+            [style.buttonContainer]: true,
+            [style.opaccityBlock]: !isFocused
+          })}
+        >
+          <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
+          <CommentButton location={location} index={index} />
+        </div>
+        <div className={style.infoContainer}>
+          <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
+          <div className={style.bottomInfo}>{displayFlagAndCountry(showFlagAndCountry)}</div>
+        </div>
+      </div>
+      <TimeInfo location={location} />
+    </>
+  );
+
+  const laneModeMobileLeftSide = (
+    <>
+      <div
+        className={clsx({
+          [style.leftSide]: true,
+          [style.laneModeMoveLeftOrRight]: !isFocused
+        })}
+      >
+        <div className={style.infoContainer}>
+          <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
+          <div className={style.bottomInfo}>{displayFlagAndCountry(showFlagAndCountry)}</div>
+        </div>
+      </div>
+      <TimeInfo location={location} />
+      <div
+        className={clsx({
+          [style.buttonContainer]: isFocused,
+          [style.buttonContainerHide]: !isFocused
+        })}
+      >
+        <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
+        <CommentButton location={location} index={index} />
+      </div>
+    </>
+  );
+
   return (
     <div className={style.relativeBlock}>
       <div
         className={clsx({
-          [style.container]: true,
+          [style.container]: !laneMode.isOn,
+          [style.laneModeContainer]: laneMode.isOn,
           [style.shaking]: deleteMode.isOn,
           [style.onboarding]:
             !index && (onboarding?.planningMode || onboarding?.myLocation || onboarding?.comment),
@@ -88,6 +144,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
         <div
           className={clsx({
             [bodyTheme]: true,
+            [style.laneModeBody]: isMobileView && laneMode.isOn,
             [style.shaking]: deleteMode.isOn,
             [style.currentBody]: urlUserLocation || isUserLocation,
             [style.marginRight]: planningMode.isOn
@@ -102,30 +159,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
             </IconButton>
           )}
           <div className={style.wrapper}>
-            <div className={style.infoBlock}>
-              <div
-                className={clsx({
-                  [style.leftSide]: true,
-                  [style.moveLeftOrRight]: !isFocused
-                })}
-              >
-                <div
-                  className={clsx({
-                    [style.buttonContainer]: true,
-                    [style.opaccityBlock]: !isFocused
-                  })}
-                >
-                  <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
-                  <CommentButton location={location} index={index} />
-                </div>
-                <div className={style.infoContainer}>
-                  <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
-                  <div className={style.bottomInfo}>
-                    {displayFladAndCountry(showFlagAndCountry)}
-                  </div>
-                </div>
-              </div>
-              <TimeInfo location={location} />
+            <div className={laneMode.isOn ? style.laneModeInfoBlock : style.infoBlock}>
+              {isMobileView && laneMode.isOn ? laneModeMobileLeftSide : leftSideView}
             </div>
           </div>
           {location && locations[location.city + location.lat].comment && (

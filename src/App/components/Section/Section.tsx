@@ -13,10 +13,14 @@ import AnnounceModule from './components/AnnounceModal/AnnounceModule';
 import generateTime from '../../utils/generateTime';
 import { nanoid } from 'nanoid';
 import useTheme from '../../hooks/useTheme';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
+import LaneMode from '../Header/components/LaneMode/LaneMode';
 
 const Section: React.FC = () => {
   const dispatch = useDispatch();
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
+  const { width } = useWindowDimensions();
+  const isMobileView = width <= 600;
 
   const {
     counter,
@@ -160,27 +164,19 @@ const Section: React.FC = () => {
         [style.laneModeView]: laneMode.isOn
       })}
     >
+      {isMobileView && (
+        <div className={style.mobileLaneModeButtons}>
+          <LaneMode />
+        </div>
+      )}
       {laneMode.isOn ? (
         <div className={style.laneModeViewContainer}>
-          <div>{locationsRender}</div>
+          <div className={style.laneModeLocations}>{locationsRender}</div>
           <div
             className={clsx({
               [bodyTheme]: true
             })}
           >
-            {/* {timeTable.map((timeRow, idx) => ( */}
-            {/* <div key={idx} className={style.timeRow}> */}
-            {/* @ts-ignore */}
-            {/* {timeRow.map((timeColumn, index) => { */}
-            {/* return ( */}
-            {/* <div key={index} className={style.timeColumn}> */}
-            {/* {timeColumn} */}
-            {/* </div> */}
-            {/* ); */}
-            {/* })} */}
-            {/* </div> */}
-            {/* ))} */}
-
             {generatedTimeTable.map((timeCol, idx) => (
               <div key={nanoid()} className={style.timeCol}>
                 {timeCol.map((time: any) => {

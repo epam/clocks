@@ -25,7 +25,7 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
   const timeInfo = useTimeInfo(location);
   const { locations } = useLocations();
 
-  const { counter, planningMode } = useSelector((state: IInitialState) => state);
+  const { counter, planningMode, laneMode } = useSelector((state: IInitialState) => state);
   const { showDate, showTimezone, timeFormat } = useSelector(
     (state: IInitialState) => state.settings
   );
@@ -45,7 +45,7 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
 
   return (
     <>
-      <div className={style.rightSide}>
+      <div className={laneMode.isOn ? style.laneModeRightSide : style.rightSide}>
         <div
           className={clsx(style.timeInfo, {
             [style.planningMode]: planningMode.isOn
