@@ -45,7 +45,7 @@
 }
 
 %card {
-  height: 25vh;
+  height: 40vh;
   width: 50vw;
   padding: $space-s;
   display: flex;
@@ -53,6 +53,8 @@
 
   @include screenMax600 {
     width: 90vw;
+    height: 55vh;
+    flex-direction: column;
   }
 
   .leftSide {
@@ -73,8 +75,10 @@
     width: 50%;
 
     @include screenMax600 {
-      margin-left: $space-s;
-      padding-left: $space-s;
+      margin-left: 0;
+      padding-left: 0;
+      width: 100%;
+      text-align: center;
     }
 
     .info {

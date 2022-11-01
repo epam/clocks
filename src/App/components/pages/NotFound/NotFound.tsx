@@ -22,6 +22,8 @@ const NotFound = () => {
 
   const { t } = useTranslation();
 
+  const isMobileView = window.innerWidth <= 600;
+
   return (
     <div className={bodyTheme}>
       <div className={style.container}>
@@ -34,13 +36,25 @@ const NotFound = () => {
             <div>
               <div className={cardTheme}>
                 <div className={style.leftSide}>404</div>
-                <Divider
-                  orientation="vertical"
-                  className={clsx({
-                    [style.divider]: true,
-                    [style.darkDivider]: theme === THEME.dark
-                  })}
-                />
+                {isMobileView ? (
+                  <Divider
+                    orientation="horizontal"
+                    flexItem
+                    className={clsx({
+                      [style.divider]: true,
+                      [style.darkDivider]: theme === THEME.dark
+                    })}
+                  />
+                ) : (
+                  <Divider
+                    orientation="vertical"
+                    flexItem
+                    className={clsx({
+                      [style.divider]: true,
+                      [style.darkDivider]: theme === THEME.dark
+                    })}
+                  />
+                )}
                 <div className={style.rightSide}>
                   <div className={style.info}>
                     <span>{t('NotFound.Paragraph1')}</span>
