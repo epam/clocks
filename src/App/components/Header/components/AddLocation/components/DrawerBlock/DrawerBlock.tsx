@@ -1,25 +1,19 @@
 import React, { useCallback, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { IconButton, Drawer, MenuList, MenuItem } from '@mui/material';
+import { IconButton, Drawer, MenuList } from '@mui/material';
 import { Close } from '@mui/icons-material';
 
 import useSnackbar from '../../../../../../hooks/useSnackbar';
-import {
-  ILocation,
-  IUrlLocations,
-  IUrlLocation,
-  IInitialState
-} from '../../../../../../redux/types';
+import { ILocation, IUrlLocations, IUrlLocation } from '../../../../../../redux/types';
 import useLocations from '../../../../../../hooks/useLocations';
 import useTheme from '../../../../../../hooks/useTheme';
-import useFlag from '../../../../../../hooks/useFlag/useFlag';
 
 import { KEYBOARD } from '../../AddLocation.constants';
 
 import style from './DrawerBlock.module.scss';
 import { IDrawerBlockProps } from './DrawerBlock.types';
-import { useSelector } from 'react-redux';
+import CustomMenuItem from './components/MenuItem/CustomMenuItem';
 
 const DrawerBlock: React.FC<IDrawerBlockProps> = ({
   setSearchText,
@@ -29,13 +23,9 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
   searchText,
   locationsFound
 }) => {
-  const { displayFlagInSearch } = useSelector((state: IInitialState) => state.settings);
-
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const inputTheme = useTheme(style.lightInput, style.darkInput);
-  const foundLocationTheme = useTheme(style.lightFoundLocation, style.darkFoundLocation);
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
-  const flag = useFlag();
 
   const { t } = useTranslation();
 
@@ -115,26 +105,11 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
         <MenuList className={style.searchResultsContainer}>
           {!!locationsFound.length &&
             locationsFound.map((location: ILocation, index: number) => (
-              <MenuItem
-                tabIndex={1}
-                key={index + 'FOUND_LOCATION'}
-                className={foundLocationTheme}
-                onClick={() => handleSelectLocation(location)}
-              >
-                <div className={style.foundLocationDetailsContainer}>
-                  <div className={displayFlagInSearch ? style.flagContainer : ''}>
-                    {displayFlagInSearch && flag(location.iso2)}
-                  </div>
-                  <div>
-                    <div className={style.title}>{location.city}</div>
-                    <div className={style.zone}>
-                      {location.country}
-                      {!!location.province && ','} {location.province}
-                    </div>
-                    <div className={style.timezone}>{location.timezone}</div>
-                  </div>
-                </div>
-              </MenuItem>
+              <CustomMenuItem
+                index={index}
+                location={location}
+                handleSelectLocation={handleSelectLocation}
+              />
             ))}
           {locationsFound.length === 0 && searchText !== '' && (
             <div className={style.notFound}>{t('AddLocation.NotFound')}</div>

@@ -9,14 +9,13 @@ import { Close, SettingsOutlined } from '@mui/icons-material';
 import useTheme from '../../../../hooks/useTheme';
 import useAutoTheme from '../../../../hooks/useAutoTheme';
 import { IInitialState, IActionSettingsPayload } from '../../../../redux/types';
-import { THEME, TIME_FORMAT, TIMEZONE, COUNTRYFLAG } from '../../../../redux/constants';
+import { THEME, TIME_FORMAT, COUNTRYFLAG } from '../../../../redux/constants';
 import { setSettings } from '../../../../redux/actions';
 import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
 import style from './SettingsModal.module.scss';
 import { SETTING_VALUE } from './SettingsModal.constants';
 import DisplayBlock from './components/DisplayBlock/DisplayBlock';
-import TimezoneBlock from './components/TimezoneBlock/TimezoneBlock';
 import HoursSortingBlock from './components/HoursSortingBlock/HoursSortingBlock';
 import ThemeBlock from './components/ThemeBlock/ThemeBlock';
 import CountryFlagBlock from './components/CountryFlagBlock/CountryFlagBlock';
@@ -54,9 +53,9 @@ const SettingsModal: React.FC = () => {
     theme: THEME.light,
     showDate: true,
     showFooter: true,
+    showTimezone: true,
     displayFlagInSearch: true,
     showFlagAndCountry: COUNTRYFLAG.hide,
-    showTimezone: TIMEZONE.disabled,
     timeFormat: TIME_FORMAT.H24
   });
 
@@ -66,9 +65,9 @@ const SettingsModal: React.FC = () => {
       theme,
       showDate,
       showFooter,
+      showTimezone,
       displayFlagInSearch,
       showFlagAndCountry,
-      showTimezone,
       timeFormat
     });
   }, [
@@ -76,9 +75,9 @@ const SettingsModal: React.FC = () => {
     theme,
     showDate,
     showFooter,
+    showTimezone,
     displayFlagInSearch,
     showFlagAndCountry,
-    showTimezone,
     isModalOpen,
     timeFormat
   ]);
@@ -117,6 +116,9 @@ const SettingsModal: React.FC = () => {
         case SETTING_VALUE.footer:
           setLocalSettings({ ...localSettings, showFooter: !localSettings.showFooter });
           break;
+        case SETTING_VALUE.timezone:
+          setLocalSettings({ ...localSettings, showTimezone: !localSettings.showTimezone });
+          break;
         case COUNTRYFLAG.hide:
           setLocalSettings({ ...localSettings, showFlagAndCountry: value });
           break;
@@ -128,18 +130,6 @@ const SettingsModal: React.FC = () => {
           break;
         case COUNTRYFLAG.flagAndCountry:
           setLocalSettings({ ...localSettings, showFlagAndCountry: value });
-          break;
-        case TIMEZONE.disabled:
-          setLocalSettings({ ...localSettings, showTimezone: value });
-          break;
-        case TIMEZONE.abbrv:
-          setLocalSettings({ ...localSettings, showTimezone: value });
-          break;
-        case TIMEZONE.country:
-          setLocalSettings({ ...localSettings, showTimezone: value });
-          break;
-        case TIMEZONE.abbrvCountry:
-          setLocalSettings({ ...localSettings, showTimezone: value });
           break;
         case SETTING_VALUE.auto:
           setLocalSettings({ ...localSettings, autoTheme: !localSettings.autoTheme });
@@ -208,23 +198,16 @@ const SettingsModal: React.FC = () => {
                 localSettings={localSettings}
                 handleSetSettings={handleSetSettings}
               />
-              <Divider
-                className={clsx({
-                  [style.divider]: true,
-                  [style.darkDivider]: theme === THEME.dark
-                })}
-              />
-              <ThemeBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
             </div>
             <Divider
-              orientation="vertical"
-              flexItem
               className={clsx({
                 [style.divider]: true,
                 [style.darkDivider]: theme === THEME.dark
               })}
             />
             <Divider
+              orientation="vertical"
+              flexItem
               className={clsx({
                 [style.divider]: true,
                 [style.darkDivider]: theme === THEME.dark
@@ -241,7 +224,7 @@ const SettingsModal: React.FC = () => {
                   [style.darkDivider]: theme === THEME.dark
                 })}
               />
-              <TimezoneBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
+              <ThemeBlock localSettings={localSettings} handleSetSettings={handleSetSettings} />
             </div>
           </div>
           <div className={style.buttonContainer}>

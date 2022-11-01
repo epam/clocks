@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { setOnboarding, setSettings } from '../redux/actions';
 import { IOnboarding } from '../redux/types';
-import { COUNTRYFLAG, THEME, TIMEZONE, TIME_FORMAT } from '../redux/constants';
+import { COUNTRYFLAG, THEME, TIME_FORMAT } from '../redux/constants';
 
 const onboardingInitialState: IOnboarding = {
   addCity: false,
@@ -58,9 +58,9 @@ const useOnboarding = () => {
           theme: THEME.light,
           showDate: true,
           showFooter: true,
+          showTimezone: true,
           displayFlagInSearch: true,
           showFlagAndCountry: COUNTRYFLAG.hide,
-          showTimezone: TIMEZONE.disabled,
           timeFormat: TIME_FORMAT.H24
         })
       );
@@ -70,7 +70,8 @@ const useOnboarding = () => {
           autoTheme: undefined,
           theme: THEME.light,
           showDate: true,
-          showTimezone: TIMEZONE.disabled,
+          showFooter: true,
+          showTimezone: true,
           timeFormat: TIME_FORMAT.H24,
           showFlagAndCountry: COUNTRYFLAG.hide
         })
