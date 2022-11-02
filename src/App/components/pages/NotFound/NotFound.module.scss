@@ -1,0 +1,130 @@
+@import '../../../styles/index.scss';
+
+.container {
+  max-width: 1630px;
+  padding: $space-s;
+  height: 100vh;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  font-family: roboto-bold;
+  font-size: $fs20;
+
+  .lightLogo {
+    color: $darkColor;
+  }
+
+  .darkLogo {
+    color: $lightColor;
+  }
+
+  span {
+    margin-left: $space-xxs;
+  }
+}
+
+.infoContainer {
+  margin: $space-s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 60vh;
+
+  @include screenMax600 {
+    margin: $space-xxs;
+    padding-top: $space-l;
+    width: 100%;
+    height: 100vh;
+    align-items: flex-start;
+  }
+}
+
+%card {
+  height: 40vh;
+  width: 50vw;
+  padding: $space-s;
+  display: flex;
+  justify-content: space-evenly;
+
+  @include screenMax600 {
+    width: 90vw;
+    height: 55vh;
+    flex-direction: column;
+  }
+
+  .leftSide {
+    width: 50%;
+    align-self: center;
+    font-size: $fs64;
+    text-align: center;
+
+    @include screenMax600 {
+      font-size: $fs48;
+    }
+  }
+
+  .rightSide {
+    align-self: center;
+    margin-left: $space-l;
+    padding-left: $space-l;
+    width: 50%;
+
+    @include screenMax600 {
+      margin-left: 0;
+      padding-left: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    .info {
+      width: 50%;
+      margin-top: $space-xxs;
+      margin-bottom: $space-xxs;
+
+      span {
+        font-family: roboto-bold;
+      }
+
+      @include screenMax600 {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.lightBody {
+  background: $lightColor;
+  color: $darkColor;
+}
+
+.darkBody {
+  background: $darkGrayColor;
+  color: $whiteColor;
+}
+
+.lightCard {
+  @include lightBlock;
+  @extend %card;
+
+  color: $darkColor;
+
+  &:focus-within {
+    border: 2px solid $darkGrayColor;
+  }
+}
+
+.darkCard {
+  @include darkBlock;
+  @extend %card;
+
+  color: $lightColor;
+
+  &:focus-within {
+    border: 2px solid $lightGrayColor;
+  }
+}

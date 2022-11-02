@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import App from './App/App';
 import reducer from './App/redux/reducer';
+import NotFound from './App/components/pages/NotFound/NotFound';
 
 import './index.scss';
 import './App/dictionary/i18n';
@@ -18,6 +19,7 @@ ReactDOM.render(
       <Router>
         <Routes>
           <Route path="/" element={<App />} />
+          <Route path="/*" element={<NotFound />} />
         </Routes>
       </Router>
     </Provider>
