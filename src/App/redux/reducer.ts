@@ -29,6 +29,7 @@ const initialState: IInitialState = {
     color: undefined
   },
   onboarding: undefined,
+  cookies: undefined,
   planningMode: {
     isOn: false,
     additionalHours: 0
@@ -134,6 +135,11 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
       return {
         ...state,
         onboarding: action.payload
+      };
+    case ACTION_TYPE.setCookies:
+      return {
+        ...state,
+        cookies: action.payload
       };
     case ACTION_TYPE.setTimeTable:
       return setTimeTable(state, action);
