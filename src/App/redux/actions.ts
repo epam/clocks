@@ -46,11 +46,6 @@ export const setOnboarding = (payload: IOnboarding) => ({
   payload
 });
 
-export const setCookies = (payload: boolean) => ({
-  type: ACTION_TYPE.setCookies,
-  payload
-});
-
 export const setTimeTable = (payload: ITimeState) => ({
   type: ACTION_TYPE.setTimeTable,
   payload

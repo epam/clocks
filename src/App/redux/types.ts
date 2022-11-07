@@ -35,7 +35,6 @@ export interface IInitialState {
   timeTable: ITimeState[];
   counter: number;
   onboarding?: IOnboarding;
-  cookies?: boolean;
 }
 
 export interface IActionPayload {

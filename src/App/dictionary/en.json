@@ -87,5 +87,8 @@
   "LaneMode": "Lane Mode",
   "NotFound.Paragraph1": "Page not found",
   "NotFound.Paragraph2": "Sorry but the page you are looking for does not exist",
-  "NotFound.Paragraph3": "Click the button to go back to your dashboard"
+  "NotFound.Paragraph3": "Click the button to go back to your dashboard",
+  "CookiePolicy.Info": "This website uses cookies for analytics and personalization. By continuing to browse, you agree to our use of cookies. To learn more click ",
+  "CookiePolicy.Link": "Cookie Policy.",
+  "CookiePolicy.Button": "Accept"
 }

@@ -8,7 +8,6 @@ export const ACTION_TYPE = {
   setUserLocation: '/set-user-location',
   setCounter: '/set-counter',
   setOnboarding: '/set-onboarding',
-  setCookies: '/set-cookies',
   setTimeTable: '/set-time-table'
 };
 

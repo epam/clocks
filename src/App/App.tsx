@@ -14,6 +14,7 @@ import pckg from '../../package.json';
 import style from './App.module.scss';
 import useOnboarding from './hooks/useOnboarding';
 import { useSearchParams } from 'react-router-dom';
+import CookiePolicy from './components/Section/components/CookiePolicy/CookiePolicy';
 
 const App: React.FC = () => {
   const theme = useTheme(style.lightBody, style.darkBody);
@@ -90,6 +91,7 @@ const App: React.FC = () => {
           </Alert>
         </Snackbar>
       )}
+      <CookiePolicy />
     </div>
   );
 };
