@@ -1,16 +1,16 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-
-import { ILaneBlockProps } from './LaneBlock.types';
-
-import style from './LaneBlock.module.scss';
-
-import generateTime from '../../../../utils/generateTime';
-import useTimeInfo from '../../../../hooks/useTimeInfo';
-import useTheme from '../../../../hooks/useTheme';
+import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
+
+import generateTime from '../../../../utils/generateTime';
+import useWindowDimensions from '../../../../hooks/useWindowDimensions';
+import useTimeInfo from '../../../../hooks/useTimeInfo';
+import useTheme from '../../../../hooks/useTheme';
+import { ILaneBlockProps } from './LaneBlock.types';
 import { IInitialState } from '../../../../redux/types';
-import clsx from 'clsx';
+
+import style from './LaneBlock.module.scss';
 
 const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const {
@@ -19,6 +19,8 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const timeInfo = useTimeInfo(location);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
+  const { width } = useWindowDimensions();
+  const isMobileView = width <= 600;
 
   const isUserLocation = useMemo(() => {
     return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
@@ -84,12 +86,22 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const onMouseOver = (e: any, state: number) => {
     // @ts-ignore
     containerRef.current.parentNode.childNodes.forEach((elem: any) => {
-      if (state) {
-        elem.children[e._targetInst.index].style.borderRight = '2px solid #39c2d7';
-        elem.children[e._targetInst.index].style.borderLeft = '2px solid #39c2d7';
+      if (isMobileView) {
+        if (state) {
+          elem.children[e._targetInst.index].style.borderTop = '2px solid #39c2d7';
+          elem.children[e._targetInst.index].style.borderBottom = '2px solid #39c2d7';
+        } else {
+          elem.children[e._targetInst.index].style.borderTop = '0.5px solid #bbbbbb';
+          elem.children[e._targetInst.index].style.borderBottom = '0.5px solid #bbbbbb';
+        }
       } else {
-        elem.children[e._targetInst.index].style.borderRight = '0.5px solid #bbbbbb';
-        elem.children[e._targetInst.index].style.borderLeft = '0.5px solid #bbbbbb';
+        if (state) {
+          elem.children[e._targetInst.index].style.borderRight = '2px solid #39c2d7';
+          elem.children[e._targetInst.index].style.borderLeft = '2px solid #39c2d7';
+        } else {
+          elem.children[e._targetInst.index].style.borderRight = '0.5px solid #bbbbbb';
+          elem.children[e._targetInst.index].style.borderLeft = '0.5px solid #bbbbbb';
+        }
       }
     });
   };

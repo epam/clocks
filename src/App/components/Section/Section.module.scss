@@ -28,60 +28,30 @@
   padding-left: $space-s;
 
   @include screenMax600 {
-    flex-direction: column;
+    display: block;
+    overflow-x: scroll;
   }
 
   .locationsContainer {
     width: 20%;
     min-width: 310px;
+
+    @include screenMax600 {
+      display: flex;
+      width: auto;
+    }
   }
 
   .laneBlockContainer {
     width: 80%;
     overflow-x: scroll;
-  }
-
-  .laneModeLocations {
-    @include screenMax600 {
-      display: flex;
-    }
-  }
-
-  .timeTable {
-    width: 80%;
-    display: flex;
-    overflow: auto;
 
     @include screenMax600 {
-      width: min-content;
-      flex-direction: column;
-    }
-
-    .timeCol {
       display: flex;
-      flex-direction: column;
-      cursor: pointer;
-
-      @include screenMax600 {
-        flex-direction: row;
-      }
-
-      .timeCell {
-        padding: $space-s $space-m;
-        height: 100%;
-        display: grid;
-        place-items: center;
-
-        @include screenMax600 {
-          width: 150px;
-        }
-      }
+      width: auto;
+      overflow-x: unset;
     }
   }
-}
-
-.laneModeView {
-  grid-template-columns: 1fr;
 }
 
 .emptyBody {
@@ -104,32 +74,15 @@
 }
 
 .lightBody {
-  @extend .timeTable;
-  @extend .timeCol;
   @include lightBlock;
 
   background-color: $lightColor;
   color: $darkColor;
-
-  .timeCol {
-    &:hover {
-      background-color: $lightGrayColor;
-    }
-  }
 }
 
 .darkBody {
-  @extend .timeTable;
-  @extend .timeCol;
   @include darkBlock;
 
   background-color: $darkGrayColor;
   color: $whiteColor;
-
-  .timeCol {
-    &:hover {
-      color: $whiteColor;
-      background-color: $darkColor;
-    }
-  }
 }

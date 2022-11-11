@@ -2,6 +2,10 @@
 
 .container {
   display: flex;
+
+  @include screenMax600 {
+    flex-direction: column;
+  }
 }
 
 %body {
@@ -12,6 +16,12 @@
   border-left: 0.5px solid $paleGrayColor;
   border-bottom: 0.5px solid $paleGrayColor;
   height: 102px;
+
+  @include screenMax600 {
+    width: 150px;
+    height: auto;
+    justify-content: center;
+  }
 }
 
 .nonWorkHours {
@@ -22,6 +32,13 @@
   border-right: 0.5px solid $blueColor;
   border-left: 0.5px solid $blueColor;
   background: $blueColor;
+
+  @include screenMax600 {
+    border-top: 0.5px solid $blueColor;
+    border-bottom: 0.5px solid $blueColor;
+    border-right: 0.5px solid $paleGrayColor;
+    border-left: 0.5px solid $paleGrayColor;
+  }
 }
 
 .lightBody {
