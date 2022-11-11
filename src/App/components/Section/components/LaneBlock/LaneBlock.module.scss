@@ -1,0 +1,37 @@
+@import '../../../../styles/index.scss';
+
+.container {
+  display: flex;
+}
+
+%body {
+  display: flex;
+  align-items: center;
+  padding: $space-s;
+  border-right: 0.5px solid $paleGrayColor;
+  border-left: 0.5px solid $paleGrayColor;
+  border-bottom: 0.5px solid $paleGrayColor;
+  height: 102px;
+}
+
+.nonWorkHours {
+  background: $lightGrayColor;
+}
+
+.activeTime {
+  border-right: 0.5px solid $blueColor;
+  border-left: 0.5px solid $blueColor;
+  background: $blueColor;
+}
+
+.lightBody {
+  @extend %body;
+
+  color: $darkColor;
+}
+
+.darkBody {
+  @extend %body;
+
+  color: $lightColor;
+}

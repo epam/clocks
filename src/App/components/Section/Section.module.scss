@@ -22,16 +22,23 @@
 }
 
 .laneModeViewContainer {
-  width: 100%;
+  width: 95vw;
   display: flex;
-  overflow: auto;
+  padding-right: $space-s;
+  padding-left: $space-s;
 
   @include screenMax600 {
     flex-direction: column;
   }
 
-  > div {
+  .locationsContainer {
     width: 20%;
+    min-width: 310px;
+  }
+
+  .laneBlockContainer {
+    width: 80%;
+    overflow-x: scroll;
   }
 
   .laneModeLocations {
