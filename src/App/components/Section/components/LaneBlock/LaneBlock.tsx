@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { MouseEventHandler, useEffect, useMemo, useRef, useState } from 'react';
 
 import { ILaneBlockProps } from './LaneBlock.types';
 
@@ -65,10 +65,6 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
 
   const ref = useRef(null);
   const containerRef = useRef(null);
-  if (containerRef !== null) {
-    console.dir(containerRef.current);
-    console.dir(ref.current);
-  }
 
   const laneBlockContainer = document.getElementById('laneBlockContainer');
 
@@ -84,6 +80,20 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
     }
   };
 
+  console.dir(containerRef.current);
+
+  const onMouseOver = (e, state: number) => {
+    console.log(e._targetInst.index);
+    // @ts-ignore
+    containerRef.current.parentNode.childNodes.forEach(elem => {
+      if (state) {
+        elem.children[e._targetInst.index].style.border = '1px solid red';
+      } else {
+        elem.children[e._targetInst.index].style.border = 'none';
+      }
+    });
+  };
+
   useEffect(() => {
     scroll(ref, containerRef);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -97,7 +107,8 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
         return (
           <div
             key={nanoid()}
-            ref={index === activeIndex && isUserLocation ? ref : null}
+            onMouseEnter={e => onMouseOver(e, 1)}
+            onMouseLeave={e => onMouseOver(e, 0)}
             className={clsx({
               [bodyTheme]: true,
               [style.activeTime]: index === activeIndex,
