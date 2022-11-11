@@ -1,6 +1,6 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo } from 'react';
 import clsx from 'clsx';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import { IconButton } from '@mui/material';
 import { Remove } from '@mui/icons-material';
@@ -14,15 +14,11 @@ import { ILocationBlockProps } from './LocationBlock.types';
 import CommentButton from './components/CommentButton/CommentButton';
 import TimeInfo from './components/TimeInfo/TimeInfo';
 import PinButton from './components/PinButton/PinButton';
-import useTimeInfo from '../../../../hooks/useTimeInfo';
-import { setTimeTable } from '../../../../redux/actions';
 import useFlag from '../../../../hooks/useFlag/useFlag';
 import { COUNTRYFLAG } from '../../../../redux/constants';
 import useWindowDimensions from '../../../../hooks/useWindowDimensions';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
-  const dispatch = useDispatch();
-  const timeInfo = useTimeInfo(location);
   const { locations, setLocations } = useLocations();
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const { width } = useWindowDimensions();
@@ -71,11 +67,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   const focusHandler = () => {
     setIsFocused(isFocused => !isFocused);
   };
-
-  useEffect(() => {
-    dispatch(setTimeTable({ ...timeInfo, userLocation: urlUserLocation }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [index]);
 
   const leftSideView = (
     <>

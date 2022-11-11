@@ -1,4 +1,4 @@
-import React, { MouseEventHandler, useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { ILaneBlockProps } from './LaneBlock.types';
 
@@ -74,22 +74,22 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   ) => {
     if (ref.current !== null && laneBlockContainer !== null && containerRef.current !== null) {
       const leftOffset = ref.current.offsetLeft - containerRef.current.offsetLeft;
+      const centerOffset = (window.innerWidth - containerRef.current.offsetLeft) / 2;
       laneBlockContainer.scroll({
-        left: leftOffset
+        left: leftOffset - centerOffset + 60
       });
     }
   };
 
-  console.dir(containerRef.current);
-
-  const onMouseOver = (e, state: number) => {
-    console.log(e._targetInst.index);
+  const onMouseOver = (e: any, state: number) => {
     // @ts-ignore
-    containerRef.current.parentNode.childNodes.forEach(elem => {
+    containerRef.current.parentNode.childNodes.forEach((elem: any) => {
       if (state) {
-        elem.children[e._targetInst.index].style.border = '1px solid red';
+        elem.children[e._targetInst.index].style.borderRight = '2px solid #39c2d7';
+        elem.children[e._targetInst.index].style.borderLeft = '2px solid #39c2d7';
       } else {
-        elem.children[e._targetInst.index].style.border = 'none';
+        elem.children[e._targetInst.index].style.borderRight = '0.5px solid #bbbbbb';
+        elem.children[e._targetInst.index].style.borderLeft = '0.5px solid #bbbbbb';
       }
     });
   };
@@ -107,6 +107,7 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
         return (
           <div
             key={nanoid()}
+            ref={index === activeIndex && isUserLocation ? ref : null}
             onMouseEnter={e => onMouseOver(e, 1)}
             onMouseLeave={e => onMouseOver(e, 0)}
             className={clsx({
