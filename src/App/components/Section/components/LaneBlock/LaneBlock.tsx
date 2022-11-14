@@ -19,6 +19,7 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const timeInfo = useTimeInfo(location);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
+  const nonWorkingHours = useTheme(style.nonWorkHoursLight, style.nonWorkHoursDark);
   const { width } = useWindowDimensions();
   const isMobileView = width <= 600;
 
@@ -125,7 +126,7 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
             className={clsx({
               [bodyTheme]: true,
               [style.activeTime]: index === activeIndex,
-              [style.nonWorkHours]: hour >= 20 || hour <= 7
+              [nonWorkingHours]: hour >= 20 || hour <= 7
             })}
           >
             {value}

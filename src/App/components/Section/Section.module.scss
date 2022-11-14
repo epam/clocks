@@ -11,6 +11,10 @@
   padding-left: $space-s;
   overflow-x: hidden;
 
+  > :last-child {
+    z-index: -1;
+  }
+
   &::-webkit-scrollbar {
     display: none;
   }

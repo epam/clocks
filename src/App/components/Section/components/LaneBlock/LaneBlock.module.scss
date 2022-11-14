@@ -24,14 +24,32 @@
   }
 }
 
-.nonWorkHours {
-  background: $lightGrayColor;
+.lightBody {
+  @extend %body;
+
+  color: $darkColor;
+  background-color: $lightColor;
+}
+
+.darkBody {
+  @extend %body;
+
+  background-color: $darkGrayColor;
+  color: $whiteColor;
+}
+
+.nonWorkHoursDark {
+  background-color: $grayColor;
+}
+
+.nonWorkHoursLight {
+  background-color: $lightGrayColor;
 }
 
 .activeTime {
   border-right: 0.5px solid $blueColor;
   border-left: 0.5px solid $blueColor;
-  background: $blueColor;
+  background-color: $blueColor;
 
   @include screenMax600 {
     border-top: 0.5px solid $blueColor;
@@ -39,16 +57,4 @@
     border-right: 0.5px solid $paleGrayColor;
     border-left: 0.5px solid $paleGrayColor;
   }
-}
-
-.lightBody {
-  @extend %body;
-
-  color: $darkColor;
-}
-
-.darkBody {
-  @extend %body;
-
-  color: $lightColor;
 }
