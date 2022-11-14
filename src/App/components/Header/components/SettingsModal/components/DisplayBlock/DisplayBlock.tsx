@@ -26,14 +26,26 @@ const DisplayBlock: React.FC<IBlocksProps> = ({ localSettings, handleSetSettings
       </div>
       <div>
         <Checkbox
-          id={INPUT_IDS.showFooter}
-          checked={localSettings.showFooter}
+          id={INPUT_IDS.showTimezone}
+          checked={localSettings.showTimezone}
           onChange={handleSetSettings}
-          value={SETTING_VALUE.footer}
+          value={SETTING_VALUE.timezone}
           size="small"
         />
-        <label className={style.cursorPointer} htmlFor={INPUT_IDS.showFooter}>
-          {t('Settings.ShowFooter')}
+        <label className={style.cursorPointer} htmlFor={INPUT_IDS.showTimezone}>
+          {t('Settings.ShowTimezone')}
+        </label>
+      </div>
+      <div>
+        <Checkbox
+          id={INPUT_IDS.showTimezone}
+          checked={localSettings.showTimezone}
+          onChange={handleSetSettings}
+          value={SETTING_VALUE.timezone}
+          size="small"
+        />
+        <label className={style.cursorPointer} htmlFor={INPUT_IDS.showTimezone}>
+          {t('Settings.ShowTimezone')}
         </label>
       </div>
       <div>
