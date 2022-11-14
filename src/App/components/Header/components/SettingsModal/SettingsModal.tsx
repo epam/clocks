@@ -9,7 +9,7 @@ import { Close, SettingsOutlined } from '@mui/icons-material';
 import useTheme from '../../../../hooks/useTheme';
 import useAutoTheme from '../../../../hooks/useAutoTheme';
 import { IInitialState, IActionSettingsPayload } from '../../../../redux/types';
-import { THEME, TIME_FORMAT, COUNTRYFLAG } from '../../../../redux/constants';
+import { THEME, TIME_FORMAT } from '../../../../redux/constants';
 import { setSettings } from '../../../../redux/actions';
 import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 
@@ -18,7 +18,6 @@ import { SETTING_VALUE } from './SettingsModal.constants';
 import DisplayBlock from './components/DisplayBlock/DisplayBlock';
 import HoursSortingBlock from './components/HoursSortingBlock/HoursSortingBlock';
 import ThemeBlock from './components/ThemeBlock/ThemeBlock';
-import CountryFlagBlock from './components/CountryFlagBlock/CountryFlagBlock';
 
 const SettingsModal: React.FC = () => {
   const anchorRef = useRef(null);
@@ -36,8 +35,8 @@ const SettingsModal: React.FC = () => {
     theme,
     showDate,
     showFooter,
-    displayFlagInSearch,
-    showFlagAndCountry,
+    showCountry,
+    showFlag,
     showTimezone,
     timeFormat
   } = useSelector((state: IInitialState) => state.settings);
@@ -54,8 +53,8 @@ const SettingsModal: React.FC = () => {
     showDate: true,
     showFooter: true,
     showTimezone: true,
-    displayFlagInSearch: true,
-    showFlagAndCountry: COUNTRYFLAG.hide,
+    showFlag: true,
+    showCountry: true,
     timeFormat: TIME_FORMAT.H24
   });
 
@@ -66,8 +65,8 @@ const SettingsModal: React.FC = () => {
       showDate,
       showFooter,
       showTimezone,
-      displayFlagInSearch,
-      showFlagAndCountry,
+      showCountry,
+      showFlag,
       timeFormat
     });
   }, [
@@ -76,8 +75,8 @@ const SettingsModal: React.FC = () => {
     showDate,
     showFooter,
     showTimezone,
-    displayFlagInSearch,
-    showFlagAndCountry,
+    showCountry,
+    showFlag,
     isModalOpen,
     timeFormat
   ]);
@@ -119,17 +118,11 @@ const SettingsModal: React.FC = () => {
         case SETTING_VALUE.timezone:
           setLocalSettings({ ...localSettings, showTimezone: !localSettings.showTimezone });
           break;
-        case COUNTRYFLAG.hide:
-          setLocalSettings({ ...localSettings, showFlagAndCountry: value });
+        case SETTING_VALUE.flag:
+          setLocalSettings({ ...localSettings, showFlag: !localSettings.showFlag });
           break;
-        case COUNTRYFLAG.flag:
-          setLocalSettings({ ...localSettings, showFlagAndCountry: value });
-          break;
-        case COUNTRYFLAG.country:
-          setLocalSettings({ ...localSettings, showFlagAndCountry: value });
-          break;
-        case COUNTRYFLAG.flagAndCountry:
-          setLocalSettings({ ...localSettings, showFlagAndCountry: value });
+        case SETTING_VALUE.country:
+          setLocalSettings({ ...localSettings, showCountry: !localSettings.showCountry });
           break;
         case SETTING_VALUE.auto:
           setLocalSettings({ ...localSettings, autoTheme: !localSettings.autoTheme });
@@ -139,12 +132,6 @@ const SettingsModal: React.FC = () => {
           break;
         case TIME_FORMAT.H12:
           setLocalSettings({ ...localSettings, timeFormat: value });
-          break;
-        case SETTING_VALUE.searchFlag:
-          setLocalSettings({
-            ...localSettings,
-            displayFlagInSearch: !localSettings.displayFlagInSearch
-          });
           break;
         default:
           setLocalSettings({ ...localSettings, theme: value });
@@ -194,26 +181,6 @@ const SettingsModal: React.FC = () => {
                   [style.darkDivider]: theme === THEME.dark
                 })}
               />
-              <CountryFlagBlock
-                localSettings={localSettings}
-                handleSetSettings={handleSetSettings}
-              />
-            </div>
-            <Divider
-              className={clsx({
-                [style.divider]: true,
-                [style.darkDivider]: theme === THEME.dark
-              })}
-            />
-            <Divider
-              orientation="vertical"
-              flexItem
-              className={clsx({
-                [style.divider]: true,
-                [style.darkDivider]: theme === THEME.dark
-              })}
-            />
-            <div className={style.optionsColumn}>
               <HoursSortingBlock
                 localSettings={localSettings}
                 handleSetSettings={handleSetSettings}
