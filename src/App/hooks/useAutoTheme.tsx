@@ -14,8 +14,8 @@ const useAutoTheme = () => {
   const {
     showDate,
     showFooter,
-    showFlagAndCountry,
-    displayFlagInSearch,
+    showFlag,
+    showCountry,
     showTimezone,
     theme,
     autoTheme,
@@ -37,7 +37,8 @@ const useAutoTheme = () => {
           JSON.stringify({
             showDate,
             autoTheme,
-            displayFlagInSearch,
+            showFlag,
+            showCountry,
             theme: THEME.dark,
             timeFormat,
             showTimezone
@@ -51,7 +52,8 @@ const useAutoTheme = () => {
             showDate,
             showTimezone,
             autoTheme,
-            displayFlagInSearch,
+            showFlag,
+            showCountry,
             theme: THEME.light,
             timeFormat
           })
@@ -62,8 +64,8 @@ const useAutoTheme = () => {
         setSettings({
           showDate,
           showFooter,
-          showFlagAndCountry,
-          displayFlagInSearch,
+          showFlag,
+          showCountry,
           showTimezone,
           theme,
           timeFormat,
