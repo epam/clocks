@@ -13,9 +13,7 @@ import style from '../../DrawerBlock.module.scss';
 const CustomMenuItem = ({ index, location, handleSelectLocation }: ICustomMenuItemProps) => {
   const flag = useFlag();
   const foundLocationTheme = useTheme(style.lightFoundLocation, style.darkFoundLocation);
-  const { displayFlagInSearch, showTimezone } = useSelector(
-    (state: IInitialState) => state.settings
-  );
+  const { showTimezone, showFlag } = useSelector((state: IInitialState) => state.settings);
   const abbreviation = useCountryToAbbreviation(location.timezone);
   return (
     <MenuItem
@@ -25,9 +23,7 @@ const CustomMenuItem = ({ index, location, handleSelectLocation }: ICustomMenuIt
       onClick={() => handleSelectLocation(location)}
     >
       <div className={style.foundLocationDetailsContainer}>
-        <div className={displayFlagInSearch ? style.flagContainer : ''}>
-          {displayFlagInSearch && flag(location.iso2)}
-        </div>
+        <div className={showFlag ? style.flagContainer : ''}>{showFlag && flag(location.iso2)}</div>
         <div>
           <div className={style.title}>{location.city}</div>
           <div className={style.zone}>
