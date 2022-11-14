@@ -17,7 +17,6 @@ import PinButton from './components/PinButton/PinButton';
 import useTimeInfo from '../../../../hooks/useTimeInfo';
 import { setTimeTable } from '../../../../redux/actions';
 import useFlag from '../../../../hooks/useFlag/useFlag';
-import { COUNTRYFLAG } from '../../../../redux/constants';
 import useWindowDimensions from '../../../../hooks/useWindowDimensions';
 
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
@@ -35,33 +34,13 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     laneMode,
     locations: { userLocation }
   } = useSelector((state: IInitialState) => state);
-  const { showFlagAndCountry } = useSelector((state: IInitialState) => state.settings);
+  const { showFlag, showCountry } = useSelector((state: IInitialState) => state.settings);
   const flag = useFlag();
   const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const isUserLocation = useMemo(() => {
     return location?.city === userLocation?.city && location?.lat === userLocation?.lat;
   }, [userLocation?.city, userLocation?.lat, location?.city, location?.lat]);
-
-  const displayFlagAndCountry = (showFlagAndCountry: string) => {
-    switch (showFlagAndCountry) {
-      case COUNTRYFLAG.hide:
-        return;
-      case COUNTRYFLAG.flag:
-        return <span className={style.flagContainer}>{flag(location?.iso2 || '')}</span>;
-      case COUNTRYFLAG.country:
-        return location?.country;
-      case COUNTRYFLAG.flagAndCountry:
-        return (
-          <>
-            <span className={style.flagContainer}>{flag(location?.iso2 || '')}</span>
-            <span>{location?.country}</span>
-          </>
-        );
-      default:
-        return;
-    }
-  };
 
   const handleDelete = () => {
     location && delete locations[location?.city + location?.lat];
@@ -96,7 +75,12 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
         </div>
         <div className={style.infoContainer}>
           <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
-          <div className={style.bottomInfo}>{displayFlagAndCountry(showFlagAndCountry)}</div>
+          <div className={style.bottomInfo}>
+            <span className={style.flagContainer}>
+              {showFlag ? flag(location?.iso2 || '') : ''}
+            </span>
+            <span>{showCountry ? location?.country : ''}</span>
+          </div>
         </div>
       </div>
       <TimeInfo location={location} />
@@ -113,7 +97,12 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
       >
         <div className={style.infoContainer}>
           <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
-          <div className={style.bottomInfo}>{displayFlagAndCountry(showFlagAndCountry)}</div>
+          <div className={style.bottomInfo}>
+            <span className={style.flagContainer}>
+              {showFlag ? flag(location?.iso2 || '') : ''}
+            </span>
+            <span>{showCountry ? location?.country : ''}</span>
+          </div>
         </div>
       </div>
       <TimeInfo location={location} />
