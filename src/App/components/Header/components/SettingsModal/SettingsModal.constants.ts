@@ -3,7 +3,7 @@ export const SETTING_VALUE = {
   country: 'country',
   footer: 'footer',
   timezone: 'timezone',
-  searchFlag: 'searchFlag',
+  flag: 'flag',
   auto: 'auto'
 };
 
@@ -16,9 +16,6 @@ export const INPUT_IDS = {
   autoTheming: 'autoTheming',
   lightTheme: 'lightTheme',
   darkTheme: 'darkTheme',
-  hideCountryFlag: 'hideCountryFlag',
   displayFlag: 'displayFlag',
-  displayCountry: 'displayCountry',
-  displayFlagAndCountry: 'displayFlagAndCountry',
-  displayFlagInSearch: 'displayFlagInSearch'
+  displayCountry: 'displayCountry'
 };

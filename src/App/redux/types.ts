@@ -48,8 +48,8 @@ export interface IActionSettingsPayload {
   showDate: boolean;
   showFooter: boolean;
   showTimezone: boolean;
-  displayFlagInSearch: boolean;
-  showFlagAndCountry: string;
+  showCountry: boolean;
+  showFlag: boolean;
   timeFormat: string;
 }
 
