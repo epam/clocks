@@ -51,7 +51,6 @@ const SettingsModal: React.FC = () => {
     autoTheme: undefined,
     theme: THEME.light,
     showDate: true,
-    showFooter: true,
     showTimezone: true,
     showFlag: true,
     showCountry: true,
@@ -63,7 +62,6 @@ const SettingsModal: React.FC = () => {
       autoTheme,
       theme,
       showDate,
-      showFooter,
       showTimezone,
       showCountry,
       showFlag,
@@ -111,9 +109,6 @@ const SettingsModal: React.FC = () => {
       switch (value) {
         case SETTING_VALUE.date:
           setLocalSettings({ ...localSettings, showDate: !localSettings.showDate });
-          break;
-        case SETTING_VALUE.footer:
-          setLocalSettings({ ...localSettings, showFooter: !localSettings.showFooter });
           break;
         case SETTING_VALUE.timezone:
           setLocalSettings({ ...localSettings, showTimezone: !localSettings.showTimezone });

@@ -27,7 +27,7 @@ const App: React.FC = () => {
 
   const [, setSearchParams] = useSearchParams();
 
-  const { autoTheme, showFooter } = useSelector((state: IInitialState) => state.settings);
+  const { autoTheme } = useSelector((state: IInitialState) => state.settings);
   const { counter, snackbar } = useSelector((state: IInitialState) => state);
 
   useEffect(() => {
@@ -75,7 +75,7 @@ const App: React.FC = () => {
           <Header />
           <Section />
         </div>
-        {showFooter && <Footer />}
+        {<Footer />}
       </div>
       {snackbar.status && (
         <Snackbar

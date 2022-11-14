@@ -46,7 +46,6 @@ export interface IActionSettingsPayload {
   theme: string;
   autoTheme?: boolean;
   showDate: boolean;
-  showFooter: boolean;
   showTimezone: boolean;
   showCountry: boolean;
   showFlag: boolean;

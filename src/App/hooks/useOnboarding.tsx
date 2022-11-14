@@ -57,7 +57,6 @@ const useOnboarding = () => {
           autoTheme: undefined,
           theme: THEME.light,
           showDate: true,
-          showFooter: true,
           showTimezone: true,
           showFlag: true,
           showCountry: true,
@@ -70,7 +69,6 @@ const useOnboarding = () => {
           autoTheme: undefined,
           theme: THEME.light,
           showDate: true,
-          showFooter: true,
           showTimezone: true,
           showFlag: true,
           showCountry: true

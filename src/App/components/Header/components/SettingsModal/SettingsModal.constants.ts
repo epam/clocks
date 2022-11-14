@@ -1,7 +1,6 @@
 export const SETTING_VALUE = {
   date: 'date',
   country: 'country',
-  footer: 'footer',
   timezone: 'timezone',
   flag: 'flag',
   auto: 'auto'
@@ -9,7 +8,6 @@ export const SETTING_VALUE = {
 
 export const INPUT_IDS = {
   showDate: 'showDate',
-  showFooter: 'showFooter',
   showTimezone: 'showTimezone',
   hourFormat24: 'hourFormat24',
   hourFormat12: 'hourFormat12',
