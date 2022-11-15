@@ -42,6 +42,10 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
     if (isNaN(offsetMinute)) {
       offsetMinute = 0;
     }
+    if (offsetMinute === 450) {
+      offsetHour = offsetHour + 1;
+      offsetMinute = 0;
+    }
     let hours = Number(times[0]) + offsetHour;
     let minutes = Number(times[1]) + offsetMinute;
     if (minutes === 60) {
