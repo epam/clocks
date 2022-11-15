@@ -131,7 +131,9 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
 
   useEffect(() => {
     scroll(ref, containerRef);
-  }, [scroll, activeIndex]);
+    // don't need as a dependency scroll
+    // eslint-disable-next-line
+  }, [activeIndex]);
 
   return (
     <div className={style.container} ref={containerRef}>
