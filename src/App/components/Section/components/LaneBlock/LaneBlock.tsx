@@ -131,7 +131,7 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
 
   useEffect(() => {
     scroll(ref, containerRef);
-  }, [activeIndex]);
+  }, [scroll, activeIndex]);
 
   return (
     <div className={style.container} ref={containerRef}>
