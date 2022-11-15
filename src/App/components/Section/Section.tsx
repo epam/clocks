@@ -96,7 +96,7 @@ const Section: React.FC = () => {
     if (locationsFound !== null) {
       if (laneMode.isOn) {
         return (
-          <div className={style.laneModeViewContainer}>
+          <div className={style.laneModeViewContainer} id="laneModeViewContainer">
             <div className={style.locationsContainer}>
               {locationsFound.map((urlLocation: IUrlLocation, index: number) => {
                 const find = findLocation(urlLocation);

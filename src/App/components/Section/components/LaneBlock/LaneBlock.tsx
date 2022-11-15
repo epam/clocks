@@ -74,11 +74,21 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const containerRef = useRef(null);
 
   const laneBlockContainer = document.getElementById('laneBlockContainer');
+  const laneModeViewContainer = document.getElementById('laneModeViewContainer');
 
   const scroll = (
-    ref: { current: { offsetLeft: number } | null },
-    containerRef: { current: { offsetLeft: number } | null }
+    ref: { current: { offsetLeft: number; offsetTop: number } | null },
+    containerRef: { current: { offsetLeft: number; offsetTop: number } | null }
   ) => {
+    if (isMobileView) {
+      if (ref.current !== null && laneModeViewContainer !== null && containerRef.current !== null) {
+        const topOffset = ref.current.offsetTop - containerRef.current.offsetTop;
+        const centerOffset = (window.innerHeight - containerRef.current.offsetTop) / 2;
+        laneModeViewContainer.scroll({
+          top: topOffset - centerOffset + 60
+        });
+      }
+    }
     if (ref.current !== null && laneBlockContainer !== null && containerRef.current !== null) {
       const leftOffset = ref.current.offsetLeft - containerRef.current.offsetLeft;
       const centerOffset = (window.innerWidth - containerRef.current.offsetLeft) / 2;
@@ -93,22 +103,22 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
     containerRef.current.parentNode.childNodes.forEach((elem: any) => {
       if (isMobileView) {
         if (state) {
-          elem.children[e._targetInst.index].style.borderTop = '1px solid #39c2d7';
-          elem.children[e._targetInst.index - 1].style.borderTop = '1px solid #39c2d7';
-          elem.children[e._targetInst.index].style.borderBottom = '1px solid #39c2d7';
-          elem.children[e._targetInst.index + 1].style.borderBottom = '1px solid #39c2d7';
+          elem.children[e._targetInst.index].style.borderTop = '0.5px solid #39c2d7';
+          elem.children[e._targetInst.index + 1].style.borderTop = '0.5px solid #39c2d7';
+          elem.children[e._targetInst.index].style.borderBottom = '0.5px solid #39c2d7';
+          elem.children[e._targetInst.index - 1].style.borderBottom = '0.5px solid #39c2d7';
         } else {
           elem.children[e._targetInst.index].style.borderTop = '0.5px solid #bbbbbb';
-          elem.children[e._targetInst.index - 1].style.borderTop = '0.5px solid #bbbbbb';
+          elem.children[e._targetInst.index + 1].style.borderTop = '0.5px solid #bbbbbb';
           elem.children[e._targetInst.index].style.borderBottom = '0.5px solid #bbbbbb';
-          elem.children[e._targetInst.index + 1].style.borderBottom = '0.5px solid #bbbbbb';
+          elem.children[e._targetInst.index - 1].style.borderBottom = '0.5px solid #bbbbbb';
         }
       } else {
         if (state) {
-          elem.children[e._targetInst.index].style.borderRight = '1px solid #39c2d7';
-          elem.children[e._targetInst.index - 1].style.borderRight = '1px solid #39c2d7';
-          elem.children[e._targetInst.index].style.borderLeft = '1px solid #39c2d7';
-          elem.children[e._targetInst.index + 1].style.borderLeft = '1px solid #39c2d7';
+          elem.children[e._targetInst.index].style.borderRight = '0.5px solid #39c2d7';
+          elem.children[e._targetInst.index - 1].style.borderRight = '0.5px solid #39c2d7';
+          elem.children[e._targetInst.index].style.borderLeft = '0.5px solid #39c2d7';
+          elem.children[e._targetInst.index + 1].style.borderLeft = '0.5px solid #39c2d7';
         } else {
           elem.children[e._targetInst.index].style.borderRight = '0.5px solid #bbbbbb';
           elem.children[e._targetInst.index - 1].style.borderRight = '0.5px solid #bbbbbb';
@@ -121,8 +131,7 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
 
   useEffect(() => {
     scroll(ref, containerRef);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  });
+  }, [activeIndex]);
 
   return (
     <div className={style.container} ref={containerRef}>

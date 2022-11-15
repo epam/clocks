@@ -9,7 +9,6 @@
   margin-right: auto;
   padding-right: $space-s;
   padding-left: $space-s;
-  overflow-x: hidden;
 
   > :last-child {
     z-index: -1;
@@ -32,29 +31,34 @@
   padding-left: $space-s;
 
   @include screenMax600 {
-    display: block;
-    overflow-x: scroll;
+    flex-direction: column;
+    width: auto;
+    margin-right: $space-s;
+    height: 85vh;
+    overflow: scroll;
   }
+}
 
-  .locationsContainer {
-    width: 20%;
-    min-width: 310px;
+.locationsContainer {
+  width: 20%;
+  min-width: 310px;
 
-    @include screenMax600 {
-      display: flex;
-      width: auto;
-    }
+  @include screenMax600 {
+    display: flex;
+    width: auto;
+    position: sticky;
+    top: 0;
   }
+}
 
-  .laneBlockContainer {
-    width: 80%;
-    overflow-x: scroll;
+.laneBlockContainer {
+  width: 80%;
+  overflow-x: scroll;
 
-    @include screenMax600 {
-      display: flex;
-      width: auto;
-      overflow-x: unset;
-    }
+  @include screenMax600 {
+    display: flex;
+    width: auto;
+    overflow-x: unset;
   }
 }
 

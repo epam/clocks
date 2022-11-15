@@ -15,6 +15,7 @@
   border-right: 0.5px solid $paleGrayColor;
   border-left: 0.5px solid $paleGrayColor;
   border-bottom: 0.5px solid $paleGrayColor;
+  border-top: 0.5px solid $paleGrayColor;
   height: 102px;
 
   @include screenMax600 {
