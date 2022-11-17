@@ -154,7 +154,10 @@
     }
 
     .buttonContainerHide {
-      display: none;
+      position: relative;
+      top: -45px;
+      height: 0;
+      opacity: -1;
     }
 
     .leftSide {
