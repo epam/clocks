@@ -1,7 +1,6 @@
 import { locationsDB } from './locationsDB';
 import { timezonesDB } from './timezonesDB';
 import { IInitialState, IActionPayload } from './types';
-import { ITimeState } from '../components/Section/components/LocationBlock/LocationBlock.types';
 import { ACTION_TYPE, THEME, TIME_FORMAT } from './constants';
 
 
