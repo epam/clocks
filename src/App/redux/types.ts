@@ -16,8 +16,8 @@ export interface IInitialState {
     showDate: boolean;
     showFooter: boolean;
     showTimezone: boolean;
-    displayFlagInSearch: boolean;
-    showFlagAndCountry: string;
+    showCountry: boolean;
+    showFlag: boolean;
     timeFormat: string;
   };
   snackbar: {
@@ -46,10 +46,9 @@ export interface IActionSettingsPayload {
   theme: string;
   autoTheme?: boolean;
   showDate: boolean;
-  showFooter: boolean;
   showTimezone: boolean;
-  displayFlagInSearch: boolean;
-  showFlagAndCountry: string;
+  showCountry: boolean;
+  showFlag: boolean;
   timeFormat: string;
 }
 
