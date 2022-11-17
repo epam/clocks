@@ -131,9 +131,8 @@ const Section: React.FC = () => {
           />
         );
       });
-    } else {
-      return <EmptyState />;
     }
+    return <EmptyState />;
     // don't need as a dependency findLocation
     // eslint-disable-next-line
   }, [laneMode.isOn, locationsFound]);
