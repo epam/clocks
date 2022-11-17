@@ -11,6 +11,7 @@ import { ILaneBlockProps } from './LaneBlock.types';
 import { IInitialState } from '../../../../redux/types';
 
 import style from './LaneBlock.module.scss';
+import generateTimeTable from '../../../../utils/generateTimeTable';
 
 const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const {
@@ -34,36 +35,10 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const activeTime = `${activeHour < 10 ? '0' + activeHour : activeHour}:${activeMinutes}`;
 
   const timeline = generateTime(24, 30, 0, 23);
-  const newTimeline = timeline.map(value => {
-    const times = value.split(':');
-    const offsetTime = String((timeInfo.offsetTime as number) / 60).split('.');
-    let offsetHour = Number(offsetTime[0]);
-    let offsetMinute = Number(offsetTime[1]) * (600 / 100);
-    if (isNaN(offsetMinute)) {
-      offsetMinute = 0;
-    }
-    if (offsetMinute === 450) {
-      offsetHour = offsetHour + 1;
-      offsetMinute = 0;
-    }
-    let hours = Number(times[0]) + offsetHour;
-    let minutes = Number(times[1]) + offsetMinute;
-    if (minutes === 60) {
-      hours = hours + 1;
-      minutes = 0;
-    }
-    if (hours < 0) {
-      hours = hours + 24;
-    }
-    if (hours > 23) {
-      hours = hours - 24;
-    }
-    return `${hours < 10 ? '0' + hours : hours}:${minutes < 30 ? '00' : '30'}`;
-  });
+  const newTimeline = useMemo(() => generateTimeTable(timeInfo, 24, 30, 0, 23), [timeInfo]);
 
   const activeTimeIndex = timeline.findIndex(value => value === activeTime);
   const isActiveTimeIndex = activeTimeIndex !== -1;
-
   useEffect(() => {
     if (isActiveTimeIndex) {
       setActiveIndex(activeTimeIndex);
