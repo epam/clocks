@@ -10,19 +10,17 @@ const CookiePolicy = () => {
   const { t } = useTranslation();
 
   const handleClick = () => {
-    localStorage.setItem('cookies', 'true');
+    localStorage.setItem('cookies', String(true));
     setOpen(false);
   };
 
   useEffect(() => {
-    if (localStorage.getItem('cookies') === null) {
-      localStorage.setItem('cookies', 'false');
-    }
-    if (localStorage.getItem('cookies') === 'false') {
-      setOpen(true);
-    }
-    if (localStorage.getItem('cookies') === 'true') {
-      setOpen(false);
+    const cookies = localStorage.getItem('cookies');
+
+    if (!cookies) {
+      localStorage.setItem('cookies', String(false));
+    } else {
+      setOpen(!JSON.parse(cookies));
     }
   }, []);
 
