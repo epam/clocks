@@ -1,7 +1,7 @@
 @import '../../../../styles/index.scss';
 
 %body {
-  width: 455px;
+  width: 200px;
   padding: $space-xxs;
   overflow-x: hidden;
 
@@ -24,18 +24,6 @@
   .modalTitle {
     font-family: roboto-bold;
     font-size: $fs20;
-  }
-
-  .optionsContainer {
-    display: flex;
-
-    .optionsColumn {
-      margin-right: $space-xxs;
-      margin-left: $space-xxs;
-    }
-    @include screenMax600 {
-      display: block;
-    }
   }
 
   .divider {
