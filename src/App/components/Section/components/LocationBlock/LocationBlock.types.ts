@@ -13,6 +13,7 @@ export interface ITimeState {
   suffix: string;
   day?: string;
   offset?: string;
+  offsetTime?: number;
   timezone?: string;
   city?: string;
   userLocation?: boolean;

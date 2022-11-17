@@ -9,7 +9,10 @@
   margin-right: auto;
   padding-right: $space-s;
   padding-left: $space-s;
-  overflow-x: hidden;
+
+  > :last-child {
+    z-index: -1;
+  }
 
   &::-webkit-scrollbar {
     display: none;
@@ -22,59 +25,41 @@
 }
 
 .laneModeViewContainer {
-  width: 100%;
+  width: 95vw;
   display: flex;
-  overflow: auto;
+  padding-right: $space-s;
+  padding-left: $space-s;
 
   @include screenMax600 {
     flex-direction: column;
-  }
-
-  > div {
-    width: 20%;
-  }
-
-  .laneModeLocations {
-    @include screenMax600 {
-      display: flex;
-    }
-  }
-
-  .timeTable {
-    width: 80%;
-    display: flex;
-    overflow: auto;
-
-    @include screenMax600 {
-      width: min-content;
-      flex-direction: column;
-    }
-
-    .timeCol {
-      display: flex;
-      flex-direction: column;
-      cursor: pointer;
-
-      @include screenMax600 {
-        flex-direction: row;
-      }
-
-      .timeCell {
-        padding: $space-s $space-m;
-        height: 100%;
-        display: grid;
-        place-items: center;
-
-        @include screenMax600 {
-          width: 150px;
-        }
-      }
-    }
+    width: auto;
+    margin-right: $space-s;
+    height: 85vh;
+    overflow: scroll;
   }
 }
 
-.laneModeView {
-  grid-template-columns: 1fr;
+.locationsContainer {
+  width: 20%;
+  min-width: 310px;
+
+  @include screenMax600 {
+    display: flex;
+    width: auto;
+    position: sticky;
+    top: 0;
+  }
+}
+
+.laneBlockContainer {
+  width: 80%;
+  overflow-x: scroll;
+
+  @include screenMax600 {
+    display: flex;
+    width: auto;
+    overflow-x: unset;
+  }
 }
 
 .emptyBody {
@@ -97,32 +82,15 @@
 }
 
 .lightBody {
-  @extend .timeTable;
-  @extend .timeCol;
   @include lightBlock;
 
   background-color: $lightColor;
   color: $darkColor;
-
-  .timeCol {
-    &:hover {
-      background-color: $lightGrayColor;
-    }
-  }
 }
 
 .darkBody {
-  @extend .timeTable;
-  @extend .timeCol;
   @include darkBlock;
 
   background-color: $darkGrayColor;
   color: $whiteColor;
-
-  .timeCol {
-    &:hover {
-      color: $whiteColor;
-      background-color: $darkColor;
-    }
-  }
 }

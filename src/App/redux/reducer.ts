@@ -1,8 +1,8 @@
 import { locationsDB } from './locationsDB';
 import { timezonesDB } from './timezonesDB';
 import { IInitialState, IActionPayload } from './types';
-import { ITimeState } from '../components/Section/components/LocationBlock/LocationBlock.types';
 import { ACTION_TYPE, THEME, TIME_FORMAT } from './constants';
+
 
 const initialState: IInitialState = {
   locations: {
@@ -36,38 +36,7 @@ const initialState: IInitialState = {
   laneMode: {
     isOn: false
   },
-  timeTable: [],
   counter: 0
-};
-
-const setTimeTable = (state = initialState, action: IActionPayload) => {
-  let timeTable: ITimeState[] = JSON.parse(JSON.stringify(state.timeTable));
-  const doesCityInclude = state.timeTable.findIndex(i => i.city === action.payload.city);
-
-  if (doesCityInclude === -1 && action.payload.userLocation) {
-    timeTable.unshift(action.payload);
-  }
-
-  if (doesCityInclude === -1 && !action.payload.userLocation) {
-    timeTable.push(action.payload);
-  }
-
-  if (
-    doesCityInclude !== -1 &&
-    state.timeTable[doesCityInclude].userLocation !== action.payload.userLocation
-  ) {
-    if (action.payload.userLocation) {
-      const idx = timeTable.findIndex(i => i.city === action.payload.city);
-      timeTable.splice(idx, 1);
-      timeTable = timeTable.sort((a, b) => a.hours.localeCompare(b.hours));
-      timeTable.unshift(action.payload);
-    }
-  }
-
-  return {
-    ...state,
-    timeTable
-  };
 };
 
 const reducer = (state = initialState, action: IActionPayload): IInitialState => {
@@ -135,8 +104,6 @@ const reducer = (state = initialState, action: IActionPayload): IInitialState =>
         ...state,
         onboarding: action.payload
       };
-    case ACTION_TYPE.setTimeTable:
-      return setTimeTable(state, action);
 
     default:
       return state;

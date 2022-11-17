@@ -1,0 +1,61 @@
+@import '../../../../styles/index.scss';
+
+.container {
+  display: flex;
+
+  @include screenMax600 {
+    flex-direction: column;
+  }
+}
+
+%body {
+  display: flex;
+  align-items: center;
+  padding: $space-s;
+  border-right: 0.5px solid $paleGrayColor;
+  border-left: 0.5px solid $paleGrayColor;
+  border-bottom: 0.5px solid $paleGrayColor;
+  border-top: 0.5px solid $paleGrayColor;
+  height: 102px;
+
+  @include screenMax600 {
+    width: 150px;
+    height: auto;
+    justify-content: center;
+  }
+}
+
+.lightBody {
+  @extend %body;
+
+  color: $darkColor;
+  background-color: $lightColor;
+}
+
+.darkBody {
+  @extend %body;
+
+  background-color: $darkGrayColor;
+  color: $whiteColor;
+}
+
+.nonWorkHoursDark {
+  background-color: $grayColor;
+}
+
+.nonWorkHoursLight {
+  background-color: $lightGrayColor;
+}
+
+.activeTime {
+  border-right: 0.5px solid $blueColor;
+  border-left: 0.5px solid $blueColor;
+  background-color: $blueColor;
+
+  @include screenMax600 {
+    border-top: 0.5px solid $blueColor;
+    border-bottom: 0.5px solid $blueColor;
+    border-right: 0.5px solid $paleGrayColor;
+    border-left: 0.5px solid $paleGrayColor;
+  }
+}

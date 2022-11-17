@@ -4,7 +4,7 @@ import moment from 'moment-timezone';
 
 import { TIME_FORMAT } from '../redux/constants';
 import { ITimeState } from '../components/Section/components/LocationBlock/LocationBlock.types';
-import { ILocation, IInitialState } from '../redux/types';
+import { IInitialState, ILocation } from '../redux/types';
 
 const useTimeInfo = (location?: ILocation) => {
   const { t } = useTranslation();
@@ -32,6 +32,7 @@ const useTimeInfo = (location?: ILocation) => {
     minutes: '',
     day: '',
     offset: '',
+    offsetTime: 0,
     suffix: '',
     timezone: location?.timezone,
     city: location?.city
@@ -130,6 +131,8 @@ const useTimeInfo = (location?: ILocation) => {
     };
 
     timeObject.offset = `${getDay()} ${getMinusPlus()}${getTimeDifference()}`;
+
+    timeObject.offsetTime = widjetLocationOffset - userLocationOffset;
 
     return timeObject;
   }

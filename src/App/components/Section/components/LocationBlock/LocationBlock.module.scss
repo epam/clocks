@@ -245,10 +245,6 @@
   }
 }
 
-.currentBody {
-  border: 2px solid $blueColor;
-}
-
 .shaking {
   position: relative;
   animation-duration: 0.7s;
@@ -329,7 +325,32 @@
     padding: $space-s $space-m;
   }
 }
-.laneModeBody {
+
+%laneModeBody {
   padding: 0;
   min-height: auto;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.laneModeBodyLight {
+  @extend %laneModeBody;
+
+  border-top: 1px solid $whiteColor;
+  border-bottom: 1px solid $whiteColor;
+  border-left: 0.5px solid $lightGrayColor;
+  border-right: 0.5px solid $lightGrayColor;
+}
+
+.laneModeBodyDark {
+  @extend %laneModeBody;
+
+  border-top: 1px solid $darkGrayColor;
+  border-bottom: 1px solid $darkGrayColor;
+  border-left: 0.5px solid $paleGrayColor;
+  border-right: 0.5px solid $paleGrayColor;
+}
+
+.currentBody {
+  border: 2px solid $blueColor;
 }

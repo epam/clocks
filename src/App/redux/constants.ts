@@ -21,13 +21,6 @@ export const TIME_FORMAT = {
   H12: 'H12'
 };
 
-// export const TIMEZONE = {
-//   disabled: 'disableTimezone',
-//   abbrv: 'abbreviationTimezone',
-//   country: 'countryTimezone',
-//   abbrvCountry: 'abbreviationAndCountryTimezone'
-// };
-
 export const COUNTRYFLAG = {
   hide: 'hideCountryFlag',
   flag: 'DisplayFlag',
