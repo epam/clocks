@@ -12,10 +12,10 @@
   display: flex;
   align-items: center;
   padding: $space-s;
-  border-right: 0.5px solid $paleGrayColor;
-  border-left: 0.5px solid $paleGrayColor;
-  border-bottom: 0.5px solid $paleGrayColor;
-  border-top: 0.5px solid $paleGrayColor;
+  border-right: 1px solid $grayBlueColor;
+  border-left: 1px solid $grayBlueColor;
+  border-bottom: 1px solid $grayBlueColor;
+  border-top: 1px solid $grayBlueColor;
   height: 102px;
 
   @include screenMax600 {
@@ -44,7 +44,7 @@
 }
 
 .nonWorkHoursLight {
-  background-color: $lightGrayColor;
+  background-color: $lightGrayBlueColor;
 }
 
 .activeTime {
