@@ -78,27 +78,27 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
     containerRef.current.parentNode.childNodes.forEach((elem: any) => {
       if (isMobileView) {
         if (state) {
-          elem.children[e._targetInst.index].style.borderTop = '0.5px solid #39c2d7';
-          elem.children[e._targetInst.index + 1].style.borderTop = '0.5px solid #39c2d7';
-          elem.children[e._targetInst.index].style.borderBottom = '0.5px solid #39c2d7';
-          elem.children[e._targetInst.index - 1].style.borderBottom = '0.5px solid #39c2d7';
+          elem.children[e._targetInst.index].style.borderTop = '1px solid #39c2d7';
+          elem.children[e._targetInst.index + 1].style.borderTop = '1px solid #39c2d7';
+          elem.children[e._targetInst.index].style.borderBottom = '1px solid #39c2d7';
+          elem.children[e._targetInst.index - 1].style.borderBottom = '1px solid #39c2d7';
         } else {
-          elem.children[e._targetInst.index].style.borderTop = '0.5px solid #bbbbbb';
-          elem.children[e._targetInst.index + 1].style.borderTop = '0.5px solid #bbbbbb';
-          elem.children[e._targetInst.index].style.borderBottom = '0.5px solid #bbbbbb';
-          elem.children[e._targetInst.index - 1].style.borderBottom = '0.5px solid #bbbbbb';
+          elem.children[e._targetInst.index].style.borderTop = '1px solid #dcebed';
+          elem.children[e._targetInst.index + 1].style.borderTop = '1px solid #dcebed';
+          elem.children[e._targetInst.index].style.borderBottom = '1px solid #dcebed';
+          elem.children[e._targetInst.index - 1].style.borderBottom = '1px solid #dcebed';
         }
       } else {
         if (state) {
-          elem.children[e._targetInst.index].style.borderRight = '0.5px solid #39c2d7';
-          elem.children[e._targetInst.index - 1].style.borderRight = '0.5px solid #39c2d7';
-          elem.children[e._targetInst.index].style.borderLeft = '0.5px solid #39c2d7';
-          elem.children[e._targetInst.index + 1].style.borderLeft = '0.5px solid #39c2d7';
+          elem.children[e._targetInst.index].style.borderRight = '1px solid #39c2d7';
+          elem.children[e._targetInst.index - 1].style.borderRight = '1px solid #39c2d7';
+          elem.children[e._targetInst.index].style.borderLeft = '1px solid #39c2d7';
+          elem.children[e._targetInst.index + 1].style.borderLeft = '1px solid #39c2d7';
         } else {
-          elem.children[e._targetInst.index].style.borderRight = '0.5px solid #bbbbbb';
-          elem.children[e._targetInst.index - 1].style.borderRight = '0.5px solid #bbbbbb';
-          elem.children[e._targetInst.index].style.borderLeft = '0.5px solid #bbbbbb';
-          elem.children[e._targetInst.index + 1].style.borderLeft = '0.5px solid #bbbbbb';
+          elem.children[e._targetInst.index].style.borderRight = '1px solid #dcebed';
+          elem.children[e._targetInst.index - 1].style.borderRight = '1px solid #dcebed';
+          elem.children[e._targetInst.index].style.borderLeft = '1px solid #dcebed';
+          elem.children[e._targetInst.index + 1].style.borderLeft = '1px solid #dcebed';
         }
       }
     });
