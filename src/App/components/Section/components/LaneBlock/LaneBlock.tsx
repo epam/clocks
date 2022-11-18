@@ -41,7 +41,7 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const isActiveTimeIndex = activeTimeIndex !== -1;
   useEffect(() => {
     if (isActiveTimeIndex) {
-      setActiveIndex(activeTimeIndex);
+      setActiveIndex(activeTimeIndex - 1);
     }
   }, [activeTimeIndex, isActiveTimeIndex]);
 
