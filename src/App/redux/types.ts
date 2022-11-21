@@ -24,10 +24,6 @@ export interface IInitialState {
     text?: string;
     color?: AlertColor;
   };
-  planningMode: {
-    isOn: boolean;
-    additionalHours: number;
-  };
   laneMode: {
     isOn: boolean;
   };
@@ -87,7 +83,7 @@ export interface ITimezonesDB {
   timezones: { abbreviation: string; values: string[] }[];
 }
 export interface IOnboarding {
-  planningMode: boolean;
+  laneMode: boolean;
   deleteButton: boolean;
   settingsModal: boolean;
   shareButton: boolean;

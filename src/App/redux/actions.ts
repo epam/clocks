@@ -4,7 +4,6 @@ import {
   IActionSettingsPayload,
   ILocation,
   IActionSnackbarPayload,
-  IActionPlanningModePayload,
   IOnboarding,
   IActionLaneModePayload
 } from './types';
@@ -15,11 +14,6 @@ export const setDeleteMode = (payload: boolean) => ({ type: ACTION_TYPE.setDelet
 
 export const setSettings = (payload: IActionSettingsPayload) => ({
   type: ACTION_TYPE.setSettings,
-  payload
-});
-
-export const setPlanningMode = (payload: IActionPlanningModePayload) => ({
-  type: ACTION_TYPE.setPlanningMode,
   payload
 });
 

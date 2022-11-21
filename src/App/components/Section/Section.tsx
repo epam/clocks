@@ -24,7 +24,6 @@ const Section: React.FC = () => {
 
   const {
     counter,
-    planningMode,
     laneMode,
     locations: { locationsDB }
   } = useSelector((state: IInitialState) => state);
@@ -142,8 +141,6 @@ const Section: React.FC = () => {
       className={clsx({
         [style.body]: locations,
         [style.emptyBody]: !locations,
-        [style.marginBottom]: planningMode.isOn,
-        [style.paddingLeft]: planningMode.isOn,
         [style.laneModeView]: laneMode.isOn
       })}
     >

@@ -27,7 +27,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   const {
     deleteMode,
     onboarding,
-    planningMode,
     laneMode,
     locations: { userLocation }
   } = useSelector((state: IInitialState) => state);
@@ -118,7 +117,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           [style.laneModeContainer]: laneMode.isOn,
           [style.shaking]: deleteMode.isOn,
           [style.onboarding]:
-            !index && (onboarding?.planningMode || onboarding?.myLocation || onboarding?.comment),
+            !index && (onboarding?.laneMode || onboarding?.myLocation || onboarding?.comment),
           [style.zeromargin]: laneMode.isOn
         })}
       >
@@ -127,8 +126,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
             [bodyTheme]: true,
             [laneModeBodyTheme]: isMobileView && laneMode.isOn,
             [style.shaking]: deleteMode.isOn,
-            [style.currentBody]: urlUserLocation || isUserLocation,
-            [style.marginRight]: planningMode.isOn
+            [style.currentBody]: urlUserLocation || isUserLocation
           })}
           tabIndex={deleteMode.isOn ? -1 : 0}
           onFocus={focusHandler}
