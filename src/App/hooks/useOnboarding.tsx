@@ -10,7 +10,7 @@ const onboardingInitialState: IOnboarding = {
   shareButton: false,
   deleteButton: false,
   settingsModal: false,
-  planningMode: false,
+  laneMode: false,
   helpModule: false,
   reloadOnboarding: false
 };

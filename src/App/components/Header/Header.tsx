@@ -6,7 +6,6 @@ import useTheme from '../../hooks/useTheme';
 
 import style from './Header.module.scss';
 import DeleteMode from './components/DeleteMode/DeleteMode';
-import PlanningMode from './components/PlanningMode/PlanningMode';
 import SettingsModal from './components/SettingsModal/SettingsModal';
 import ShareButton from './components/ShareButton/ShareButton';
 import AddLocation from './components/AddLocation/AddLocation';
@@ -27,7 +26,6 @@ const Header: React.FC = () => {
       </div>
       <div className={style.controlsContainer}>
         {!isMobileView && <LaneMode />}
-        <PlanningMode />
         <DeleteMode />
         <SettingsModal />
         <ShareButton />

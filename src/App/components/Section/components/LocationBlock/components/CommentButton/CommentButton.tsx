@@ -18,14 +18,14 @@ const CommentButton: React.FC<ICommentButtonProps> = ({ location, index }) => {
   const [commentModal, setCommentModal] = useState(false);
   const [inputText, setInputText] = useState<string>('');
 
-  const { deleteMode, planningMode, onboarding } = useSelector((state: IInitialState) => state);
+  const { deleteMode, onboarding } = useSelector((state: IInitialState) => state);
 
   const iconTheme = useTheme(style.lightIcon, style.darkIcon);
   const commentModalTheme = useTheme(style.lightCommentModal, style.darkCommentModal);
   const { locations, setLocations } = useLocations();
 
   const anchorComment = useRef(null);
-  const disabled = useMemo(() => deleteMode.isOn || planningMode.isOn, [planningMode, deleteMode]);
+  const disabled = useMemo(() => deleteMode.isOn, [deleteMode]);
 
   const commentTooltipText = useMemo((): string => t('LocationBlock.TooltipComment'), []);
 
