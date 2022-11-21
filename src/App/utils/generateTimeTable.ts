@@ -11,20 +11,23 @@ export default function generateTimeTable(
   const timeline = generateTime(timeFormat, minuteInterval, startTime, endTime);
   return timeline.map(value => {
     const times = value.split(':');
-    const offsetTime = String((timeInfo.offsetTime as number) / 60).split('.');
-    let offsetHour = Number(offsetTime[0]);
-    let offsetMinute = Number(offsetTime[1]) * (600 / 100);
-    if (isNaN(offsetMinute)) {
-      offsetMinute = 0;
+    const offsetTimeInMinutes = timeInfo.offsetTime as number;
+    const timesInMinutes = Number(times[0]) * 60 + Number(times[1]);
+    const timesWithOffsetInMinutes = timesInMinutes + offsetTimeInMinutes;
+    const timesWithOffsetInHours = String(timesWithOffsetInMinutes / 60);
+    const newTimes = timesWithOffsetInHours.split('.');
+    let hours = Number(newTimes[0]);
+    let minutes = Number(newTimes[1]);
+    minutes = Number(`.${minutes}`) * 60;
+    if (timesWithOffsetInMinutes < -60) {
+      minutes = (minutes - 60) * -1;
+      hours = hours - 1;
     }
-    if (offsetMinute === 450) {
-      offsetHour = offsetHour + 1;
-      offsetMinute = 0;
+    if (timesWithOffsetInMinutes < 0 && timesWithOffsetInMinutes > -60) {
+      hours = hours - 1;
+      minutes = 60 - minutes;
     }
-    let hours = Number(times[0]) + offsetHour;
-    let minutes = Number(times[1]) + offsetMinute;
-    if (minutes === 60) {
-      hours = hours + 1;
+    if (isNaN(minutes)) {
       minutes = 0;
     }
     if (hours < 0) {
@@ -33,6 +36,6 @@ export default function generateTimeTable(
     if (hours > 23) {
       hours = hours - 24;
     }
-    return `${hours < 10 ? '0' + hours : hours}:${minutes < 30 ? '00' : '30'}`;
+    return `${hours < 10 ? '0' + hours : hours}:${minutes === 0 ? '00' : minutes}`;
   });
 }
