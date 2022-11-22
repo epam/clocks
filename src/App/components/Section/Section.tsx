@@ -83,8 +83,10 @@ const Section: React.FC = () => {
         return i.userLocation;
       });
 
-      sortedLocations.splice(indexOfUserLocation, 1);
-      sortedLocations.unshift(userLocation as IUrlLocation);
+      if (sortedLocations.length > 1) {
+        sortedLocations.splice(indexOfUserLocation, 1);
+        sortedLocations.unshift(userLocation as IUrlLocation);
+      }
 
       return sortedLocations;
     }
