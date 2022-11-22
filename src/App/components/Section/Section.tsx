@@ -72,22 +72,23 @@ const Section: React.FC = () => {
   }, [counter, dispatch]);
 
   const locationsFound = useMemo(() => {
-    if (locations && !!Object.keys(locations).length) {
-      const locationsArray = Object.values(locations);
-      let indexOfUserLocation = 0;
-
+    const locationsArray = locations ? Object.values(locations) : [];
+    if (locations && locationsArray.length) {
       const sortedLocations = locationsArray.sort((a, b) => b.offset - a.offset);
 
-      const userLocation = sortedLocations.find((i, idx) => {
-        indexOfUserLocation = idx;
-        return i.userLocation;
-      });
+      if (locationsArray.length > 1 && locationsArray.some(i => i.userLocation)) {
+        let activeLocationIndex = 0;
 
-      if (sortedLocations.length > 1) {
-        sortedLocations.splice(indexOfUserLocation, 1);
-        sortedLocations.unshift(userLocation as IUrlLocation);
+        const activeLocation = locationsArray.find((item, idx) => {
+          activeLocationIndex = idx;
+          return item.userLocation;
+        });
+
+        sortedLocations.splice(activeLocationIndex, 1);
+        sortedLocations.unshift(activeLocation as IUrlLocation);
+
+        return sortedLocations;
       }
-
       return sortedLocations;
     }
     return null;
