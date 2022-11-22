@@ -25,7 +25,7 @@ const CookiePolicy = () => {
   }, []);
 
   return (
-    <Modal open={isModalOpen}>
+    <Modal open={isModalOpen} sx={{ zIndex: 1400 }}>
       <div className={bodyTheme}>
         <div>
           {t('CookiePolicy.Info')}
