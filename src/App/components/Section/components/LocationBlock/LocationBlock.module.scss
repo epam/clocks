@@ -67,11 +67,6 @@
     transition: 0.2s;
   }
 
-  .moveLeftOrRight {
-    position: relative;
-    left: -45px;
-  }
-
   &:hover {
     @extend .onboarding;
   }
@@ -141,7 +136,6 @@
     .buttonContainer {
       display: flex;
       flex-direction: column;
-      margin-right: $space-s;
 
       @include screenMax600 {
         flex-direction: row;
@@ -153,16 +147,11 @@
     }
 
     .buttonContainerHide {
-      position: relative;
-      top: -45px;
-      height: 0;
       opacity: -1;
     }
 
     .leftSide {
       display: flex;
-      transition: 0.2s;
-      flex-grow: 1;
       width: 60%;
 
       @include screenMax600 {

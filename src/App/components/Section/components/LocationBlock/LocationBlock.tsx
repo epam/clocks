@@ -52,7 +52,6 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
       <div
         className={clsx({
           [style.leftSide]: true
-          // [style.moveLeftOrRight]: !isFocused
         })}
       >
         <div className={style.infoContainer}>
