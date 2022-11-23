@@ -34,6 +34,7 @@
   border: 2px solid transparent;
   transition: 0.2s;
   display: flex;
+  flex-wrap: wrap;
 
   clip-path: inset(-100vw -100vw -100vw 0);
 
@@ -199,6 +200,7 @@
   .commentBlock {
     margin-top: $space-xs;
     margin-left: $space-xxs;
+    width: 100%;
 
     .commentText {
       font-family: roboto-bold;
