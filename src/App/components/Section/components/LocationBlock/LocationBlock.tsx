@@ -51,19 +51,10 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     <>
       <div
         className={clsx({
-          [style.leftSide]: true,
-          [style.moveLeftOrRight]: !isFocused
+          [style.leftSide]: true
+          // [style.moveLeftOrRight]: !isFocused
         })}
       >
-        <div
-          className={clsx({
-            [style.buttonContainer]: true,
-            [style.opaccityBlock]: !isFocused
-          })}
-        >
-          <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
-          <CommentButton location={location} index={index} />
-        </div>
         <div className={style.infoContainer}>
           <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
           <div className={style.bottomInfo}>
@@ -75,6 +66,15 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
         </div>
       </div>
       <TimeInfo location={location} />
+      <div
+        className={clsx({
+          [style.buttonContainer]: true,
+          [style.opaccityBlock]: !isFocused
+        })}
+      >
+        <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
+        <CommentButton location={location} index={index} />
+      </div>
     </>
   );
 

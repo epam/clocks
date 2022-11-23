@@ -29,7 +29,7 @@
 %body {
   width: 1fr;
   min-height: 100px;
-  padding: $space-s;
+  padding: $space-s $space-xxs $space-s $space-s;
   position: relative;
   border: 2px solid transparent;
   transition: 0.2s;
@@ -85,7 +85,6 @@
     .buttonContainer {
       display: flex;
       flex-direction: column;
-      margin-right: $space-s;
 
       &:hover {
         @extend .onboarding;
