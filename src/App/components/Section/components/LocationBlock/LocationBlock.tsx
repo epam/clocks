@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 
-import { IconButton } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import { Remove } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
@@ -108,6 +108,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     </>
   );
 
+  const comment = location && (locations[location.city + location.lat].comment as string);
+
   return (
     <div className={style.relativeBlock}>
       <div
@@ -141,9 +143,20 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
               {isMobileView && laneMode.isOn ? laneModeMobileLeftSide : leftSideView}
             </div>
           </div>
-          {location && locations[location.city + location.lat].comment && (
-            <div className={style.commentBlock}>
-              {locations[location.city + location.lat].comment}
+          {comment && (
+            <div
+              className={clsx({
+                [style.commentBlock]: true,
+                [style.truncate]: true
+              })}
+            >
+              {comment.length > 80 ? (
+                <Tooltip title={comment} arrow>
+                  <div className={style.commentTooltip}>{comment}</div>
+                </Tooltip>
+              ) : (
+                <div className={style.commentTooltip}>{comment}</div>
+              )}
             </div>
           )}
         </div>
