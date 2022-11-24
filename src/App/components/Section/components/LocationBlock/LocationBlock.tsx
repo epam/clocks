@@ -51,7 +51,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     <>
       <div
         className={clsx({
-          [style.leftSide]: true
+          [style.leftSide]: true,
+          [style.moveLeftOrRight]: !isFocused && isMobileView && laneMode.isOn
         })}
       >
         <div className={style.infoContainer}>
@@ -111,7 +112,7 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
   const comment = location && (locations[location.city + location.lat].comment as string);
 
   return (
-    <div className={style.relativeBlock}>
+    <div className={style.relativeBlock} id={location && location?.city + location?.lat}>
       <div
         className={clsx({
           [style.container]: !laneMode.isOn,
