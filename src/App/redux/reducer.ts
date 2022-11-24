@@ -29,7 +29,7 @@ const initialState: IInitialState = {
   },
   onboarding: undefined,
   laneMode: {
-    isOn: false
+    isOn: true
   },
   counter: 0
 };
