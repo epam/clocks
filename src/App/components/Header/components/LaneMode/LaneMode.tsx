@@ -61,7 +61,7 @@ const LaneMode = () => {
               </Tooltip>
 
               <Button className={style.buttonly} onClick={handleOffLaneMode}>
-                {t('Custom Mode')}
+                {t('Grid Mode')}
               </Button>
             </ButtonGroup>
           </ThemeProvider>
