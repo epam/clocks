@@ -3,6 +3,7 @@ import { Button, ButtonGroup, Tooltip } from '@mui/material';
 import { t } from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import clsx from 'clsx';
 
 import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 import { setLaneMode } from '../../../../redux/actions';
@@ -20,7 +21,7 @@ const LaneMode = () => {
   });
 
   const anchorRef = useRef(null);
-  const { onboarding } = useSelector((state: IInitialState) => state);
+  const { onboarding, laneMode } = useSelector((state: IInitialState) => state);
 
   const dispatch = useDispatch();
 
@@ -55,12 +56,25 @@ const LaneMode = () => {
               aria-label="Disabled elevation buttons"
             >
               <Tooltip title={tooltipText} arrow>
-                <Button className={style.buttonly} onClick={handleOnLaneMode} ref={anchorRef}>
+                <Button
+                  className={clsx({
+                    [style.buttonly]: true,
+                    [style.active]: laneMode.isOn
+                  })}
+                  onClick={handleOnLaneMode}
+                  ref={anchorRef}
+                >
                   {t('LaneMode')}
                 </Button>
               </Tooltip>
 
-              <Button className={style.buttonly} onClick={handleOffLaneMode}>
+              <Button
+                className={clsx({
+                  [style.buttonly]: true,
+                  [style.active]: !laneMode.isOn
+                })}
+                onClick={handleOffLaneMode}
+              >
                 {t('Custom Mode')}
               </Button>
             </ButtonGroup>
