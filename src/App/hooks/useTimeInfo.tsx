@@ -102,19 +102,17 @@ const useTimeInfo = (location?: ILocation) => {
         return t('LocationBlock.Local');
       }
       if (difference < 60) {
-        return `${difference} ${t('LocationBlock.Minutes')}`;
+        return `${difference}`;
       }
       if (difference % 60 !== 0) {
         const time = String(difference / 60).split('.');
         const hours = Number(time[0]);
         const minutes = (60 / 100) * Number(time[1]);
 
-        return `${hours} ${t('LocationBlock.Hours')} ${minutes === 3 ? 30 : minutes} ${t(
-          'LocationBlock.Minutes'
-        )}`;
+        return `${hours}:${minutes === 3 ? 30 : minutes}`;
       }
 
-      return `${difference / 60} ${t('LocationBlock.Hours')}`;
+      return `${difference / 60}`;
     };
 
     timeObject.offset = `${getDay()} ${getMinusPlus()}${getTimeDifference()}`;

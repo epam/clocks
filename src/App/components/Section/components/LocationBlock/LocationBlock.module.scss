@@ -29,11 +29,12 @@
 %body {
   width: 1fr;
   min-height: 100px;
-  padding: $space-s;
+  padding: $space-s $space-xxs $space-s $space-s;
   position: relative;
   border: 2px solid transparent;
   transition: 0.2s;
   display: flex;
+  flex-wrap: wrap;
 
   clip-path: inset(-100vw -100vw -100vw 0);
 
@@ -85,7 +86,6 @@
     .buttonContainer {
       display: flex;
       flex-direction: column;
-      margin-right: $space-s;
 
       &:hover {
         @extend .onboarding;
@@ -142,7 +142,6 @@
     .buttonContainer {
       display: flex;
       flex-direction: column;
-      margin-right: $space-s;
 
       @include screenMax600 {
         flex-direction: row;
@@ -211,10 +210,15 @@
   .commentBlock {
     margin-top: $space-xs;
     margin-left: $space-xxs;
+    width: 100%;
 
     .commentText {
       font-family: roboto-bold;
       margin-right: $space-xxs;
+    }
+
+    .commentTooltip {
+      font-size: $fs14;
     }
   }
 }
@@ -353,4 +357,12 @@
 
 .currentBody {
   border: 2px solid $blueColor;
+}
+
+.truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

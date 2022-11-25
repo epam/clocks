@@ -110,6 +110,10 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
     // eslint-disable-next-line
   }, [activeIndex]);
 
+  const currentLocation = location && location?.city + location?.lat;
+  const locationBlock = document.getElementById(currentLocation as string);
+  const height = locationBlock === null ? '' : locationBlock.offsetHeight;
+
   return (
     <div className={style.container} ref={containerRef}>
       {newTimeline.map((value, index) => {
@@ -117,6 +121,7 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
         const hour = Number(time[0]);
         return (
           <div
+            style={{ height: isMobileView ? 'auto' : height }}
             key={nanoid()}
             ref={index === activeIndex && isUserLocation ? ref : null}
             onMouseEnter={e => onMouseOver(e, 1)}

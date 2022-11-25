@@ -2,7 +2,7 @@ import React, { useState, useMemo } from 'react';
 import clsx from 'clsx';
 import { useSelector } from 'react-redux';
 
-import { IconButton } from '@mui/material';
+import { IconButton, Tooltip } from '@mui/material';
 import { Remove } from '@mui/icons-material';
 
 import useTheme from '../../../../hooks/useTheme';
@@ -52,18 +52,9 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
       <div
         className={clsx({
           [style.leftSide]: true,
-          [style.moveLeftOrRight]: !isFocused
+          [style.moveLeftOrRight]: !isFocused && isMobileView && laneMode.isOn
         })}
       >
-        <div
-          className={clsx({
-            [style.buttonContainer]: true,
-            [style.opaccityBlock]: !isFocused
-          })}
-        >
-          <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
-          <CommentButton location={location} index={index} />
-        </div>
         <div className={style.infoContainer}>
           <div className={clsx([style.topInfo, style.truncate])}>{location?.city}</div>
           <div className={style.bottomInfo}>
@@ -75,6 +66,15 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
         </div>
       </div>
       <TimeInfo location={location} />
+      <div
+        className={clsx({
+          [style.buttonContainer]: true,
+          [style.opaccityBlock]: !isFocused
+        })}
+      >
+        <PinButton location={location} index={index} urlUserLocation={urlUserLocation} />
+        <CommentButton location={location} index={index} />
+      </div>
     </>
   );
 
@@ -109,8 +109,10 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
     </>
   );
 
+  const comment = location && (locations[location.city + location.lat].comment as string);
+
   return (
-    <div className={style.relativeBlock}>
+    <div className={style.relativeBlock} id={location && location?.city + location?.lat}>
       <div
         className={clsx({
           [style.container]: !laneMode.isOn,
@@ -142,9 +144,20 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
               {isMobileView && laneMode.isOn ? laneModeMobileLeftSide : leftSideView}
             </div>
           </div>
-          {location && locations[location.city + location.lat].comment && (
-            <div className={style.commentBlock}>
-              {locations[location.city + location.lat].comment}
+          {comment && (
+            <div
+              className={clsx({
+                [style.commentBlock]: true,
+                [style.truncate]: true
+              })}
+            >
+              {comment.length > 80 ? (
+                <Tooltip title={comment} arrow>
+                  <div className={style.commentTooltip}>{comment}</div>
+                </Tooltip>
+              ) : (
+                <div className={style.commentTooltip}>{comment}</div>
+              )}
             </div>
           )}
         </div>
