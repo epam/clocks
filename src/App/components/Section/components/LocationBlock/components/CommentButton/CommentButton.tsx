@@ -86,7 +86,6 @@ const CommentButton: React.FC<ICommentButtonProps> = ({ location, index }) => {
             <div>
               <input
                 className={style.input}
-                maxLength={50}
                 placeholder={t('LocationBlock.CommentModalInputPlaceholder')}
                 value={inputText}
                 onChange={e => setInputText(e.target.value)}

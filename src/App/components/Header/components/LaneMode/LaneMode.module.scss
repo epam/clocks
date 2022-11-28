@@ -13,8 +13,13 @@
     &:hover {
       background-color: $lightGrayColor;
     }
+
     @include screenMax600 {
       font-size: $fs16;
     }
+  }
+
+  .active {
+    background: $blueColor;
   }
 }

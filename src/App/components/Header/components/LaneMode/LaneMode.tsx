@@ -3,6 +3,7 @@ import { Button, ButtonGroup, Tooltip } from '@mui/material';
 import { t } from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import clsx from 'clsx';
 
 import Onboarding from '../../../Section/components/Onboarding/Onboarding';
 import { setLaneMode } from '../../../../redux/actions';
@@ -21,7 +22,7 @@ const LaneMode = () => {
 
   const anchorLaneRef = useRef(null);
   const anchorGridRef = useRef(null);
-  const { onboarding } = useSelector((state: IInitialState) => state);
+  const { onboarding, laneMode } = useSelector((state: IInitialState) => state);
 
   const dispatch = useDispatch();
 
@@ -56,13 +57,28 @@ const LaneMode = () => {
               aria-label="Disabled elevation buttons"
             >
               <Tooltip title={tooltipText} arrow>
-                <Button className={style.buttonly} onClick={handleOnLaneMode} ref={anchorLaneRef}>
+                <Button
+                  className={clsx({
+                    [style.buttonly]: true,
+                    [style.active]: laneMode.isOn
+                  })}
+                  onClick={handleOnLaneMode}
+                  ref={anchorLaneRef}
+                >
                   {t('LaneMode')}
                 </Button>
               </Tooltip>
 
-              <Button className={style.buttonly} onClick={handleOffLaneMode} ref={anchorGridRef}>
+              <Button
+                className={clsx({
+                  [style.buttonly]: true,
+                  [style.active]: !laneMode.isOn
+                })}
+                onClick={handleOffLaneMode}
+                ref={anchorGridRef}
+              >
                 {t('Grid Mode')}
+
               </Button>
             </ButtonGroup>
           </ThemeProvider>

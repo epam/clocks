@@ -65,7 +65,7 @@ const Section: React.FC = () => {
     }
     // use it only when component mount
     // eslint-disable-next-line
-  }, []);
+  }, [locations]);
 
   useEffect(() => {
     setTimeout(() => dispatch(setCounter(counter + 1)), 60000);
