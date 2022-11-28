@@ -19,7 +19,8 @@ const LaneMode = () => {
     }
   });
 
-  const anchorRef = useRef(null);
+  const anchorLaneRef = useRef(null);
+  const anchorGridRef = useRef(null);
   const { onboarding } = useSelector((state: IInitialState) => state);
 
   const dispatch = useDispatch();
@@ -55,12 +56,12 @@ const LaneMode = () => {
               aria-label="Disabled elevation buttons"
             >
               <Tooltip title={tooltipText} arrow>
-                <Button className={style.buttonly} onClick={handleOnLaneMode} ref={anchorRef}>
+                <Button className={style.buttonly} onClick={handleOnLaneMode} ref={anchorLaneRef}>
                   {t('LaneMode')}
                 </Button>
               </Tooltip>
 
-              <Button className={style.buttonly} onClick={handleOffLaneMode}>
+              <Button className={style.buttonly} onClick={handleOffLaneMode} ref={anchorGridRef}>
                 {t('Grid Mode')}
               </Button>
             </ButtonGroup>
@@ -68,15 +69,26 @@ const LaneMode = () => {
         </div>
       </div>
 
-      {onboarding?.laneMode && anchorRef.current && (
+      {onboarding?.laneMode && anchorLaneRef.current && (
         <Onboarding
           open={onboarding.laneMode}
-          anchorElement={anchorRef.current}
+          anchorElement={anchorLaneRef.current}
           nextElement={'myLocation'}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
           title={t('Onboarding.LaneModeTitle')}
           text={t('Onboarding.LaneModeContent')}
+        />
+      )}
+      {onboarding?.gridMode && anchorGridRef.current && (
+        <Onboarding
+          open={onboarding.gridMode}
+          anchorElement={anchorGridRef.current}
+          nextElement={'laneMode'}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+          title={t('Onboarding.GridModeTitle')}
+          text={t('Onboarding.GridModeContent')}
         />
       )}
     </>

@@ -84,6 +84,7 @@ export interface ITimezonesDB {
 }
 export interface IOnboarding {
   laneMode: boolean;
+  gridMode: boolean;
   deleteButton: boolean;
   settingsModal: boolean;
   shareButton: boolean;
