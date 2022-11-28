@@ -99,7 +99,7 @@ const useTimeInfo = (location?: ILocation) => {
       const difference = Math.abs(widjetLocationOffset - userLocationOffset);
 
       if (difference === 0) {
-        return t('LocationBlock.Local');
+        return '';
       }
       if (difference < 60) {
         return `${difference}`;
