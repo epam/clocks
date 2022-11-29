@@ -20,7 +20,8 @@ const LaneMode = () => {
     }
   });
 
-  const anchorRef = useRef(null);
+  const anchorLaneRef = useRef(null);
+  const anchorGridRef = useRef(null);
   const { onboarding, laneMode } = useSelector((state: IInitialState) => state);
 
   const dispatch = useDispatch();
@@ -62,7 +63,7 @@ const LaneMode = () => {
                     [style.active]: laneMode.isOn
                   })}
                   onClick={handleOnLaneMode}
-                  ref={anchorRef}
+                  ref={anchorLaneRef}
                 >
                   {t('LaneMode')}
                 </Button>
@@ -74,23 +75,36 @@ const LaneMode = () => {
                   [style.active]: !laneMode.isOn
                 })}
                 onClick={handleOffLaneMode}
+                ref={anchorGridRef}
               >
-                {t('Custom Mode')}
+                {t('Grid Mode')}
+
               </Button>
             </ButtonGroup>
           </ThemeProvider>
         </div>
       </div>
 
-      {onboarding?.laneMode && anchorRef.current && (
+      {onboarding?.laneMode && anchorLaneRef.current && (
         <Onboarding
           open={onboarding.laneMode}
-          anchorElement={anchorRef.current}
+          anchorElement={anchorLaneRef.current}
           nextElement={'myLocation'}
           anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
           transformOrigin={{ vertical: 'top', horizontal: 'center' }}
           title={t('Onboarding.LaneModeTitle')}
           text={t('Onboarding.LaneModeContent')}
+        />
+      )}
+      {onboarding?.gridMode && anchorGridRef.current && (
+        <Onboarding
+          open={onboarding.gridMode}
+          anchorElement={anchorGridRef.current}
+          nextElement={'laneMode'}
+          anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+          transformOrigin={{ vertical: 'top', horizontal: 'center' }}
+          title={t('Onboarding.GridModeTitle')}
+          text={t('Onboarding.GridModeContent')}
         />
       )}
     </>

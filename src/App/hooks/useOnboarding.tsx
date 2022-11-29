@@ -11,6 +11,7 @@ const onboardingInitialState: IOnboarding = {
   deleteButton: false,
   settingsModal: false,
   laneMode: false,
+  gridMode: false,
   helpModule: false,
   reloadOnboarding: false
 };
