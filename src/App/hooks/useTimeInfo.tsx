@@ -112,7 +112,7 @@ const useTimeInfo = (location?: ILocation) => {
         return `${hours}:${minutes === 3 ? 30 : minutes}`;
       }
 
-      return `${difference / 60}`;
+      return `${difference / 60}:00`;
     };
 
     timeObject.offset = `${getDay()} ${getMinusPlus()}${getTimeDifference()}`;

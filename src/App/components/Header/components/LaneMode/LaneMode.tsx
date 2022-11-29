@@ -78,7 +78,6 @@ const LaneMode = () => {
                 ref={anchorGridRef}
               >
                 {t('Grid Mode')}
-
               </Button>
             </ButtonGroup>
           </ThemeProvider>
