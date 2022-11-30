@@ -1,9 +1,11 @@
 import { Button, Dialog, Divider } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { Trans, useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 import useTheme from '../../../../hooks/useTheme';
 import style from './AnnounceModule.module.scss';
 import pckg from '../../../../../../package.json';
+import { RELEASE_VERSIONS } from '../../../../utils/constants';
+import clsx from 'clsx';
 
 const AnnounceModule = () => {
   const { t } = useTranslation();
@@ -23,6 +25,8 @@ const AnnounceModule = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const releases = Object.values(RELEASE_VERSIONS);
+
   return (
     <div>
       {
@@ -30,12 +34,16 @@ const AnnounceModule = () => {
           <div className={bodyTheme}>
             <div className={style.modalTitle}>{t('AnnounceModule.announceTitle')}</div>
             <Divider />
-
-            <h1 className={style.release}>
-              <Trans t={t} i18nKey="AnnounceModule.release" values={{ version: pckg.version }} />
-            </h1>
-            <Trans t={t} i18nKey="AnnounceModule.info" components={{ li: <li />, ul: <ul /> }} />
-
+            {releases.map((release, idx) => (
+              <div key={idx} className={clsx({ [style.dimmed]: idx > 0 })}>
+                <h1 className={style.release}>Release {release.version}</h1>
+                <ul>
+                  {release.changes.map((item, idx) => (
+                    <li key={item + idx}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            ))}
             <div className={style.buttonContainer}>
               <Button className={style.button} onClick={handleClose}>
                 {t('AnnounceModule.close')}
