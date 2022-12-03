@@ -15,6 +15,7 @@ import generateTimeTable from '../../../../utils/generateTimeTable';
 
 const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const {
+    deleteMode,
     locations: { userLocation }
   } = useSelector((state: IInitialState) => state);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -74,34 +75,36 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   };
 
   const onMouseOver = (e: any, state: number) => {
-    // @ts-ignore
-    containerRef.current.parentNode.childNodes.forEach((elem: any) => {
-      if (isMobileView) {
-        if (state) {
-          elem.children[e._targetInst.index].style.borderTop = '1px solid #39c2d7';
-          elem.children[e._targetInst.index + 1].style.borderTop = '1px solid #39c2d7';
-          elem.children[e._targetInst.index].style.borderBottom = '1px solid #39c2d7';
-          elem.children[e._targetInst.index - 1].style.borderBottom = '1px solid #39c2d7';
+    if (!deleteMode.isOn) {
+      // @ts-ignore
+      containerRef.current.parentNode.childNodes.forEach((elem: any) => {
+        if (isMobileView) {
+          if (state) {
+            elem.children[e._targetInst.index].style.borderTop = '1px solid #39c2d7';
+            elem.children[e._targetInst.index + 1].style.borderTop = '1px solid #39c2d7';
+            elem.children[e._targetInst.index].style.borderBottom = '1px solid #39c2d7';
+            elem.children[e._targetInst.index - 1].style.borderBottom = '1px solid #39c2d7';
+          } else {
+            elem.children[e._targetInst.index].style.borderTop = '1px solid #dcebed';
+            elem.children[e._targetInst.index + 1].style.borderTop = '1px solid #dcebed';
+            elem.children[e._targetInst.index].style.borderBottom = '1px solid #dcebed';
+            elem.children[e._targetInst.index - 1].style.borderBottom = '1px solid #dcebed';
+          }
         } else {
-          elem.children[e._targetInst.index].style.borderTop = '1px solid #dcebed';
-          elem.children[e._targetInst.index + 1].style.borderTop = '1px solid #dcebed';
-          elem.children[e._targetInst.index].style.borderBottom = '1px solid #dcebed';
-          elem.children[e._targetInst.index - 1].style.borderBottom = '1px solid #dcebed';
+          if (state) {
+            elem.children[e._targetInst.index].style.borderRight = '1px solid #39c2d7';
+            elem.children[e._targetInst.index - 1].style.borderRight = '1px solid #39c2d7';
+            elem.children[e._targetInst.index].style.borderLeft = '1px solid #39c2d7';
+            elem.children[e._targetInst.index + 1].style.borderLeft = '1px solid #39c2d7';
+          } else {
+            elem.children[e._targetInst.index].style.borderRight = '1px solid #dcebed';
+            elem.children[e._targetInst.index - 1].style.borderRight = '1px solid #dcebed';
+            elem.children[e._targetInst.index].style.borderLeft = '1px solid #dcebed';
+            elem.children[e._targetInst.index + 1].style.borderLeft = '1px solid #dcebed';
+          }
         }
-      } else {
-        if (state) {
-          elem.children[e._targetInst.index].style.borderRight = '1px solid #39c2d7';
-          elem.children[e._targetInst.index - 1].style.borderRight = '1px solid #39c2d7';
-          elem.children[e._targetInst.index].style.borderLeft = '1px solid #39c2d7';
-          elem.children[e._targetInst.index + 1].style.borderLeft = '1px solid #39c2d7';
-        } else {
-          elem.children[e._targetInst.index].style.borderRight = '1px solid #dcebed';
-          elem.children[e._targetInst.index - 1].style.borderRight = '1px solid #dcebed';
-          elem.children[e._targetInst.index].style.borderLeft = '1px solid #dcebed';
-          elem.children[e._targetInst.index + 1].style.borderLeft = '1px solid #dcebed';
-        }
-      }
-    });
+      });
+    }
   };
 
   useEffect(() => {
@@ -129,6 +132,7 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
             className={clsx({
               [bodyTheme]: true,
               [style.activeTime]: index === activeIndex,
+              [style.disabledDelete]: deleteMode.isOn && isUserLocation,
               [nonWorkingHours]: hour >= 20 || hour <= 7
             })}
           >

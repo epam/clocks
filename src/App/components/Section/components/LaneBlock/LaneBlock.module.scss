@@ -58,3 +58,8 @@
     border-left: 0.5px solid $paleGrayColor;
   }
 }
+
+.disabledDelete {
+  background: $lightGrayColor;
+  border: solid 1px $lightGrayColor;
+}

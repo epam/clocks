@@ -117,7 +117,8 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
         className={clsx({
           [style.container]: !laneMode.isOn,
           [style.laneModeContainer]: laneMode.isOn,
-          [style.shaking]: deleteMode.isOn,
+          [style.shaking]: deleteMode.isOn && !isUserLocation,
+          [style.disabledDelete]: deleteMode.isOn && isUserLocation,
           [style.onboarding]:
             !index && (onboarding?.laneMode || onboarding?.myLocation || onboarding?.comment),
           [style.zeromargin]: laneMode.isOn
@@ -127,14 +128,15 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
           className={clsx({
             [bodyTheme]: true,
             [laneModeBodyTheme]: isMobileView && laneMode.isOn,
-            [style.shaking]: deleteMode.isOn,
+            [style.shaking]: deleteMode.isOn && !isUserLocation,
+            [style.disabledDelete]: deleteMode.isOn && isUserLocation,
             [style.currentBody]: urlUserLocation || isUserLocation
           })}
           tabIndex={deleteMode.isOn ? -1 : 0}
           onFocus={focusHandler}
           onBlur={focusHandler}
         >
-          {deleteMode.isOn && (
+          {deleteMode.isOn && !isUserLocation && (
             <IconButton className={style.deleteButton} size="small" onClick={handleDelete}>
               <Remove className={style.icon} />
             </IconButton>

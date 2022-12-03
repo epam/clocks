@@ -359,6 +359,12 @@
   border: 2px solid $blueColor;
 }
 
+.disabledDelete {
+  background: $lightGrayColor;
+  border: solid 1px $lightGrayColor;
+  box-shadow: none;
+}
+
 .truncate {
   display: -webkit-box;
   -webkit-line-clamp: 2;
