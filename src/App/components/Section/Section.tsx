@@ -69,7 +69,21 @@ const Section: React.FC = () => {
             if (error.code === 1) {
               const find = findLocation(Object.values(locations).at(0) as IUrlLocation);
 
-              find && dispatch(setUserLocation(find));
+              if (find) {
+                dispatch(setUserLocation(find));
+
+                const locationObj: IUrlLocations = {
+                  ...locations,
+                  [find.city + find.lat]: {
+                    city: find.city,
+                    lat: find.lat,
+                    userLocation: true,
+                    offset: getLocationOffset(find.timezone)
+                  }
+                };
+
+                setLocations(locationObj);
+              }
             }
           }
         );
