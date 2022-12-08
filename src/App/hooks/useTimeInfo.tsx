@@ -38,9 +38,6 @@ const useTimeInfo = (location?: ILocation) => {
   timeObject.suffix = visiableTime[2].substring(3);
 
   if (userLocation && location) {
-    const userLocationDate = date
-      .toLocaleDateString('en-US', { timeZone: userLocation?.timezone })
-      .split('/');
     const widjetLocationDate = date
       .toLocaleDateString('en-US', { timeZone: location?.timezone })
       .split('/');
@@ -63,23 +60,7 @@ const useTimeInfo = (location?: ILocation) => {
 
       const month = monthsDB[Number(widjetLocationDate[0]) - 1];
 
-      if (userLocationDate[0] > widjetLocationDate[0]) {
-        return `${widjetLocationDate[1]} ${month}`;
-      }
-      if (userLocationDate[0] < widjetLocationDate[0]) {
-        return `${widjetLocationDate[1]} ${month}`;
-      }
-      if (userLocationDate[1] > widjetLocationDate[1]) {
-        return `${widjetLocationDate[1]} ${month}`;
-      }
-      if (userLocationDate[1] < widjetLocationDate[1]) {
-        return `${widjetLocationDate[1]} ${month}`;
-      }
-      if (userLocation.city === location.city) {
-        return `${widjetLocationDate[1]} ${month}`;
-      }
-
-      return '';
+      return `${widjetLocationDate[1]} ${month}`;
     };
 
     const userLocationOffset = moment().tz(userLocation.timezone).utcOffset();
@@ -115,7 +96,11 @@ const useTimeInfo = (location?: ILocation) => {
       return `${difference / 60}:00`;
     };
 
-    timeObject.offset = `${getDay()} ${getMinusPlus()}${getTimeDifference()}`;
+    if (getTimeDifference() === '') {
+      timeObject.offset = `${getDay()}`;
+    } else {
+      timeObject.offset = `${getDay()}, ${getMinusPlus()}${getTimeDifference()}`;
+    }
 
     timeObject.offsetTime = widjetLocationOffset - userLocationOffset;
 
