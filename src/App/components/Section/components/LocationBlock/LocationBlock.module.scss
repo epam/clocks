@@ -249,6 +249,28 @@
   }
 }
 
+.laneModeLightBody {
+  @include laneModeLightBlock;
+  @extend %body;
+
+  color: $darkColor;
+
+  &:focus-within {
+    border: 2px solid $darkGrayColor;
+  }
+}
+
+.laneModeDarkBody {
+  @include laneModeDarkBlock;
+  @extend %body;
+
+  color: $lightColor;
+
+  &:focus-within {
+    border: 2px solid $lightGrayColor;
+  }
+}
+
 .shaking {
   position: relative;
   animation-duration: 0.7s;
@@ -337,7 +359,7 @@
   box-shadow: none;
 }
 
-.laneModeBodyLight {
+.laneModeMobileBodyLight {
   @extend %laneModeBody;
 
   border-top: 1px solid $whiteColor;
@@ -346,7 +368,7 @@
   border-right: 0.5px solid $lightGrayColor;
 }
 
-.laneModeBodyDark {
+.laneModeMobileBodyDark {
   @extend %laneModeBody;
 
   border-top: 1px solid $darkGrayColor;

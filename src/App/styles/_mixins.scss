@@ -16,3 +16,14 @@
   background-color: $darkGrayColor;
   border-radius: 5px;
 }
+
+@mixin laneModeLightBlock {
+  background-color: $whiteColor;
+  border-radius: 5px 0 0 5px;
+  box-shadow: 3px 2px 10px 0px $lightGrayColor;
+}
+
+@mixin laneModeDarkBlock {
+  background-color: $darkGrayColor;
+  border-radius: 5px 0 0 5px;
+}

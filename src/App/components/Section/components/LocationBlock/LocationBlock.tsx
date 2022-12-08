@@ -20,7 +20,11 @@ import useWindowDimensions from '../../../../hooks/useWindowDimensions';
 const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocation, index }) => {
   const { locations, setLocations } = useLocations();
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
-  const laneModeBodyTheme = useTheme(style.laneModeBodyLight, style.laneModeBodyDark);
+  const laneModeBodyTheme = useTheme(style.laneModeLightBody, style.laneModeDarkBody);
+  const laneModeMobileBodyTheme = useTheme(
+    style.laneModeMobileBodyLight,
+    style.laneModeMobileBodyDark
+  );
   const { width } = useWindowDimensions();
   const isMobileView = width <= 600;
 
@@ -126,8 +130,9 @@ const LocationBlock: React.FC<ILocationBlockProps> = ({ location, urlUserLocatio
       >
         <div
           className={clsx({
-            [bodyTheme]: true,
-            [laneModeBodyTheme]: isMobileView && laneMode.isOn,
+            [bodyTheme]: !laneMode.isOn,
+            [laneModeBodyTheme]: laneMode.isOn,
+            [laneModeMobileBodyTheme]: isMobileView && laneMode.isOn,
             [style.shaking]: deleteMode.isOn && !isUserLocation,
             [style.disabledDelete]: deleteMode.isOn && isUserLocation,
             [style.currentBody]: urlUserLocation || isUserLocation
