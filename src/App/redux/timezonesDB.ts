@@ -266,6 +266,7 @@ export const timezonesDB = {
         'Europe/Podgorica',
         'Europe/Oslo',
         'Europe/San_Marino',
+        'Europe/Zurich',
         'Africa/Algiers',
         'Africa/Tunis'
       ]
