@@ -45,8 +45,9 @@ const TimeInfo: React.FC<ITimeInfoProps> = ({ location }) => {
         <div className={style.bottomInfo}>
           <div>
             {showDate && time.offset && `${time.offset}`}
-            <span>{showTimezone && showDate && `, ${abbreviation}`}</span>
             <span>{showTimezone && !showDate && `${abbreviation}`}</span>
+            <span>{showTimezone && showDate && time.offset !== '' && `, ${abbreviation}`}</span>
+            <span>{showTimezone && showDate && time.offset === '' && `${abbreviation}`}</span>
           </div>
         </div>
       </div>
