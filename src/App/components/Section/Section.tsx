@@ -65,7 +65,6 @@ const Section: React.FC = () => {
             setLocations(locationObj);
           },
           error => {
-            console.log(error);
             if (error.code === 1) {
               const find = findLocation(Object.values(locations).at(0) as IUrlLocation);
 
