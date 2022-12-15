@@ -115,7 +115,19 @@ const useTimeInfo = (location?: ILocation) => {
       return `${difference / 60}:00`;
     };
 
-    timeObject.offset = `${getDay()} ${getMinusPlus()}${getTimeDifference()}`;
+    timeObject.offset = `${getDay()}, ${getMinusPlus()}${getTimeDifference()}`;
+
+    if (getTimeDifference() === '') {
+      timeObject.offset = `${getDay()}`;
+    }
+
+    if (getDay() === '') {
+      timeObject.offset = `${getMinusPlus()}${getTimeDifference()}`;
+    }
+
+    if (getTimeDifference() === '' && getDay() === '') {
+      timeObject.offset = ``;
+    }
 
     timeObject.offsetTime = widjetLocationOffset - userLocationOffset;
 
