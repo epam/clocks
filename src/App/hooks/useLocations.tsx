@@ -23,13 +23,42 @@ const useLocations = () => {
 
   const { t } = useTranslation();
 
+  const createLocationsObj = (savedLocationsURL: string): IUrlLocations => {
+    const decodedLocations = JSON.parse(decodeURIComponent(escape(window.atob(savedLocationsURL))));
+    let locationsObj = {};
+    decodedLocations.map((i: string) => {
+      const location = i.split('|');
+      const find = locationsDB.find(
+        loc => loc.city === location[0] && loc.lat === Number(location[1])
+      );
+      if (find) {
+        return (locationsObj = {
+          ...locations,
+          [location[0] + location[1]]: {
+            city: location[0],
+            lat: Number(location[1]),
+            comment: location[2],
+            userLocation: Number(location[3]) === 1,
+            offset: getLocationOffset(find.timezone)
+          }
+        });
+      }
+      return locationsObj;
+    });
+    return locationsObj;
+  };
+
   const locations = useMemo((): IUrlLocations => {
     try {
       if (!urlLocations && savedLocation) {
-        return JSON.parse(decodeURIComponent(escape(window.atob(savedLocation))));
+        const createdLocs = createLocationsObj(savedLocation);
+        console.log(createdLocs);
+        return createdLocs;
       }
 
-      return urlLocations && JSON.parse(decodeURIComponent(escape(window.atob(urlLocations))));
+      const createdLocs = createLocationsObj(urlLocations as string);
+      console.log(createdLocs);
+      return createdLocs;
     } catch {
       setError(true);
       return {} as IUrlLocations;
@@ -48,7 +77,16 @@ const useLocations = () => {
 
   const setLocations = (newLocations: IUrlLocations) => {
     if (!!Object.keys(newLocations).length) {
-      const encodedNewLocation = btoa(unescape(encodeURIComponent(JSON.stringify(newLocations))));
+      let formattedNewLocations: string[] = [];
+      Object.values(newLocations).forEach(i => {
+        formattedNewLocations.push(
+          `${i.city}|${i.lat}|${i.comment || ''}|${!!i.userLocation ? 1 : 0}`
+        );
+      });
+
+      const encodedNewLocation = btoa(
+        unescape(encodeURIComponent(JSON.stringify(formattedNewLocations)))
+      );
 
       localStorage.setItem('locations', encodedNewLocation);
       setSearchParams({
