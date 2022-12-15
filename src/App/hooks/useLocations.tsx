@@ -23,45 +23,59 @@ const useLocations = () => {
 
   const { t } = useTranslation();
 
+  const getLocationOffset = (timezone: string) => {
+    const timeArray: any = new Date().toLocaleString('ja', { timeZone: timezone }).split(/[/\s:]/);
+    timeArray.splice(1, 1, --timeArray[1]);
+    const t1 = Date.UTC.apply(null, timeArray);
+    const t2 = new Date().setMilliseconds(0);
+    return (t2 - t1) / 60 / 1000;
+  };
+
   const createLocationsObj = (savedLocationsURL: string): IUrlLocations => {
-    const decodedLocations = JSON.parse(decodeURIComponent(escape(window.atob(savedLocationsURL))));
-    let locationsObj = {};
-    decodedLocations.map((i: string) => {
-      const location = i.split('|');
-      const find = locationsDB.find(
-        loc => loc.city === location[0] && loc.lat === Number(location[1])
+    let locationObject = {};
+
+    if (savedLocationsURL) {
+      const decodedLocations = JSON.parse(
+        decodeURIComponent(escape(window.atob(savedLocationsURL)))
       );
-      if (find) {
-        return (locationsObj = {
-          ...locations,
-          [location[0] + location[1]]: {
-            city: location[0],
-            lat: Number(location[1]),
-            comment: location[2],
-            userLocation: Number(location[3]) === 1,
-            offset: getLocationOffset(find.timezone)
+      decodedLocations &&
+        decodedLocations.forEach((i: string) => {
+          const location = i.split('|');
+          const find = locationsDB.find(
+            loc => loc.city === location[0] && loc.lat === Number(location[1])
+          );
+          if (find) {
+            locationObject = {
+              ...locationObject,
+              [location[0] + location[1]]: {
+                city: location[0],
+                lat: Number(location[1]),
+                comment: location[2],
+                userLocation: Number(location[3]) === 1,
+                offset: getLocationOffset(find.timezone)
+              }
+            };
           }
         });
-      }
-      return locationsObj;
-    });
-    return locationsObj;
+    }
+
+    return locationObject;
   };
 
   const locations = useMemo((): IUrlLocations => {
+    console.log('called');
     try {
       if (!urlLocations && savedLocation) {
-        const createdLocs = createLocationsObj(savedLocation);
-        console.log(createdLocs);
-        return createdLocs;
+        const a = createLocationsObj(savedLocation);
+        console.log(a);
+        return a;
       }
-
-      const createdLocs = createLocationsObj(urlLocations as string);
-      console.log(createdLocs);
-      return createdLocs;
-    } catch {
+      const b = createLocationsObj(urlLocations as string);
+      console.log(b);
+      return b;
+    } catch (e) {
       setError(true);
-      return {} as IUrlLocations;
+      throw new Error(`Error ${e}`);
     }
   }, [urlLocations, savedLocation]);
 
@@ -83,7 +97,6 @@ const useLocations = () => {
           `${i.city}|${i.lat}|${i.comment || ''}|${!!i.userLocation ? 1 : 0}`
         );
       });
-
       const encodedNewLocation = btoa(
         unescape(encodeURIComponent(JSON.stringify(formattedNewLocations)))
       );
@@ -105,14 +118,6 @@ const useLocations = () => {
     );
 
     return found;
-  };
-
-  const getLocationOffset = (timezone: string) => {
-    const timeArray: any = new Date().toLocaleString('ja', { timeZone: timezone }).split(/[/\s:]/);
-    timeArray.splice(1, 1, --timeArray[1]);
-    const t1 = Date.UTC.apply(null, timeArray);
-    const t2 = new Date().setMilliseconds(0);
-    return (t2 - t1) / 60 / 1000;
   };
 
   return { locations, setLocations, findLocation, getLocationOffset };
