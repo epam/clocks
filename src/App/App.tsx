@@ -26,7 +26,7 @@ const App: React.FC = () => {
 
   const { initialize } = useOnboarding();
 
-  const [, setSearchParams] = useSearchParams();
+  // const [, setSearchParams] = useSearchParams();
 
   const { autoTheme } = useSelector((state: IInitialState) => state.settings);
   const { counter, snackbar } = useSelector((state: IInitialState) => state);
@@ -59,15 +59,15 @@ const App: React.FC = () => {
     return () => window.removeEventListener('keydown', listener);
   }, []);
 
-  useEffect(() => {
-    const savedLocations = localStorage.getItem('locations') || '';
-
-    setSearchParams({
-      locations: savedLocations
-    });
-    // don't need as a dependency setSearchParams
-    // eslint-disable-next-line
-  }, []);
+  // useEffect(() => {
+  // const savedLocations = localStorage.getItem('locations') || '';
+  //
+  // setSearchParams({
+  //   locations: savedLocations
+  // });
+  // don't need as a dependency setSearchParams
+  // eslint-disable-next-line
+  // }, []);
 
   return (
     <div ref={screenRef} tabIndex={0}>

@@ -63,16 +63,11 @@ const useLocations = () => {
   };
 
   const locations = useMemo((): IUrlLocations => {
-    console.log('called');
     try {
       if (!urlLocations && savedLocation) {
-        const a = createLocationsObj(savedLocation);
-        console.log(a);
-        return a;
+        return createLocationsObj(savedLocation);
       }
-      const b = createLocationsObj(urlLocations as string);
-      console.log(b);
-      return b;
+      return createLocationsObj(urlLocations as string);
     } catch (e) {
       setError(true);
       throw new Error(`Error ${e}`);
@@ -90,6 +85,7 @@ const useLocations = () => {
   }, [error]);
 
   const setLocations = (newLocations: IUrlLocations) => {
+    console.log(newLocations);
     if (!!Object.keys(newLocations).length) {
       let formattedNewLocations: string[] = [];
       Object.values(newLocations).forEach(i => {
