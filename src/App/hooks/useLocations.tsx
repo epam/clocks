@@ -85,7 +85,6 @@ const useLocations = () => {
   }, [error]);
 
   const setLocations = (newLocations: IUrlLocations) => {
-    console.log(newLocations);
     if (!!Object.keys(newLocations).length) {
       let formattedNewLocations: string[] = [];
       Object.values(newLocations).forEach(i => {
