@@ -142,8 +142,8 @@ const Section: React.FC = () => {
   return (
     <div
       className={clsx({
-        [style.body]: locations,
-        [style.emptyBody]: !locations,
+        [style.body]: locationsFound,
+        [style.emptyBody]: !locationsFound,
         [style.laneModeView]: laneMode.isOn
       })}
     >
