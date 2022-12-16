@@ -2,10 +2,7 @@
 
 %body {
   width: 100vw;
-  height: 10%;
-  position: absolute;
-  top: 90%;
-  left: 0;
+  height: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,4 +36,8 @@
 
   background-color: $darkColor;
   color: $lightColor;
+}
+
+.hide {
+  display: none;
 }
