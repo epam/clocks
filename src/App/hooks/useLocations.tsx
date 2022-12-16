@@ -72,6 +72,8 @@ const useLocations = () => {
       setError(true);
       throw new Error(`Error ${e}`);
     }
+    // don't need as a dependency createLocationsObj
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlLocations, savedLocation]);
 
   useEffect(() => {
