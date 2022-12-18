@@ -23,17 +23,57 @@ const useLocations = () => {
 
   const { t } = useTranslation();
 
+  const getLocationOffset = (timezone: string) => {
+    const timeArray: any = new Date().toLocaleString('ja', { timeZone: timezone }).split(/[/\s:]/);
+    timeArray.splice(1, 1, --timeArray[1]);
+    const t1 = Date.UTC.apply(null, timeArray);
+    const t2 = new Date().setMilliseconds(0);
+    return (t2 - t1) / 60 / 1000;
+  };
+
+  const createLocationsObj = (savedLocationsURL: string): IUrlLocations => {
+    let locationObject = {};
+
+    if (savedLocationsURL) {
+      const decodedLocations = JSON.parse(
+        decodeURIComponent(escape(window.atob(savedLocationsURL)))
+      );
+      decodedLocations &&
+        decodedLocations.forEach((i: string) => {
+          const location = i.split('|');
+          const find = locationsDB.find(
+            loc => loc.city === location[0] && loc.lat === Number(location[1])
+          );
+          if (find) {
+            locationObject = {
+              ...locationObject,
+              [location[0] + location[1]]: {
+                city: location[0],
+                lat: Number(location[1]),
+                comment: location[2],
+                userLocation: Number(location[3]) === 1,
+                offset: getLocationOffset(find.timezone)
+              }
+            };
+          }
+        });
+    }
+
+    return locationObject;
+  };
+
   const locations = useMemo((): IUrlLocations => {
     try {
       if (!urlLocations && savedLocation) {
-        return JSON.parse(decodeURIComponent(escape(window.atob(savedLocation))));
+        return createLocationsObj(savedLocation);
       }
-
-      return urlLocations && JSON.parse(decodeURIComponent(escape(window.atob(urlLocations))));
-    } catch {
+      return createLocationsObj(urlLocations as string);
+    } catch (e) {
       setError(true);
-      return {} as IUrlLocations;
+      throw new Error(`Error ${e}`);
     }
+    // don't need as a dependency createLocationsObj
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [urlLocations, savedLocation]);
 
   useEffect(() => {
@@ -48,7 +88,15 @@ const useLocations = () => {
 
   const setLocations = (newLocations: IUrlLocations) => {
     if (!!Object.keys(newLocations).length) {
-      const encodedNewLocation = btoa(unescape(encodeURIComponent(JSON.stringify(newLocations))));
+      let formattedNewLocations: string[] = [];
+      Object.values(newLocations).forEach(i => {
+        formattedNewLocations.push(
+          `${i.city}|${i.lat}|${i.comment || ''}|${!!i.userLocation ? 1 : 0}`
+        );
+      });
+      const encodedNewLocation = btoa(
+        unescape(encodeURIComponent(JSON.stringify(formattedNewLocations)))
+      );
 
       localStorage.setItem('locations', encodedNewLocation);
       setSearchParams({
@@ -67,14 +115,6 @@ const useLocations = () => {
     );
 
     return found;
-  };
-
-  const getLocationOffset = (timezone: string) => {
-    const timeArray: any = new Date().toLocaleString('ja', { timeZone: timezone }).split(/[/\s:]/);
-    timeArray.splice(1, 1, --timeArray[1]);
-    const t1 = Date.UTC.apply(null, timeArray);
-    const t2 = new Date().setMilliseconds(0);
-    return (t2 - t1) / 60 / 1000;
   };
 
   return { locations, setLocations, findLocation, getLocationOffset };

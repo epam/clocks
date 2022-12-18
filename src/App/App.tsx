@@ -26,7 +26,7 @@ const App: React.FC = () => {
 
   const { initialize } = useOnboarding();
 
-  const [, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { autoTheme } = useSelector((state: IInitialState) => state.settings);
   const { counter, snackbar } = useSelector((state: IInitialState) => state);
@@ -60,11 +60,14 @@ const App: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    const savedLocations = localStorage.getItem('locations') || '';
+    const urlLocations = searchParams.get('locations');
+    const savedLocations = localStorage.getItem('locations');
 
-    setSearchParams({
-      locations: savedLocations
-    });
+    !urlLocations &&
+      savedLocations &&
+      setSearchParams({
+        locations: savedLocations
+      });
     // don't need as a dependency setSearchParams
     // eslint-disable-next-line
   }, []);
