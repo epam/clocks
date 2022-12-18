@@ -38,30 +38,55 @@ const Section: React.FC = () => {
 
       find && dispatch(setUserLocation(find));
     } else {
-      navigator.geolocation.getCurrentPosition(({ coords }) => {
-        const userLocation = locationsDB.sort((a, b) => {
-          const first =
-            Math.abs(a.lat - coords['latitude']) + Math.abs(a.lng - coords['longitude']);
-          const second =
-            Math.abs(b.lat - coords['latitude']) + Math.abs(b.lng - coords['longitude']);
+      if ('geolocation' in navigator) {
+        navigator.geolocation.getCurrentPosition(
+          ({ coords }) => {
+            const userLocation = locationsDB.sort((a, b) => {
+              const first =
+                Math.abs(a.lat - coords['latitude']) + Math.abs(a.lng - coords['longitude']);
+              const second =
+                Math.abs(b.lat - coords['latitude']) + Math.abs(b.lng - coords['longitude']);
 
-          return first - second;
-        });
+              return first - second;
+            });
 
-        dispatch(setUserLocation(userLocation[0]));
+            dispatch(setUserLocation(userLocation[0]));
 
-        const locationObj: IUrlLocations = {
-          ...locations,
-          [userLocation[0].city + userLocation[0].lat]: {
-            city: userLocation[0].city,
-            lat: userLocation[0].lat,
-            userLocation: true,
-            offset: getLocationOffset(userLocation[0].timezone)
+            const locationObj: IUrlLocations = {
+              ...locations,
+              [userLocation[0].city + userLocation[0].lat]: {
+                city: userLocation[0].city,
+                lat: userLocation[0].lat,
+                userLocation: true,
+                offset: getLocationOffset(userLocation[0].timezone)
+              }
+            };
+
+            setLocations(locationObj);
+          },
+          error => {
+            if (error.code === 1) {
+              const find = findLocation(Object.values(locations).at(0) as IUrlLocation);
+
+              if (find) {
+                dispatch(setUserLocation(find));
+
+                const locationObj: IUrlLocations = {
+                  ...locations,
+                  [find.city + find.lat]: {
+                    city: find.city,
+                    lat: find.lat,
+                    userLocation: true,
+                    offset: getLocationOffset(find.timezone)
+                  }
+                };
+
+                setLocations(locationObj);
+              }
+            }
           }
-        };
-
-        setLocations(locationObj);
-      });
+        );
+      }
     }
     // use it only when component mount
     // eslint-disable-next-line
