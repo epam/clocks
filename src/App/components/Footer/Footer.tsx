@@ -7,6 +7,7 @@ import useTheme from '../../hooks/useTheme';
 
 import HelpModule from './components/HelpModule/HelpModule';
 import ReloadOnboarding from './components/ReloadOnboarding/ReloadOnboarding';
+import CookiePolicy from '../Section/components/CookiePolicy/CookiePolicy';
 import style from './Footer.module.scss';
 
 const Footer: React.FC = () => {
@@ -72,6 +73,7 @@ const Footer: React.FC = () => {
               ))}
             </div>
           </div>
+          <CookiePolicy />
         </div>
       </div>
     </div>
