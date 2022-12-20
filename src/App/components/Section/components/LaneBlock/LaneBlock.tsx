@@ -13,17 +13,18 @@ import { IInitialState } from '../../../../redux/types';
 import style from './LaneBlock.module.scss';
 import generateTimeTable from '../../../../utils/generateTimeTable';
 
-const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
+const LaneBlock: React.FC<ILaneBlockProps> = ({ location, clickedItem, clickTrigger }) => {
   const {
     deleteMode,
     locations: { userLocation }
   } = useSelector((state: IInitialState) => state);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [clickItem, setClickItem] = useState(0);
+
   const timeInfo = useTimeInfo(location);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const nonWorkingHours = useTheme(style.nonWorkHoursLight, style.nonWorkHoursDark);
   const { width } = useWindowDimensions();
+
   const isMobileView = width <= 600;
 
   const isUserLocation = useMemo(() => {
@@ -109,38 +110,48 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   // };
 
   const onMouseOver = (e: any, state: number) => {
-    if (!deleteMode.isOn && clickItem !== e._targetInst.index) {
-      // @ts-ignore
-      containerRef.current.parentNode.childNodes.forEach((elem: any) => {
-        if (state) {
-          elem.children[e._targetInst.index].className = `${bodyTheme} ${style.hover}`;
-        } else {
-          const time = elem.children[e._targetInst.index].outerText.split(':');
-          const hour = Number(time[0]);
-          const isNonWorkingHours = hour >= 20 || hour <= 7;
-          const isActiveTimeColumn = activeTimeIndex - 1 === e._targetInst.index;
-          elem.children[e._targetInst.index].className = `${bodyTheme} ${
-            isNonWorkingHours && nonWorkingHours
-          } ${isActiveTimeColumn && style.activeTime}`;
-        }
-      });
-    }
+    // if (!deleteMode.isOn && prevSelectedItem > 0) {
+    //   // @ts-ignore
+    //   containerRef.current.parentNode.childNodes.forEach((elem: any) => {
+    //     if (state) {
+    //       elem.children[e._targetInst.index].className = `${bodyTheme} ${style.hover}`;
+    //     } else {
+    //       const time = elem.children[e._targetInst.index].outerText.split(':');
+    //       const hour = Number(time[0]);
+    //       const isNonWorkingHours = hour >= 20 || hour <= 7;
+    //       const isActiveTimeColumn = activeTimeIndex - 1 === e._targetInst.index;
+    //       elem.children[e._targetInst.index].className = `${bodyTheme} ${
+    //         isNonWorkingHours && nonWorkingHours
+    //       } ${isActiveTimeColumn && style.activeTime}`;
+    //     }
+    //   });
+    // }
   };
 
-  const onMouseClick = (clickItem: number) => {
-    if (!deleteMode.isOn) {
+  const onMouseClick = (index: number) => {
+    console.log(1);
+    if (containerRef.current) {
       // @ts-ignore
       containerRef.current.parentNode.childNodes.forEach((elem: any) => {
-        elem.children[clickItem].className = `${bodyTheme} ${style.click}`;
+        elem.childNodes.forEach((el: HTMLDivElement, idx: number) => {
+          if (idx === index) {
+            el.classList.toggle(style.click);
+          } else {
+            if (el.classList.contains(style.click)) {
+              el.classList.remove(style.click);
+            }
+          }
+        });
       });
     }
   };
 
   useEffect(() => {
-    onMouseClick(clickItem);
-  }, [clickItem]);
-
-  console.log(clickItem);
+    if (clickedItem !== null) {
+      console.log(clickedItem);
+      onMouseClick(clickedItem);
+    }
+  }, []);
 
   useEffect(() => {
     scroll(ref, containerRef);
@@ -165,8 +176,8 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
             onMouseEnter={e => onMouseOver(e, 1)}
             onMouseLeave={e => onMouseOver(e, 0)}
             onClick={() => {
-              setClickItem(index);
-              onMouseClick(clickItem);
+              clickTrigger(index);
+              onMouseClick(index);
             }}
             className={clsx({
               [bodyTheme]: true,
