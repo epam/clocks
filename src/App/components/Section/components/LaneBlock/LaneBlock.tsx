@@ -19,6 +19,7 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
     locations: { userLocation }
   } = useSelector((state: IInitialState) => state);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [clickItem, setClickItem] = useState(0);
   const timeInfo = useTimeInfo(location);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const nonWorkingHours = useTheme(style.nonWorkHoursLight, style.nonWorkHoursDark);
@@ -74,38 +75,72 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
     }
   };
 
+  // const onMouseOver = (e: any, state: number) => {
+  //   if (!deleteMode.isOn) {
+  //     // @ts-ignore
+  //     containerRef.current.parentNode.childNodes.forEach((elem: any) => {
+  //       if (isMobileView) {
+  //         if (state) {
+  //           elem.children[e._targetInst.index].style.borderTop = '1px solid #39c2d7';
+  //           elem.children[e._targetInst.index + 1].style.borderTop = '1px solid #39c2d7';
+  //           elem.children[e._targetInst.index].style.borderBottom = '1px solid #39c2d7';
+  //           elem.children[e._targetInst.index - 1].style.borderBottom = '1px solid #39c2d7';
+  //         } else {
+  //           elem.children[e._targetInst.index].style.borderTop = '1px solid #dcebed';
+  //           elem.children[e._targetInst.index + 1].style.borderTop = '1px solid #dcebed';
+  //           elem.children[e._targetInst.index].style.borderBottom = '1px solid #dcebed';
+  //           elem.children[e._targetInst.index - 1].style.borderBottom = '1px solid #dcebed';
+  //         }
+  //       } else {
+  //         if (state) {
+  //           elem.children[e._targetInst.index].style.borderRight = '1px solid #39c2d7';
+  //           elem.children[e._targetInst.index - 1].style.borderRight = '1px solid #39c2d7';
+  //           elem.children[e._targetInst.index].style.borderLeft = '1px solid #39c2d7';
+  //           elem.children[e._targetInst.index + 1].style.borderLeft = '1px solid #39c2d7';
+  //         } else {
+  //           elem.children[e._targetInst.index].style.borderRight = '1px solid #dcebed';
+  //           elem.children[e._targetInst.index - 1].style.borderRight = '1px solid #dcebed';
+  //           elem.children[e._targetInst.index].style.borderLeft = '1px solid #dcebed';
+  //           elem.children[e._targetInst.index + 1].style.borderLeft = '1px solid #dcebed';
+  //         }
+  //       }
+  //     });
+  //   }
+  // };
+
   const onMouseOver = (e: any, state: number) => {
-    if (!deleteMode.isOn) {
+    if (!deleteMode.isOn && clickItem !== e._targetInst.index) {
       // @ts-ignore
       containerRef.current.parentNode.childNodes.forEach((elem: any) => {
-        if (isMobileView) {
-          if (state) {
-            elem.children[e._targetInst.index].style.borderTop = '1px solid #39c2d7';
-            elem.children[e._targetInst.index + 1].style.borderTop = '1px solid #39c2d7';
-            elem.children[e._targetInst.index].style.borderBottom = '1px solid #39c2d7';
-            elem.children[e._targetInst.index - 1].style.borderBottom = '1px solid #39c2d7';
-          } else {
-            elem.children[e._targetInst.index].style.borderTop = '1px solid #dcebed';
-            elem.children[e._targetInst.index + 1].style.borderTop = '1px solid #dcebed';
-            elem.children[e._targetInst.index].style.borderBottom = '1px solid #dcebed';
-            elem.children[e._targetInst.index - 1].style.borderBottom = '1px solid #dcebed';
-          }
+        if (state) {
+          elem.children[e._targetInst.index].className = `${bodyTheme} ${style.hover}`;
         } else {
-          if (state) {
-            elem.children[e._targetInst.index].style.borderRight = '1px solid #39c2d7';
-            elem.children[e._targetInst.index - 1].style.borderRight = '1px solid #39c2d7';
-            elem.children[e._targetInst.index].style.borderLeft = '1px solid #39c2d7';
-            elem.children[e._targetInst.index + 1].style.borderLeft = '1px solid #39c2d7';
-          } else {
-            elem.children[e._targetInst.index].style.borderRight = '1px solid #dcebed';
-            elem.children[e._targetInst.index - 1].style.borderRight = '1px solid #dcebed';
-            elem.children[e._targetInst.index].style.borderLeft = '1px solid #dcebed';
-            elem.children[e._targetInst.index + 1].style.borderLeft = '1px solid #dcebed';
-          }
+          const time = elem.children[e._targetInst.index].outerText.split(':');
+          const hour = Number(time[0]);
+          const isNonWorkingHours = hour >= 20 || hour <= 7;
+          const isActiveTimeColumn = activeTimeIndex - 1 === e._targetInst.index;
+          elem.children[e._targetInst.index].className = `${bodyTheme} ${
+            isNonWorkingHours && nonWorkingHours
+          } ${isActiveTimeColumn && style.activeTime}`;
         }
       });
     }
   };
+
+  const onMouseClick = (clickItem: number) => {
+    if (!deleteMode.isOn) {
+      // @ts-ignore
+      containerRef.current.parentNode.childNodes.forEach((elem: any) => {
+        elem.children[clickItem].className = `${bodyTheme} ${style.click}`;
+      });
+    }
+  };
+
+  useEffect(() => {
+    onMouseClick(clickItem);
+  }, [clickItem]);
+
+  console.log(clickItem);
 
   useEffect(() => {
     scroll(ref, containerRef);
@@ -129,6 +164,10 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
             ref={index === activeIndex && isUserLocation ? ref : null}
             onMouseEnter={e => onMouseOver(e, 1)}
             onMouseLeave={e => onMouseOver(e, 0)}
+            onClick={() => {
+              setClickItem(index);
+              onMouseClick(clickItem);
+            }}
             className={clsx({
               [bodyTheme]: true,
               [style.activeTime]: index === activeIndex,
