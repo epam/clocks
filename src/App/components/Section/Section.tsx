@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { nanoid } from 'nanoid';
 import clsx from 'clsx';
@@ -20,7 +20,6 @@ const Section: React.FC = () => {
   const dispatch = useDispatch();
   const { locations, setLocations, findLocation, getLocationOffset } = useLocations();
   const { width } = useWindowDimensions();
-  const [clickedItem, setClickedItem] = useState<number | null>(null);
   const isMobileView = width <= 600;
 
   const {
@@ -141,17 +140,7 @@ const Section: React.FC = () => {
             <div className={style.laneBlockContainer} id="laneBlockContainer">
               {locationsFound.map((urlLocation: IUrlLocation) => {
                 const find = findLocation(urlLocation);
-                return (
-                  <LaneBlock
-                    key={nanoid()}
-                    location={find}
-                    clickedItem={clickedItem}
-                    clickTrigger={index => {
-                      console.log(index);
-                      setClickedItem(index);
-                    }}
-                  />
-                );
+                return <LaneBlock key={nanoid()} location={find} />;
               })}
             </div>
           </div>
@@ -173,7 +162,7 @@ const Section: React.FC = () => {
     return <EmptyState />;
     // don't need as a dependency findLocation
     // eslint-disable-next-line
-  }, [laneMode.isOn, locationsFound, clickedItem]);
+  }, [laneMode.isOn, locationsFound]);
 
   return (
     <div
