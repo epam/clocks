@@ -16,13 +16,16 @@ import generateTimeTable from '../../../../utils/generateTimeTable';
 const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const {
     deleteMode,
+    counter,
     locations: { userLocation }
   } = useSelector((state: IInitialState) => state);
   const [activeIndex, setActiveIndex] = useState(0);
+
   const timeInfo = useTimeInfo(location);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const nonWorkingHours = useTheme(style.nonWorkHoursLight, style.nonWorkHoursDark);
   const { width } = useWindowDimensions();
+
   const isMobileView = width <= 600;
 
   const isUserLocation = useMemo(() => {
@@ -78,34 +81,48 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
     if (!deleteMode.isOn) {
       // @ts-ignore
       containerRef.current.parentNode.childNodes.forEach((elem: any) => {
-        if (isMobileView) {
-          if (state) {
-            elem.children[e._targetInst.index].style.borderTop = '1px solid #39c2d7';
-            elem.children[e._targetInst.index + 1].style.borderTop = '1px solid #39c2d7';
-            elem.children[e._targetInst.index].style.borderBottom = '1px solid #39c2d7';
-            elem.children[e._targetInst.index - 1].style.borderBottom = '1px solid #39c2d7';
-          } else {
-            elem.children[e._targetInst.index].style.borderTop = '1px solid #dcebed';
-            elem.children[e._targetInst.index + 1].style.borderTop = '1px solid #dcebed';
-            elem.children[e._targetInst.index].style.borderBottom = '1px solid #dcebed';
-            elem.children[e._targetInst.index - 1].style.borderBottom = '1px solid #dcebed';
-          }
+        if (state) {
+          elem.children[e._targetInst.index].classList.add(style.hover);
         } else {
-          if (state) {
-            elem.children[e._targetInst.index].style.borderRight = '1px solid #39c2d7';
-            elem.children[e._targetInst.index - 1].style.borderRight = '1px solid #39c2d7';
-            elem.children[e._targetInst.index].style.borderLeft = '1px solid #39c2d7';
-            elem.children[e._targetInst.index + 1].style.borderLeft = '1px solid #39c2d7';
-          } else {
-            elem.children[e._targetInst.index].style.borderRight = '1px solid #dcebed';
-            elem.children[e._targetInst.index - 1].style.borderRight = '1px solid #dcebed';
-            elem.children[e._targetInst.index].style.borderLeft = '1px solid #dcebed';
-            elem.children[e._targetInst.index + 1].style.borderLeft = '1px solid #dcebed';
-          }
+          elem.children[e._targetInst.index].classList.remove(style.hover);
         }
       });
     }
   };
+
+  const onMouseClick = (index: number) => {
+    if (containerRef.current) {
+      // @ts-ignore
+      containerRef.current.parentNode.childNodes.forEach((elem: any) => {
+        elem.childNodes.forEach((el: HTMLDivElement, idx: number) => {
+          if (idx === index) {
+            el.classList.toggle(style.click);
+          } else {
+            if (el.classList.contains(style.click)) {
+              el.classList.remove(style.click);
+            }
+          }
+        });
+      });
+    }
+  };
+
+  useEffect(() => {
+    const clkItm = window.sessionStorage.getItem('clkItm');
+    if (clkItm) {
+      const clickItem = JSON.parse(clkItm);
+      if (containerRef.current) {
+        // @ts-ignore
+        containerRef.current.parentNode.childNodes.forEach((elem: any) => {
+          elem.childNodes.forEach((el: HTMLDivElement, idx: number) => {
+            if (idx === clickItem) {
+              el.classList.add(style.click);
+            }
+          });
+        });
+      }
+    }
+  }, [counter]);
 
   useEffect(() => {
     scroll(ref, containerRef);
@@ -116,6 +133,12 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const currentLocation = location && location?.city + location?.lat;
   const locationBlock = document.getElementById(currentLocation as string);
   const height = locationBlock === null ? '' : locationBlock.offsetHeight;
+
+  const setSessionClick = (index: number) => {
+    const getClick = window.sessionStorage.getItem('clkItm');
+    const clickItem = getClick && JSON.parse(getClick) === index ? -1 : index;
+    window.sessionStorage.setItem('clkItm', JSON.stringify(clickItem));
+  };
 
   return (
     <div className={style.container} ref={containerRef}>
@@ -129,6 +152,10 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
             ref={index === activeIndex && isUserLocation ? ref : null}
             onMouseEnter={e => onMouseOver(e, 1)}
             onMouseLeave={e => onMouseOver(e, 0)}
+            onClick={() => {
+              onMouseClick(index);
+              setSessionClick(index);
+            }}
             className={clsx({
               [bodyTheme]: true,
               [style.activeTime]: index === activeIndex,
