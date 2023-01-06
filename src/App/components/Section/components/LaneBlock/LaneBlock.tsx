@@ -3,20 +3,23 @@ import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
 
-import generateTime from '../../../../utils/generateTime';
 import useWindowDimensions from '../../../../hooks/useWindowDimensions';
 import useTimeInfo from '../../../../hooks/useTimeInfo';
 import useTheme from '../../../../hooks/useTheme';
+
+import generateTime from '../../../../utils/generateTime';
+import generateTimeTable from '../../../../utils/generateTimeTable';
+
 import { ILaneBlockProps } from './LaneBlock.types';
 import { IInitialState } from '../../../../redux/types';
 
 import style from './LaneBlock.module.scss';
-import generateTimeTable from '../../../../utils/generateTimeTable';
 
 const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const {
     deleteMode,
     counter,
+    settings,
     locations: { userLocation }
   } = useSelector((state: IInitialState) => state);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -122,7 +125,7 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
         });
       }
     }
-  }, [counter]);
+  }, [counter, settings, deleteMode, newTimeline]);
 
   useEffect(() => {
     scroll(ref, containerRef);
