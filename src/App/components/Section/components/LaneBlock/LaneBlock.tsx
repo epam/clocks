@@ -127,6 +127,8 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
         });
       }
     }
+    // don't need as a dependency onClickStyle
+    // eslint-disable-next-line
   }, [counter, settings, deleteMode, newTimeline]);
 
   useEffect(() => {
