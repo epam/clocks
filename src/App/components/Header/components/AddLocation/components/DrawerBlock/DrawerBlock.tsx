@@ -1,5 +1,6 @@
 import React, { useCallback, ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 
 import { IconButton, Drawer, MenuList } from '@mui/material';
 import { Close } from '@mui/icons-material';
@@ -14,6 +15,7 @@ import { KEYBOARD } from '../../AddLocation.constants';
 import style from './DrawerBlock.module.scss';
 import { IDrawerBlockProps } from './DrawerBlock.types';
 import CustomMenuItem from './components/MenuItem/CustomMenuItem';
+import { setUserLocation } from '../../../../../../redux/actions';
 
 const DrawerBlock: React.FC<IDrawerBlockProps> = ({
   setSearchText,
@@ -33,6 +35,8 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
 
   const { locations, setLocations, getLocationOffset } = useLocations();
 
+  const dispatch = useDispatch();
+
   const handleClosePanel = useCallback(() => {
     setPanel(false);
     setLocationsFound([]);
@@ -41,7 +45,7 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
 
   const handleSelectLocation = useCallback(
     (location: ILocation) => {
-      if (locations) {
+      if (Object.values(locations).length > 0) {
         const find = Object.values(locations).find(
           (urlLocation: IUrlLocation) =>
             urlLocation.city === location.city && urlLocation.lat === location.lat
@@ -67,13 +71,17 @@ const DrawerBlock: React.FC<IDrawerBlockProps> = ({
           [location.city + location.lat]: {
             city: location.city,
             lat: location.lat,
+            userLocation: true,
             offset: getLocationOffset(location.timezone)
           }
         };
         setLocations(locationObj);
+        dispatch(setUserLocation(location));
         handleClosePanel();
       }
     },
+    // don't need as a dependency dispatch
+    // eslint-disable-next-line
     [locations, setLocations, t, snackbarError, getLocationOffset, handleClosePanel]
   );
 
