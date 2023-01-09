@@ -31,15 +31,45 @@ const useLocations = () => {
     return (t2 - t1) / 60 / 1000;
   };
 
+  const setLocations = (newLocations: IUrlLocations) => {
+    if (!!Object.keys(newLocations).length) {
+      let formattedNewLocations: string[] = [];
+      Object.values(newLocations).forEach(i => {
+        formattedNewLocations.push(
+          `${i.city}|${i.lat}|${i.comment || ''}|${!!i.userLocation ? 1 : 0}`
+        );
+      });
+      const encodedNewLocation = btoa(
+        unescape(encodeURIComponent(JSON.stringify(formattedNewLocations)))
+      );
+
+      localStorage.setItem('locations', encodedNewLocation);
+      setSearchParams({
+        locations: encodedNewLocation
+      });
+    } else {
+      localStorage.removeItem('locations');
+      setSearchParams('');
+    }
+  };
+
   const createLocationsObj = (savedLocationsURL: string): IUrlLocations => {
     let locationObject = {};
 
     if (savedLocationsURL) {
-      const decodedLocations = JSON.parse(
-        decodeURIComponent(escape(window.atob(savedLocationsURL)))
-      );
-      decodedLocations &&
-        decodedLocations.forEach((i: string) => {
+      let cachedLocation = JSON.parse(decodeURIComponent(escape(window.atob(savedLocationsURL))));
+      // TODO: If the url in user's browser saved in old version we need to convert it to new one
+      // TODO: can be removed in the future
+      if (!Array.isArray(cachedLocation)) {
+        setLocations(cachedLocation);
+        const updatedCache = localStorage.getItem('locations');
+        if (updatedCache) {
+          cachedLocation = JSON.parse(decodeURIComponent(escape(window.atob(updatedCache))));
+        }
+      }
+
+      cachedLocation &&
+        cachedLocation.forEach((i: string) => {
           const location = i.split('|');
           const find = locationsDB.find(
             loc => loc.city === location[0] && loc.lat === Number(location[1])
@@ -85,28 +115,6 @@ const useLocations = () => {
     // don't need as a dependency navigate, locations, snackbarError and t
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [error]);
-
-  const setLocations = (newLocations: IUrlLocations) => {
-    if (!!Object.keys(newLocations).length) {
-      let formattedNewLocations: string[] = [];
-      Object.values(newLocations).forEach(i => {
-        formattedNewLocations.push(
-          `${i.city}|${i.lat}|${i.comment || ''}|${!!i.userLocation ? 1 : 0}`
-        );
-      });
-      const encodedNewLocation = btoa(
-        unescape(encodeURIComponent(JSON.stringify(formattedNewLocations)))
-      );
-
-      localStorage.setItem('locations', encodedNewLocation);
-      setSearchParams({
-        locations: encodedNewLocation
-      });
-    } else {
-      localStorage.removeItem('locations');
-      setSearchParams('');
-    }
-  };
 
   const findLocation = (sectionLocation: IUrlLocation) => {
     const found: ILocation | undefined = locationsDB.find(
