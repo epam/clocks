@@ -4,13 +4,17 @@ import packageJSON from '../../../package.json';
 export const RELEASE_VERSIONS = {
   currentVersion: {
     version: packageJSON.version,
+    changes: ['URL length shortened', 'Minor redesign of Lane-view', 'Fixed bugs']
+  },
+  'v2.4.6': {
+    version: '2.4.6',
     changes: [
       'Added Lane view instead Planning mode',
       'Redesign Settings',
       'Some minor Improvements'
     ]
   },
-  previousVersion: {
+  'v2.4.5': {
     version: '2.4.5',
     changes: [
       'Improved location search',
