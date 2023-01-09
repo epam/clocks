@@ -3,20 +3,23 @@ import clsx from 'clsx';
 import { nanoid } from 'nanoid';
 import { useSelector } from 'react-redux';
 
-import generateTime from '../../../../utils/generateTime';
 import useWindowDimensions from '../../../../hooks/useWindowDimensions';
 import useTimeInfo from '../../../../hooks/useTimeInfo';
 import useTheme from '../../../../hooks/useTheme';
+
+import generateTime from '../../../../utils/generateTime';
+import generateTimeTable from '../../../../utils/generateTimeTable';
+
 import { ILaneBlockProps } from './LaneBlock.types';
 import { IInitialState } from '../../../../redux/types';
 
 import style from './LaneBlock.module.scss';
-import generateTimeTable from '../../../../utils/generateTimeTable';
 
 const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const {
     deleteMode,
     counter,
+    settings,
     locations: { userLocation }
   } = useSelector((state: IInitialState) => state);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -24,6 +27,8 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const timeInfo = useTimeInfo(location);
   const bodyTheme = useTheme(style.lightBody, style.darkBody);
   const nonWorkingHours = useTheme(style.nonWorkHoursLight, style.nonWorkHoursDark);
+  const onClickStyle = useTheme(style.clickLight, style.clickDark);
+  const hoverStyle = useTheme(style.hoverLight, style.hoverDark);
   const { width } = useWindowDimensions();
 
   const isMobileView = width <= 600;
@@ -82,9 +87,9 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
       // @ts-ignore
       containerRef.current.parentNode.childNodes.forEach((elem: any) => {
         if (state) {
-          elem.children[e._targetInst.index].classList.add(style.hover);
+          elem.children[e._targetInst.index].classList.add(hoverStyle);
         } else {
-          elem.children[e._targetInst.index].classList.remove(style.hover);
+          elem.children[e._targetInst.index].classList.remove(hoverStyle);
         }
       });
     }
@@ -96,10 +101,10 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
       containerRef.current.parentNode.childNodes.forEach((elem: any) => {
         elem.childNodes.forEach((el: HTMLDivElement, idx: number) => {
           if (idx === index) {
-            el.classList.toggle(style.click);
+            el.classList.toggle(onClickStyle);
           } else {
-            if (el.classList.contains(style.click)) {
-              el.classList.remove(style.click);
+            if (el.classList.contains(onClickStyle)) {
+              el.classList.remove(onClickStyle);
             }
           }
         });
@@ -116,13 +121,15 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
         containerRef.current.parentNode.childNodes.forEach((elem: any) => {
           elem.childNodes.forEach((el: HTMLDivElement, idx: number) => {
             if (idx === clickItem) {
-              el.classList.add(style.click);
+              el.classList.add(onClickStyle);
             }
           });
         });
       }
     }
-  }, [counter]);
+    // don't need as a dependency onClickStyle
+    // eslint-disable-next-line
+  }, [counter, settings, deleteMode, newTimeline]);
 
   useEffect(() => {
     scroll(ref, containerRef);

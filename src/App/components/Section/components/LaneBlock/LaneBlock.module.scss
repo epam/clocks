@@ -46,6 +46,22 @@
   background-color: $lightGrayBlueColor;
 }
 
+.hoverLight {
+  background: $lightGrayColor;
+}
+
+.hoverDark {
+  background: $paleGrayColor;
+}
+
+.clickLight {
+  background: $grayColor;
+}
+
+.clickDark {
+  background: $blackColor;
+}
+
 .activeTime {
   border-right: 0.5px solid $blueColor;
   border-left: 0.5px solid $blueColor;
@@ -62,12 +78,4 @@
 .disabledDelete {
   background: $lightGrayColor;
   border: solid 1px $lightGrayColor;
-}
-
-.hover {
-  background: $lightGrayColor;
-}
-
-.click {
-  background: $grayColor;
 }
