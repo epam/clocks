@@ -1,4 +1,7 @@
 {
+  "AddTitle.Edit": "Add Title",
+  "AddTitle.Submit": "Submit",
+  "AddTitle.Close": "Close",
   "AddLocation.PanelTitle": "Add new location",
   "AddLocation.InputPlaceholder": "Search locations",
   "AddLocation.NotFound": "Not found",
