@@ -14,19 +14,25 @@ const generateTime = (
 ) => {
   let start_time_in_minute = startTime * 60;
   let end_time_in_minute = endTime * 60;
-  let AP = ['AM', 'PM'];
+  let AP = ['AM', 'PM', 'AM'];
   const times = [];
-  for (let i = 0; start_time_in_minute <= end_time_in_minute; i++) {
+  for (let i = 0; start_time_in_minute <= end_time_in_minute; i++) {    
     let hh = Math.floor(start_time_in_minute / 60);
-    let mm = start_time_in_minute % 60;
+    let mm = start_time_in_minute % 60 
     if (timeFormat === 24) {
       times[i] = ('0' + hh).slice(-2) + ':' + ('0' + mm).slice(-2);
     }
     if (timeFormat === 12) {
-      times[i] =
-        ('0' + (hh % timeFormat)).slice(-2) +
+      let hr_text = "12";   
+      if (hh % timeFormat !== 0) {
+        hr_text = ('0' + (hh % timeFormat)).slice(-2);
+      }
+      if (Math.floor(hh / 12) > 1) {
+        hh = hh - 24;
+      }
+      times[i] = ('0' + hr_text).slice(-2) +
         ':' +
-        ('0' + mm).slice(-2) +
+         ('0' + mm).slice(-2) +
         ' ' +
         AP[Math.floor(hh / 12)];
     }
