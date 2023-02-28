@@ -23,8 +23,14 @@ const generateTime = (
       times[i] = ('0' + hh).slice(-2) + ':' + ('0' + mm).slice(-2);
     }
     if (timeFormat === 12) {
-      times[i] =
-        ('0' + (hh % timeFormat)).slice(-2) +
+      let hr_text = "12";   
+      if (hh % timeFormat !== 0) {
+        hr_text = ('0' + (hh % timeFormat)).slice(-2);
+      }
+      if (Math.floor(hh / 12) > 1) {
+        hh = hh - 24;
+      }
+      times[i] = ('0' + hr_text).slice(-2) +
         ':' +
         ('0' + mm).slice(-2) +
         ' ' +
