@@ -9,7 +9,8 @@
 }
 
 %body {
-  display: flex;
+  /*display: flex;*/
+  width: 500px;
   align-items: center;
   padding: $space-s;
   border-right: 1px solid $grayBlueColor;
@@ -18,7 +19,7 @@
   border-top: 1px solid $grayBlueColor;
 
   @include screenMax600 {
-    width: 150px;
+    width: 300px;
     height: auto;
     justify-content: center;
   }
