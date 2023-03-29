@@ -44,6 +44,7 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const activeTime = `${activeHour < 10 ? '0' + activeHour : activeHour}:${activeMinutes}`;
 
   const timeline = generateTime(Number(settings.timeFormat.slice(-2)), 30, 0, 23);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const newTimeline = useMemo(
     () => generateTimeTable(timeInfo, Number(settings.timeFormat.slice(-2)), 30, 0, 23),
     [timeInfo]

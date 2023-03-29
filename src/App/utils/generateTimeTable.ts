@@ -11,7 +11,7 @@ export default function generateTimeTable(
   const timeline = generateTime(timeFormat, minuteInterval, startTime, endTime);
   return timeline.map(value => {
     let AMPM = '';
-    if (value.slice(-2) == 'AM' || value.slice(-2) == 'PM') {
+    if (value.slice(-2) === 'AM' || value.slice(-2) === 'PM') {
       AMPM = value.slice(-3);
       value = value.slice(0, value.length - 3);
     }
