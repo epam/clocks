@@ -43,8 +43,12 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
   const activeMinutes = Number(userTimeInfo.minutes) > 30 ? '00' : '30';
   const activeTime = `${activeHour < 10 ? '0' + activeHour : activeHour}:${activeMinutes}`;
 
-  const timeline = generateTime(24, 30, 0, 23);
-  const newTimeline = useMemo(() => generateTimeTable(timeInfo, 24, 30, 0, 23), [timeInfo]);
+  const timeline = generateTime(Number(settings.timeFormat.slice(-2)), 30, 0, 23);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const newTimeline = useMemo(
+    () => generateTimeTable(timeInfo, Number(settings.timeFormat.slice(-2)), 30, 0, 23),
+    [timeInfo]
+  );
 
   const activeTimeIndex = timeline.findIndex(value => value === activeTime);
   const isActiveTimeIndex = activeTimeIndex !== -1;
@@ -151,7 +155,15 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
     <div className={style.container} ref={containerRef}>
       {newTimeline.map((value, index) => {
         const time = value.split(':');
-        const hour = Number(time[0]);
+        let hour = Number(time[0]);
+        if (value.slice(-2) === 'PM') {
+          if (hour !== 12) {
+            hour = hour + 12;
+          }
+        }
+        if (value.slice(-2) === 'AM' && hour === 12) {
+          hour = 0;
+        }
         return (
           <div
             style={{ height: isMobileView ? 'auto' : height }}

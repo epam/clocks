@@ -10,6 +10,11 @@ export default function generateTimeTable(
 ) {
   const timeline = generateTime(timeFormat, minuteInterval, startTime, endTime);
   return timeline.map(value => {
+    let AMPM = '';
+    if (value.slice(-2) === 'AM' || value.slice(-2) === 'PM') {
+      AMPM = value.slice(-3);
+      value = value.slice(0, value.length - 3);
+    }
     const times = value.split(':');
     const offsetTimeInMinutes = timeInfo.offsetTime as number;
     const timesInMinutes = Number(times[0]) * 60 + Number(times[1]);
@@ -36,6 +41,6 @@ export default function generateTimeTable(
     if (hours > 23) {
       hours = hours - 24;
     }
-    return `${hours < 10 ? '0' + hours : hours}:${minutes === 0 ? '00' : minutes}`;
+    return `${hours < 10 ? '0' + hours : hours}:${minutes === 0 ? '00' : minutes}` + AMPM;
   });
 }
