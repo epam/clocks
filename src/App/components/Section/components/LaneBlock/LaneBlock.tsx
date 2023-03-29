@@ -155,12 +155,12 @@ const LaneBlock: React.FC<ILaneBlockProps> = ({ location }) => {
       {newTimeline.map((value, index) => {
         const time = value.split(':');
         let hour = Number(time[0]);
-        if (value.slice(-2) == 'PM') {
+        if (value.slice(-2) === 'PM') {
           if (hour !== 12) {
             hour = hour + 12;
           }
         }
-        if (value.slice(-2) == 'AM' && hour == 12) {
+        if (value.slice(-2) === 'AM' && hour === 12) {
           hour = 0;
         }
         return (
