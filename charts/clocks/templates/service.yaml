@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "clock.fullname" . }}
+  labels:
+    {{- include "clock.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    {{- with .Values.service.ports.http }}
+    - name: http
+      port: {{ .port }}
+      targetPort: {{ .target }}
+      protocol: TCP
+    {{- end }}
+  selector:
+    {{- include "clock.selectorLabels" . | nindent 4 }}

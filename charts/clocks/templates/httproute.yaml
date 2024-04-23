@@ -1,0 +1,23 @@
+{{- if .Values.httproute.enabled -}}
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: {{ include "clock.fullname" $ }}
+  labels:
+    {{- include "clock.labels" $ | nindent 4 }}
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: default-internal
+    namespace: epm-paas-gateway
+  hostnames:
+  - {{ .Values.httproute.host }}.{{ .Values.httproute.domain }}
+  rules:
+    - backendRefs:
+      - group: ""
+        kind: Service
+        name: {{ include "clock.fullname" $ }}
+        port: {{ .Values.httproute.port }}
+        weight: 1
+{{- end }}
